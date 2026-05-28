@@ -128,6 +128,21 @@ Validation:
 - `cd frontend && npm run build`
 - `pytest tests/test_api_smoke.py -q` passed in 140.59s
 
+## InternVideo3 Persistent Server Validation - May 29, 2026
+
+Implemented/validated after adding the persistent scorer script:
+
+- Started `scripts/run_internvideo3_server.sh` on `127.0.0.1:8011`.
+- Verified `GET /health` returned status `ok` and detected the local `InternVideo3-8B-Instruct` checkpoint.
+- Called `POST /score` on a real optimization lecture clip:
+  - Video: `08_i2ml_01_ml_basics_07_optimization__video.mp4`
+  - Time window: `900-930s`
+  - Query: `gradient descent learning rate update rule`
+  - Cold start: 93.13s to load the 8B checkpoint and score.
+  - Warm call: 2.93s with score `0.95`.
+  - Model reason: "The clip shows the gradient descent update rule ... and explains the learning rate alpha."
+- Stopped the validation server afterward to avoid holding GPU memory. For demos, run it again and set `INTERNVIDEO3_ENDPOINT=http://127.0.0.1:8011/score`.
+
 ## DeepSeek-OCR and InternVideo3 Activation Pass - May 29, 2026
 
 Implemented after the provider badges still showed warning states:
