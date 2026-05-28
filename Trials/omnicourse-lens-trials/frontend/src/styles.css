@@ -531,3 +531,324 @@ meter {
     grid-template-columns: 1fr;
   }
 }
+
+.atlas-shell {
+  background: #eef2f6;
+  color: #172033;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  min-height: 100vh;
+}
+
+.atlas-main {
+  display: grid;
+  gap: 14px;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  min-width: 0;
+  padding: 18px;
+}
+
+.atlas-header,
+.dataset-panel,
+.workspace-stage,
+.feature-sidebar {
+  background: #ffffff;
+  border: 1px solid #d8e2ec;
+  border-radius: 8px;
+}
+
+.atlas-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 18px;
+}
+
+.atlas-header h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.atlas-header p {
+  color: #526176;
+  margin: 4px 0 0;
+}
+
+.provider-row,
+.panel-actions,
+.cheatsheet-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dataset-panel {
+  padding: 14px;
+}
+
+.panel-head {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.panel-head h2 {
+  font-size: 17px;
+  margin: 0;
+}
+
+.panel-actions button,
+.feature-sidebar button,
+.cheatsheet-toolbar button,
+.cheatsheet-toolbar a {
+  min-height: 36px;
+}
+
+.video-strip {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  margin-top: 12px;
+  max-height: 132px;
+  overflow: auto;
+}
+
+.video-pill {
+  align-items: flex-start;
+  background: #f7fafc;
+  border: 1px solid #dce5ef;
+  color: #172033;
+  display: grid;
+  gap: 3px;
+  height: 62px;
+  justify-content: stretch;
+  padding: 9px 10px;
+  text-align: left;
+}
+
+.video-pill.selected {
+  background: #e5f4f0;
+  border-color: #63aa91;
+}
+
+.video-pill span {
+  font-size: 13px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.video-pill small {
+  color: #65758b;
+}
+
+.workspace-stage {
+  display: grid;
+  gap: 14px;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  padding: 14px;
+}
+
+.video-stage video {
+  aspect-ratio: 16 / 9;
+  background: #111827;
+  border-radius: 8px;
+  max-height: 46vh;
+  object-fit: contain;
+  width: 100%;
+}
+
+.video-meta {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.workspace-output {
+  min-height: 0;
+}
+
+.feature-sidebar {
+  border-radius: 0;
+  border-right: 0;
+  display: grid;
+  gap: 14px;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  min-height: 100vh;
+  padding: 18px;
+}
+
+.feature-tabs {
+  display: grid;
+  gap: 8px;
+}
+
+.feature-tabs button {
+  background: #f6f8fb;
+  border: 1px solid #d8e2ec;
+  color: #172033;
+  justify-content: flex-start;
+}
+
+.feature-tabs button.active {
+  background: #245f73;
+  border-color: #245f73;
+  color: #fff;
+}
+
+.sidebar-controls {
+  display: grid;
+  gap: 10px;
+  min-height: 0;
+}
+
+.sidebar-controls label {
+  color: #516176;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sidebar-controls textarea {
+  min-height: 116px;
+}
+
+.status-note {
+  background: #f4f7fb;
+  border: 1px solid #d8e2ec;
+  border-radius: 8px;
+  color: #33445c;
+  padding: 10px;
+}
+
+.workspace-grid,
+.qa-workspace {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) 360px;
+}
+
+.result-column {
+  display: grid;
+  gap: 10px;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.detail-panel,
+.answer-card,
+.graph-inspector,
+.compile-note,
+.empty-state {
+  background: #f8fafc;
+  border: 1px solid #d8e2ec;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.compact div {
+  grid-template-columns: 120px 1fr;
+}
+
+.cheatsheet-workspace {
+  display: grid;
+  gap: 12px;
+}
+
+.cheatsheet-toolbar a {
+  align-items: center;
+  background: #245f73;
+  border-radius: 8px;
+  color: #fff;
+  display: inline-flex;
+  gap: 7px;
+  padding: 0 12px;
+  text-decoration: none;
+}
+
+.latex-columns {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.markdown-math {
+  background: #ffffff;
+  border: 1px solid #d8e2ec;
+  border-radius: 8px;
+  line-height: 1.55;
+  max-height: 54vh;
+  overflow: auto;
+  padding: 16px;
+}
+
+.markdown-math h1,
+.markdown-math h2,
+.markdown-math h3 {
+  margin-top: 0.85em;
+}
+
+.graph-workspace {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  min-height: 56vh;
+}
+
+.cyto-graph {
+  background: #f8fafc;
+  border: 1px solid #d8e2ec;
+  border-radius: 8px;
+  height: 58vh;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.graph-inspector {
+  overflow: auto;
+}
+
+.graph-inspector img {
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.graph-metrics {
+  color: #64748b;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.answer-card {
+  max-height: 58vh;
+  overflow: auto;
+}
+
+.empty-state {
+  align-items: center;
+  color: #536176;
+  display: grid;
+  justify-items: center;
+  min-height: 240px;
+  text-align: center;
+}
+
+@media (max-width: 1180px) {
+  .atlas-shell,
+  .workspace-grid,
+  .qa-workspace,
+  .graph-workspace,
+  .latex-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-sidebar {
+    border-left: 0;
+    min-height: auto;
+  }
+}

@@ -12,14 +12,32 @@ export type Lecture = {
   lecture_id: string;
   title: string;
   duration: number;
+  moments?: any[];
 };
 
 export type Course = CourseSummary & {
   lectures: Lecture[];
 };
 
+export type DatasetVideo = {
+  video_id: string;
+  filename: string;
+  absolute_path: string;
+  relative_path: string;
+  size: number;
+  duration?: number;
+  ingestion_status: string;
+  indexed_status: string;
+  thumbnail?: string;
+  title: string;
+  course_id: string;
+  lecture_id: string;
+  slides_path?: string;
+};
+
 export type SearchResult = {
   moment_id: string;
+  video_id?: string;
   course_id: string;
   lecture_id: string;
   lecture_title: string;
@@ -72,6 +90,7 @@ export async function textSearch(payload: {
   course_id: string;
   query: string;
   lecture_ids?: string[];
+  video_ids?: string[];
   top_k: number;
 }) {
   return apiPost<{ results: SearchResult[]; self_check?: any; provider_status?: any }>("/api/search/text", payload);
@@ -81,6 +100,7 @@ export async function imageSearch(payload: {
   course_id: string;
   query: string;
   lecture_ids?: string[];
+  video_ids?: string[];
   top_k: number;
   image: File;
 }) {
@@ -89,6 +109,7 @@ export async function imageSearch(payload: {
   form.append("query", payload.query);
   form.append("top_k", String(payload.top_k));
   if (payload.lecture_ids?.length) form.append("lecture_ids", payload.lecture_ids.join(","));
+  if (payload.video_ids?.length) form.append("video_ids", payload.video_ids.join(","));
   form.append("image", payload.image);
   const res = await fetch(`${API_BASE}/api/search/image`, { method: "POST", body: form });
   if (!res.ok) throw new Error(await res.text());
@@ -99,6 +120,7 @@ export async function askTutor(payload: {
   course_id: string;
   question: string;
   lecture_id?: string;
+  video_id?: string;
   current_timestamp?: number;
   top_k: number;
   image?: File | null;
@@ -109,6 +131,7 @@ export async function askTutor(payload: {
     form.append("question", payload.question);
     form.append("top_k", String(payload.top_k));
     if (payload.lecture_id) form.append("lecture_id", payload.lecture_id);
+    if (payload.video_id) form.append("video_id", payload.video_id);
     if (payload.current_timestamp !== undefined) form.append("current_timestamp", String(payload.current_timestamp));
     form.append("image", payload.image);
     const res = await fetch(`${API_BASE}/api/qa`, { method: "POST", body: form });
@@ -116,4 +139,24 @@ export async function askTutor(payload: {
     return res.json();
   }
   return apiPost("/api/qa", payload);
+}
+
+export async function datasetVideos() {
+  return apiGet<DatasetVideo[]>("/api/dataset/videos");
+}
+
+export async function ingestDatasetVideo(video_id: string, force_reingest = false) {
+  return apiPost<{ result: any; rebuild_index: any }>("/api/dataset/ingest", { video_id, force_reingest });
+}
+
+export async function ingestAllDataset(limit?: number) {
+  return apiPost<any>("/api/jobs/start-ingest-all", { limit });
+}
+
+export async function rebuildIndex() {
+  return apiPost<any>("/api/index/rebuild", {});
+}
+
+export async function compileCheatsheet(payload: { tex_content?: string; filename?: string }) {
+  return apiPost<any>("/api/cheatsheet/compile", payload);
 }
