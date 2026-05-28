@@ -2,7 +2,7 @@ import { Bot, BrainCircuit, Download, FileText, Loader2, Network, Play, RefreshC
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Lenis from "lenis";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { type CSSProperties, type PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   apiGet,
   apiPost,
@@ -36,6 +36,24 @@ type SubtitleCue = {
   end_time: number;
 };
 
+type WorkspaceSizes = {
+  leftWidth: number;
+  rightWidth: number;
+  videoHeight: number;
+  libraryListHeight: number;
+  sidebarControlsHeight: number;
+};
+
+type ResizeTarget = keyof WorkspaceSizes;
+
+const DEFAULT_WORKSPACE_SIZES: WorkspaceSizes = {
+  leftWidth: 318,
+  rightWidth: 374,
+  videoHeight: 520,
+  libraryListHeight: 320,
+  sidebarControlsHeight: 520
+};
+
 const featureItems = [
   { key: "search" as const, label: "Search Video", icon: Search },
   { key: "cheatsheet" as const, label: "Cheatsheet", icon: FileText },
@@ -62,8 +80,13 @@ export default function App() {
   const [question, setQuestion] = useState("Why does gradient descent move opposite to the gradient?");
   const [qa, setQa] = useState<any>(null);
   const [playbackTime, setPlaybackTime] = useState(0);
+  const [workspaceSizes, setWorkspaceSizes] = useState<WorkspaceSizes>(() => loadWorkspaceSizes());
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoListRef] = useAutoAnimate<HTMLDivElement>({ duration: 240, easing: "ease-out" });
+
+  useEffect(() => {
+    window.localStorage.setItem("omnicourse.workspaceSizes", JSON.stringify(workspaceSizes));
+  }, [workspaceSizes]);
 
   const load = useCallback(async () => {
     const [videoItems, healthInfo] = await Promise.all([datasetVideos(), apiGet<any>("/api/health")]);
@@ -261,9 +284,56 @@ export default function App() {
   const selectedPoster = selectedResult?.thumbnail_url || selectedVideo?.thumbnail;
   const selectedTimestamp = selectedResult ? `${selectedResult.start_time.toFixed(0)}-${selectedResult.end_time.toFixed(0)}s` : "full lecture";
   const activeSubtitle = useMemo(() => findActiveSubtitle(selectedVideoMoments, playbackTime), [selectedVideoMoments, playbackTime]);
+  const workspaceStyle = useMemo(
+    () =>
+      ({
+        "--left-panel-width": `${workspaceSizes.leftWidth}px`,
+        "--right-panel-width": `${workspaceSizes.rightWidth}px`,
+        "--video-height": `${workspaceSizes.videoHeight}px`,
+        "--library-list-height": `${workspaceSizes.libraryListHeight}px`,
+        "--sidebar-controls-height": `${workspaceSizes.sidebarControlsHeight}px`
+      }) as CSSProperties,
+    [workspaceSizes]
+  );
+  const startResize = (target: ResizeTarget, event: ReactPointerEvent) => {
+    event.preventDefault();
+    const originX = event.clientX;
+    const originY = event.clientY;
+    const origin = workspaceSizes[target];
+    document.body.classList.add("workspace-resizing");
+
+    const onMove = (moveEvent: PointerEvent) => {
+      const dx = moveEvent.clientX - originX;
+      const dy = moveEvent.clientY - originY;
+      setWorkspaceSizes((current) => {
+        const next = { ...current };
+        const centerMinimum = 560;
+        const maxLeft = Math.max(240, window.innerWidth - current.rightWidth - centerMinimum);
+        const maxRight = Math.max(300, window.innerWidth - current.leftWidth - centerMinimum);
+        if (target === "leftWidth") next.leftWidth = clamp(origin + dx, 250, Math.min(560, maxLeft));
+        if (target === "rightWidth") next.rightWidth = clamp(origin - dx, 300, Math.min(620, maxRight));
+        if (target === "videoHeight") next.videoHeight = clamp(origin + dy, 260, Math.max(320, window.innerHeight - 260));
+        if (target === "libraryListHeight") next.libraryListHeight = clamp(origin + dy, 140, Math.max(220, window.innerHeight - 350));
+        if (target === "sidebarControlsHeight") next.sidebarControlsHeight = clamp(origin + dy, 180, Math.max(260, window.innerHeight - 260));
+        return next;
+      });
+    };
+
+    const onUp = () => {
+      document.body.classList.remove("workspace-resizing");
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    };
+
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp, { once: true });
+  };
 
   return (
-    <motion.div className="atlas-shell watch-layout" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, ease: "easeOut" }}>
+    <motion.div className="atlas-shell watch-layout" style={workspaceStyle} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, ease: "easeOut" }}>
+      <ResizeHandle placement="left-edge" label="Resize video library" onPointerDown={(event) => startResize("leftWidth", event)} />
+      <ResizeHandle placement="right-edge" label="Resize feature sidebar" onPointerDown={(event) => startResize("rightWidth", event)} />
+
       <motion.aside className="video-library" aria-label="Dataset video loader" initial={{ x: -24, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.42, ease: "easeOut" }}>
         <div className="library-brand">
           <div>
@@ -297,6 +367,8 @@ export default function App() {
             </motion.button>
           ))}
         </div>
+
+        <ResizeHandle placement="library-horizontal" label="Resize video list and evidence rail" onPointerDown={(event) => startResize("libraryListHeight", event)} />
 
         <EvidenceRail
           results={results}
@@ -352,6 +424,8 @@ export default function App() {
             <span>{selectedVideo?.relative_path || "/home/haoqian/Data/OmniCourse-Lens/Dataset"}</span>
           </div>
         </motion.section>
+
+        <ResizeHandle placement="center-horizontal" label="Resize video player and workspace output" onPointerDown={(event) => startResize("videoHeight", event)} />
 
         <section className="watch-output">
           <AnimatePresence mode="wait">
@@ -432,6 +506,8 @@ export default function App() {
             </>
           )}
         </div>
+
+        <ResizeHandle placement="sidebar-horizontal" label="Resize feature controls and status area" onPointerDown={(event) => startResize("sidebarControlsHeight", event)} />
 
         {status && <div className="status-note">{status}</div>}
       </motion.aside>
@@ -645,6 +721,28 @@ function EmptyState({ title, text }: { title: string; text: string }) {
   return <motion.div className="empty-state" initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }}><Play size={26} /><h3>{title}</h3><p>{text}</p></motion.div>;
 }
 
+function ResizeHandle({
+  placement,
+  label,
+  onPointerDown
+}: {
+  placement: "left-edge" | "right-edge" | "center-horizontal" | "library-horizontal" | "sidebar-horizontal";
+  label: string;
+  onPointerDown: (event: ReactPointerEvent) => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={`resize-handle ${placement}`}
+      aria-label={label}
+      title={label}
+      onPointerDown={onPointerDown}
+    >
+      <span />
+    </button>
+  );
+}
+
 function nodeDescription(node: GraphNode) {
   const frequency = Number(node.metadata?.frequency || 0);
   if (node.type === "concept") return frequency ? `Concept appears in ${frequency} evidence windows.` : "Concept extracted from lecture transcript, slide text, formulas, and visual evidence.";
@@ -758,4 +856,25 @@ function cleanSubtitleText(text: string, maxChars = 260) {
     .trim();
   if (cleaned.length <= maxChars) return cleaned;
   return `${cleaned.slice(0, maxChars).replace(/\s+\S*$/, "")}...`;
+}
+
+function loadWorkspaceSizes(): WorkspaceSizes {
+  try {
+    const raw = window.localStorage.getItem("omnicourse.workspaceSizes");
+    if (!raw) return DEFAULT_WORKSPACE_SIZES;
+    const parsed = JSON.parse(raw) as Partial<WorkspaceSizes>;
+    return {
+      leftWidth: clamp(Number(parsed.leftWidth || DEFAULT_WORKSPACE_SIZES.leftWidth), 250, 560),
+      rightWidth: clamp(Number(parsed.rightWidth || DEFAULT_WORKSPACE_SIZES.rightWidth), 300, 620),
+      videoHeight: clamp(Number(parsed.videoHeight || DEFAULT_WORKSPACE_SIZES.videoHeight), 260, 900),
+      libraryListHeight: clamp(Number(parsed.libraryListHeight || DEFAULT_WORKSPACE_SIZES.libraryListHeight), 140, 720),
+      sidebarControlsHeight: clamp(Number(parsed.sidebarControlsHeight || DEFAULT_WORKSPACE_SIZES.sidebarControlsHeight), 180, 720)
+    };
+  } catch {
+    return DEFAULT_WORKSPACE_SIZES;
+  }
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
 }
