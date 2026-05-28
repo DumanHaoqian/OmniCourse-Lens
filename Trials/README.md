@@ -40,3 +40,22 @@ InternVideo3 is included as an optional generative temporal-grounding adapter in
 `moment_benchmark/internvideo3_adapter.py`. It is not part of the default run
 because the reachable Hugging Face checkpoint is roughly 18.7 GB and generation
 over all benchmark queries is expensive. Use it on a small query subset first.
+
+## InternVideo3 Web Demo
+
+The local checkpoint should live at:
+
+```text
+Trials/checkpoints/InternVideo3-8B-Instruct
+```
+
+Run the Gradio demo:
+
+```bash
+conda activate omniC
+python Trials/demos/internvideo3_web_demo.py --eager-load
+```
+
+The demo supports text-only conversation, image understanding, and video
+understanding against either an uploaded video or one of the videos in
+`Dataset/`.

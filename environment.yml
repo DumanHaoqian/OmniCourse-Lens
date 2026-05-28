@@ -15,7 +15,7 @@ dependencies:
       - torchaudio==2.11.0+cu130
 
       # Model training, embedding, and retrieval foundations.
-      - transformers==5.9.0
+      - transformers==4.57.3
       - accelerate==1.13.0
       - datasets==4.8.5
       - sentence-transformers==5.5.1
@@ -27,6 +27,7 @@ dependencies:
       # Video, slide, and data processing.
       - opencv-python-headless==4.13.0.92
       - av==17.0.1
+      - torchcodec==0.13.0
       - pymupdf==1.27.2.3
       - pandas==3.0.3
       - scipy==1.17.1

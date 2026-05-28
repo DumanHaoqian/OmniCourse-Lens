@@ -8,6 +8,8 @@ cookie.txt
 .env
 .env.*
 !.env.example
+*_keys.txt
+openai_keys.txt
 
 # Python caches and local virtual environments.
 __pycache__/
@@ -41,5 +43,6 @@ Dataset/**/*.tmp
 # Benchmark caches can be regenerated from Dataset/ and Trials configs.
 Trials/artifacts/
 Trials/cache/
+Trials/checkpoints/
 Trials/results/*.npz
 Trials/results/*.pkl

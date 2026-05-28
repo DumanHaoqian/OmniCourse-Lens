@@ -33,16 +33,22 @@ class InternVideo3TemporalGrounder:
     here is `yanziang/InternVideo3-8B-Instruct`, which is about 18.7 GB.
     """
 
-    def __init__(self, model_id: str = "yanziang/InternVideo3-8B-Instruct") -> None:
+    def __init__(self, model_id: str = "Trials/checkpoints/InternVideo3-8B-Instruct") -> None:
         self.model_id = model_id
         self.model = AutoModelForCausalLM.from_pretrained(
             model_id,
             dtype=torch.bfloat16,
             attn_implementation="sdpa",
             device_map="auto",
+            local_files_only=True,
             trust_remote_code=True,
         )
-        self.processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+        self.processor = AutoProcessor.from_pretrained(
+            model_id,
+            trust_remote_code=True,
+            local_files_only=True,
+            fix_mistral_regex=True,
+        )
 
     def predict(self, video_path: Path, query: str, fps: float = 0.5, max_new_tokens: int = 128) -> TemporalPrediction:
         prompt = (

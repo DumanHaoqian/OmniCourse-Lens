@@ -32,6 +32,14 @@ conda activate omniC
 python Trials/run_benchmark.py --config Trials/configs/default.yaml
 ```
 
+The InternVideo3 local web demo supports text-only, image, and video
+understanding:
+
+```bash
+conda activate omniC
+python Trials/demos/internvideo3_web_demo.py --eager-load
+```
+
 ## Dataset
 
 `Dataset/` contains 9 Introduction to Machine Learning lecture folders. Each folder
