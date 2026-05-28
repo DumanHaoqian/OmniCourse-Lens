@@ -47,7 +47,7 @@ class EvaluationService:
             issues.append("Graph is too sparse.")
         if len(edges) < 4:
             issues.append("Graph has too few relationships.")
-        labels = [getattr(node, "label", node.get("label", "")) for node in nodes]
+        labels = [node.label if hasattr(node, "label") else node.get("label", "") for node in nodes]
         if any(len(label) > 60 for label in labels):
             issues.append("Some node labels are too long.")
         score = 10.0 - 1.4 * len(issues)
