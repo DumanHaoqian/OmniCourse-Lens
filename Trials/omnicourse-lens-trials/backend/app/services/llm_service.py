@@ -23,6 +23,9 @@ class LLMService:
     def __init__(self) -> None:
         self.credentials = self._load_credentials()
         self._client = None
+        self.timeout = float(os.getenv("AZURE_OPENAI_TIMEOUT", "30"))
+        self.max_retries = int(os.getenv("AZURE_OPENAI_MAX_RETRIES", "1"))
+        self._last_error: str | None = None
 
     def is_available(self) -> bool:
         return bool(self.credentials.endpoint and self.credentials.api_key)
@@ -37,6 +40,9 @@ class LLMService:
             "deployment": self.credentials.deployment,
             "api_version": self.credentials.api_version,
             "credential_file_detected": settings.credential_file.exists(),
+            "timeout_sec": self.timeout,
+            "max_retries": self.max_retries,
+            "last_error": self._last_error,
         }
 
     def chat(self, system_prompt: str, user_prompt: str, temperature: float = 0.2, max_tokens: int = 4096) -> str:
@@ -54,8 +60,10 @@ class LLMService:
                 top_p=1.0,
                 model=self.credentials.deployment,
             )
+            self._last_error = None
             return response.choices[0].message.content or ""
-        except Exception:
+        except Exception as exc:
+            self._last_error = f"{type(exc).__name__}: {str(exc)[:300]}"
             return ""
 
     def chat_json(self, system_prompt: str, user_prompt: str, temperature: float = 0.1, max_tokens: int = 4096) -> dict[str, Any]:
@@ -78,6 +86,8 @@ class LLMService:
             api_version=self.credentials.api_version,
             azure_endpoint=self.credentials.endpoint,
             api_key=self.credentials.api_key,
+            timeout=self.timeout,
+            max_retries=self.max_retries,
         )
         return self._client
 

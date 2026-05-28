@@ -18,7 +18,8 @@ import {
   ingestDatasetVideo,
   rebuildIndex,
   SearchResult,
-  textSearch
+  textSearch,
+  videoSubtitles
 } from "./api";
 import CytoscapeGraph, { GraphNode } from "./components/CytoscapeGraph";
 import MarkdownMath from "./components/MarkdownMath";
@@ -34,6 +35,8 @@ type SubtitleCue = {
   source: string;
   start_time: number;
   end_time: number;
+  provider?: string;
+  kind?: "audio" | "ocr" | "supplemental";
 };
 
 type WorkspaceSizes = {
@@ -82,6 +85,8 @@ export default function App() {
   const [question, setQuestion] = useState("Why does gradient descent move opposite to the gradient?");
   const [qa, setQa] = useState<any>(null);
   const [playbackTime, setPlaybackTime] = useState(0);
+  const [subtitleCues, setSubtitleCues] = useState<SubtitleCue[]>([]);
+  const [activeVideoEvidence, setActiveVideoEvidence] = useState<any>(null);
   const [workspaceSizes, setWorkspaceSizes] = useState<WorkspaceSizes>(() => loadWorkspaceSizes());
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoListRef] = useAutoAnimate<HTMLDivElement>({ duration: 240, easing: "ease-out" });
@@ -148,6 +153,25 @@ export default function App() {
     return lecture?.moments || [];
   }, [course, selectedVideo]);
 
+  const activeVideoId = selectedResult?.video_id || selectedVideo?.video_id;
+
+  useEffect(() => {
+    if (!activeVideoId) {
+      setSubtitleCues([]);
+      setActiveVideoEvidence(null);
+      return;
+    }
+    videoSubtitles(activeVideoId)
+      .then((payload) => {
+        setSubtitleCues(payload.cues || []);
+        setActiveVideoEvidence(payload.summary || null);
+      })
+      .catch(() => {
+        setSubtitleCues([]);
+        setActiveVideoEvidence(null);
+      });
+  }, [activeVideoId]);
+
   const runIngestSelected = async () => {
     if (!selectedVideo) return;
     setBusy(true);
@@ -170,10 +194,14 @@ export default function App() {
         : await textSearch({ course_id: courseId, query, video_ids: searchVideoIds, top_k: 6 });
       setResults(payload.results || []);
       setSelectedResult(payload.results?.[0] || null);
+      if (payload.results?.[0]?.video_id) {
+        const nextVideo = videos.find((video) => video.video_id === payload.results[0].video_id);
+        if (nextVideo && nextVideo.video_id !== selectedVideo?.video_id) setSelectedVideo(nextVideo);
+      }
       setFeature("search");
       const topScore = payload.results?.[0]?.score ?? 0;
       const weakHint = topScore < 0.12 && searchScope === "current" ? " Low match in this video; try All videos or a video-specific term." : "";
-      setStatus(`Search self-check: ${payload.self_check?.score ?? "n/a"}/10.${weakHint}`);
+      setStatus(payload.scope_notice || `Search self-check: ${payload.self_check?.score ?? "n/a"}/10.${weakHint}`);
     } finally {
       setBusy(false);
     }
@@ -240,6 +268,7 @@ export default function App() {
         course_id: courseId,
         question,
         video_id: selectedVideo?.video_id,
+        current_timestamp: playbackTime,
         top_k: 5,
         image
       });
@@ -273,9 +302,12 @@ export default function App() {
       video_url: raw.video_url || (raw.video_id || selectedVideo?.video_id ? `/api/dataset/videos/${raw.video_id || selectedVideo?.video_id}/stream` : undefined)
     };
     setSelectedResult(result);
+    if (result.video_id) {
+      const nextVideo = videos.find((video) => video.video_id === result.video_id);
+      if (nextVideo && nextVideo.video_id !== selectedVideo?.video_id) setSelectedVideo(nextVideo);
+    }
   };
 
-  const activeVideoId = selectedResult?.video_id || selectedVideo?.video_id;
   const activeStreamUrl = selectedResult?.video_url
     ? `${API_BASE}${selectedResult.video_url}`
     : activeVideoId
@@ -285,7 +317,10 @@ export default function App() {
 
   const selectedPoster = selectedResult?.thumbnail_url || selectedVideo?.thumbnail;
   const selectedTimestamp = selectedResult ? `${selectedResult.start_time.toFixed(0)}-${selectedResult.end_time.toFixed(0)}s` : "full lecture";
-  const activeSubtitle = useMemo(() => findActiveSubtitle(selectedVideoMoments, playbackTime), [selectedVideoMoments, playbackTime]);
+  const activeSubtitle = useMemo(
+    () => findActiveSubtitleCue(subtitleCues, playbackTime) || findActiveSubtitle(selectedVideoMoments, playbackTime),
+    [subtitleCues, selectedVideoMoments, playbackTime]
+  );
   const workspaceStyle = useMemo(
     () =>
       ({
@@ -428,7 +463,9 @@ export default function App() {
                   setPlaybackTime(targetTime);
                 }
               }}
-            />
+            >
+              {activeVideoId && <track kind="captions" src={`${API_BASE}/api/dataset/videos/${activeVideoId}/subtitles.vtt`} srcLang="en" label="Audio transcript" default />}
+            </video>
           ) : (
             <div className="main-video preview-empty">Select a Dataset video</div>
           )}
@@ -437,6 +474,7 @@ export default function App() {
 
           <div className="watch-meta">
             <span>{selectedTimestamp}</span>
+            <span>{activeVideoEvidence ? `${activeVideoEvidence.asr_segment_count || 0} ASR cues · ${activeVideoEvidence.ocr_block_count || 0} OCR blocks · ${activeVideoEvidence.formula_block_count || 0} formulas` : "loading evidence"}</span>
             <span>{selectedVideo?.relative_path || "/home/haoqian/Data/OmniCourse-Lens/Dataset"}</span>
           </div>
         </motion.section>
@@ -819,6 +857,32 @@ function formatDuration(seconds?: number) {
   const mins = Math.floor(safeSeconds / 60);
   const secs = Math.floor(safeSeconds % 60).toString().padStart(2, "0");
   return `${mins}:${secs}`;
+}
+
+function findActiveSubtitleCue(cues: SubtitleCue[], currentTime: number): SubtitleCue | null {
+  if (!cues.length) return null;
+  const matches = cues
+    .filter((cue) => {
+      const start = Number(cue.start_time || 0);
+      const end = Number(cue.end_time || start);
+      return cue.text && currentTime >= start && currentTime <= end + 0.35;
+    })
+    .sort((left, right) => cueKindPriority(right) - cueKindPriority(left));
+  if (!matches.length) return null;
+  const cue = matches[0];
+  return {
+    ...cue,
+    text: cleanSubtitleText(cue.text, cue.kind === "audio" ? 280 : 220),
+    source: cue.source || subtitleSourceLabel((cue as any).provider)
+  };
+}
+
+function cueKindPriority(cue: SubtitleCue) {
+  const provider = String((cue as any).provider || "").toLowerCase();
+  if (cue.kind === "audio" || provider.includes("whisper")) return 4;
+  if (provider === "deepseek_ocr") return 3;
+  if (cue.kind === "ocr") return 2;
+  return 1;
 }
 
 function findActiveSubtitle(moments: any[], currentTime: number): SubtitleCue | null {

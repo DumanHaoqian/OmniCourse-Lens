@@ -7,7 +7,7 @@ from typing import Optional
 
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from .config import ensure_directories, settings
@@ -18,6 +18,7 @@ from .services.graph_service import GraphService
 from .services.llm_service import LLMService
 from .services.qa_agent import QAAgent
 from .services.deepseek_ocr_service import DeepSeekOCRService
+from .services.evidence_service import EvidenceService
 from .services.search_service import SearchService
 from .services.video_ingest import VideoIngestService
 from .storage import load_course, list_courses
@@ -39,6 +40,7 @@ cheatsheet_service = CheatsheetService()
 graph_service = GraphService()
 qa_agent = QAAgent()
 dataset_service = DatasetService()
+evidence_service = EvidenceService()
 
 
 @app.get("/api/health")
@@ -80,6 +82,29 @@ def dataset_video_stream(video_id: str) -> FileResponse:
     except Exception as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
     return FileResponse(path, media_type="video/mp4", filename=path.name)
+
+
+@app.get("/api/dataset/videos/{video_id}/subtitles")
+def dataset_video_subtitles(video_id: str) -> dict:
+    return evidence_service.subtitles(video_id)
+
+
+@app.get("/api/dataset/videos/{video_id}/subtitles.vtt")
+def dataset_video_subtitles_vtt(video_id: str) -> Response:
+    return Response(evidence_service.subtitles_vtt(video_id), media_type="text/vtt; charset=utf-8")
+
+
+@app.get("/api/dataset/videos/{video_id}/evidence")
+def dataset_video_evidence(video_id: str) -> dict:
+    return {"video_id": video_id, "moments": evidence_service.video_moments(video_id), "summary": evidence_service.video_summary(video_id)}
+
+
+@app.get("/api/moments/{moment_id}")
+def moment_detail(moment_id: str) -> dict:
+    moment = evidence_service.moment(moment_id)
+    if not moment:
+        raise HTTPException(status_code=404, detail="Moment not found")
+    return moment
 
 
 @app.post("/api/dataset/ingest")

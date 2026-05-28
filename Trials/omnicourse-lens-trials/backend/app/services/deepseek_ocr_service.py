@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import base64
 import contextlib
+import hashlib
 import io
 import importlib.util
+import json
 import os
 import re
 import tempfile
 import threading
+import time
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -39,6 +42,8 @@ class DeepSeekOCRService:
         self.image_size = int(os.getenv("DEEPSEEK_OCR_IMAGE_SIZE", "640"))
         self.crop_mode = os.getenv("DEEPSEEK_OCR_CROP_MODE", "true").lower() not in {"0", "false", "no"}
         self.attention = os.getenv("DEEPSEEK_OCR_ATTN", "eager")
+        self.allow_cpu = os.getenv("DEEPSEEK_OCR_ALLOW_CPU", "false").lower() in {"1", "true", "yes"}
+        self.cache_dir = settings.generated_dir / "ocr" / "deepseek_cache"
         self._lock = threading.Lock()
 
     def is_available(self) -> bool:
@@ -69,18 +74,39 @@ class DeepSeekOCRService:
             "model_path_present": self.model_path.exists(),
             "local_checkpoint_ready": self._local_checkpoint_ready(),
             "dependencies": self._dependency_status(),
+            "cache_dir": str(self.cache_dir),
+            "cpu_fallback_enabled": self.allow_cpu,
             "reason": reason,
         }
 
-    def ocr_image(self, image_path: str) -> dict[str, Any]:
+    def ocr_image(self, image_path: str, allow_heavy: bool = True) -> dict[str, Any]:
         if not self.is_available():
             return {"provider": "deepseek_ocr", "text": "", "blocks": [], "raw": {"disabled": True, "status": self.describe_provider()}}
+        cached = self._read_cache(Path(image_path))
+        if cached:
+            cached.setdefault("raw", {})["cache_hit"] = True
+            return cached
         if self.endpoint and self.api_key:
-            return self._ocr_http(Path(image_path))
-        return self._ocr_local(Path(image_path))
+            result = self._ocr_http(Path(image_path))
+        elif allow_heavy:
+            result = self._ocr_local(Path(image_path))
+        else:
+            result = {
+                "provider": "deepseek_ocr",
+                "text": "",
+                "blocks": [],
+                "raw": {
+                    "mode": "local_hf_lazy",
+                    "skipped": True,
+                    "reason": "Heavy local DeepSeek-OCR was skipped for an interactive request; ingest jobs can run it offline.",
+                },
+            }
+        if result.get("text"):
+            self._write_cache(Path(image_path), result)
+        return result
 
-    def ocr_images(self, image_paths: list[str]) -> list[dict[str, Any]]:
-        return [self.ocr_image(path) for path in image_paths]
+    def ocr_images(self, image_paths: list[str], allow_heavy: bool = True) -> list[dict[str, Any]]:
+        return [self.ocr_image(path, allow_heavy=allow_heavy) for path in image_paths]
 
     def _ocr_http(self, image_path: Path) -> dict[str, Any]:
         try:
@@ -101,6 +127,18 @@ class DeepSeekOCRService:
 
     def _ocr_local(self, image_path: Path) -> dict[str, Any]:
         try:
+            if not self._cuda_available() and not self.allow_cpu:
+                return {
+                    "provider": "deepseek_ocr",
+                    "text": "",
+                    "blocks": [],
+                    "raw": {
+                        "mode": "local_hf_lazy",
+                        "skipped": True,
+                        "reason": "CUDA is unavailable and DEEPSEEK_OCR_ALLOW_CPU is not enabled.",
+                    },
+                }
+            started = time.time()
             model, tokenizer = self._load_local()
             with tempfile.TemporaryDirectory(prefix="deepseek_ocr_") as output_dir:
                 with self._lock:
@@ -122,7 +160,7 @@ class DeepSeekOCRService:
                 "provider": "deepseek_ocr",
                 "text": text,
                 "blocks": [{"text": text, "bbox": None, "confidence": None, "provider": "deepseek_ocr", "frame_path": str(image_path)}] if text else [],
-                "raw": {"mode": "local_hf_lazy", "model_path": str(self.model_path)},
+                "raw": {"mode": "local_hf_lazy", "model_path": str(self.model_path), "elapsed_sec": round(time.time() - started, 3)},
             }
         except Exception as exc:
             return self._error("local_hf_lazy", exc)
@@ -147,6 +185,49 @@ class DeepSeekOCRService:
         if torch.cuda.is_available():
             model = model.cuda().to(torch.bfloat16)
         return model, tokenizer
+
+    def _cuda_available(self) -> bool:
+        try:
+            import torch
+
+            return bool(torch.cuda.is_available())
+        except Exception:
+            return False
+
+    def _cache_key(self, image_path: Path) -> str | None:
+        try:
+            digest = hashlib.sha1()
+            digest.update(image_path.read_bytes())
+            digest.update(str(self.model_path).encode("utf-8", errors="ignore"))
+            digest.update(self.prompt.encode("utf-8", errors="ignore"))
+            return digest.hexdigest()
+        except Exception:
+            return None
+
+    def _read_cache(self, image_path: Path) -> dict[str, Any] | None:
+        key = self._cache_key(image_path)
+        if not key:
+            return None
+        path = self.cache_dir / f"{key}.json"
+        if not path.exists():
+            return None
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            return data if isinstance(data, dict) else None
+        except Exception:
+            return None
+
+    def _write_cache(self, image_path: Path, result: dict[str, Any]) -> None:
+        key = self._cache_key(image_path)
+        if not key:
+            return
+        try:
+            self.cache_dir.mkdir(parents=True, exist_ok=True)
+            cacheable = json.loads(json.dumps(result, default=str))
+            cacheable.setdefault("raw", {})["cache_hit"] = False
+            (self.cache_dir / f"{key}.json").write_text(json.dumps(cacheable, indent=2), encoding="utf-8")
+        except Exception:
+            return
 
     def _local_checkpoint_ready(self) -> bool:
         if not self.model_path.exists():

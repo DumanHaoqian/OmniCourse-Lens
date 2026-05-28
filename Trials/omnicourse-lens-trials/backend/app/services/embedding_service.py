@@ -57,10 +57,12 @@ class EmbeddingService:
             "runner": str(self.runner) if self.runner.exists() else None,
             "runner_python": self.embed_python if Path(self.embed_python).exists() else None,
             "model_cache": str(self.cache_dir),
+            "online_query_dense_enabled": os.getenv("OMNICOURSE_ENABLE_QUERY_DENSE", "false").lower() in {"1", "true", "yes"},
             "image_embedding": "open_clip" if self._image_runner_ready() else "unavailable",
             "image_model": self.image_model,
             "image_pretrained": self.image_pretrained,
             "image_runner": str(self.image_runner) if self.image_runner.exists() else None,
+            "interactive_image_timeout_sec": int(os.getenv("OMNICOURSE_IMAGE_EMBED_TIMEOUT", "12")),
             "heavy_models_loaded": False,
         }
 
@@ -169,7 +171,9 @@ class EmbeddingService:
             os.getenv("OMNICOURSE_IMAGE_EMBED_DEVICE", "auto"),
         ]
         try:
-            result = subprocess.run(command, capture_output=True, text=True, timeout=int(os.getenv("OMNICOURSE_IMAGE_EMBED_TIMEOUT", "240")))
+            result = subprocess.run(command, capture_output=True, text=True, timeout=int(os.getenv("OMNICOURSE_IMAGE_EMBED_TIMEOUT", "12")))
+            if result.returncode != 0:
+                return []
             payload = json.loads((result.stdout or "").strip().splitlines()[-1])
             embeddings = payload.get("embeddings") or {}
             return embeddings.get(str(path), [])

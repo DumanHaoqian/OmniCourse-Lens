@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -21,6 +22,10 @@ def assert_true(condition: bool, message: str) -> None:
 
 
 def main() -> None:
+    os.environ.setdefault("INTERNVIDEO3_LOCAL_RERANK_TOP_N", "0")
+    os.environ.setdefault("OMNICOURSE_IMAGE_EMBED_TIMEOUT", "8")
+    os.environ.setdefault("OMNICOURSE_IMAGE_QUERY_ALLOW_HEAVY_OCR", "false")
+    os.environ.setdefault("OMNICOURSE_ENABLE_OPEN_CLIP_INDEX", "false")
     run([sys.executable, "scripts/create_demo_data.py"])
 
     try:
@@ -66,6 +71,29 @@ def main() -> None:
     assert_true(real_search_json["results"], "real search returned no results")
     assert_true(real_search_json["results"][0]["video_id"] == optimization["video_id"], "real search did not return selected Dataset video")
     assert_true(real_search_json["results"][0]["score_breakdown"], "real search lacks score breakdown")
+
+    subtitles = client.get(f"/api/dataset/videos/{optimization['video_id']}/subtitles")
+    assert_true(subtitles.status_code == 200, "subtitles endpoint failed")
+    subtitles_json = subtitles.json()
+    assert_true(subtitles_json["audio_cue_count"] > 0, "subtitles endpoint has no ASR cues")
+    assert_true(subtitles_json["ocr_cue_count"] > 0, "subtitles endpoint has no OCR cues")
+    vtt = client.get(f"/api/dataset/videos/{optimization['video_id']}/subtitles.vtt")
+    assert_true(vtt.status_code == 200 and vtt.text.startswith("WEBVTT"), "VTT subtitles endpoint failed")
+
+    non_optimization = next(video for video in videos if video["video_id"] != optimization["video_id"])
+    fallback_search = client.post(
+        "/api/search/text",
+        json={
+            "course_id": "real_i2ml",
+            "query": "gradient descent update rule learning rate",
+            "video_ids": [non_optimization["video_id"]],
+            "top_k": 3,
+        },
+    )
+    assert_true(fallback_search.status_code == 200, "cross-video fallback search failed")
+    fallback_json = fallback_search.json()
+    assert_true(fallback_json.get("scope_notice"), "weak current-video search did not explain cross-video fallback")
+    assert_true(fallback_json["results"][0]["video_id"] == optimization["video_id"], "fallback search did not surface the relevant optimization video")
 
     lecture_term = client.post(
         "/api/search/text",
@@ -113,6 +141,8 @@ def main() -> None:
     compile_result = client.post("/api/cheatsheet/compile", json={"tex_content": cheatsheet_json["tex_content"]})
     assert_true(compile_result.status_code == 200, "cheatsheet compile endpoint failed")
     assert_true("compile_error" in compile_result.json(), "compile endpoint did not report status")
+    if health_json.get("providers", {}).get("latex", {}).get("tectonic_available"):
+        assert_true(compile_result.json().get("ok") is True, "tectonic is available but cheatsheet did not compile")
 
     graph = client.post(
         "/api/knowledge-graph",
@@ -158,6 +188,8 @@ def main() -> None:
             "rebuild_index",
             "real_text_search_gradient_descent",
             "real_text_search_lecture_term",
+            "subtitles_json_and_vtt",
+            "cross_video_search_fallback",
             "real_image_search_keyframe",
             "qa_latex_answer",
             "cheatsheet_generation_and_compile_endpoint",

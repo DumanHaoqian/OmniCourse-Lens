@@ -22,8 +22,8 @@ class OCRService:
             "fallback": "demo_filename_and_image_metadata",
         }
 
-    def ocr_image(self, image_path: str, timestamp: float | None = None) -> dict[str, Any]:
-        deepseek_result = self.deepseek.ocr_image(image_path)
+    def ocr_image(self, image_path: str, timestamp: float | None = None, allow_heavy: bool = True) -> dict[str, Any]:
+        deepseek_result = self.deepseek.ocr_image(image_path, allow_heavy=allow_heavy)
         if deepseek_result.get("text"):
             return deepseek_result
         tesseract = self._try_tesseract(image_path)
@@ -31,8 +31,8 @@ class OCRService:
             return tesseract
         return self._demo_fallback(image_path, timestamp)
 
-    def ocr_images(self, image_paths: list[str]) -> list[dict[str, Any]]:
-        return [self.ocr_image(path) for path in image_paths]
+    def ocr_images(self, image_paths: list[str], allow_heavy: bool = True) -> list[dict[str, Any]]:
+        return [self.ocr_image(path, allow_heavy=allow_heavy) for path in image_paths]
 
     def _try_tesseract(self, image_path: str) -> dict[str, Any]:
         if importlib.util.find_spec("pytesseract") is None:

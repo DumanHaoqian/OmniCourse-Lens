@@ -23,13 +23,7 @@ The backend endpoint `GET /api/dataset/videos` recursively discovers `.mp4`, `.m
 
 The endpoint `POST /api/dataset/ingest` ingests one selected real video. `POST /api/jobs/start-ingest-all` starts a background ingest-all job. `POST /api/index/rebuild` rebuilds the search index.
 
-The committed real-data baseline ingests:
-
-```text
-08_i2ml_01_ml_basics_07_optimization__video.mp4
-```
-
-as course `real_i2ml`, with 10 timestamped moments and extracted keyframes. Associated slides text is injected as `slide_pdf_text` OCR evidence so the app can retrieve real lecture concepts even when heavy OCR/ASR providers are unavailable.
+The current real-data baseline ingests all 9 discovered I2ML videos as course `real_i2ml`. The optimization lecture has 10 timestamped moments and extracted keyframes; the full real course has 79 Dataset moments. Associated slides text is injected as `slide_pdf_text` OCR evidence so the app can retrieve real lecture concepts even when heavy OCR/ASR providers are unavailable.
 
 ## Architecture
 
@@ -44,7 +38,7 @@ The multimodal record for every moment combines:
 - concept tags and metadata,
 - optional InternVideo3 video signals.
 
-Search fusion uses weighted modality scores. Text search defaults to transcript, OCR, formula, real sentence-transformers dense text embeddings, concept, and InternVideo3 weights when the scorer is running. Image search adds OpenCLIP visual embeddings and image OCR.
+Search fusion uses weighted modality scores. Text search defaults to transcript, OCR, formula, sparse text relevance with optional sentence-transformers query embeddings, concept, and InternVideo3 weights when the scorer is running. Image search adds keyframe visual descriptors and image OCR. Heavy online query embeddings and OpenCLIP indexing are opt-in so normal search and index rebuilds stay responsive during demos.
 
 ## Setup
 
@@ -170,6 +164,8 @@ python scripts/refresh_real_ocr.py --course-id real_i2ml --rebuild-index
 
 If unavailable, OCR falls back through PaddleOCR/EasyOCR/Tesseract when installed and then deterministic demo OCR.
 
+Interactive image search skips heavy local DeepSeek-OCR by default and uses cached OCR, existing indexed frame OCR, visual descriptors, and optional Tesseract fallback. Set `OMNICOURSE_IMAGE_QUERY_ALLOW_HEAVY_OCR=true` for slower heavy query-image OCR. Offline ingestion/refresh scripts can still run DeepSeek-OCR on keyframes.
+
 InternVideo3:
 
 - `INTERNVIDEO3_ENDPOINT` for an embedding/scoring HTTP service. For a persistent local scorer, run:
@@ -192,9 +188,11 @@ The existing checkpoint at `Trials/checkpoints/InternVideo3-8B-Instruct` is dete
 
 Embeddings:
 
-- Text dense retrieval uses `sentence-transformers/all-MiniLM-L6-v2` through `scripts/embed_text.py`.
-- Image retrieval uses OpenCLIP `ViT-B-32` / `laion2b_s34b_b79k` through `scripts/embed_image.py`.
-- Rebuild both with:
+- Text dense indexing can use `sentence-transformers/all-MiniLM-L6-v2` through `scripts/embed_text.py`.
+- Online query dense embedding is disabled by default for latency. Enable it with `OMNICOURSE_ENABLE_QUERY_DENSE=true`.
+- Image indexing defaults to a fast PIL visual descriptor. Enable heavier OpenCLIP indexing with `OMNICOURSE_ENABLE_OPEN_CLIP_INDEX=true`.
+- Interactive image descriptors fall back to PIL if OpenCLIP is unavailable or times out.
+- Rebuild indexes with:
 
 ```bash
 python scripts/rebuild_index.py
@@ -208,6 +206,10 @@ python scripts/rebuild_index.py
 - `POST /api/ingest/video`
 - `GET /api/dataset/videos`
 - `GET /api/dataset/videos/{video_id}/stream`
+- `GET /api/dataset/videos/{video_id}/subtitles`
+- `GET /api/dataset/videos/{video_id}/subtitles.vtt`
+- `GET /api/dataset/videos/{video_id}/evidence`
+- `GET /api/moments/{moment_id}`
 - `POST /api/dataset/ingest`
 - `POST /api/dataset/ingest-all`
 - `POST /api/jobs/start-ingest-all`

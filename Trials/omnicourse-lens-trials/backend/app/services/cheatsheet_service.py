@@ -169,6 +169,27 @@ class CheatsheetService:
         document_end = tex.rfind("\\end{document}")
         if document_end >= 0:
             tex = tex[: document_end + len("\\end{document}")].strip()
+        return self._strip_unresolved_graphics(tex)
+
+    def _strip_unresolved_graphics(self, tex: str) -> str:
+        """Keep LLM-produced cheatsheets compilable by removing hallucinated image files."""
+        placeholder = "\\textit{Visual evidence is available in the OmniCourse Lens video and keyframe panel.}"
+        tex = re.sub(
+            r"\\includegraphics(?:\[[^\]]*\])?\{[^}]+\}",
+            lambda _match: placeholder,
+            tex,
+        )
+        tex = re.sub(
+            r"\\caption\{([^}]*)\}",
+            lambda match: f"\\textit{{{match.group(1)}}}",
+            tex,
+        )
+        tex = re.sub(
+            r"\\begin\{center\}\s*" + re.escape(placeholder) + r"\s*\\end\{center\}",
+            lambda _match: placeholder,
+            tex,
+            flags=re.DOTALL,
+        )
         return tex
 
     def _compile_tex(self, tex_path: Path) -> tuple[Path | None, str | None]:

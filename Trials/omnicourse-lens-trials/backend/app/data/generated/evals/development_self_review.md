@@ -214,3 +214,48 @@ Validation:
 - `cd frontend && npm run build`
 - `pytest tests/test_api_smoke.py -q`
 - `python scripts/smoke_test.py`
+
+## Evidence Playback And Reliability Pass - May 29, 2026
+
+Implemented after the UI/search/graph/model chain still felt brittle:
+
+- Added `EvidenceService` with real per-video evidence and dynamic subtitle APIs:
+  - `GET /api/dataset/videos/{video_id}/subtitles`
+  - `GET /api/dataset/videos/{video_id}/subtitles.vtt`
+  - `GET /api/dataset/videos/{video_id}/evidence`
+  - `GET /api/moments/{moment_id}`
+- Updated the frontend video workspace to load backend subtitle cues, add a native WebVTT track, and show a custom subtitle bar that updates with video playback time.
+- Search result selection now switches the central player to the result video and timestamp, fixing the “change video then search breaks” failure mode.
+- Added cross-video fallback search: when the current video has weak results, Search Video explains the scope fallback and shows the best moments across all indexed Dataset videos.
+- Reworked search snippets and matched reasons so they are query-centered instead of dumping the first OCR/transcript chunk.
+- Cleaned noisy formula OCR blocks in `real_i2ml`: 351 raw formula candidates were reduced to 97 stronger formula-like blocks, and the index was rebuilt.
+- Pruned default knowledge graph responses to readable defaults: the optimization graph smoke path now stays at 51 nodes / 200 edges with no runaway edge density.
+- Hardened LaTeX compilation:
+  - GPT-generated nonexistent `\includegraphics` references are replaced with a visual-evidence note.
+  - Bare `\caption{...}` outside a float is converted to normal text.
+  - Markdown fences and broken replacement escapes are cleaned before compile.
+- Added DeepSeek-OCR cache and interactive heavy-OCR control. Offline ingest/refresh can still run local DeepSeek-OCR; online image search avoids blocking on a multi-minute OCR call unless explicitly enabled.
+- Added Azure GPT-4o timeout/retry controls (`AZURE_OPENAI_TIMEOUT`, `AZURE_OPENAI_MAX_RETRIES`) and provider `last_error` reporting.
+- Made heavy OpenCLIP index rebuild opt-in with `OMNICOURSE_ENABLE_OPEN_CLIP_INDEX=true`; default rebuild now uses fast PIL visual descriptors.
+- Made online query dense embeddings opt-in with `OMNICOURSE_ENABLE_QUERY_DENSE=true`; search remains hybrid through ASR/OCR/formula/concept/visual/sparse text and optional InternVideo3.
+
+Validation:
+
+- `python -m py_compile backend/app/services/*.py scripts/*.py tests/test_api_smoke.py`
+- `OMNICOURSE_ENABLE_OPEN_CLIP_INDEX=false python scripts/rebuild_index.py`
+- `pytest tests/test_api_smoke.py -q` passed in 5.79s.
+- `AZURE_OPENAI_TIMEOUT=12 python scripts/smoke_test.py` passed.
+- `cd frontend && npm run build` passed in 31.39s, with the expected large-bundle warning from Cytoscape/KaTeX/motion dependencies.
+
+Latest smoke-test facts:
+
+- Dataset videos discovered: 9
+- Tested real video: `08_i2ml_01_ml_basics_07_optimization_647ec61326`
+- Real tested video duration: 1675.62s
+- Tested video moments: 10
+- Dynamic subtitle API: audio cues and OCR cues present; VTT starts with `WEBVTT`.
+- GPT-4o detected: yes
+- DeepSeek-OCR checkpoint detected: yes, `local_hf_lazy`
+- InternVideo3 checkpoint detected: yes, `local_hf_lazy`
+- ASR active provider: `faster_whisper`
+- LaTeX compiler: `tectonic`

@@ -8,12 +8,12 @@
   "providers": {
     "text_index": "json_tfidf",
     "image_descriptor": {
-      "provider": "open_clip",
+      "provider": "pil_color_histogram",
       "model": "ViT-B-32",
       "pretrained": "laion2b_s34b_b79k",
-      "dimension": 512,
+      "dimension": null,
       "count": 91,
-      "error": null
+      "error": "OpenCLIP indexing skipped; set OMNICOURSE_ENABLE_OPEN_CLIP_INDEX=true for heavy offline image embeddings."
     },
     "dense_text_embedding": {
       "provider": "sentence_transformers",

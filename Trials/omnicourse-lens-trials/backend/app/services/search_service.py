@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -35,6 +36,14 @@ class SearchService:
 
     def text_search(self, request: SearchRequest) -> dict[str, Any]:
         results = self._rank(request.course_id, request.query, request.lecture_ids, request.video_ids, request.top_k, image_path=None, image_ocr_text="")
+        scope_notice = None
+        scope_fallback: dict[str, Any] | None = None
+        if request.video_ids and self._weak_results(results):
+            fallback_results = self._rank(request.course_id, request.query, request.lecture_ids, None, request.top_k, image_path=None, image_ocr_text="")
+            if fallback_results and (not results or fallback_results[0].score > max(results[0].score + 0.08, 0.18)):
+                scope_notice = "No strong match in the current video, so OmniCourse Lens is showing the best matches across all indexed Dataset videos."
+                scope_fallback = {"original_video_ids": request.video_ids, "current_video_results": results}
+                results = fallback_results
         improved = self.improver.improve_search(
             request.query,
             results,
@@ -50,7 +59,13 @@ class SearchService:
                 )
             },
         )
-        return {"results": improved["results"], "self_check": improved["self_check"], "provider_status": self.describe_provider()}
+        return {
+            "results": improved["results"],
+            "self_check": improved["self_check"],
+            "provider_status": self.describe_provider(),
+            "scope_notice": scope_notice,
+            "scope_fallback": scope_fallback,
+        }
 
     def image_search(
         self,
@@ -61,10 +76,21 @@ class SearchService:
         video_ids: list[str] | None = None,
         top_k: int = 5,
     ) -> dict[str, Any]:
-        ocr_result = self.ocr.ocr_image(image_path)
+        allow_heavy_ocr = os.getenv("OMNICOURSE_IMAGE_QUERY_ALLOW_HEAVY_OCR", "false").lower() in {"1", "true", "yes"}
+        if not text_query.strip() and os.getenv("OMNICOURSE_IMAGE_QUERY_REQUIRE_OCR", "false").lower() in {"1", "true", "yes"}:
+            allow_heavy_ocr = True
+        ocr_result = self.ocr.ocr_image(image_path, allow_heavy=allow_heavy_ocr)
         image_ocr_text = ocr_result.get("text", "")
         composed_query = " ".join(part for part in [text_query, image_ocr_text] if part).strip()
         results = self._rank(course_id, composed_query, lecture_ids, video_ids, top_k, image_path=image_path, image_ocr_text=image_ocr_text)
+        scope_notice = None
+        scope_fallback: dict[str, Any] | None = None
+        if video_ids and self._weak_results(results):
+            fallback_results = self._rank(course_id, composed_query, lecture_ids, None, top_k, image_path=image_path, image_ocr_text=image_ocr_text)
+            if fallback_results and (not results or fallback_results[0].score > max(results[0].score + 0.08, 0.18)):
+                scope_notice = "No strong image/text match in the current video, so OmniCourse Lens is showing the best matches across all indexed Dataset videos."
+                scope_fallback = {"original_video_ids": video_ids, "current_video_results": results}
+                results = fallback_results
         improved = self.improver.improve_search(
             composed_query or text_query or "image query",
             results,
@@ -85,6 +111,8 @@ class SearchService:
             "image_ocr": ocr_result,
             "self_check": improved["self_check"],
             "provider_status": self.describe_provider(),
+            "scope_notice": scope_notice,
+            "scope_fallback": scope_fallback,
         }
 
     def _rank(
@@ -115,14 +143,20 @@ class SearchService:
                 and (not lecture_ids or moment.get("lecture_id") in lecture_ids)
                 and (not video_ids or moment.get("video_id") in video_ids or moment.get("metadata", {}).get("video_id") in video_ids)
             ]
+        display_query = query
         query = self._expand_query(query)
         image_descriptor = self.embedding.image_descriptor(image_path) if image_path else None
-        query_dense = self.embedding.dense_text_embedding(query)
+        dense_vectors = index.get("dense_text_embeddings", [])
+        query_dense = (
+            self.embedding.dense_text_embedding(query)
+            if dense_vectors and os.getenv("OMNICOURSE_ENABLE_QUERY_DENSE", "false").lower() in {"1", "true", "yes"}
+            else []
+        )
         scored = []
         for moment in moments:
             breakdown = self._score_moment(moment, query, index, image_descriptor, image_ocr_text, query_dense)
             final_score = self._weighted_score(breakdown, image_mode=bool(image_path))
-            result = self._to_result(moment, final_score, breakdown)
+            result = self._to_result(moment, final_score, breakdown, display_query)
             scored.append(result)
         scored.sort(key=lambda item: item.score, reverse=True)
         scored = self._rerank_with_internvideo3(query, scored, moments, image_mode=bool(image_path))
@@ -242,12 +276,12 @@ class SearchService:
         score = sum((active[key] / weight_sum) * breakdown.get(key, 0.0) for key in active)
         return round(max(0.0, min(1.0, score)), 4)
 
-    def _to_result(self, moment: dict[str, Any], score: float, breakdown: dict[str, float]) -> SearchResult:
+    def _to_result(self, moment: dict[str, Any], score: float, breakdown: dict[str, float], query: str) -> SearchResult:
         lecture_title = moment.get("lecture_title") or moment.get("lecture_id", "")
         modalities = [self._modality_name(key, moment) for key, value in breakdown.items() if value >= 0.18]
         if not modalities:
             modalities = [self._modality_name(max(breakdown, key=breakdown.get), moment)]
-        reason = self._matched_reason(moment, breakdown)
+        reason = self._matched_reason(moment, breakdown, query)
         video_id = moment.get("video_id") or moment.get("metadata", {}).get("video_id")
         video_url = f"/api/dataset/videos/{video_id}/stream" if video_id else static_url(moment.get("video_path"))
         return SearchResult(
@@ -262,23 +296,23 @@ class SearchService:
             score_breakdown={key: round(float(value), 4) for key, value in breakdown.items()},
             matched_reason=reason,
             matched_modalities=modalities,
-            transcript_snippet=self._snippet(moment.get("transcript", "")),
-            ocr_snippet=self._snippet(moment.get("ocr_text", "")),
-            formula_latex=moment.get("formula_latex", ""),
+            transcript_snippet=self._query_snippet(moment.get("transcript", ""), query),
+            ocr_snippet=self._query_snippet(moment.get("ocr_text", ""), query),
+            formula_latex=self._clean_formula_text(moment.get("formula_latex", "")),
             concept_tags=moment.get("concept_tags", []),
             thumbnail_url=moment.get("thumbnail_url") or static_url(moment.get("keyframes", [None])[0]),
             video_url=video_url,
         )
 
-    def _matched_reason(self, moment: dict[str, Any], breakdown: dict[str, float]) -> str:
+    def _matched_reason(self, moment: dict[str, Any], breakdown: dict[str, float], query: str) -> str:
         best = max(breakdown, key=breakdown.get)
         if best == "audio_transcript":
             transcript_label = self._transcript_label(moment)
-            return f"{transcript_label} match: {self._snippet(self._preferred_transcript_text(moment), 160)}"
+            return f"{transcript_label} match: {self._query_snippet(self._preferred_transcript_text(moment), query, 180)}"
         if best in {"ocr_text", "image_ocr_text"}:
-            return f"{self._ocr_label(moment)} match: {self._snippet(moment.get('ocr_text', '') or moment.get('visual_caption', ''), 160)}"
+            return f"{self._ocr_label(moment)} match: {self._query_snippet(moment.get('ocr_text', '') or moment.get('visual_caption', ''), query, 180)}"
         if best == "formula":
-            return f"Formula match: {moment.get('formula_latex', '')}"
+            return f"Formula match: {self._query_snippet(self._clean_formula_text(moment.get('formula_latex', '')), query, 220)}"
         if best == "concept_tag":
             return f"Concept tag match: {', '.join(moment.get('concept_tags', [])[:4])}"
         if best == "image_visual":
@@ -290,6 +324,50 @@ class SearchService:
     def _snippet(self, text: str, max_chars: int = 220) -> str:
         text = " ".join((text or "").split())
         return text[: max_chars - 3] + "..." if len(text) > max_chars else text
+
+    def _query_snippet(self, text: str, query: str, max_chars: int = 240) -> str:
+        text = " ".join((text or "").split())
+        if len(text) <= max_chars:
+            return text
+        tokens = [token for token in re.findall(r"[a-zA-Z0-9_\\]+", normalize_text(query)) if len(token) >= 3]
+        lower = text.lower()
+        hit_positions = [lower.find(token.lower()) for token in tokens if lower.find(token.lower()) >= 0]
+        if not hit_positions:
+            return self._snippet(text, max_chars)
+        center = min(hit_positions)
+        start = max(0, center - max_chars // 3)
+        end = min(len(text), start + max_chars)
+        start = max(0, end - max_chars)
+        snippet = text[start:end].strip()
+        if start > 0:
+            snippet = "..." + snippet
+        if end < len(text):
+            snippet += "..."
+        return snippet
+
+    def _clean_formula_text(self, formula: str, max_chars: int = 900) -> str:
+        parts = []
+        seen = set()
+        for part in re.split(r";|\n", formula or ""):
+            cleaned = " ".join(part.split()).strip()
+            if not cleaned or len(cleaned) > 360:
+                continue
+            key = cleaned.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            parts.append(cleaned)
+        text = "; ".join(parts)
+        return text[: max_chars - 3] + "..." if len(text) > max_chars else text
+
+    def _weak_results(self, results: list[SearchResult]) -> bool:
+        if not results:
+            return True
+        top = results[0]
+        if top.score < 0.18:
+            return True
+        strong_modalities = [value for value in top.score_breakdown.values() if value >= 0.18]
+        return len(strong_modalities) < 2 and top.score < 0.28
 
     def _formula_alias_score(self, query: str, formula: str) -> float:
         alias_text = normalize_text(formula)

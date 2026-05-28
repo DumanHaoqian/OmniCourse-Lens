@@ -70,6 +70,16 @@ export type EvidenceItem = {
   score: number;
 };
 
+export type SubtitleCue = {
+  start_time: number;
+  end_time: number;
+  text: string;
+  provider: string;
+  source: string;
+  moment_id?: string;
+  kind: "audio" | "ocr" | "supplemental";
+};
+
 export async function apiGet<T>(path: string): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`);
   if (!res.ok) throw new Error(await res.text());
@@ -93,7 +103,7 @@ export async function textSearch(payload: {
   video_ids?: string[];
   top_k: number;
 }) {
-  return apiPost<{ results: SearchResult[]; self_check?: any; provider_status?: any }>("/api/search/text", payload);
+  return apiPost<{ results: SearchResult[]; self_check?: any; provider_status?: any; scope_notice?: string; scope_fallback?: any }>("/api/search/text", payload);
 }
 
 export async function imageSearch(payload: {
@@ -113,7 +123,7 @@ export async function imageSearch(payload: {
   form.append("image", payload.image);
   const res = await fetch(`${API_BASE}/api/search/image`, { method: "POST", body: form });
   if (!res.ok) throw new Error(await res.text());
-  return res.json() as Promise<{ results: SearchResult[]; image_ocr?: any; self_check?: any; provider_status?: any }>;
+  return res.json() as Promise<{ results: SearchResult[]; image_ocr?: any; self_check?: any; provider_status?: any; scope_notice?: string; scope_fallback?: any }>;
 }
 
 export async function askTutor(payload: {
@@ -143,6 +153,12 @@ export async function askTutor(payload: {
 
 export async function datasetVideos() {
   return apiGet<DatasetVideo[]>("/api/dataset/videos");
+}
+
+export async function videoSubtitles(video_id: string) {
+  return apiGet<{ video_id: string; cue_count: number; audio_cue_count: number; ocr_cue_count: number; cues: SubtitleCue[]; summary?: any }>(
+    `/api/dataset/videos/${video_id}/subtitles`
+  );
 }
 
 export async function ingestDatasetVideo(video_id: string, force_reingest = false) {

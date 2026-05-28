@@ -229,9 +229,12 @@ class GraphService:
 
         self._add_cooccurrence_edges(edges, concept_to_moments)
         self._add_prerequisites(edges, nodes)
+        self._prune_edges_for_readability(edges, max_edges=200)
         self._prune_orphans(nodes, edges)
         if self.llm.is_available():
             self._llm_refine(edges, nodes, request)
+            self._prune_edges_for_readability(edges, max_edges=200)
+            self._prune_orphans(nodes, edges)
 
         metrics = self._metrics(nodes, edges, selected_contexts, allowed_concepts)
         response = GraphResponse(
@@ -477,6 +480,27 @@ class GraphService:
                 nodes.pop(node_id, None)
         for key, edge in list(edges.items()):
             if edge.source not in nodes or edge.target not in nodes:
+                edges.pop(key, None)
+
+    def _prune_edges_for_readability(self, edges: dict[tuple[str, str, str], GraphEdge], max_edges: int = 200) -> None:
+        if len(edges) <= max_edges:
+            return
+        priority = {
+            "contains": 6,
+            "appears_in": 5,
+            "uses_formula": 4,
+            "shown_in_frame": 3,
+            "prerequisite_of": 2,
+            "related_to": 1,
+        }
+        ranked = sorted(
+            edges.items(),
+            key=lambda item: (priority.get(item[1].type, 0), item[1].weight),
+            reverse=True,
+        )
+        keep = {key for key, _ in ranked[:max_edges]}
+        for key in list(edges.keys()):
+            if key not in keep:
                 edges.pop(key, None)
 
     def _save_graph(self, request: GraphRequest, response: GraphResponse, actions_taken: list[str]) -> None:

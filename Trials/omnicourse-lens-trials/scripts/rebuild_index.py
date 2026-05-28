@@ -107,6 +107,14 @@ def build_image_embeddings(image_paths: list[str]) -> dict[str, Any]:
     model = os.getenv("OMNICOURSE_IMAGE_EMBED_MODEL", "ViT-B-32")
     pretrained = os.getenv("OMNICOURSE_IMAGE_EMBED_PRETRAINED", "laion2b_s34b_b79k")
     device = os.getenv("OMNICOURSE_IMAGE_EMBED_DEVICE", "auto")
+    if os.getenv("OMNICOURSE_ENABLE_OPEN_CLIP_INDEX", "false").lower() not in {"1", "true", "yes"}:
+        return {
+            "provider": "pil_color_histogram",
+            "model": model,
+            "pretrained": pretrained,
+            "embeddings": {},
+            "error": "OpenCLIP indexing skipped; set OMNICOURSE_ENABLE_OPEN_CLIP_INDEX=true for heavy offline image embeddings.",
+        }
     if not runner.exists():
         return {"provider": "unavailable", "model": model, "embeddings": {}, "error": "embed_image.py missing"}
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as src:
@@ -129,7 +137,7 @@ def build_image_embeddings(image_paths: list[str]) -> dict[str, Any]:
             "--device",
             device,
         ]
-        result = subprocess.run(command, capture_output=True, text=True, timeout=int(os.getenv("OMNICOURSE_IMAGE_EMBED_INDEX_TIMEOUT", "900")))
+        result = subprocess.run(command, capture_output=True, text=True, timeout=int(os.getenv("OMNICOURSE_IMAGE_EMBED_INDEX_TIMEOUT", "120")))
         if result.returncode != 0:
             return {
                 "provider": "unavailable",
