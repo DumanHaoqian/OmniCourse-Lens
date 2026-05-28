@@ -69,9 +69,9 @@ Smoke checks passed:
 
 - GPT-4o: credentials detected from `/home/haoqian/Data/OmniCourse-Lens/openai_keys.txt`; full key was not committed or printed.
 - ASR: `openai-whisper` import is available, but Whisper execution is disabled unless `OMNICOURSE_ENABLE_WHISPER=1`; faster-whisper not detected.
-- DeepSeek OCR: endpoint/model not configured, so disabled fallback.
-- OCR fallback: PaddleOCR/EasyOCR/Tesseract not detected; associated slides PDF text provides real slide evidence for this Dataset.
-- InternVideo3: local checkpoint detected; no endpoint/CLI configured, so disabled fallback by default.
+- DeepSeek OCR: local `deepseek-ai/DeepSeek-OCR` checkpoint detected at `Trials/checkpoints/DeepSeek-OCR`; backend provider mode is `local_hf_lazy`.
+- OCR fallback: PaddleOCR/EasyOCR/Tesseract not detected; DeepSeek-OCR is now the active frame/image OCR provider, with associated slide PDF text as supplemental evidence.
+- InternVideo3: local `InternVideo3-8B-Instruct` checkpoint detected at `Trials/checkpoints/InternVideo3-8B-Instruct`; backend provider mode is `local_hf_lazy`. Local reranking runs through the `omniC` Python environment to avoid Transformers-version conflicts with DeepSeek-OCR.
 - LaTeX compiler: `tectonic`, `pdflatex`, and `xelatex` not detected; web UI provides compile status, `.tex` download, copy LaTeX, and Overleaf workflow.
 
 ## Git Commits In This Rebuild
@@ -83,8 +83,9 @@ Smoke checks passed:
 ## Known Remaining Issues
 
 - All 9 videos are now ingested locally, but ASR is still not true speech transcription by default. The current evidence is a blend of fallback ASR segments and slide PDF text. Enable Whisper with `OMNICOURSE_ENABLE_WHISPER=1` for actual speech transcripts.
-- DeepSeek OCR and InternVideo3 are adapter-ready but require endpoint/CLI configuration for active use.
-- Frame OCR is unavailable in this environment because PaddleOCR/EasyOCR/Tesseract/DeepSeek OCR are not configured. Slide PDF text currently provides the strongest OCR-like evidence.
+- DeepSeek-OCR local inference is active, but it is a heavy model and should be used selectively for ingestion/image OCR rather than on every UI refresh.
+- InternVideo3 local inference is active and verified through a subprocess runner, but cold-start loading of the 8B checkpoint is slow. For smooth demos, run a persistent InternVideo3 endpoint and set `INTERNVIDEO3_ENDPOINT`, or keep local reranking limited to top-1.
+- PaddleOCR/EasyOCR/Tesseract are still unavailable; DeepSeek-OCR plus slide PDF text currently provide OCR evidence.
 - No local LaTeX compiler is installed in this environment, so PDF generation reports a clear unavailable status.
 - The search stack is still hybrid lexical/TF-IDF + image color histogram fallback, not a full production dense multimodal retrieval stack.
 - Vite build passes but warns that the main JS bundle is large because Cytoscape, KaTeX, and motion libraries are included.
@@ -97,6 +98,27 @@ Smoke checks passed:
 - Add CLIP/SigLIP image embeddings for better visual search.
 - Replace heuristic self-evaluation fast paths with real GPT-4o judge calls where latency allows.
 - Split frontend bundles for faster initial load.
+
+## DeepSeek-OCR and InternVideo3 Activation Pass - May 29, 2026
+
+Implemented after the provider badges still showed warning states:
+
+- Added a real local DeepSeek-OCR provider in `backend/app/services/deepseek_ocr_service.py` using the official Transformers-style `AutoModel` / `AutoTokenizer` / `model.infer(...)` path.
+- Downloaded the DeepSeek-OCR checkpoint under `Trials/checkpoints/DeepSeek-OCR` and kept it out of Git.
+- Added OCR output cleanup so user-facing evidence does not show DeepSeek grounding tags such as `<|det|>`.
+- Added a real InternVideo3 local scoring runner at `scripts/internvideo3_score.py`.
+- Updated `InternVideo3Service` to expose `local_hf_lazy` provider status and call the runner through `/home/haoqian/miniconda3/envs/omniC/bin/python`.
+- Limited local InternVideo3 reranking defaults to top-1 and 8 sampled frames because cold-start loading the 8B checkpoint is expensive.
+- Fixed the frontend provider badges so DeepSeek OCR and InternVideo3 reflect real backend availability instead of appearing disabled.
+
+Validation:
+
+- `/api/health` reports `deepseek_ocr.available=true`, `deepseek_ocr.mode=local_hf_lazy`.
+- `/api/health` reports `search.internvideo3.available=true`, `search.internvideo3.mode=local_hf_lazy`.
+- DeepSeek-OCR was run on a real extracted keyframe and read course text including "Introduction to Machine Learning", "Learning goals", "loss function", and "empirical risk minimization".
+- InternVideo3 was run on a real Dataset video clip with query "machine learning introduction" and returned JSON score `1.0`.
+- `python -m py_compile backend/app/services/deepseek_ocr_service.py backend/app/services/internvideo3_service.py backend/app/services/search_service.py scripts/internvideo3_score.py`
+- `cd frontend && npm run build`
 
 ## Knowledge Graph Repair Pass - May 29, 2026
 

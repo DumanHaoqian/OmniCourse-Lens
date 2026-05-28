@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -123,6 +124,7 @@ class SearchService:
             result = self._to_result(moment, final_score, breakdown)
             scored.append(result)
         scored.sort(key=lambda item: item.score, reverse=True)
+        scored = self._rerank_with_internvideo3(query, scored, moments, image_mode=bool(image_path))
         return scored[: max(1, min(top_k, 20))]
 
     def _score_moment(
@@ -148,13 +150,15 @@ class SearchService:
             frame_descriptors = index.get("image_descriptors", {})
             sims = [self.embedding.vector_similarity(image_descriptor, frame_descriptors.get(frame, [])) for frame in moment.get("keyframes", [])]
             image_visual_score = max(sims) if sims else 0.0
-        intern_score = self.internvideo3.score_text_video(
-            query=query,
-            video_path=moment.get("video_path") or "",
-            start_time=float(moment.get("start_time") or 0),
-            end_time=float(moment.get("end_time") or 0),
-            keyframe_paths=moment.get("keyframes", []),
-        )
+        intern_score = None
+        if self._inline_internvideo3_enabled():
+            intern_score = self.internvideo3.score_text_video(
+                query=query,
+                video_path=moment.get("video_path") or "",
+                start_time=float(moment.get("start_time") or 0),
+                end_time=float(moment.get("end_time") or 0),
+                keyframe_paths=moment.get("keyframes", []),
+            )
         return {
             "audio_transcript": lexical(query, transcript),
             "ocr_text": lexical(query, ocr_text),
@@ -165,6 +169,44 @@ class SearchService:
             "image_visual": image_visual_score,
             "image_ocr_text": lexical(image_ocr_text or query, document) if image_descriptor else 0.0,
         }
+
+    def _rerank_with_internvideo3(
+        self,
+        query: str,
+        scored: list[SearchResult],
+        moments: list[dict[str, Any]],
+        image_mode: bool,
+    ) -> list[SearchResult]:
+        provider = self.internvideo3.describe_provider()
+        if provider.get("mode") != "local_hf_lazy" or not provider.get("local_search_rerank"):
+            return scored
+        moment_by_id = {moment.get("moment_id"): moment for moment in moments}
+        max_calls = int(os.getenv("INTERNVIDEO3_LOCAL_RERANK_TOP_N", "1"))
+        for result in scored[: max(0, min(max_calls, 5))]:
+            moment = moment_by_id.get(result.moment_id)
+            if not moment:
+                continue
+            score = self.internvideo3.score_text_video(
+                query=query,
+                video_path=moment.get("video_path") or "",
+                start_time=float(moment.get("start_time") or 0),
+                end_time=float(moment.get("end_time") or 0),
+                keyframe_paths=moment.get("keyframes", []),
+            )
+            if score is None:
+                continue
+            result.score_breakdown["internvideo3"] = round(score, 4)
+            result.score = self._weighted_score(result.score_breakdown, image_mode=image_mode)
+            if "InternVideo3" not in result.matched_modalities and score >= 0.18:
+                result.matched_modalities.append("InternVideo3")
+            if score >= max(result.score_breakdown.values()):
+                result.matched_reason = "InternVideo3 video relevance: local clip-level model reranked this timestamp for the query."
+        scored.sort(key=lambda item: item.score, reverse=True)
+        return scored
+
+    def _inline_internvideo3_enabled(self) -> bool:
+        status = self.internvideo3.describe_provider()
+        return status.get("mode") in {"http", "cli"}
 
     def _weighted_score(self, breakdown: dict[str, float], image_mode: bool) -> float:
         if image_mode:

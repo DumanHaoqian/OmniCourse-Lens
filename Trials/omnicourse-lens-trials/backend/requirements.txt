@@ -11,3 +11,14 @@ python-dotenv
 pytest
 httpx
 pypdf
+torch
+transformers==4.46.3
+tokenizers==0.20.3
+accelerate
+einops
+addict
+easydict
+qwen-vl-utils
+decord
+huggingface_hub
+safetensors

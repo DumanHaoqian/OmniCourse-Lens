@@ -60,7 +60,7 @@ export default function Layout({ children, tab, onTab, courses, selectedCourse, 
         </div>
         <div className="provider-stack">
           <StatusBadge label="API" ok={health?.status === "ok"} />
-          <StatusBadge label="InternVideo3" ok={Boolean(intern?.available)} muted={Boolean(intern?.local_checkpoint_detected)} />
+          <StatusBadge label="InternVideo3" ok={Boolean(intern?.available)} muted={Boolean(!intern?.available)} />
           <StatusBadge label="DeepSeek OCR" ok={Boolean(deepseek?.available)} />
         </div>
       </aside>

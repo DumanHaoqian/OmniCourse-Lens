@@ -399,8 +399,8 @@ export default function App() {
             <div className="provider-row compact-providers">
               <StatusBadge label="Dataset" ok={Boolean(health?.providers?.dataset?.exists)} />
               <StatusBadge label="GPT-4o" ok={Boolean(health?.providers?.llm?.available)} muted={Boolean(!health?.providers?.llm?.available)} />
-              <StatusBadge label="OCR" ok={Boolean(health?.providers?.deepseek_ocr?.available)} muted={Boolean(!health?.providers?.deepseek_ocr?.available)} />
-              <StatusBadge label="InternVideo3" ok={Boolean(health?.providers?.search?.internvideo3?.available)} muted />
+              <StatusBadge label="DeepSeek OCR" ok={Boolean(health?.providers?.deepseek_ocr?.available)} muted={Boolean(!health?.providers?.deepseek_ocr?.available)} />
+              <StatusBadge label="InternVideo3" ok={Boolean(health?.providers?.search?.internvideo3?.available)} muted={Boolean(!health?.providers?.search?.internvideo3?.available)} />
             </div>
           </div>
 
