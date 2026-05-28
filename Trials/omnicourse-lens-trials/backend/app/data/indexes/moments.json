@@ -1,0 +1,890 @@
+[
+  {
+    "moment_id": "ml_foundations_lec_01_001",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_01",
+    "start_time": 0.0,
+    "end_time": 35.0,
+    "transcript": "In this segment we study linear regression. Fit a line or hyperplane that predicts a continuous target from features.",
+    "asr_segments": [
+      {
+        "start_time": 0.0,
+        "end_time": 35.0,
+        "text": "In this segment we study linear regression. Fit a line or hyperplane that predicts a continuous target from features.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Linear Regression. Linear Regression. Fit a line or hyperplane that predicts a continuous target from features. Formula: \\hat{y} = x^\\top \\theta. A scatter plot with a fitted prediction line.",
+    "ocr_blocks": [
+      {
+        "text": "Linear Regression",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/01_linear_regression.png",
+        "timestamp": 5.0
+      },
+      {
+        "text": "\\hat{y} = x^\\top \\theta",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/01_linear_regression.png",
+        "timestamp": 5.0
+      }
+    ],
+    "formula_latex": "\\hat{y} = x^\\top \\theta",
+    "formula_blocks": [
+      {
+        "latex": "\\hat{y} = x^\\top \\theta",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/01_linear_regression.png",
+        "confidence": 0.94,
+        "timestamp": 5.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "A scatter plot with a fitted prediction line.",
+    "concept_tags": [
+      "linear regression",
+      "prediction",
+      "features"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/01_linear_regression.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_01/01_linear_regression.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Linear Regression"
+    },
+    "lecture_title": "Linear Regression",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_01.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_01_002",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_01",
+    "start_time": 40.0,
+    "end_time": 75.0,
+    "transcript": "In this segment we study mean squared error. The loss function averages squared prediction errors over examples.",
+    "asr_segments": [
+      {
+        "start_time": 40.0,
+        "end_time": 75.0,
+        "text": "In this segment we study mean squared error. The loss function averages squared prediction errors over examples.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Linear Regression. Mean Squared Error. The loss function averages squared prediction errors over examples. Formula: J(\\theta)=\\frac{1}{m}\\sum_i(\\hat{y}_i-y_i)^2. Residual arrows from points to the regression line.",
+    "ocr_blocks": [
+      {
+        "text": "Mean Squared Error",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/02_mean_squared_error.png",
+        "timestamp": 45.0
+      },
+      {
+        "text": "J(\\theta)=\\frac{1}{m}\\sum_i(\\hat{y}_i-y_i)^2",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/02_mean_squared_error.png",
+        "timestamp": 45.0
+      }
+    ],
+    "formula_latex": "J(\\theta)=\\frac{1}{m}\\sum_i(\\hat{y}_i-y_i)^2",
+    "formula_blocks": [
+      {
+        "latex": "J(\\theta)=\\frac{1}{m}\\sum_i(\\hat{y}_i-y_i)^2",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/02_mean_squared_error.png",
+        "confidence": 0.94,
+        "timestamp": 45.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "Residual arrows from points to the regression line.",
+    "concept_tags": [
+      "mean squared error",
+      "loss function",
+      "residual"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/02_mean_squared_error.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_01/02_mean_squared_error.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Mean Squared Error"
+    },
+    "lecture_title": "Linear Regression",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_01.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_01_003",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_01",
+    "start_time": 80.0,
+    "end_time": 115.0,
+    "transcript": "In this segment we study normal equation. For full-rank linear regression, the closed-form optimum solves the least-squares objective.",
+    "asr_segments": [
+      {
+        "start_time": 80.0,
+        "end_time": 115.0,
+        "text": "In this segment we study normal equation. For full-rank linear regression, the closed-form optimum solves the least-squares objective.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Linear Regression. Normal Equation. For full-rank linear regression, the closed-form optimum solves the least-squares objective. Formula: \\theta=(X^\\top X)^{-1}X^\\top y. A matrix equation links X, y, and theta.",
+    "ocr_blocks": [
+      {
+        "text": "Normal Equation",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/03_normal_equation.png",
+        "timestamp": 85.0
+      },
+      {
+        "text": "\\theta=(X^\\top X)^{-1}X^\\top y",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/03_normal_equation.png",
+        "timestamp": 85.0
+      }
+    ],
+    "formula_latex": "\\theta=(X^\\top X)^{-1}X^\\top y",
+    "formula_blocks": [
+      {
+        "latex": "\\theta=(X^\\top X)^{-1}X^\\top y",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/03_normal_equation.png",
+        "confidence": 0.94,
+        "timestamp": 85.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "A matrix equation links X, y, and theta.",
+    "concept_tags": [
+      "normal equation",
+      "closed form",
+      "least squares"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/03_normal_equation.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_01/03_normal_equation.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Normal Equation"
+    },
+    "lecture_title": "Linear Regression",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_01.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_01_004",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_01",
+    "start_time": 120.0,
+    "end_time": 155.0,
+    "transcript": "In this segment we study bias and variance. Simple models may underfit while overly flexible models may overfit training data.",
+    "asr_segments": [
+      {
+        "start_time": 120.0,
+        "end_time": 155.0,
+        "text": "In this segment we study bias and variance. Simple models may underfit while overly flexible models may overfit training data.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Linear Regression. Bias and Variance. Simple models may underfit while overly flexible models may overfit training data. Formula: \\mathrm{error}=bias^2+variance+\\sigma^2. Three curves compare underfit, good fit, and overfit behavior.",
+    "ocr_blocks": [
+      {
+        "text": "Bias and Variance",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/04_bias_and_variance.png",
+        "timestamp": 125.0
+      },
+      {
+        "text": "\\mathrm{error}=bias^2+variance+\\sigma^2",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/04_bias_and_variance.png",
+        "timestamp": 125.0
+      }
+    ],
+    "formula_latex": "\\mathrm{error}=bias^2+variance+\\sigma^2",
+    "formula_blocks": [
+      {
+        "latex": "\\mathrm{error}=bias^2+variance+\\sigma^2",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/04_bias_and_variance.png",
+        "confidence": 0.94,
+        "timestamp": 125.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "Three curves compare underfit, good fit, and overfit behavior.",
+    "concept_tags": [
+      "bias",
+      "variance",
+      "overfitting"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/04_bias_and_variance.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_01/04_bias_and_variance.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Bias and Variance"
+    },
+    "lecture_title": "Linear Regression",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_01.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_02_001",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_02",
+    "start_time": 0.0,
+    "end_time": 35.0,
+    "transcript": "In this segment we study gradient descent. Move parameters opposite to the gradient to reduce the objective.",
+    "asr_segments": [
+      {
+        "start_time": 0.0,
+        "end_time": 35.0,
+        "text": "In this segment we study gradient descent. Move parameters opposite to the gradient to reduce the objective.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Gradient Descent. Gradient Descent. Move parameters opposite to the gradient to reduce the objective. Formula: \\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta). A point walks downhill on a loss surface.",
+    "ocr_blocks": [
+      {
+        "text": "Gradient Descent",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/01_gradient_descent.png",
+        "timestamp": 5.0
+      },
+      {
+        "text": "\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/01_gradient_descent.png",
+        "timestamp": 5.0
+      }
+    ],
+    "formula_latex": "\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)",
+    "formula_blocks": [
+      {
+        "latex": "\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/01_gradient_descent.png",
+        "confidence": 0.94,
+        "timestamp": 5.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "A point walks downhill on a loss surface.",
+    "concept_tags": [
+      "gradient descent",
+      "optimization",
+      "loss function"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/01_gradient_descent.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_02/01_gradient_descent.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Gradient Descent"
+    },
+    "lecture_title": "Gradient Descent",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_02.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_02_002",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_02",
+    "start_time": 40.0,
+    "end_time": 75.0,
+    "transcript": "In this segment we study learning rate. The learning rate controls step size; too large can diverge and too small converges slowly.",
+    "asr_segments": [
+      {
+        "start_time": 40.0,
+        "end_time": 75.0,
+        "text": "In this segment we study learning rate. The learning rate controls step size; too large can diverge and too small converges slowly.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Gradient Descent. Learning Rate. The learning rate controls step size; too large can diverge and too small converges slowly. Formula: \\alpha > 0. Small and large arrows show different optimization step sizes.",
+    "ocr_blocks": [
+      {
+        "text": "Learning Rate",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/02_learning_rate.png",
+        "timestamp": 45.0
+      },
+      {
+        "text": "\\alpha > 0",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/02_learning_rate.png",
+        "timestamp": 45.0
+      }
+    ],
+    "formula_latex": "\\alpha > 0",
+    "formula_blocks": [
+      {
+        "latex": "\\alpha > 0",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/02_learning_rate.png",
+        "confidence": 0.94,
+        "timestamp": 45.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "Small and large arrows show different optimization step sizes.",
+    "concept_tags": [
+      "learning rate",
+      "step size",
+      "convergence"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/02_learning_rate.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_02/02_learning_rate.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Learning Rate"
+    },
+    "lecture_title": "Gradient Descent",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_02.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_02_003",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_02",
+    "start_time": 80.0,
+    "end_time": 115.0,
+    "transcript": "In this segment we study convex loss. For convex objectives, local minima are global minima.",
+    "asr_segments": [
+      {
+        "start_time": 80.0,
+        "end_time": 115.0,
+        "text": "In this segment we study convex loss. For convex objectives, local minima are global minima.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Gradient Descent. Convex Loss. For convex objectives, local minima are global minima. Formula: J(\\lambda a+(1-\\lambda)b)\\leq \\lambda J(a)+(1-\\lambda)J(b). A bowl-shaped curve marks the global minimum.",
+    "ocr_blocks": [
+      {
+        "text": "Convex Loss",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/03_convex_loss.png",
+        "timestamp": 85.0
+      },
+      {
+        "text": "J(\\lambda a+(1-\\lambda)b)\\leq \\lambda J(a)+(1-\\lambda)J(b)",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/03_convex_loss.png",
+        "timestamp": 85.0
+      }
+    ],
+    "formula_latex": "J(\\lambda a+(1-\\lambda)b)\\leq \\lambda J(a)+(1-\\lambda)J(b)",
+    "formula_blocks": [
+      {
+        "latex": "J(\\lambda a+(1-\\lambda)b)\\leq \\lambda J(a)+(1-\\lambda)J(b)",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/03_convex_loss.png",
+        "confidence": 0.94,
+        "timestamp": 85.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "A bowl-shaped curve marks the global minimum.",
+    "concept_tags": [
+      "convexity",
+      "global optimum",
+      "loss function"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/03_convex_loss.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_02/03_convex_loss.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Convex Loss"
+    },
+    "lecture_title": "Gradient Descent",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_02.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_02_004",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_02",
+    "start_time": 120.0,
+    "end_time": 155.0,
+    "transcript": "In this segment we study stochastic gradient. Mini-batches estimate the gradient cheaply and add useful noise during training.",
+    "asr_segments": [
+      {
+        "start_time": 120.0,
+        "end_time": 155.0,
+        "text": "In this segment we study stochastic gradient. Mini-batches estimate the gradient cheaply and add useful noise during training.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Gradient Descent. Stochastic Gradient. Mini-batches estimate the gradient cheaply and add useful noise during training. Formula: g_t \\approx \\nabla_\\theta J_B(\\theta). Noisy arrows move toward a minimum.",
+    "ocr_blocks": [
+      {
+        "text": "Stochastic Gradient",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/04_stochastic_gradient.png",
+        "timestamp": 125.0
+      },
+      {
+        "text": "g_t \\approx \\nabla_\\theta J_B(\\theta)",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/04_stochastic_gradient.png",
+        "timestamp": 125.0
+      }
+    ],
+    "formula_latex": "g_t \\approx \\nabla_\\theta J_B(\\theta)",
+    "formula_blocks": [
+      {
+        "latex": "g_t \\approx \\nabla_\\theta J_B(\\theta)",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/04_stochastic_gradient.png",
+        "confidence": 0.94,
+        "timestamp": 125.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "Noisy arrows move toward a minimum.",
+    "concept_tags": [
+      "stochastic gradient",
+      "mini batch",
+      "optimization"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_02/04_stochastic_gradient.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_02/04_stochastic_gradient.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Stochastic Gradient"
+    },
+    "lecture_title": "Gradient Descent",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_02.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_03_001",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_03",
+    "start_time": 0.0,
+    "end_time": 35.0,
+    "transcript": "In this segment we study neural network. Layers compose linear maps and nonlinear activation functions to learn representations.",
+    "asr_segments": [
+      {
+        "start_time": 0.0,
+        "end_time": 35.0,
+        "text": "In this segment we study neural network. Layers compose linear maps and nonlinear activation functions to learn representations.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Neural Networks. Neural Network. Layers compose linear maps and nonlinear activation functions to learn representations. Formula: h=\\sigma(Wx+b). Nodes and edges form a small feed-forward network.",
+    "ocr_blocks": [
+      {
+        "text": "Neural Network",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/01_neural_network.png",
+        "timestamp": 5.0
+      },
+      {
+        "text": "h=\\sigma(Wx+b)",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/01_neural_network.png",
+        "timestamp": 5.0
+      }
+    ],
+    "formula_latex": "h=\\sigma(Wx+b)",
+    "formula_blocks": [
+      {
+        "latex": "h=\\sigma(Wx+b)",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/01_neural_network.png",
+        "confidence": 0.94,
+        "timestamp": 5.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "Nodes and edges form a small feed-forward network.",
+    "concept_tags": [
+      "neural network",
+      "representation",
+      "activation function"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/01_neural_network.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_03/01_neural_network.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Neural Network"
+    },
+    "lecture_title": "Neural Networks",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_03.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_03_002",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_03",
+    "start_time": 40.0,
+    "end_time": 75.0,
+    "transcript": "In this segment we study activation function. Nonlinear activations let networks model relationships beyond linear functions.",
+    "asr_segments": [
+      {
+        "start_time": 40.0,
+        "end_time": 75.0,
+        "text": "In this segment we study activation function. Nonlinear activations let networks model relationships beyond linear functions.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Neural Networks. Activation Function. Nonlinear activations let networks model relationships beyond linear functions. Formula: \\mathrm{ReLU}(z)=\\max(0,z). A ReLU graph is flat for negative inputs and linear for positive inputs.",
+    "ocr_blocks": [
+      {
+        "text": "Activation Function",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/02_activation_function.png",
+        "timestamp": 45.0
+      },
+      {
+        "text": "\\mathrm{ReLU}(z)=\\max(0,z)",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/02_activation_function.png",
+        "timestamp": 45.0
+      }
+    ],
+    "formula_latex": "\\mathrm{ReLU}(z)=\\max(0,z)",
+    "formula_blocks": [
+      {
+        "latex": "\\mathrm{ReLU}(z)=\\max(0,z)",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/02_activation_function.png",
+        "confidence": 0.94,
+        "timestamp": 45.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "A ReLU graph is flat for negative inputs and linear for positive inputs.",
+    "concept_tags": [
+      "activation function",
+      "relu",
+      "nonlinearity"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/02_activation_function.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_03/02_activation_function.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Activation Function"
+    },
+    "lecture_title": "Neural Networks",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_03.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_03_003",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_03",
+    "start_time": 80.0,
+    "end_time": 115.0,
+    "transcript": "In this segment we study chain rule. Backpropagation repeatedly applies the chain rule to compute gradients layer by layer.",
+    "asr_segments": [
+      {
+        "start_time": 80.0,
+        "end_time": 115.0,
+        "text": "In this segment we study chain rule. Backpropagation repeatedly applies the chain rule to compute gradients layer by layer.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Neural Networks. Chain Rule. Backpropagation repeatedly applies the chain rule to compute gradients layer by layer. Formula: \\frac{\\partial L}{\\partial x}=\\frac{\\partial L}{\\partial h}\\frac{\\partial h}{\\partial x}. A computational graph highlights local derivatives.",
+    "ocr_blocks": [
+      {
+        "text": "Chain Rule",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/03_chain_rule.png",
+        "timestamp": 85.0
+      },
+      {
+        "text": "\\frac{\\partial L}{\\partial x}=\\frac{\\partial L}{\\partial h}\\frac{\\partial h}{\\partial x}",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/03_chain_rule.png",
+        "timestamp": 85.0
+      }
+    ],
+    "formula_latex": "\\frac{\\partial L}{\\partial x}=\\frac{\\partial L}{\\partial h}\\frac{\\partial h}{\\partial x}",
+    "formula_blocks": [
+      {
+        "latex": "\\frac{\\partial L}{\\partial x}=\\frac{\\partial L}{\\partial h}\\frac{\\partial h}{\\partial x}",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/03_chain_rule.png",
+        "confidence": 0.94,
+        "timestamp": 85.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "A computational graph highlights local derivatives.",
+    "concept_tags": [
+      "chain rule",
+      "gradient",
+      "calculus"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/03_chain_rule.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_03/03_chain_rule.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Chain Rule"
+    },
+    "lecture_title": "Neural Networks",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_03.mp4"
+  },
+  {
+    "moment_id": "ml_foundations_lec_03_004",
+    "course_id": "ml_foundations",
+    "lecture_id": "lec_03",
+    "start_time": 120.0,
+    "end_time": 155.0,
+    "transcript": "In this segment we study backpropagation. Backward passes propagate error signals so each weight receives a learning signal.",
+    "asr_segments": [
+      {
+        "start_time": 120.0,
+        "end_time": 155.0,
+        "text": "In this segment we study backpropagation. Backward passes propagate error signals so each weight receives a learning signal.",
+        "confidence": 0.98,
+        "provider": "demo_asr"
+      }
+    ],
+    "ocr_text": "Neural Networks. Backpropagation. Backward passes propagate error signals so each weight receives a learning signal. Formula: \\frac{\\partial L}{\\partial W_l}=\\delta_l h_{l-1}^\\top. Arrows move backward from loss to earlier layers.",
+    "ocr_blocks": [
+      {
+        "text": "Backpropagation",
+        "bbox": [
+          100.0,
+          160.0,
+          900.0,
+          215.0
+        ],
+        "confidence": 0.99,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/04_backpropagation.png",
+        "timestamp": 125.0
+      },
+      {
+        "text": "\\frac{\\partial L}{\\partial W_l}=\\delta_l h_{l-1}^\\top",
+        "bbox": [
+          128.0,
+          390.0,
+          1180.0,
+          450.0
+        ],
+        "confidence": 0.95,
+        "provider": "demo_ocr",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/04_backpropagation.png",
+        "timestamp": 125.0
+      }
+    ],
+    "formula_latex": "\\frac{\\partial L}{\\partial W_l}=\\delta_l h_{l-1}^\\top",
+    "formula_blocks": [
+      {
+        "latex": "\\frac{\\partial L}{\\partial W_l}=\\delta_l h_{l-1}^\\top",
+        "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/04_backpropagation.png",
+        "confidence": 0.94,
+        "timestamp": 125.0,
+        "provider": "demo_math_ocr"
+      }
+    ],
+    "visual_caption": "Arrows move backward from loss to earlier layers.",
+    "concept_tags": [
+      "backpropagation",
+      "neural network",
+      "gradient descent"
+    ],
+    "keyframes": [
+      "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_03/04_backpropagation.png"
+    ],
+    "thumbnail_url": "/static/frames/ml_foundations/lec_03/04_backpropagation.png",
+    "video_embedding": null,
+    "embedding_provider": null,
+    "metadata": {
+      "demo": true,
+      "topic": "Backpropagation"
+    },
+    "lecture_title": "Neural Networks",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/clips/ml_foundations_lec_03.mp4"
+  }
+]

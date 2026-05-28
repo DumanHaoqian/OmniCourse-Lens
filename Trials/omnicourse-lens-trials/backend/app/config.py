@@ -13,15 +13,15 @@ REPO_ROOT = PROJECT_ROOT.parents[1]
 class Settings:
     project_root: Path = PROJECT_ROOT
     repo_root: Path = REPO_ROOT
-    data_dir: Path = PROJECT_ROOT / "app" / "data"
-    static_dir: Path = PROJECT_ROOT / "app" / "static"
-    courses_dir: Path = PROJECT_ROOT / "app" / "data" / "courses"
-    indexes_dir: Path = PROJECT_ROOT / "app" / "data" / "indexes"
-    uploads_dir: Path = PROJECT_ROOT / "app" / "data" / "uploads"
-    generated_dir: Path = PROJECT_ROOT / "app" / "data" / "generated"
-    audio_dir: Path = PROJECT_ROOT / "app" / "data" / "audio"
-    frames_dir: Path = PROJECT_ROOT / "app" / "static" / "frames"
-    clips_dir: Path = PROJECT_ROOT / "app" / "static" / "clips"
+    data_dir: Path = PROJECT_ROOT / "backend" / "app" / "data"
+    static_dir: Path = PROJECT_ROOT / "backend" / "app" / "static"
+    courses_dir: Path = PROJECT_ROOT / "backend" / "app" / "data" / "courses"
+    indexes_dir: Path = PROJECT_ROOT / "backend" / "app" / "data" / "indexes"
+    uploads_dir: Path = PROJECT_ROOT / "backend" / "app" / "data" / "uploads"
+    generated_dir: Path = PROJECT_ROOT / "backend" / "app" / "data" / "generated"
+    audio_dir: Path = PROJECT_ROOT / "backend" / "app" / "data" / "audio"
+    frames_dir: Path = PROJECT_ROOT / "backend" / "app" / "static" / "frames"
+    clips_dir: Path = PROJECT_ROOT / "backend" / "app" / "static" / "clips"
     credential_file: Path = REPO_ROOT / "openai_keys.txt"
     legacy_internvideo3_path: Path = REPO_ROOT / "Trials" / "checkpoints" / "InternVideo3-8B-Instruct"
 

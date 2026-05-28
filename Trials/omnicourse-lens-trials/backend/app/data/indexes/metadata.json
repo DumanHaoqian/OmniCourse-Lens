@@ -1,0 +1,12 @@
+{
+  "courses": [
+    "ml_foundations"
+  ],
+  "moment_count": 12,
+  "image_descriptor_count": 12,
+  "providers": {
+    "text_index": "json_tfidf",
+    "image_descriptor": "pil_color_histogram",
+    "video_embedding": "optional_internvideo3_or_disabled"
+  }
+}

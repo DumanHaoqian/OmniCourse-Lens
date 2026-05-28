@@ -1,0 +1,2130 @@
+{
+  "idf": {
+    "activation": 2.466337068793427,
+    "activations": 2.8718021769015913,
+    "add": 2.8718021769015913,
+    "alpha": 2.466337068793427,
+    "and": 1.6190392084062235,
+    "applies": 2.8718021769015913,
+    "approx": 2.8718021769015913,
+    "are": 2.8718021769015913,
+    "arrows": 1.9555114450274362,
+    "averages": 2.8718021769015913,
+    "backpropagation": 2.466337068793427,
+    "backward": 2.8718021769015913,
+    "batch": 2.8718021769015913,
+    "batches": 2.8718021769015913,
+    "behavior": 2.8718021769015913,
+    "beyond": 2.8718021769015913,
+    "bias": 2.8718021769015913,
+    "bowl": 2.8718021769015913,
+    "calculus": 2.8718021769015913,
+    "can": 2.8718021769015913,
+    "chain": 2.8718021769015913,
+    "cheaply": 2.8718021769015913,
+    "closed": 2.8718021769015913,
+    "compare": 2.8718021769015913,
+    "compose": 2.8718021769015913,
+    "computational": 2.8718021769015913,
+    "compute": 2.8718021769015913,
+    "continuous": 2.8718021769015913,
+    "controls": 2.8718021769015913,
+    "convergence": 2.8718021769015913,
+    "converges": 2.8718021769015913,
+    "convex": 2.8718021769015913,
+    "convexity": 2.8718021769015913,
+    "curve": 2.8718021769015913,
+    "curves": 2.8718021769015913,
+    "data": 2.8718021769015913,
+    "delta": 2.8718021769015913,
+    "derivatives": 2.8718021769015913,
+    "descent": 1.7731898882334818,
+    "different": 2.8718021769015913,
+    "diverge": 2.8718021769015913,
+    "downhill": 2.8718021769015913,
+    "during": 2.8718021769015913,
+    "each": 2.8718021769015913,
+    "earlier": 2.8718021769015913,
+    "edges": 2.8718021769015913,
+    "equation": 2.8718021769015913,
+    "error": 2.1786549963416464,
+    "errors": 2.8718021769015913,
+    "estimate": 2.8718021769015913,
+    "examples": 2.8718021769015913,
+    "features": 2.8718021769015913,
+    "feed": 2.8718021769015913,
+    "fit": 2.466337068793427,
+    "fitted": 2.8718021769015913,
+    "flat": 2.8718021769015913,
+    "flexible": 2.8718021769015913,
+    "for": 2.1786549963416464,
+    "form": 2.466337068793427,
+    "formula": 1.0,
+    "forward": 2.8718021769015913,
+    "frac": 2.1786549963416464,
+    "from": 2.1786549963416464,
+    "full": 2.8718021769015913,
+    "function": 1.7731898882334818,
+    "functions": 2.466337068793427,
+    "global": 2.8718021769015913,
+    "good": 2.8718021769015913,
+    "gradient": 1.6190392084062235,
+    "gradients": 2.8718021769015913,
+    "graph": 2.466337068793427,
+    "hat": 2.466337068793427,
+    "highlights": 2.8718021769015913,
+    "hyperplane": 2.8718021769015913,
+    "inputs": 2.8718021769015913,
+    "lambda": 2.8718021769015913,
+    "large": 2.8718021769015913,
+    "layer": 2.8718021769015913,
+    "layers": 2.466337068793427,
+    "learn": 2.8718021769015913,
+    "learning": 2.466337068793427,
+    "least": 2.8718021769015913,
+    "leq": 2.8718021769015913,
+    "let": 2.8718021769015913,
+    "line": 2.466337068793427,
+    "linear": 1.6190392084062235,
+    "links": 2.8718021769015913,
+    "local": 2.466337068793427,
+    "loss": 1.9555114450274362,
+    "maps": 2.8718021769015913,
+    "marks": 2.8718021769015913,
+    "mathrm": 2.466337068793427,
+    "matrix": 2.8718021769015913,
+    "max": 2.8718021769015913,
+    "may": 2.8718021769015913,
+    "mean": 2.8718021769015913,
+    "mini": 2.8718021769015913,
+    "minima": 2.8718021769015913,
+    "minimum": 2.466337068793427,
+    "model": 2.8718021769015913,
+    "models": 2.8718021769015913,
+    "move": 2.1786549963416464,
+    "nabla": 2.466337068793427,
+    "negative": 2.8718021769015913,
+    "network": 2.466337068793427,
+    "networks": 1.9555114450274362,
+    "neural": 1.9555114450274362,
+    "nodes": 2.8718021769015913,
+    "noise": 2.8718021769015913,
+    "noisy": 2.8718021769015913,
+    "nonlinear": 2.466337068793427,
+    "nonlinearity": 2.8718021769015913,
+    "normal": 2.8718021769015913,
+    "objective": 2.466337068793427,
+    "objectives": 2.8718021769015913,
+    "opposite": 2.8718021769015913,
+    "optimization": 2.1786549963416464,
+    "optimum": 2.466337068793427,
+    "over": 2.8718021769015913,
+    "overfit": 2.8718021769015913,
+    "overfitting": 2.8718021769015913,
+    "overly": 2.8718021769015913,
+    "parameters": 2.8718021769015913,
+    "partial": 2.466337068793427,
+    "passes": 2.8718021769015913,
+    "plot": 2.8718021769015913,
+    "point": 2.8718021769015913,
+    "points": 2.8718021769015913,
+    "positive": 2.8718021769015913,
+    "prediction": 2.466337068793427,
+    "predicts": 2.8718021769015913,
+    "propagate": 2.8718021769015913,
+    "rank": 2.8718021769015913,
+    "rate": 2.8718021769015913,
+    "receives": 2.8718021769015913,
+    "reduce": 2.8718021769015913,
+    "regression": 1.9555114450274362,
+    "relationships": 2.8718021769015913,
+    "relu": 2.8718021769015913,
+    "repeatedly": 2.8718021769015913,
+    "representation": 2.8718021769015913,
+    "representations": 2.8718021769015913,
+    "residual": 2.8718021769015913,
+    "rule": 2.8718021769015913,
+    "scatter": 2.8718021769015913,
+    "segment": 1.0,
+    "shaped": 2.8718021769015913,
+    "show": 2.8718021769015913,
+    "sigma": 2.466337068793427,
+    "signal": 2.8718021769015913,
+    "signals": 2.8718021769015913,
+    "simple": 2.8718021769015913,
+    "size": 2.8718021769015913,
+    "sizes": 2.8718021769015913,
+    "slowly": 2.8718021769015913,
+    "small": 2.466337068793427,
+    "solves": 2.8718021769015913,
+    "squared": 2.8718021769015913,
+    "squares": 2.8718021769015913,
+    "step": 2.8718021769015913,
+    "stochastic": 2.8718021769015913,
+    "study": 1.0,
+    "sum": 2.8718021769015913,
+    "surface": 2.8718021769015913,
+    "target": 2.8718021769015913,
+    "that": 2.8718021769015913,
+    "the": 1.4855078157817008,
+    "theta": 1.7731898882334818,
+    "this": 1.0,
+    "three": 2.8718021769015913,
+    "too": 2.8718021769015913,
+    "top": 2.1786549963416464,
+    "toward": 2.8718021769015913,
+    "training": 2.466337068793427,
+    "underfit": 2.8718021769015913,
+    "useful": 2.8718021769015913,
+    "variance": 2.8718021769015913,
+    "walks": 2.8718021769015913,
+    "weight": 2.8718021769015913,
+    "while": 2.8718021769015913,
+    "with": 2.8718021769015913
+  },
+  "docs": [
+    {
+      "linear": 4.224782,
+      "regression": 5.102786,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "fit": 4.175872,
+      "line": 5.885406,
+      "hyperplane": 4.862384,
+      "that": 4.862384,
+      "predicts": 4.862384,
+      "continuous": 4.862384,
+      "target": 4.862384,
+      "from": 3.688784,
+      "features": 6.026799,
+      "formula": 1.0,
+      "hat": 4.175872,
+      "top": 3.688784,
+      "theta": 3.002271,
+      "scatter": 4.862384,
+      "plot": 4.862384,
+      "with": 4.862384,
+      "fitted": 4.862384,
+      "prediction": 5.175885
+    },
+    {
+      "linear": 2.741272,
+      "regression": 4.666426,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "mean": 6.026799,
+      "squared": 7.493789,
+      "error": 4.572152,
+      "the": 3.544859,
+      "loss": 4.10386,
+      "function": 3.721238,
+      "averages": 4.862384,
+      "prediction": 4.175872,
+      "errors": 4.862384,
+      "over": 4.862384,
+      "examples": 4.862384,
+      "formula": 1.0,
+      "theta": 3.002271,
+      "frac": 3.688784,
+      "sum": 4.862384,
+      "hat": 4.175872,
+      "residual": 6.026799,
+      "arrows": 3.310969,
+      "from": 3.688784,
+      "points": 4.862384,
+      "line": 4.175872
+    },
+    {
+      "linear": 3.863504,
+      "regression": 4.666426,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "normal": 6.026799,
+      "equation": 7.493789,
+      "for": 3.688784,
+      "full": 4.862384,
+      "rank": 4.862384,
+      "the": 3.544859,
+      "closed": 6.026799,
+      "form": 5.175885,
+      "optimum": 4.175872,
+      "solves": 4.862384,
+      "least": 6.026799,
+      "squares": 6.026799,
+      "objective": 4.175872,
+      "formula": 1.0,
+      "theta": 4.231353,
+      "top": 5.198912,
+      "matrix": 4.862384,
+      "links": 4.862384,
+      "and": 2.741272
+    },
+    {
+      "linear": 2.741272,
+      "regression": 3.310969,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "bias": 7.493789,
+      "and": 3.863504,
+      "variance": 7.493789,
+      "simple": 4.862384,
+      "models": 6.852965,
+      "may": 6.852965,
+      "underfit": 6.852965,
+      "while": 4.862384,
+      "overly": 4.862384,
+      "flexible": 4.862384,
+      "overfit": 6.852965,
+      "training": 4.175872,
+      "data": 4.862384,
+      "formula": 1.0,
+      "mathrm": 4.175872,
+      "error": 3.688784,
+      "sigma": 4.175872,
+      "three": 4.862384,
+      "curves": 4.862384,
+      "compare": 4.862384,
+      "good": 4.862384,
+      "fit": 4.175872,
+      "behavior": 4.862384,
+      "overfitting": 2.871802
+    },
+    {
+      "gradient": 4.769544,
+      "descent": 4.627029,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "move": 3.688784,
+      "parameters": 4.862384,
+      "opposite": 4.862384,
+      "the": 3.544859,
+      "reduce": 4.862384,
+      "objective": 4.175872,
+      "formula": 1.0,
+      "theta": 5.460435,
+      "alpha": 4.175872,
+      "nabla": 4.175872,
+      "point": 4.862384,
+      "walks": 4.862384,
+      "downhill": 4.862384,
+      "loss": 4.10386,
+      "surface": 4.862384,
+      "optimization": 2.178655,
+      "function": 1.77319
+    },
+    {
+      "gradient": 2.741272,
+      "descent": 3.002271,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "learning": 6.435753,
+      "rate": 7.493789,
+      "the": 2.515183,
+      "controls": 4.862384,
+      "step": 7.493789,
+      "size": 6.026799,
+      "too": 6.852965,
+      "large": 6.852965,
+      "can": 4.862384,
+      "diverge": 4.862384,
+      "and": 3.863504,
+      "small": 5.885406,
+      "converges": 4.862384,
+      "slowly": 4.862384,
+      "formula": 1.0,
+      "alpha": 4.175872,
+      "arrows": 3.310969,
+      "show": 4.862384,
+      "different": 4.862384,
+      "optimization": 3.688784,
+      "sizes": 4.862384,
+      "convergence": 2.871802
+    },
+    {
+      "gradient": 2.741272,
+      "descent": 3.002271,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "convex": 6.852965,
+      "loss": 4.10386,
+      "for": 3.688784,
+      "objectives": 4.862384,
+      "local": 4.175872,
+      "minima": 6.852965,
+      "are": 4.862384,
+      "global": 7.493789,
+      "formula": 1.0,
+      "lambda": 8.843547,
+      "leq": 4.862384,
+      "bowl": 4.862384,
+      "shaped": 4.862384,
+      "curve": 4.862384,
+      "marks": 4.862384,
+      "the": 2.515183,
+      "minimum": 4.175872,
+      "convexity": 2.871802,
+      "optimum": 2.466337,
+      "function": 1.77319
+    },
+    {
+      "gradient": 4.769544,
+      "descent": 3.002271,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "stochastic": 6.026799,
+      "mini": 6.026799,
+      "batches": 4.862384,
+      "estimate": 4.862384,
+      "the": 2.515183,
+      "cheaply": 4.862384,
+      "and": 2.741272,
+      "add": 4.862384,
+      "useful": 4.862384,
+      "noise": 4.862384,
+      "during": 4.862384,
+      "training": 4.175872,
+      "formula": 1.0,
+      "approx": 4.862384,
+      "nabla": 4.175872,
+      "theta": 4.231353,
+      "noisy": 4.862384,
+      "arrows": 3.310969,
+      "move": 3.688784,
+      "toward": 4.862384,
+      "minimum": 4.175872,
+      "batch": 2.871802,
+      "optimization": 2.178655
+    },
+    {
+      "neural": 5.102786,
+      "networks": 3.310969,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "network": 6.435753,
+      "layers": 4.175872,
+      "compose": 4.862384,
+      "linear": 2.741272,
+      "maps": 4.862384,
+      "and": 3.863504,
+      "nonlinear": 4.175872,
+      "activation": 5.175885,
+      "functions": 4.175872,
+      "learn": 4.862384,
+      "representations": 4.862384,
+      "formula": 1.0,
+      "sigma": 4.175872,
+      "nodes": 4.862384,
+      "edges": 4.862384,
+      "form": 4.175872,
+      "small": 4.175872,
+      "feed": 4.862384,
+      "forward": 4.862384,
+      "representation": 2.871802,
+      "function": 1.77319
+    },
+    {
+      "neural": 3.310969,
+      "networks": 4.666426,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "activation": 5.175885,
+      "function": 3.721238,
+      "nonlinear": 4.175872,
+      "activations": 4.862384,
+      "let": 4.862384,
+      "model": 4.862384,
+      "relationships": 4.862384,
+      "beyond": 4.862384,
+      "linear": 3.863504,
+      "functions": 4.175872,
+      "formula": 1.0,
+      "mathrm": 4.175872,
+      "relu": 7.493789,
+      "max": 4.862384,
+      "graph": 4.175872,
+      "flat": 4.862384,
+      "for": 5.198912,
+      "negative": 4.862384,
+      "inputs": 6.852965,
+      "and": 2.741272,
+      "positive": 4.862384,
+      "nonlinearity": 2.871802
+    },
+    {
+      "neural": 3.310969,
+      "networks": 3.310969,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "chain": 7.493789,
+      "rule": 7.493789,
+      "backpropagation": 4.175872,
+      "repeatedly": 4.862384,
+      "applies": 4.862384,
+      "the": 2.515183,
+      "compute": 4.862384,
+      "gradients": 4.862384,
+      "layer": 6.852965,
+      "formula": 1.0,
+      "frac": 6.082281,
+      "partial": 8.594954,
+      "computational": 4.862384,
+      "graph": 4.175872,
+      "highlights": 4.862384,
+      "local": 4.175872,
+      "derivatives": 4.862384,
+      "gradient": 1.619039,
+      "calculus": 2.871802
+    },
+    {
+      "neural": 4.10386,
+      "networks": 3.310969,
+      "this": 1.0,
+      "segment": 1.0,
+      "study": 1.0,
+      "backpropagation": 5.175885,
+      "backward": 6.852965,
+      "passes": 4.862384,
+      "propagate": 4.862384,
+      "error": 3.688784,
+      "signals": 4.862384,
+      "each": 4.862384,
+      "weight": 4.862384,
+      "receives": 4.862384,
+      "learning": 4.175872,
+      "signal": 4.862384,
+      "formula": 1.0,
+      "frac": 3.688784,
+      "partial": 5.885406,
+      "delta": 4.862384,
+      "top": 3.688784,
+      "arrows": 3.310969,
+      "move": 3.688784,
+      "from": 3.688784,
+      "loss": 3.310969,
+      "earlier": 4.862384,
+      "layers": 4.175872,
+      "network": 2.466337,
+      "gradient": 1.619039,
+      "descent": 1.77319
+    }
+  ],
+  "inverted": {
+    "linear": [
+      {
+        "moment_index": 0,
+        "weight": 4.224782
+      },
+      {
+        "moment_index": 1,
+        "weight": 2.741272
+      },
+      {
+        "moment_index": 2,
+        "weight": 3.863504
+      },
+      {
+        "moment_index": 3,
+        "weight": 2.741272
+      },
+      {
+        "moment_index": 8,
+        "weight": 2.741272
+      },
+      {
+        "moment_index": 9,
+        "weight": 3.863504
+      }
+    ],
+    "regression": [
+      {
+        "moment_index": 0,
+        "weight": 5.102786
+      },
+      {
+        "moment_index": 1,
+        "weight": 4.666426
+      },
+      {
+        "moment_index": 2,
+        "weight": 4.666426
+      },
+      {
+        "moment_index": 3,
+        "weight": 3.310969
+      }
+    ],
+    "this": [
+      {
+        "moment_index": 0,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 1,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 2,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 3,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 4,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 5,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 6,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 7,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 8,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 9,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 10,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 11,
+        "weight": 1.0
+      }
+    ],
+    "segment": [
+      {
+        "moment_index": 0,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 1,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 2,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 3,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 4,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 5,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 6,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 7,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 8,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 9,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 10,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 11,
+        "weight": 1.0
+      }
+    ],
+    "study": [
+      {
+        "moment_index": 0,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 1,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 2,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 3,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 4,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 5,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 6,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 7,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 8,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 9,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 10,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 11,
+        "weight": 1.0
+      }
+    ],
+    "fit": [
+      {
+        "moment_index": 0,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 3,
+        "weight": 4.175872
+      }
+    ],
+    "line": [
+      {
+        "moment_index": 0,
+        "weight": 5.885406
+      },
+      {
+        "moment_index": 1,
+        "weight": 4.175872
+      }
+    ],
+    "hyperplane": [
+      {
+        "moment_index": 0,
+        "weight": 4.862384
+      }
+    ],
+    "that": [
+      {
+        "moment_index": 0,
+        "weight": 4.862384
+      }
+    ],
+    "predicts": [
+      {
+        "moment_index": 0,
+        "weight": 4.862384
+      }
+    ],
+    "continuous": [
+      {
+        "moment_index": 0,
+        "weight": 4.862384
+      }
+    ],
+    "target": [
+      {
+        "moment_index": 0,
+        "weight": 4.862384
+      }
+    ],
+    "from": [
+      {
+        "moment_index": 0,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 1,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 11,
+        "weight": 3.688784
+      }
+    ],
+    "features": [
+      {
+        "moment_index": 0,
+        "weight": 6.026799
+      }
+    ],
+    "formula": [
+      {
+        "moment_index": 0,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 1,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 2,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 3,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 4,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 5,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 6,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 7,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 8,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 9,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 10,
+        "weight": 1.0
+      },
+      {
+        "moment_index": 11,
+        "weight": 1.0
+      }
+    ],
+    "hat": [
+      {
+        "moment_index": 0,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 1,
+        "weight": 4.175872
+      }
+    ],
+    "top": [
+      {
+        "moment_index": 0,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 2,
+        "weight": 5.198912
+      },
+      {
+        "moment_index": 11,
+        "weight": 3.688784
+      }
+    ],
+    "theta": [
+      {
+        "moment_index": 0,
+        "weight": 3.002271
+      },
+      {
+        "moment_index": 1,
+        "weight": 3.002271
+      },
+      {
+        "moment_index": 2,
+        "weight": 4.231353
+      },
+      {
+        "moment_index": 4,
+        "weight": 5.460435
+      },
+      {
+        "moment_index": 7,
+        "weight": 4.231353
+      }
+    ],
+    "scatter": [
+      {
+        "moment_index": 0,
+        "weight": 4.862384
+      }
+    ],
+    "plot": [
+      {
+        "moment_index": 0,
+        "weight": 4.862384
+      }
+    ],
+    "with": [
+      {
+        "moment_index": 0,
+        "weight": 4.862384
+      }
+    ],
+    "fitted": [
+      {
+        "moment_index": 0,
+        "weight": 4.862384
+      }
+    ],
+    "prediction": [
+      {
+        "moment_index": 0,
+        "weight": 5.175885
+      },
+      {
+        "moment_index": 1,
+        "weight": 4.175872
+      }
+    ],
+    "mean": [
+      {
+        "moment_index": 1,
+        "weight": 6.026799
+      }
+    ],
+    "squared": [
+      {
+        "moment_index": 1,
+        "weight": 7.493789
+      }
+    ],
+    "error": [
+      {
+        "moment_index": 1,
+        "weight": 4.572152
+      },
+      {
+        "moment_index": 3,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 11,
+        "weight": 3.688784
+      }
+    ],
+    "the": [
+      {
+        "moment_index": 1,
+        "weight": 3.544859
+      },
+      {
+        "moment_index": 2,
+        "weight": 3.544859
+      },
+      {
+        "moment_index": 4,
+        "weight": 3.544859
+      },
+      {
+        "moment_index": 5,
+        "weight": 2.515183
+      },
+      {
+        "moment_index": 6,
+        "weight": 2.515183
+      },
+      {
+        "moment_index": 7,
+        "weight": 2.515183
+      },
+      {
+        "moment_index": 10,
+        "weight": 2.515183
+      }
+    ],
+    "loss": [
+      {
+        "moment_index": 1,
+        "weight": 4.10386
+      },
+      {
+        "moment_index": 4,
+        "weight": 4.10386
+      },
+      {
+        "moment_index": 6,
+        "weight": 4.10386
+      },
+      {
+        "moment_index": 11,
+        "weight": 3.310969
+      }
+    ],
+    "function": [
+      {
+        "moment_index": 1,
+        "weight": 3.721238
+      },
+      {
+        "moment_index": 4,
+        "weight": 1.77319
+      },
+      {
+        "moment_index": 6,
+        "weight": 1.77319
+      },
+      {
+        "moment_index": 8,
+        "weight": 1.77319
+      },
+      {
+        "moment_index": 9,
+        "weight": 3.721238
+      }
+    ],
+    "averages": [
+      {
+        "moment_index": 1,
+        "weight": 4.862384
+      }
+    ],
+    "errors": [
+      {
+        "moment_index": 1,
+        "weight": 4.862384
+      }
+    ],
+    "over": [
+      {
+        "moment_index": 1,
+        "weight": 4.862384
+      }
+    ],
+    "examples": [
+      {
+        "moment_index": 1,
+        "weight": 4.862384
+      }
+    ],
+    "frac": [
+      {
+        "moment_index": 1,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 10,
+        "weight": 6.082281
+      },
+      {
+        "moment_index": 11,
+        "weight": 3.688784
+      }
+    ],
+    "sum": [
+      {
+        "moment_index": 1,
+        "weight": 4.862384
+      }
+    ],
+    "residual": [
+      {
+        "moment_index": 1,
+        "weight": 6.026799
+      }
+    ],
+    "arrows": [
+      {
+        "moment_index": 1,
+        "weight": 3.310969
+      },
+      {
+        "moment_index": 5,
+        "weight": 3.310969
+      },
+      {
+        "moment_index": 7,
+        "weight": 3.310969
+      },
+      {
+        "moment_index": 11,
+        "weight": 3.310969
+      }
+    ],
+    "points": [
+      {
+        "moment_index": 1,
+        "weight": 4.862384
+      }
+    ],
+    "normal": [
+      {
+        "moment_index": 2,
+        "weight": 6.026799
+      }
+    ],
+    "equation": [
+      {
+        "moment_index": 2,
+        "weight": 7.493789
+      }
+    ],
+    "for": [
+      {
+        "moment_index": 2,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 6,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 9,
+        "weight": 5.198912
+      }
+    ],
+    "full": [
+      {
+        "moment_index": 2,
+        "weight": 4.862384
+      }
+    ],
+    "rank": [
+      {
+        "moment_index": 2,
+        "weight": 4.862384
+      }
+    ],
+    "closed": [
+      {
+        "moment_index": 2,
+        "weight": 6.026799
+      }
+    ],
+    "form": [
+      {
+        "moment_index": 2,
+        "weight": 5.175885
+      },
+      {
+        "moment_index": 8,
+        "weight": 4.175872
+      }
+    ],
+    "optimum": [
+      {
+        "moment_index": 2,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 6,
+        "weight": 2.466337
+      }
+    ],
+    "solves": [
+      {
+        "moment_index": 2,
+        "weight": 4.862384
+      }
+    ],
+    "least": [
+      {
+        "moment_index": 2,
+        "weight": 6.026799
+      }
+    ],
+    "squares": [
+      {
+        "moment_index": 2,
+        "weight": 6.026799
+      }
+    ],
+    "objective": [
+      {
+        "moment_index": 2,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 4,
+        "weight": 4.175872
+      }
+    ],
+    "matrix": [
+      {
+        "moment_index": 2,
+        "weight": 4.862384
+      }
+    ],
+    "links": [
+      {
+        "moment_index": 2,
+        "weight": 4.862384
+      }
+    ],
+    "and": [
+      {
+        "moment_index": 2,
+        "weight": 2.741272
+      },
+      {
+        "moment_index": 3,
+        "weight": 3.863504
+      },
+      {
+        "moment_index": 5,
+        "weight": 3.863504
+      },
+      {
+        "moment_index": 7,
+        "weight": 2.741272
+      },
+      {
+        "moment_index": 8,
+        "weight": 3.863504
+      },
+      {
+        "moment_index": 9,
+        "weight": 2.741272
+      }
+    ],
+    "bias": [
+      {
+        "moment_index": 3,
+        "weight": 7.493789
+      }
+    ],
+    "variance": [
+      {
+        "moment_index": 3,
+        "weight": 7.493789
+      }
+    ],
+    "simple": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "models": [
+      {
+        "moment_index": 3,
+        "weight": 6.852965
+      }
+    ],
+    "may": [
+      {
+        "moment_index": 3,
+        "weight": 6.852965
+      }
+    ],
+    "underfit": [
+      {
+        "moment_index": 3,
+        "weight": 6.852965
+      }
+    ],
+    "while": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "overly": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "flexible": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "overfit": [
+      {
+        "moment_index": 3,
+        "weight": 6.852965
+      }
+    ],
+    "training": [
+      {
+        "moment_index": 3,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 7,
+        "weight": 4.175872
+      }
+    ],
+    "data": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "mathrm": [
+      {
+        "moment_index": 3,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 9,
+        "weight": 4.175872
+      }
+    ],
+    "sigma": [
+      {
+        "moment_index": 3,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 8,
+        "weight": 4.175872
+      }
+    ],
+    "three": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "curves": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "compare": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "good": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "behavior": [
+      {
+        "moment_index": 3,
+        "weight": 4.862384
+      }
+    ],
+    "overfitting": [
+      {
+        "moment_index": 3,
+        "weight": 2.871802
+      }
+    ],
+    "gradient": [
+      {
+        "moment_index": 4,
+        "weight": 4.769544
+      },
+      {
+        "moment_index": 5,
+        "weight": 2.741272
+      },
+      {
+        "moment_index": 6,
+        "weight": 2.741272
+      },
+      {
+        "moment_index": 7,
+        "weight": 4.769544
+      },
+      {
+        "moment_index": 10,
+        "weight": 1.619039
+      },
+      {
+        "moment_index": 11,
+        "weight": 1.619039
+      }
+    ],
+    "descent": [
+      {
+        "moment_index": 4,
+        "weight": 4.627029
+      },
+      {
+        "moment_index": 5,
+        "weight": 3.002271
+      },
+      {
+        "moment_index": 6,
+        "weight": 3.002271
+      },
+      {
+        "moment_index": 7,
+        "weight": 3.002271
+      },
+      {
+        "moment_index": 11,
+        "weight": 1.77319
+      }
+    ],
+    "move": [
+      {
+        "moment_index": 4,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 7,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 11,
+        "weight": 3.688784
+      }
+    ],
+    "parameters": [
+      {
+        "moment_index": 4,
+        "weight": 4.862384
+      }
+    ],
+    "opposite": [
+      {
+        "moment_index": 4,
+        "weight": 4.862384
+      }
+    ],
+    "reduce": [
+      {
+        "moment_index": 4,
+        "weight": 4.862384
+      }
+    ],
+    "alpha": [
+      {
+        "moment_index": 4,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 5,
+        "weight": 4.175872
+      }
+    ],
+    "nabla": [
+      {
+        "moment_index": 4,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 7,
+        "weight": 4.175872
+      }
+    ],
+    "point": [
+      {
+        "moment_index": 4,
+        "weight": 4.862384
+      }
+    ],
+    "walks": [
+      {
+        "moment_index": 4,
+        "weight": 4.862384
+      }
+    ],
+    "downhill": [
+      {
+        "moment_index": 4,
+        "weight": 4.862384
+      }
+    ],
+    "surface": [
+      {
+        "moment_index": 4,
+        "weight": 4.862384
+      }
+    ],
+    "optimization": [
+      {
+        "moment_index": 4,
+        "weight": 2.178655
+      },
+      {
+        "moment_index": 5,
+        "weight": 3.688784
+      },
+      {
+        "moment_index": 7,
+        "weight": 2.178655
+      }
+    ],
+    "learning": [
+      {
+        "moment_index": 5,
+        "weight": 6.435753
+      },
+      {
+        "moment_index": 11,
+        "weight": 4.175872
+      }
+    ],
+    "rate": [
+      {
+        "moment_index": 5,
+        "weight": 7.493789
+      }
+    ],
+    "controls": [
+      {
+        "moment_index": 5,
+        "weight": 4.862384
+      }
+    ],
+    "step": [
+      {
+        "moment_index": 5,
+        "weight": 7.493789
+      }
+    ],
+    "size": [
+      {
+        "moment_index": 5,
+        "weight": 6.026799
+      }
+    ],
+    "too": [
+      {
+        "moment_index": 5,
+        "weight": 6.852965
+      }
+    ],
+    "large": [
+      {
+        "moment_index": 5,
+        "weight": 6.852965
+      }
+    ],
+    "can": [
+      {
+        "moment_index": 5,
+        "weight": 4.862384
+      }
+    ],
+    "diverge": [
+      {
+        "moment_index": 5,
+        "weight": 4.862384
+      }
+    ],
+    "small": [
+      {
+        "moment_index": 5,
+        "weight": 5.885406
+      },
+      {
+        "moment_index": 8,
+        "weight": 4.175872
+      }
+    ],
+    "converges": [
+      {
+        "moment_index": 5,
+        "weight": 4.862384
+      }
+    ],
+    "slowly": [
+      {
+        "moment_index": 5,
+        "weight": 4.862384
+      }
+    ],
+    "show": [
+      {
+        "moment_index": 5,
+        "weight": 4.862384
+      }
+    ],
+    "different": [
+      {
+        "moment_index": 5,
+        "weight": 4.862384
+      }
+    ],
+    "sizes": [
+      {
+        "moment_index": 5,
+        "weight": 4.862384
+      }
+    ],
+    "convergence": [
+      {
+        "moment_index": 5,
+        "weight": 2.871802
+      }
+    ],
+    "convex": [
+      {
+        "moment_index": 6,
+        "weight": 6.852965
+      }
+    ],
+    "objectives": [
+      {
+        "moment_index": 6,
+        "weight": 4.862384
+      }
+    ],
+    "local": [
+      {
+        "moment_index": 6,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 10,
+        "weight": 4.175872
+      }
+    ],
+    "minima": [
+      {
+        "moment_index": 6,
+        "weight": 6.852965
+      }
+    ],
+    "are": [
+      {
+        "moment_index": 6,
+        "weight": 4.862384
+      }
+    ],
+    "global": [
+      {
+        "moment_index": 6,
+        "weight": 7.493789
+      }
+    ],
+    "lambda": [
+      {
+        "moment_index": 6,
+        "weight": 8.843547
+      }
+    ],
+    "leq": [
+      {
+        "moment_index": 6,
+        "weight": 4.862384
+      }
+    ],
+    "bowl": [
+      {
+        "moment_index": 6,
+        "weight": 4.862384
+      }
+    ],
+    "shaped": [
+      {
+        "moment_index": 6,
+        "weight": 4.862384
+      }
+    ],
+    "curve": [
+      {
+        "moment_index": 6,
+        "weight": 4.862384
+      }
+    ],
+    "marks": [
+      {
+        "moment_index": 6,
+        "weight": 4.862384
+      }
+    ],
+    "minimum": [
+      {
+        "moment_index": 6,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 7,
+        "weight": 4.175872
+      }
+    ],
+    "convexity": [
+      {
+        "moment_index": 6,
+        "weight": 2.871802
+      }
+    ],
+    "stochastic": [
+      {
+        "moment_index": 7,
+        "weight": 6.026799
+      }
+    ],
+    "mini": [
+      {
+        "moment_index": 7,
+        "weight": 6.026799
+      }
+    ],
+    "batches": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "estimate": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "cheaply": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "add": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "useful": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "noise": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "during": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "approx": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "noisy": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "toward": [
+      {
+        "moment_index": 7,
+        "weight": 4.862384
+      }
+    ],
+    "batch": [
+      {
+        "moment_index": 7,
+        "weight": 2.871802
+      }
+    ],
+    "neural": [
+      {
+        "moment_index": 8,
+        "weight": 5.102786
+      },
+      {
+        "moment_index": 9,
+        "weight": 3.310969
+      },
+      {
+        "moment_index": 10,
+        "weight": 3.310969
+      },
+      {
+        "moment_index": 11,
+        "weight": 4.10386
+      }
+    ],
+    "networks": [
+      {
+        "moment_index": 8,
+        "weight": 3.310969
+      },
+      {
+        "moment_index": 9,
+        "weight": 4.666426
+      },
+      {
+        "moment_index": 10,
+        "weight": 3.310969
+      },
+      {
+        "moment_index": 11,
+        "weight": 3.310969
+      }
+    ],
+    "network": [
+      {
+        "moment_index": 8,
+        "weight": 6.435753
+      },
+      {
+        "moment_index": 11,
+        "weight": 2.466337
+      }
+    ],
+    "layers": [
+      {
+        "moment_index": 8,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 11,
+        "weight": 4.175872
+      }
+    ],
+    "compose": [
+      {
+        "moment_index": 8,
+        "weight": 4.862384
+      }
+    ],
+    "maps": [
+      {
+        "moment_index": 8,
+        "weight": 4.862384
+      }
+    ],
+    "nonlinear": [
+      {
+        "moment_index": 8,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 9,
+        "weight": 4.175872
+      }
+    ],
+    "activation": [
+      {
+        "moment_index": 8,
+        "weight": 5.175885
+      },
+      {
+        "moment_index": 9,
+        "weight": 5.175885
+      }
+    ],
+    "functions": [
+      {
+        "moment_index": 8,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 9,
+        "weight": 4.175872
+      }
+    ],
+    "learn": [
+      {
+        "moment_index": 8,
+        "weight": 4.862384
+      }
+    ],
+    "representations": [
+      {
+        "moment_index": 8,
+        "weight": 4.862384
+      }
+    ],
+    "nodes": [
+      {
+        "moment_index": 8,
+        "weight": 4.862384
+      }
+    ],
+    "edges": [
+      {
+        "moment_index": 8,
+        "weight": 4.862384
+      }
+    ],
+    "feed": [
+      {
+        "moment_index": 8,
+        "weight": 4.862384
+      }
+    ],
+    "forward": [
+      {
+        "moment_index": 8,
+        "weight": 4.862384
+      }
+    ],
+    "representation": [
+      {
+        "moment_index": 8,
+        "weight": 2.871802
+      }
+    ],
+    "activations": [
+      {
+        "moment_index": 9,
+        "weight": 4.862384
+      }
+    ],
+    "let": [
+      {
+        "moment_index": 9,
+        "weight": 4.862384
+      }
+    ],
+    "model": [
+      {
+        "moment_index": 9,
+        "weight": 4.862384
+      }
+    ],
+    "relationships": [
+      {
+        "moment_index": 9,
+        "weight": 4.862384
+      }
+    ],
+    "beyond": [
+      {
+        "moment_index": 9,
+        "weight": 4.862384
+      }
+    ],
+    "relu": [
+      {
+        "moment_index": 9,
+        "weight": 7.493789
+      }
+    ],
+    "max": [
+      {
+        "moment_index": 9,
+        "weight": 4.862384
+      }
+    ],
+    "graph": [
+      {
+        "moment_index": 9,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 10,
+        "weight": 4.175872
+      }
+    ],
+    "flat": [
+      {
+        "moment_index": 9,
+        "weight": 4.862384
+      }
+    ],
+    "negative": [
+      {
+        "moment_index": 9,
+        "weight": 4.862384
+      }
+    ],
+    "inputs": [
+      {
+        "moment_index": 9,
+        "weight": 6.852965
+      }
+    ],
+    "positive": [
+      {
+        "moment_index": 9,
+        "weight": 4.862384
+      }
+    ],
+    "nonlinearity": [
+      {
+        "moment_index": 9,
+        "weight": 2.871802
+      }
+    ],
+    "chain": [
+      {
+        "moment_index": 10,
+        "weight": 7.493789
+      }
+    ],
+    "rule": [
+      {
+        "moment_index": 10,
+        "weight": 7.493789
+      }
+    ],
+    "backpropagation": [
+      {
+        "moment_index": 10,
+        "weight": 4.175872
+      },
+      {
+        "moment_index": 11,
+        "weight": 5.175885
+      }
+    ],
+    "repeatedly": [
+      {
+        "moment_index": 10,
+        "weight": 4.862384
+      }
+    ],
+    "applies": [
+      {
+        "moment_index": 10,
+        "weight": 4.862384
+      }
+    ],
+    "compute": [
+      {
+        "moment_index": 10,
+        "weight": 4.862384
+      }
+    ],
+    "gradients": [
+      {
+        "moment_index": 10,
+        "weight": 4.862384
+      }
+    ],
+    "layer": [
+      {
+        "moment_index": 10,
+        "weight": 6.852965
+      }
+    ],
+    "partial": [
+      {
+        "moment_index": 10,
+        "weight": 8.594954
+      },
+      {
+        "moment_index": 11,
+        "weight": 5.885406
+      }
+    ],
+    "computational": [
+      {
+        "moment_index": 10,
+        "weight": 4.862384
+      }
+    ],
+    "highlights": [
+      {
+        "moment_index": 10,
+        "weight": 4.862384
+      }
+    ],
+    "derivatives": [
+      {
+        "moment_index": 10,
+        "weight": 4.862384
+      }
+    ],
+    "calculus": [
+      {
+        "moment_index": 10,
+        "weight": 2.871802
+      }
+    ],
+    "backward": [
+      {
+        "moment_index": 11,
+        "weight": 6.852965
+      }
+    ],
+    "passes": [
+      {
+        "moment_index": 11,
+        "weight": 4.862384
+      }
+    ],
+    "propagate": [
+      {
+        "moment_index": 11,
+        "weight": 4.862384
+      }
+    ],
+    "signals": [
+      {
+        "moment_index": 11,
+        "weight": 4.862384
+      }
+    ],
+    "each": [
+      {
+        "moment_index": 11,
+        "weight": 4.862384
+      }
+    ],
+    "weight": [
+      {
+        "moment_index": 11,
+        "weight": 4.862384
+      }
+    ],
+    "receives": [
+      {
+        "moment_index": 11,
+        "weight": 4.862384
+      }
+    ],
+    "signal": [
+      {
+        "moment_index": 11,
+        "weight": 4.862384
+      }
+    ],
+    "delta": [
+      {
+        "moment_index": 11,
+        "weight": 4.862384
+      }
+    ],
+    "earlier": [
+      {
+        "moment_index": 11,
+        "weight": 4.862384
+      }
+    ]
+  }
+}
