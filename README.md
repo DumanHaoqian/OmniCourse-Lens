@@ -21,6 +21,17 @@ Verify GPU support:
 python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0)); print(torch.cuda.is_available())"
 ```
 
+## Trials
+
+The first automated moment-retrieval benchmark lives in `Trials/`. It builds a
+silver-label benchmark from the paired lecture videos and slides, then reports
+Recall@K, MRR, temporal IoU, and timestamp error for retrieval baselines.
+
+```bash
+conda activate omniC
+python Trials/run_benchmark.py --config Trials/configs/default.yaml
+```
+
 ## Dataset
 
 `Dataset/` contains 9 Introduction to Machine Learning lecture folders. Each folder

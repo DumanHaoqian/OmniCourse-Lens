@@ -1,0 +1,230 @@
+{
+  "config": {
+    "dataset_dir": "Dataset",
+    "output_dir": "Trials/results",
+    "artifact_dir": "Trials/artifacts/default",
+    "sampling": {
+      "frame_interval_sec": 5.0,
+      "clip_duration_sec": 20.0,
+      "max_queries": null,
+      "min_query_chars": 24
+    },
+    "silver_labels": {
+      "render_zoom": 1.0,
+      "monotonic_time_prior_weight": 0.08,
+      "min_window_sec": 20.0
+    },
+    "models": [
+      "random",
+      "silver_visual_upper_bound",
+      "tfidf_slide_text",
+      "clip_text_frame"
+    ],
+    "clip": {
+      "model_name": "openai/clip-vit-base-patch32",
+      "batch_size": 32
+    }
+  },
+  "benchmark": {
+    "lectures": [
+      {
+        "lecture_id": "01_i2ml_01_ml_basics_00_in_a_nutshell",
+        "duration_sec": 759.2,
+        "slides": 9,
+        "candidates": 152,
+        "mean_silver_score": 0.6052982807159424
+      },
+      {
+        "lecture_id": "02_i2ml_01_ml_basics_01_what_is_machine_learning",
+        "duration_sec": 1583.96,
+        "slides": 10,
+        "candidates": 317,
+        "mean_silver_score": 0.8137459754943848
+      },
+      {
+        "lecture_id": "03_i2ml_01_ml_basics_02_data",
+        "duration_sec": 1135.6,
+        "slides": 10,
+        "candidates": 228,
+        "mean_silver_score": 0.8300728797912598
+      },
+      {
+        "lecture_id": "04_i2ml_01_ml_basics_03_tasks",
+        "duration_sec": 400.24,
+        "slides": 6,
+        "candidates": 81,
+        "mean_silver_score": 0.834283173084259
+      },
+      {
+        "lecture_id": "05_i2ml_01_ml_basics_04_models_and_parameters",
+        "duration_sec": 1152.4,
+        "slides": 11,
+        "candidates": 231,
+        "mean_silver_score": 0.7876850366592407
+      },
+      {
+        "lecture_id": "06_i2ml_01_ml_basics_05_learner",
+        "duration_sec": 433.4,
+        "slides": 6,
+        "candidates": 87,
+        "mean_silver_score": 0.6305325031280518
+      },
+      {
+        "lecture_id": "07_i2ml_01_ml_basics_06_losses_and_risk_minimization",
+        "duration_sec": 1653.6,
+        "slides": 9,
+        "candidates": 331,
+        "mean_silver_score": 0.7659142017364502
+      },
+      {
+        "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+        "duration_sec": 1675.6,
+        "slides": 11,
+        "candidates": 336,
+        "mean_silver_score": 0.8421913385391235
+      },
+      {
+        "lecture_id": "09_i2ml_01_ml_basics_08_components_of_supervised_learning",
+        "duration_sec": 683.12,
+        "slides": 9,
+        "candidates": 137,
+        "mean_silver_score": 0.6407290101051331
+      }
+    ],
+    "total_queries_before_filter": 81,
+    "total_queries": 81,
+    "total_candidates": 1900
+  },
+  "metrics": [
+    {
+      "model": "random",
+      "queries": 81,
+      "candidates": 1900,
+      "recall@1": 0.012345679012345678,
+      "recall@5": 0.037037037037037035,
+      "recall@10": 0.09876543209876543,
+      "mrr": 0.044205620715743285,
+      "top1_iou": 0.019630972573021148,
+      "median_abs_error_sec": 435.0,
+      "mean_abs_error_sec": 508.8888888888889,
+      "elapsed_sec": 0.0013020750002397108,
+      "queries_per_second": 62208.39812229555
+    },
+    {
+      "model": "silver_visual_upper_bound",
+      "queries": 81,
+      "candidates": 1900,
+      "recall@1": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 1.0,
+      "top1_iou": 0.22005530330787532,
+      "median_abs_error_sec": 0.0,
+      "mean_abs_error_sec": 0.0,
+      "elapsed_sec": 0.0059040800006187055,
+      "queries_per_second": 13719.32629495396
+    },
+    {
+      "model": "tfidf_slide_text",
+      "queries": 81,
+      "candidates": 1900,
+      "recall@1": 0.9259259259259259,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.9551440329218106,
+      "top1_iou": 0.18164474467145347,
+      "median_abs_error_sec": 25.0,
+      "mean_abs_error_sec": 33.7037037037037,
+      "elapsed_sec": 0.016340758000296773,
+      "queries_per_second": 4956.930394448587
+    },
+    {
+      "model": "clip_text_frame",
+      "queries": 81,
+      "candidates": 1900,
+      "recall@1": 0.2962962962962963,
+      "recall@5": 0.5185185185185185,
+      "recall@10": 0.6172839506172839,
+      "mrr": 0.3926939582792216,
+      "top1_iou": 0.08135407707119761,
+      "median_abs_error_sec": 75.0,
+      "mean_abs_error_sec": 229.5679012345679,
+      "elapsed_sec": 12.543527705999622,
+      "queries_per_second": 6.457513539931622
+    }
+  ],
+  "query_examples": [
+    {
+      "query_id": "01_i2ml_01_ml_basics_00_in_a_nutshell::slide_001",
+      "text": "Introduction to Machine Learning ML-Basics In a Nutshell Learning goals Understand fundamental goal of supervised machine learning Know concepts of data, task, model, parameter, learner, loss function, and empirical risk",
+      "label": [
+        12.5,
+        75.0
+      ],
+      "silver_score": 0.6375553607940674
+    },
+    {
+      "query_id": "01_i2ml_01_ml_basics_00_in_a_nutshell::slide_002",
+      "text": "WHAT IS ML? \u201cA computer program is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience E.\u201d Tom Mitchell, Carnegi",
+      "label": [
+        75.0,
+        167.5
+      ],
+      "silver_score": 0.705416202545166
+    },
+    {
+      "query_id": "01_i2ml_01_ml_basics_00_in_a_nutshell::slide_003",
+      "text": "DATA IN SL Measurements on different aspects of n objects: Target: output variable / goal of prediction Features: properties that describe an object D = \u0010\u0010 x(1), y(1)\u0011 , . . . , \u0010 x(n), y(n)\u0011\u0011 \u2208(X \u00d7 Y)n \u00a9 Introduction to",
+      "label": [
+        167.5,
+        252.5
+      ],
+      "silver_score": 0.5201824307441711
+    },
+    {
+      "query_id": "01_i2ml_01_ml_basics_00_in_a_nutshell::slide_004",
+      "text": "TASKS Supervised tasks are labeled data situations with the goal of learning the functional relationship between features and target We distinguish between regression and classification tasks, depending on whether the ta",
+      "label": [
+        252.5,
+        337.5
+      ],
+      "silver_score": 0.5885998010635376
+    },
+    {
+      "query_id": "01_i2ml_01_ml_basics_00_in_a_nutshell::slide_005",
+      "text": "MODELS AND PARAMETERS Maps features to predicted targets f\u03b8 : X \u2192Rg We consider a restricted set of parametrized functions of a certain form, the hypothesis space, e.g., simple linear functions Models are fully determine",
+      "label": [
+        337.5,
+        417.5
+      ],
+      "silver_score": 0.5951515436172485
+    },
+    {
+      "query_id": "01_i2ml_01_ml_basics_00_in_a_nutshell::slide_006",
+      "text": "LEARNER Learns automatically the relation between features and target \u2013 given a set of training data Learner picks the best element of the hypothesis space, i.e., the function that fits the training data best: I : D \u00d7 \u039b ",
+      "label": [
+        417.5,
+        502.5
+      ],
+      "silver_score": 0.553475022315979
+    },
+    {
+      "query_id": "01_i2ml_01_ml_basics_00_in_a_nutshell::slide_007",
+      "text": "LEARNER / 2 Learner uses labeled training data to learn a model f. This model is applied to new unlabeled data for predicting the target variable \u00a9 Introduction to Machine Learning \u2013 6 / 8",
+      "label": [
+        502.5,
+        590.0
+      ],
+      "silver_score": 0.583429753780365
+    },
+    {
+      "query_id": "01_i2ml_01_ml_basics_00_in_a_nutshell::slide_008",
+      "text": "LOSS AND RISK MINIMIZATION Loss: Measured pointwise for each observation, e.g., L2-loss L (y, f(x)) = (y \u2212f(x))2 Risk: Measured for entire model. Sums up pointwise losses Remp(f) = nP i=1 L y(i), f x(i)\u0001\u0001 Squared loss of",
+      "label": [
+        590.0,
+        677.5
+      ],
+      "silver_score": 0.5740360617637634
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+dataset_dir: Dataset
+output_dir: Trials/results
+artifact_dir: Trials/artifacts/default
+
+sampling:
+  frame_interval_sec: 5.0
+  clip_duration_sec: 20.0
+  max_queries: null
+  min_query_chars: 24
+
+silver_labels:
+  render_zoom: 1.0
+  monotonic_time_prior_weight: 0.08
+  min_window_sec: 20.0
+
+models:
+  - random
+  - silver_visual_upper_bound
+  - tfidf_slide_text
+  - clip_text_frame
+
+clip:
+  model_name: openai/clip-vit-base-patch32
+  batch_size: 32

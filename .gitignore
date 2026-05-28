@@ -37,3 +37,9 @@ Thumbs.db
 Dataset/**/*.part
 Dataset/**/*.ytdl
 Dataset/**/*.tmp
+
+# Benchmark caches can be regenerated from Dataset/ and Trials configs.
+Trials/artifacts/
+Trials/cache/
+Trials/results/*.npz
+Trials/results/*.pkl
