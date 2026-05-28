@@ -2203,6 +2203,32 @@ body {
   border: 1px solid #cfd9e3;
 }
 
+.scope-toggle {
+  background: #eef4f6;
+  border: 1px solid #cfdae2;
+  border-radius: 10px;
+  display: grid;
+  gap: 3px;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
+}
+
+.scope-toggle button {
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: #526174;
+  font-size: 12px;
+  font-weight: 820;
+  min-height: 34px;
+}
+
+.scope-toggle button.active {
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  color: var(--studio-accent-strong);
+}
+
 .control-sidebar .sidebar-controls > button {
   background: var(--studio-accent);
   border-color: var(--studio-accent);

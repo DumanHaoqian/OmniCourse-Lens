@@ -52,6 +52,7 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [query, setQuery] = useState("gradient descent optimization");
   const [image, setImage] = useState<File | null>(null);
+  const [searchScope, setSearchScope] = useState<"current" | "all">("current");
   const [results, setResults] = useState<SearchResult[]>([]);
   const [selectedResult, setSelectedResult] = useState<SearchResult | null>(null);
   const [cheatsheet, setCheatsheet] = useState<any>(null);
@@ -114,6 +115,7 @@ export default function App() {
   const lectureId = selectedVideo?.lecture_id || course?.lectures?.[0]?.lecture_id || "";
   const courseId = selectedVideo?.course_id || course?.course_id || "real_i2ml";
   const videoIds = selectedVideo ? [selectedVideo.video_id] : undefined;
+  const searchVideoIds = searchScope === "current" ? videoIds : undefined;
 
   const selectedVideoMoments = useMemo(() => {
     const lecture = course?.lectures?.find((item) => item.lecture_id === selectedVideo?.lecture_id);
@@ -135,15 +137,17 @@ export default function App() {
 
   const runSearch = async () => {
     setBusy(true);
-    setStatus("Searching timestamped moments in the selected real video...");
+    setStatus(searchScope === "current" ? "Searching timestamped moments in the selected real video..." : "Searching across all indexed Dataset videos...");
     try {
       const payload = image
-        ? await imageSearch({ course_id: courseId, query, video_ids: videoIds, top_k: 6, image })
-        : await textSearch({ course_id: courseId, query, video_ids: videoIds, top_k: 6 });
+        ? await imageSearch({ course_id: courseId, query, video_ids: searchVideoIds, top_k: 6, image })
+        : await textSearch({ course_id: courseId, query, video_ids: searchVideoIds, top_k: 6 });
       setResults(payload.results || []);
       setSelectedResult(payload.results?.[0] || null);
       setFeature("search");
-      setStatus(`Search self-check: ${payload.self_check?.score ?? "n/a"}/10`);
+      const topScore = payload.results?.[0]?.score ?? 0;
+      const weakHint = topScore < 0.12 && searchScope === "current" ? " Low match in this video; try All videos or a video-specific term." : "";
+      setStatus(`Search self-check: ${payload.self_check?.score ?? "n/a"}/10.${weakHint}`);
     } finally {
       setBusy(false);
     }
@@ -389,6 +393,11 @@ export default function App() {
 
           {feature === "search" && (
             <>
+              <label>Search scope</label>
+              <div className="scope-toggle" role="group" aria-label="Search scope">
+                <button type="button" className={searchScope === "current" ? "active" : ""} onClick={() => setSearchScope("current")}>Current video</button>
+                <button type="button" className={searchScope === "all" ? "active" : ""} onClick={() => setSearchScope("all")}>All videos</button>
+              </div>
               <label>Search query</label>
               <textarea value={query} onChange={(event) => setQuery(event.target.value)} />
               <UploadPanel file={image} onFile={setImage} label="Optional image query" />

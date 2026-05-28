@@ -22,6 +22,7 @@ class SearchService:
         self.internvideo3 = InternVideo3Service()
         self.improver = SelfImprovementService()
         self._cache: dict[str, Any] | None = None
+        self._cache_signature: dict[str, float | None] | None = None
 
     def describe_provider(self) -> dict[str, Any]:
         return {
@@ -104,7 +105,7 @@ class SearchService:
             and (not video_ids or moment.get("video_id") in video_ids or moment.get("metadata", {}).get("video_id") in video_ids)
         ]
         if not moments:
-            self._ensure_index()
+            self._ensure_index(force=True)
             index = self._load_index(force=True)
             moments = [
                 moment
@@ -327,7 +328,8 @@ class SearchService:
         return moment.get("transcript", "")
 
     def _load_index(self, force: bool = False) -> dict[str, Any]:
-        if self._cache is not None and not force:
+        signature = self._index_signature()
+        if self._cache is not None and not force and self._cache_signature == signature:
             return self._cache
         index = {
             "moments": self._read_json(settings.indexes_dir / "moments.json", []),
@@ -336,17 +338,28 @@ class SearchService:
         }
         index["moment_positions"] = {moment.get("moment_id"): idx for idx, moment in enumerate(index["moments"])}
         self._cache = index
+        self._cache_signature = signature
         return index
 
     def _moment_index(self, index: dict[str, Any], moment_id: str | None) -> int:
         return int(index.get("moment_positions", {}).get(moment_id, 0))
 
-    def _ensure_index(self) -> None:
-        if (settings.indexes_dir / "moments.json").exists():
+    def _ensure_index(self, force: bool = False) -> None:
+        if not force and (settings.indexes_dir / "moments.json").exists():
             return
         script = settings.project_root / "scripts" / "rebuild_index.py"
         if script.exists():
             subprocess.run([sys.executable, str(script)], cwd=settings.project_root, check=False)
+            self._cache = None
+            self._cache_signature = None
+
+    def _index_signature(self) -> dict[str, float | None]:
+        paths = {
+            "moments": settings.indexes_dir / "moments.json",
+            "lexical": settings.indexes_dir / "lexical_index.json",
+            "image_descriptors": settings.indexes_dir / "image_descriptors.json",
+        }
+        return {name: path.stat().st_mtime if path.exists() else None for name, path in paths.items()}
 
     def _read_json(self, path: Path, default: Any) -> Any:
         if not path.exists():
