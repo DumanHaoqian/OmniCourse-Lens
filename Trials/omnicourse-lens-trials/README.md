@@ -186,6 +186,12 @@ INTERNVIDEO3_ENDPOINT=http://127.0.0.1:8011/score
 
 The existing checkpoint at `Trials/checkpoints/InternVideo3-8B-Instruct` is detected but not loaded during API startup. The persistent server loads it once; otherwise search can fall back to the slower subprocess scorer.
 
+For interactive latency, local 8B subprocess reranking is disabled by default. Prefer the warm server above, or explicitly opt into local reranking:
+
+```bash
+INTERNVIDEO3_LOCAL_RERANK=1 INTERNVIDEO3_LOCAL_RERANK_TOP_N=1
+```
+
 Embeddings:
 
 - Text dense indexing can use `sentence-transformers/all-MiniLM-L6-v2` through `scripts/embed_text.py`.
@@ -229,11 +235,14 @@ Static frames and clips are served from `/static`.
 
 ```bash
 python scripts/smoke_test.py
+python scripts/perf_check.py
 pytest tests/test_api_smoke.py
 cd frontend && npm run build
 ```
 
 The overnight smoke test verifies real Dataset discovery, real video ingest/index status, real text search, real keyframe image search, QA with LaTeX-friendly output, cheatsheet generation plus compile endpoint, graph pruning, provider status, and writes `backend/app/data/generated/evals/overnight_smoke_test_summary.json`.
+
+`scripts/perf_check.py` measures the hot user paths: cached health, Dataset video listing, dynamic subtitles, and current-video text search. It disables cold-start-heavy local InternVideo3 reranking and query dense embedding unless you explicitly enable them through environment variables.
 
 ## Security
 

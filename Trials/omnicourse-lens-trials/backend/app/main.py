@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import tempfile
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -41,6 +42,8 @@ graph_service = GraphService()
 qa_agent = QAAgent()
 dataset_service = DatasetService()
 evidence_service = EvidenceService()
+_PROVIDER_CACHE: tuple[float, dict] | None = None
+_PROVIDER_CACHE_TTL = 15.0
 
 
 @app.get("/api/health")
@@ -49,20 +52,30 @@ def health() -> dict:
         "status": "ok",
         "project": "omnicourse-lens-trials",
         "demo_mode": settings.demo_mode,
-        "providers": {
-            "search": search_service.describe_provider(),
-            "deepseek_ocr": DeepSeekOCRService().describe_provider(),
-            "dataset": {"root": str(settings.dataset_dir), "exists": settings.dataset_dir.exists()},
-            "latex": cheatsheet_service.describe_provider(),
-            "llm": LLMService().describe_provider(),
-            "ingest": VideoIngestService().describe_provider(),
-        },
+        "providers": _provider_status_cached(),
     }
 
 
 @app.get("/api/provider-status")
 def provider_status() -> dict:
-    return health()["providers"]
+    return _provider_status_cached()
+
+
+def _provider_status_cached() -> dict:
+    global _PROVIDER_CACHE
+    now = time.time()
+    if _PROVIDER_CACHE and now - _PROVIDER_CACHE[0] < _PROVIDER_CACHE_TTL:
+        return _PROVIDER_CACHE[1]
+    providers = {
+        "search": search_service.describe_provider(),
+        "deepseek_ocr": DeepSeekOCRService().describe_provider(),
+        "dataset": {"root": str(settings.dataset_dir), "exists": settings.dataset_dir.exists()},
+        "latex": cheatsheet_service.describe_provider(),
+        "llm": LLMService().describe_provider(),
+        "ingest": VideoIngestService().describe_provider(),
+    }
+    _PROVIDER_CACHE = (now, providers)
+    return providers
 
 
 @app.get("/api/courses")

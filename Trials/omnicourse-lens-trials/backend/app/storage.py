@@ -12,16 +12,47 @@ from .schemas import Course
 
 ensure_directories()
 
+_JSON_CACHE: dict[Path, tuple[float, Any]] = {}
+_COURSE_CACHE: dict[str, tuple[float, Course]] = {}
+_COURSE_LIST_CACHE: tuple[tuple[tuple[str, float], ...], list[Course]] | None = None
+
+
+def _mtime(path: Path) -> float:
+    return path.stat().st_mtime if path.exists() else -1.0
+
+
+def clear_storage_cache() -> None:
+    global _COURSE_LIST_CACHE
+    _JSON_CACHE.clear()
+    _COURSE_CACHE.clear()
+    _COURSE_LIST_CACHE = None
+
 
 def read_json(path: Path, default: Any = None) -> Any:
     if not path.exists():
         return default
-    return json.loads(path.read_text(encoding="utf-8"))
+    resolved = path.resolve()
+    mtime = _mtime(resolved)
+    cached = _JSON_CACHE.get(resolved)
+    if cached and cached[0] == mtime:
+        return cached[1]
+    data = json.loads(resolved.read_text(encoding="utf-8"))
+    _JSON_CACHE[resolved] = (mtime, data)
+    return data
 
 
 def write_json(path: Path, data: Any) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    resolved = path.resolve()
+    _JSON_CACHE[resolved] = (_mtime(resolved), data)
+    try:
+        resolved.relative_to(settings.courses_dir.resolve())
+        _COURSE_CACHE.pop(path.stem, None)
+        global _COURSE_LIST_CACHE
+        _COURSE_LIST_CACHE = None
+    except ValueError:
+        pass
     return path
 
 
@@ -30,10 +61,17 @@ def course_path(course_id: str) -> Path:
 
 
 def load_course(course_id: str) -> Course:
-    data = read_json(course_path(course_id))
+    path = course_path(course_id)
+    mtime = _mtime(path)
+    cached = _COURSE_CACHE.get(course_id)
+    if cached and cached[0] == mtime:
+        return cached[1].model_copy(deep=True)
+    data = read_json(path)
     if data is None:
         raise FileNotFoundError(f"Course not found: {course_id}")
-    return Course.model_validate(data)
+    course = Course.model_validate(data)
+    _COURSE_CACHE[course_id] = (mtime, course)
+    return course.model_copy(deep=True)
 
 
 def save_course(course: Course) -> Path:
@@ -41,10 +79,23 @@ def save_course(course: Course) -> Path:
 
 
 def list_courses() -> list[Course]:
+    global _COURSE_LIST_CACHE
+    signature = tuple((path.name, _mtime(path)) for path in sorted(settings.courses_dir.glob("*.json")))
+    if _COURSE_LIST_CACHE and _COURSE_LIST_CACHE[0] == signature:
+        return [course.model_copy(deep=True) for course in _COURSE_LIST_CACHE[1]]
     courses = []
     for path in sorted(settings.courses_dir.glob("*.json")):
-        courses.append(Course.model_validate(read_json(path)))
-    return courses
+        course_id = path.stem
+        cached = _COURSE_CACHE.get(course_id)
+        mtime = _mtime(path)
+        if cached and cached[0] == mtime:
+            course = cached[1]
+        else:
+            course = Course.model_validate(read_json(path))
+            _COURSE_CACHE[course_id] = (mtime, course)
+        courses.append(course)
+    _COURSE_LIST_CACHE = (signature, courses)
+    return [course.model_copy(deep=True) for course in courses]
 
 
 def static_url(path: str | Path | None) -> str | None:

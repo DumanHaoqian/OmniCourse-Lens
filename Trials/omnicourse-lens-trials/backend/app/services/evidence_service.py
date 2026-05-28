@@ -3,23 +3,27 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
+from ..config import settings
 from ..storage import list_courses
 
 
 class EvidenceService:
+    def __init__(self) -> None:
+        self._signature: tuple[tuple[str, float], ...] | None = None
+        self._video_moment_cache: dict[str, list[dict[str, Any]]] = {}
+        self._moment_cache: dict[str, dict[str, Any]] = {}
+        self._subtitle_cache: dict[str, dict[str, Any]] = {}
+        self._summary_cache: dict[str, dict[str, Any]] = {}
+        self._vtt_cache: dict[str, str] = {}
+
     def video_moments(self, video_id: str) -> list[dict[str, Any]]:
-        moments: list[dict[str, Any]] = []
-        for course in list_courses():
-            for lecture in course.lectures:
-                for moment in lecture.moments:
-                    if moment.video_id == video_id or moment.metadata.get("video_id") == video_id:
-                        data = moment.model_dump(mode="json")
-                        data["lecture_title"] = lecture.title
-                        data["video_path"] = lecture.video_path
-                        moments.append(data)
-        return sorted(moments, key=lambda item: (item.get("start_time", 0), item.get("end_time", 0)))
+        self._ensure_cache()
+        return [dict(moment) for moment in self._video_moment_cache.get(video_id, [])]
 
     def subtitles(self, video_id: str) -> dict[str, Any]:
+        self._ensure_cache()
+        if video_id in self._subtitle_cache:
+            return self._subtitle_cache[video_id]
         moments = self.video_moments(video_id)
         cues: list[dict[str, Any]] = []
         for moment in moments:
@@ -53,7 +57,7 @@ class EvidenceService:
                     }
                 )
         cues.sort(key=lambda item: (item["start_time"], self._cue_priority(item)))
-        return {
+        payload = {
             "video_id": video_id,
             "cue_count": len(cues),
             "audio_cue_count": sum(1 for cue in cues if cue["kind"] == "audio"),
@@ -61,8 +65,13 @@ class EvidenceService:
             "cues": cues,
             "summary": self.video_summary(video_id),
         }
+        self._subtitle_cache[video_id] = payload
+        return payload
 
     def subtitles_vtt(self, video_id: str) -> str:
+        self._ensure_cache()
+        if video_id in self._vtt_cache:
+            return self._vtt_cache[video_id]
         payload = self.subtitles(video_id)
         audio_cues = [cue for cue in payload["cues"] if cue.get("kind") == "audio"]
         cues = audio_cues or payload["cues"]
@@ -75,9 +84,14 @@ class EvidenceService:
             lines.append(f"{self._vtt_time(float(cue['start_time']))} --> {self._vtt_time(float(cue['end_time']))}")
             lines.append(text.replace("-->", "->"))
             lines.append("")
-        return "\n".join(lines)
+        vtt = "\n".join(lines)
+        self._vtt_cache[video_id] = vtt
+        return vtt
 
     def video_summary(self, video_id: str) -> dict[str, Any]:
+        self._ensure_cache()
+        if video_id in self._summary_cache:
+            return self._summary_cache[video_id]
         moments = self.video_moments(video_id)
         providers = Counter()
         formula_count = 0
@@ -88,7 +102,7 @@ class EvidenceService:
             providers.update(block.get("provider", "unknown") for block in moment.get("formula_blocks", []) or [])
             formula_count += len(moment.get("formula_blocks", []) or [])
             concept_count.update(moment.get("concept_tags", []) or [])
-        return {
+        summary = {
             "video_id": video_id,
             "moment_count": len(moments),
             "asr_segment_count": sum(len(moment.get("asr_segments", []) or []) for moment in moments),
@@ -97,17 +111,46 @@ class EvidenceService:
             "provider_counts": dict(providers),
             "top_concepts": concept_count.most_common(12),
         }
+        self._summary_cache[video_id] = summary
+        return summary
 
     def moment(self, moment_id: str) -> dict[str, Any] | None:
+        self._ensure_cache()
+        cached = self._moment_cache.get(moment_id)
+        return dict(cached) if cached else None
+
+    def _ensure_cache(self) -> None:
+        signature = self._courses_signature()
+        if self._signature == signature:
+            return
+        video_moments: dict[str, list[dict[str, Any]]] = {}
+        moment_cache: dict[str, dict[str, Any]] = {}
         for course in list_courses():
             for lecture in course.lectures:
                 for moment in lecture.moments:
-                    if moment.moment_id == moment_id:
-                        data = moment.model_dump(mode="json")
-                        data["lecture_title"] = lecture.title
-                        data["course_title"] = course.title
-                        return data
-        return None
+                    data = moment.model_dump(mode="json")
+                    data["lecture_title"] = lecture.title
+                    data["course_title"] = course.title
+                    data["video_path"] = lecture.video_path
+                    moment_cache[moment.moment_id] = data
+                    for key in {moment.video_id, moment.metadata.get("video_id")}:
+                        if key:
+                            video_moments.setdefault(str(key), []).append(data)
+        for moments in video_moments.values():
+            moments.sort(key=lambda item: (item.get("start_time", 0), item.get("end_time", 0)))
+        self._signature = signature
+        self._video_moment_cache = video_moments
+        self._moment_cache = moment_cache
+        self._subtitle_cache = {}
+        self._summary_cache = {}
+        self._vtt_cache = {}
+
+    def _courses_signature(self) -> tuple[tuple[str, float], ...]:
+        return tuple(
+            (path.name, path.stat().st_mtime)
+            for path in sorted(settings.courses_dir.glob("*.json"))
+            if path.exists()
+        )
 
     def _best_ocr_provider(self, moment: dict[str, Any]) -> str:
         providers = {str(block.get("provider") or "") for block in moment.get("ocr_blocks", []) or []}

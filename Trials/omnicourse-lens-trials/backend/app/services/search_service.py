@@ -5,6 +5,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -25,14 +26,20 @@ class SearchService:
         self.improver = SelfImprovementService()
         self._cache: dict[str, Any] | None = None
         self._cache_signature: dict[str, float | None] | None = None
+        self._provider_cache: tuple[float, dict[str, Any]] | None = None
 
     def describe_provider(self) -> dict[str, Any]:
-        return {
+        now = time.time()
+        if self._provider_cache and now - self._provider_cache[0] < 15:
+            return self._provider_cache[1]
+        payload = {
             "search": "hybrid_json_index",
             "embedding": self.embedding.describe_provider(),
             "ocr": self.ocr.describe_provider(),
             "internvideo3": self.internvideo3.describe_provider(),
         }
+        self._provider_cache = (now, payload)
+        return payload
 
     def text_search(self, request: SearchRequest) -> dict[str, Any]:
         results = self._rank(request.course_id, request.query, request.lecture_ids, request.video_ids, request.top_k, image_path=None, image_ocr_text="")
@@ -146,15 +153,18 @@ class SearchService:
         display_query = query
         query = self._expand_query(query)
         image_descriptor = self.embedding.image_descriptor(image_path) if image_path else None
+        idf = index.get("lexical", {}).get("idf", {})
+        query_sparse = self.embedding.text_sparse_vector(query, idf)
         dense_vectors = index.get("dense_text_embeddings", [])
         query_dense = (
             self.embedding.dense_text_embedding(query)
             if dense_vectors and os.getenv("OMNICOURSE_ENABLE_QUERY_DENSE", "false").lower() in {"1", "true", "yes"}
             else []
         )
+        inline_internvideo3 = self._inline_internvideo3_enabled()
         scored = []
         for moment in moments:
-            breakdown = self._score_moment(moment, query, index, image_descriptor, image_ocr_text, query_dense)
+            breakdown = self._score_moment(moment, query, index, query_sparse, image_descriptor, image_ocr_text, query_dense, inline_internvideo3)
             final_score = self._weighted_score(breakdown, image_mode=bool(image_path))
             result = self._to_result(moment, final_score, breakdown, display_query)
             scored.append(result)
@@ -167,9 +177,11 @@ class SearchService:
         moment: dict[str, Any],
         query: str,
         index: dict[str, Any],
+        query_sparse: dict[str, float],
         image_descriptor: list[float] | None,
         image_ocr_text: str,
         query_dense: list[float],
+        inline_internvideo3: bool,
     ) -> dict[str, float]:
         transcript = moment.get("transcript", "")
         ocr_text = moment.get("ocr_text", "")
@@ -178,10 +190,9 @@ class SearchService:
         visual = moment.get("visual_caption", "")
         document = "\n".join([transcript, ocr_text, formula, concepts, visual, moment.get("lecture_title", "")])
         lexical = self.embedding.lexical_relevance
-        idf = index.get("lexical", {}).get("idf", {})
         moment_idx = self._moment_index(index, moment.get("moment_id"))
         doc_vector = index.get("lexical", {}).get("docs", [{}])[moment_idx]
-        sparse_text_score = self.embedding.sparse_cosine(self.embedding.text_sparse_vector(query, idf), doc_vector)
+        sparse_text_score = self.embedding.sparse_cosine(query_sparse, doc_vector)
         dense_vectors = index.get("dense_text_embeddings", [])
         dense_text_score = 0.0
         if query_dense and moment_idx < len(dense_vectors):
@@ -194,7 +205,7 @@ class SearchService:
             sims = [self.embedding.vector_similarity(image_descriptor, frame_descriptors.get(frame, [])) for frame in moment.get("keyframes", [])]
             image_visual_score = max(sims) if sims else 0.0
         intern_score = None
-        if self._inline_internvideo3_enabled():
+        if inline_internvideo3:
             intern_score = self.internvideo3.score_text_video(
                 query=query,
                 video_path=moment.get("video_path") or "",
@@ -220,11 +231,11 @@ class SearchService:
         moments: list[dict[str, Any]],
         image_mode: bool,
     ) -> list[SearchResult]:
-        provider = self.internvideo3.describe_provider()
+        provider = self.describe_provider().get("internvideo3", {})
         if provider.get("mode") != "local_hf_lazy" or not provider.get("local_search_rerank"):
             return scored
         moment_by_id = {moment.get("moment_id"): moment for moment in moments}
-        max_calls = int(os.getenv("INTERNVIDEO3_LOCAL_RERANK_TOP_N", "1"))
+        max_calls = int(os.getenv("INTERNVIDEO3_LOCAL_RERANK_TOP_N", "0"))
         for result in scored[: max(0, min(max_calls, 5))]:
             moment = moment_by_id.get(result.moment_id)
             if not moment:
@@ -248,7 +259,7 @@ class SearchService:
         return scored
 
     def _inline_internvideo3_enabled(self) -> bool:
-        status = self.internvideo3.describe_provider()
+        status = self.describe_provider().get("internvideo3", {})
         return status.get("mode") in {"http", "cli"}
 
     def _weighted_score(self, breakdown: dict[str, float], image_mode: bool) -> float:

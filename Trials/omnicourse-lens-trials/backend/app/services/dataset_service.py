@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -25,24 +26,33 @@ class DatasetService:
         ensure_directories()
         self.dataset_root = settings.dataset_dir.resolve()
         self.status_path = settings.indexes_dir / "dataset_status.json"
+        self.cache_ttl = float(os.getenv("OMNICOURSE_DATASET_CACHE_TTL", "10"))
+        self._videos_cache: tuple[float, float | None, list[dict[str, Any]]] | None = None
 
     def list_videos(self) -> list[dict[str, Any]]:
+        status_mtime = self.status_path.stat().st_mtime if self.status_path.exists() else None
+        now = time.time()
+        if self._videos_cache and self._videos_cache[1] == status_mtime and now - self._videos_cache[0] < self.cache_ttl:
+            return [dict(video) for video in self._videos_cache[2]]
         status = read_json(self.status_path, {})
         videos = []
+        thumbnails = self._thumbnail_map()
         for path in sorted(self.dataset_root.rglob("*")):
             if not path.is_file() or path.suffix.lower() not in VIDEO_EXTENSIONS:
                 continue
             rel = path.resolve().relative_to(self.dataset_root).as_posix()
             video_id = self.video_id_for_path(path)
             item_status = status.get(video_id, {})
-            thumbnail = self._thumbnail_for(video_id)
+            thumbnail = item_status.get("thumbnail") or thumbnails.get(video_id)
+            slides = self.find_slides(path)
+            stat = path.stat()
             videos.append(
                 {
                     "video_id": video_id,
                     "filename": path.name,
                     "absolute_path": str(path),
                     "relative_path": rel,
-                    "size": path.stat().st_size,
+                    "size": stat.st_size,
                     "duration": item_status.get("duration") or self._probe_duration(path),
                     "ingestion_status": item_status.get("ingestion_status", "not_ingested"),
                     "indexed_status": item_status.get("indexed_status", "unknown"),
@@ -50,9 +60,10 @@ class DatasetService:
                     "title": self.title_for_path(path),
                     "course_id": item_status.get("course_id", REAL_COURSE_ID),
                     "lecture_id": item_status.get("lecture_id", self.lecture_id_for_path(path)),
-                    "slides_path": str(self.find_slides(path)) if self.find_slides(path) else None,
+                    "slides_path": str(slides) if slides else None,
                 }
             )
+        self._videos_cache = (now, status_mtime, videos)
         return videos
 
     def ingest_video(
@@ -109,6 +120,7 @@ class DatasetService:
             "updated_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
         }
         write_json(self.status_path, status)
+        self._invalidate_cache()
         return {"video_id": resolved_id, "status": "ingested", **status[resolved_id]}
 
     def ingest_all(self, limit: int | None = None, force_reingest: bool = False) -> dict[str, Any]:
@@ -156,12 +168,14 @@ class DatasetService:
             if item.get("ingestion_status") == "ingested":
                 item["indexed_status"] = "indexed"
         write_json(self.status_path, status)
+        self._invalidate_cache()
 
     def rebuild_index(self) -> dict[str, Any]:
         script = settings.project_root / "scripts" / "rebuild_index.py"
         result = subprocess.run([sys.executable, str(script)], cwd=settings.project_root, capture_output=True, text=True)
         if result.returncode == 0:
             self.mark_indexed()
+        self._invalidate_cache()
         return {"returncode": result.returncode, "stdout": result.stdout[-2000:], "stderr": result.stderr[-2000:]}
 
     def resolve_video(self, video_id: str | None = None, video_path: str | None = None) -> Path:
@@ -224,16 +238,21 @@ class DatasetService:
         except Exception:
             return None
 
-    def _thumbnail_for(self, video_id: str) -> str | None:
+    def _thumbnail_map(self) -> dict[str, str | None]:
+        thumbnails: dict[str, str | None] = {}
         if course_path(REAL_COURSE_ID).exists():
             try:
                 course = load_course(REAL_COURSE_ID)
                 for lecture in course.lectures:
-                    if lecture.metadata.get("video_id") == video_id and lecture.moments:
-                        return lecture.moments[0].thumbnail_url
+                    video_id = lecture.metadata.get("video_id")
+                    if video_id and lecture.moments:
+                        thumbnails[str(video_id)] = lecture.moments[0].thumbnail_url
             except Exception:
-                return None
-        return None
+                return thumbnails
+        return thumbnails
 
     def _assert_inside_dataset(self, path: Path) -> None:
         path.resolve().relative_to(self.dataset_root)
+
+    def _invalidate_cache(self) -> None:
+        self._videos_cache = None

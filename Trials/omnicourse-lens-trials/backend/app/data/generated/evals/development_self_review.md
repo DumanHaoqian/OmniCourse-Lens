@@ -259,3 +259,31 @@ Latest smoke-test facts:
 - InternVideo3 checkpoint detected: yes, `local_hf_lazy`
 - ASR active provider: `faster_whisper`
 - LaTeX compiler: `tectonic`
+
+## Efficiency And Engineering Pass - May 29, 2026
+
+Implemented after profiling the hot paths:
+
+- Added mtime-aware JSON/course caching in `storage.py`.
+- Changed `write_json()` invalidation from global cache clearing to file-level invalidation; writing eval logs no longer flushes all course caches.
+- Added TTL caching for Dataset video discovery. `GET /api/dataset/videos` no longer rescans/probes repeatedly within the cache window.
+- Optimized Dataset thumbnails by loading the real course once per video-list refresh instead of once per video.
+- Added cached evidence indexes in `EvidenceService` for `video_id -> moments`, `moment_id -> moment`, subtitles, summaries, and WebVTT.
+- Added provider-status TTL caching in `main.py` and `SearchService.describe_provider()`.
+- Removed repeated InternVideo3 provider probing from per-moment search scoring. The inline/HTTP/CLI provider decision is now computed once per search.
+- Changed local 8B InternVideo3 subprocess reranking to opt-in by default:
+  - `INTERNVIDEO3_LOCAL_RERANK=1`
+  - `INTERNVIDEO3_LOCAL_RERANK_TOP_N=1`
+  Warm HTTP scoring remains the recommended demo path.
+- Moved query sparse-vector construction out of per-moment scoring and into the search-level `_rank()` call.
+- Added `scripts/perf_check.py` for repeatable latency checks.
+
+Performance check after the pass:
+
+- `health_cached`: median 1.46 ms
+- `dataset_videos_cached`: median 4.21 ms
+- `subtitles_cached`: median 6.30 ms
+- `text_search_current_video`: median 17.96 ms, mean 25.98 ms
+- `pytest tests/test_api_smoke.py -q`: passed in 1.13s
+- `AZURE_OPENAI_TIMEOUT=12 python scripts/smoke_test.py`: passed
+- `cd frontend && npm run build`: passed in 14.62s

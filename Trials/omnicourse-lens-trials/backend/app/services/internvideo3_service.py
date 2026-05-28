@@ -30,7 +30,7 @@ class InternVideo3Service:
         if not self.model_path.is_absolute():
             self.model_path = (settings.project_root / self.model_path).resolve()
         self.local_enabled = os.getenv("INTERNVIDEO3_ENABLE_LOCAL", "1").lower() in {"1", "true", "yes"}
-        self.local_search_rerank = os.getenv("INTERNVIDEO3_LOCAL_RERANK", "1").lower() in {"1", "true", "yes"}
+        self.local_search_rerank = os.getenv("INTERNVIDEO3_LOCAL_RERANK", "0").lower() in {"1", "true", "yes"}
         self.local_fps = float(os.getenv("INTERNVIDEO3_LOCAL_FPS", "0.25"))
         self.local_max_frames = int(os.getenv("INTERNVIDEO3_LOCAL_MAX_FRAMES", "8"))
         self.local_max_new_tokens = int(os.getenv("INTERNVIDEO3_LOCAL_MAX_NEW_TOKENS", "96"))
@@ -63,6 +63,7 @@ class InternVideo3Service:
             "local_checkpoint_ready": self._local_checkpoint_ready(),
             "local_enabled": self.local_enabled,
             "local_search_rerank": self.local_search_rerank,
+            "local_rerank_top_n": int(os.getenv("INTERNVIDEO3_LOCAL_RERANK_TOP_N", "0")),
             "local_python": self.local_python if Path(self.local_python).exists() else None,
             "local_runner": str(self.local_runner) if self.local_runner.exists() else None,
             "model_path": str(self.model_path) if self.model_path.exists() else None,
