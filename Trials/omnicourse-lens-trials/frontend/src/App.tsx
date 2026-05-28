@@ -4,11 +4,13 @@ import {
   apiGet,
   apiPost,
   API_BASE,
+  askTutor,
   compileCheatsheet,
   Course,
   DatasetVideo,
   datasetVideos,
   EvidenceItem,
+  imageSearch,
   ingestAllDataset,
   ingestDatasetVideo,
   rebuildIndex,
@@ -53,14 +55,10 @@ export default function App() {
     const [videoItems, healthInfo] = await Promise.all([datasetVideos(), apiGet<any>("/api/health")]);
     setVideos(videoItems);
     setHealth(healthInfo);
-    const preferred = videoItems.find((video) => video.ingestion_status === "ingested") || videoItems[0] || null;
-    setSelectedVideo(preferred);
-    try {
-      const courseId = preferred?.course_id || "real_i2ml";
-      setCourse(await apiGet<Course>(`/api/courses/${courseId}`));
-    } catch {
-      setCourse(null);
-    }
+    setSelectedVideo((current) => {
+      const stillAvailable = current ? videoItems.find((video) => video.video_id === current.video_id) : null;
+      return stillAvailable || videoItems.find((video) => video.ingestion_status === "ingested") || videoItems[0] || null;
+    });
   }, []);
 
   useEffect(() => {
@@ -68,16 +66,36 @@ export default function App() {
   }, [load]);
 
   useEffect(() => {
-    if (selectedResult?.video_url && videoRef.current) {
-      videoRef.current.src = `${API_BASE}${selectedResult.video_url}#t=${Math.max(0, Math.floor(selectedResult.start_time))}`;
-      videoRef.current.load();
-      videoRef.current.currentTime = Math.max(0, selectedResult.start_time);
+    if (!selectedVideo?.course_id) {
+      setCourse(null);
+      return;
+    }
+    apiGet<Course>(`/api/courses/${selectedVideo.course_id}`)
+      .then(setCourse)
+      .catch(() => setCourse(null));
+  }, [selectedVideo?.course_id]);
+
+  useEffect(() => {
+    if (selectedResult && videoRef.current) {
+      const targetTime = Math.max(0, selectedResult.start_time);
+      videoRef.current.currentTime = targetTime;
     }
   }, [selectedResult]);
+
+  const selectVideo = (video: DatasetVideo) => {
+    setSelectedVideo(video);
+    setSelectedResult(null);
+    setResults([]);
+  };
 
   const lectureId = selectedVideo?.lecture_id || course?.lectures?.[0]?.lecture_id || "";
   const courseId = selectedVideo?.course_id || course?.course_id || "real_i2ml";
   const videoIds = selectedVideo ? [selectedVideo.video_id] : undefined;
+
+  const selectedVideoMoments = useMemo(() => {
+    const lecture = course?.lectures?.find((item) => item.lecture_id === selectedVideo?.lecture_id);
+    return lecture?.moments || [];
+  }, [course, selectedVideo]);
 
   const runIngestSelected = async () => {
     if (!selectedVideo) return;
@@ -94,15 +112,11 @@ export default function App() {
 
   const runSearch = async () => {
     setBusy(true);
-    setStatus("Searching real video moments...");
+    setStatus("Searching timestamped moments in the selected real video...");
     try {
-      let payload: any;
-      if (image) {
-        const { imageSearch } = await import("./api");
-        payload = await imageSearch({ course_id: courseId, query, video_ids: videoIds, top_k: 6, image });
-      } else {
-        payload = await textSearch({ course_id: courseId, query, video_ids: videoIds, top_k: 6 });
-      }
+      const payload = image
+        ? await imageSearch({ course_id: courseId, query, video_ids: videoIds, top_k: 6, image })
+        : await textSearch({ course_id: courseId, query, video_ids: videoIds, top_k: 6 });
       setResults(payload.results || []);
       setSelectedResult(payload.results?.[0] || null);
       setFeature("search");
@@ -169,7 +183,6 @@ export default function App() {
     setBusy(true);
     setStatus("Retrieving evidence and asking the tutor...");
     try {
-      const { askTutor } = await import("./api");
       const payload = await askTutor({
         course_id: courseId,
         question,
@@ -186,86 +199,130 @@ export default function App() {
   };
 
   const jumpToEvidence = (item: SearchResult | EvidenceItem) => {
+    const raw = item as any;
     const result: SearchResult = {
-      ...(item as SearchResult),
-      course_id: courseId,
-      video_url: (item as SearchResult).video_url || (item as any).video_url || (selectedVideo ? `/api/dataset/videos/${selectedVideo.video_id}/stream` : undefined),
-      concept_tags: (item as SearchResult).concept_tags || [],
-      score_breakdown: (item as SearchResult).score_breakdown || {}
+      moment_id: raw.moment_id,
+      video_id: raw.video_id || selectedVideo?.video_id,
+      course_id: raw.course_id || courseId,
+      lecture_id: raw.lecture_id || selectedVideo?.lecture_id || lectureId,
+      lecture_title: raw.lecture_title || selectedVideo?.title || raw.lecture_id || "Selected lecture",
+      start_time: Number(raw.start_time || 0),
+      end_time: Number(raw.end_time || raw.start_time || 0),
+      score: Number(raw.score ?? 0.5),
+      score_breakdown: raw.score_breakdown || {},
+      matched_reason: raw.matched_reason || "Indexed real Dataset moment",
+      matched_modalities: raw.matched_modalities || ["ASR transcript", "OCR", "Keyframe"],
+      transcript_snippet: raw.transcript_snippet || raw.transcript || "",
+      ocr_snippet: raw.ocr_snippet || raw.ocr_text || "",
+      formula_latex: raw.formula_latex || "",
+      concept_tags: raw.concept_tags || [],
+      thumbnail_url: raw.thumbnail_url,
+      video_url: raw.video_url || (raw.video_id || selectedVideo?.video_id ? `/api/dataset/videos/${raw.video_id || selectedVideo?.video_id}/stream` : undefined)
     };
     setSelectedResult(result);
   };
 
-  const activeVideoUrl = selectedResult?.video_url
-    ? `${API_BASE}${selectedResult.video_url}#t=${Math.max(0, Math.floor(selectedResult.start_time))}`
-    : selectedVideo
-      ? `${API_BASE}/api/dataset/videos/${selectedVideo.video_id}/stream`
+  const activeVideoId = selectedResult?.video_id || selectedVideo?.video_id;
+  const activeStreamUrl = selectedResult?.video_url
+    ? `${API_BASE}${selectedResult.video_url}`
+    : activeVideoId
+      ? `${API_BASE}/api/dataset/videos/${activeVideoId}/stream`
       : "";
+  const activeVideoUrl = activeStreamUrl && selectedResult ? `${activeStreamUrl}#t=${Math.max(0, Math.floor(selectedResult.start_time))}` : activeStreamUrl;
 
-  const selectedVideoMoments = useMemo(() => {
-    const lecture = course?.lectures?.find((item) => item.lecture_id === selectedVideo?.lecture_id);
-    return lecture?.moments || [];
-  }, [course, selectedVideo]);
+  const selectedPoster = selectedResult?.thumbnail_url || selectedVideo?.thumbnail;
+  const selectedTimestamp = selectedResult ? `${selectedResult.start_time.toFixed(0)}-${selectedResult.end_time.toFixed(0)}s` : "full lecture";
 
   return (
-    <div className="atlas-shell">
-      <main className="atlas-main">
-        <header className="atlas-header">
+    <div className="atlas-shell watch-layout">
+      <aside className="video-library" aria-label="Dataset video loader">
+        <div className="library-brand">
           <div>
-            <h1>OmniCourse Atlas</h1>
-            <p>Real Dataset videos from `/home/haoqian/Data/OmniCourse-Lens/Dataset`</p>
+            <h1>OmniCourse Lens</h1>
+            <p>Real Dataset video workspace</p>
           </div>
-          <div className="provider-row">
-            <StatusBadge label="GPT-4o" ok={Boolean(health?.providers?.llm?.available)} muted={Boolean(!health?.providers?.llm?.available)} />
-            <StatusBadge label="Dataset" ok={Boolean(health?.providers?.dataset?.exists)} />
-            <StatusBadge label="InternVideo3" ok={Boolean(health?.providers?.search?.internvideo3?.available)} muted={Boolean(health?.providers?.search?.internvideo3?.local_checkpoint_detected)} />
-            <StatusBadge label="DeepSeek OCR" ok={Boolean(health?.providers?.deepseek_ocr?.available)} />
-          </div>
-        </header>
+          <button className="icon-button" onClick={load} disabled={busy} title="Refresh dataset videos"><RefreshCcw size={17} /></button>
+        </div>
 
-        <section className="dataset-panel">
-          <div className="panel-head">
-            <h2>Dataset Video Loader</h2>
-            <div className="panel-actions">
-              <button onClick={load} disabled={busy}><RefreshCcw size={16} /> Refresh</button>
-              <button onClick={runIngestSelected} disabled={busy || !selectedVideo}><UploadCloud size={16} /> Ingest Selected</button>
-              <button onClick={() => ingestAllDataset(9).then(() => setStatus("Ingest-all job started."))} disabled={busy}><UploadCloud size={16} /> Ingest All</button>
-              <button onClick={() => rebuildIndex().then(() => setStatus("Index rebuilt."))} disabled={busy}><RefreshCcw size={16} /> Rebuild Index</button>
+        <div className="library-actions">
+          <button onClick={runIngestSelected} disabled={busy || !selectedVideo}><UploadCloud size={16} /> Ingest</button>
+          <button onClick={() => ingestAllDataset(9).then(() => setStatus("Ingest-all job started."))} disabled={busy}><UploadCloud size={16} /> All</button>
+          <button onClick={() => rebuildIndex().then(() => setStatus("Index rebuilt."))} disabled={busy}><RefreshCcw size={16} /> Index</button>
+        </div>
+
+        <div className="video-list">
+          {videos.map((video) => (
+            <button
+              key={video.video_id}
+              className={`video-row ${selectedVideo?.video_id === video.video_id ? "selected" : ""}`}
+              onClick={() => selectVideo(video)}
+            >
+              {video.thumbnail && <img src={mediaUrl(video.thumbnail)} alt="" />}
+              <span>
+                <strong>{video.title}</strong>
+                <small>{video.ingestion_status} / {video.indexed_status} / {formatDuration(video.duration)}</small>
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <EvidenceRail
+          results={results}
+          moments={selectedVideoMoments}
+          selected={selectedResult}
+          selectedVideo={selectedVideo}
+          courseId={courseId}
+          onJump={jumpToEvidence}
+        />
+      </aside>
+
+      <main className="watch-center" aria-label="Main video workspace">
+        <section className="watch-player-card">
+          <div className="watch-head">
+            <div>
+              <span className="eyebrow">Now watching</span>
+              <h2>{selectedVideo?.title || "Select a Dataset video"}</h2>
+            </div>
+            <div className="provider-row compact-providers">
+              <StatusBadge label="Dataset" ok={Boolean(health?.providers?.dataset?.exists)} />
+              <StatusBadge label="GPT-4o" ok={Boolean(health?.providers?.llm?.available)} muted={Boolean(!health?.providers?.llm?.available)} />
+              <StatusBadge label="OCR" ok={Boolean(health?.providers?.deepseek_ocr?.available)} muted={Boolean(!health?.providers?.deepseek_ocr?.available)} />
+              <StatusBadge label="InternVideo3" ok={Boolean(health?.providers?.search?.internvideo3?.available)} muted />
             </div>
           </div>
-          <div className="video-strip">
-            {videos.map((video) => (
-              <button
-                key={video.video_id}
-                className={`video-pill ${selectedVideo?.video_id === video.video_id ? "selected" : ""}`}
-                onClick={() => setSelectedVideo(video)}
-              >
-                <span>{video.title}</span>
-                <small>{video.ingestion_status} / {Math.round((video.duration || 0) / 60)} min</small>
-              </button>
-            ))}
+
+          {activeVideoUrl ? (
+            <video
+              key={activeVideoUrl}
+              ref={videoRef}
+              className="main-video"
+              src={activeVideoUrl}
+              controls
+              poster={mediaUrl(selectedPoster)}
+              onLoadedMetadata={() => {
+                if (selectedResult && videoRef.current) videoRef.current.currentTime = Math.max(0, selectedResult.start_time);
+              }}
+            />
+          ) : (
+            <div className="main-video preview-empty">Select a Dataset video</div>
+          )}
+
+          <div className="watch-meta">
+            <span>{selectedTimestamp}</span>
+            <span>{selectedVideo?.relative_path || "/home/haoqian/Data/OmniCourse-Lens/Dataset"}</span>
           </div>
         </section>
 
-        <section className="workspace-stage">
-          <div className="video-stage">
-            {activeVideoUrl ? <video ref={videoRef} src={activeVideoUrl} controls poster={selectedResult?.thumbnail_url ? `${API_BASE}${selectedResult.thumbnail_url}` : undefined} /> : <div className="preview-empty">Select a Dataset video</div>}
-            <div className="video-meta">
-              <strong>{selectedVideo?.title || "No video selected"}</strong>
-              {selectedResult && <span>{selectedResult.start_time.toFixed(0)}-{selectedResult.end_time.toFixed(0)}s</span>}
-            </div>
-          </div>
-          <div className="workspace-output">
-            {feature === "search" && <SearchWorkspace results={results} selected={selectedResult} onJump={jumpToEvidence} moments={selectedVideoMoments} />}
-            {feature === "cheatsheet" && <CheatsheetWorkspace cheatsheet={cheatsheet} onCompile={runCompile} />}
-            {feature === "graph" && <GraphWorkspace graph={graph} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />}
-            {feature === "qa" && <QAWorkspace qa={qa} onJump={jumpToEvidence} />}
-          </div>
+        <section className="watch-output">
+          {feature === "search" && <SelectedEvidencePanel selected={selectedResult} moments={selectedVideoMoments} />}
+          {feature === "cheatsheet" && <CheatsheetWorkspace cheatsheet={cheatsheet} onCompile={runCompile} />}
+          {feature === "graph" && <GraphWorkspace graph={graph} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />}
+          {feature === "qa" && <QAWorkspace qa={qa} onJump={jumpToEvidence} />}
         </section>
       </main>
 
-      <aside className="feature-sidebar">
-        <div className="feature-tabs">
+      <aside className="feature-sidebar control-sidebar" aria-label="Feature controls">
+        <div className="feature-tabs" aria-label="Feature tabs">
           {featureItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -276,11 +333,13 @@ export default function App() {
             );
           })}
         </div>
+
         <div className="sidebar-controls">
           <label>Active real video</label>
-          <select value={selectedVideo?.video_id || ""} onChange={(event) => setSelectedVideo(videos.find((video) => video.video_id === event.target.value) || null)}>
+          <select value={selectedVideo?.video_id || ""} onChange={(event) => selectVideo(videos.find((video) => video.video_id === event.target.value) || videos[0])}>
             {videos.map((video) => <option key={video.video_id} value={video.video_id}>{video.title}</option>)}
           </select>
+
           {feature === "search" && (
             <>
               <label>Search query</label>
@@ -289,6 +348,7 @@ export default function App() {
               <button onClick={runSearch} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Search size={16} />} Search Moments</button>
             </>
           )}
+
           {feature === "cheatsheet" && (
             <>
               <label>Focus topics</label>
@@ -297,6 +357,7 @@ export default function App() {
               <button onClick={runCompile} disabled={busy || !cheatsheet?.tex_content}>Compile LaTeX</button>
             </>
           )}
+
           {feature === "graph" && (
             <>
               <label>Graph focus</label>
@@ -304,6 +365,7 @@ export default function App() {
               <button onClick={runGraph} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Network size={16} />} Generate Graph</button>
             </>
           )}
+
           {feature === "qa" && (
             <>
               <label>Tutor question</label>
@@ -313,48 +375,112 @@ export default function App() {
             </>
           )}
         </div>
+
         {status && <div className="status-note">{status}</div>}
       </aside>
     </div>
   );
 }
 
-function SearchWorkspace({ results, selected, onJump, moments }: { results: SearchResult[]; selected: SearchResult | null; onJump: (item: SearchResult) => void; moments: any[] }) {
+function EvidenceRail({
+  results,
+  moments,
+  selected,
+  selectedVideo,
+  courseId,
+  onJump
+}: {
+  results: SearchResult[];
+  moments: any[];
+  selected: SearchResult | null;
+  selectedVideo: DatasetVideo | null;
+  courseId: string;
+  onJump: (item: SearchResult) => void;
+}) {
+  const items: SearchResult[] = (results.length ? results : moments.slice(0, 10).map((moment: any) => ({
+    moment_id: moment.moment_id,
+    video_id: moment.video_id || selectedVideo?.video_id,
+    course_id: moment.course_id || courseId,
+    lecture_id: moment.lecture_id || selectedVideo?.lecture_id || "",
+    lecture_title: selectedVideo?.title || moment.lecture_id || "Lecture moment",
+    start_time: Number(moment.start_time || 0),
+    end_time: Number(moment.end_time || 0),
+    score: 0.5,
+    score_breakdown: {},
+    matched_reason: "Indexed real Dataset moment",
+    matched_modalities: ["ASR transcript", "OCR", "Keyframe"],
+    transcript_snippet: moment.transcript || "",
+    ocr_snippet: moment.ocr_text || "",
+    formula_latex: moment.formula_latex || "",
+    concept_tags: moment.concept_tags || [],
+    thumbnail_url: moment.thumbnail_url,
+    video_url: moment.video_id ? `/api/dataset/videos/${moment.video_id}/stream` : selectedVideo ? `/api/dataset/videos/${selectedVideo.video_id}/stream` : undefined
+  }))).filter(Boolean);
+
   return (
-    <div className="workspace-grid">
-      <div className="result-column">
-        {(results.length ? results : moments.slice(0, 6)).map((item: any) => {
-          const result = item.moment_id && item.score === undefined
-            ? {
-                ...item,
-                lecture_title: item.lecture_id,
-                score: 0.5,
-                matched_reason: "Indexed real Dataset moment",
-                matched_modalities: ["ASR transcript", "Slide OCR", "Keyframe"],
-                transcript_snippet: item.transcript,
-                ocr_snippet: item.ocr_text,
-                formula_latex: item.formula_latex,
-                score_breakdown: {},
-                video_url: item.video_id ? `/api/dataset/videos/${item.video_id}/stream` : undefined
-              }
-            : item;
-          return <VideoEvidenceCard key={result.moment_id} item={result} onSelect={() => onJump(result)} />;
-        })}
+    <section className="evidence-rail">
+      <div className="rail-head">
+        <h3>{results.length ? "Search Results" : "Lecture Moments"}</h3>
+        <small>{items.length}</small>
       </div>
-      <div className="detail-panel">
-        <h3>{selected ? "Selected Evidence" : "Real Video Evidence"}</h3>
-        {selected ? (
-          <>
-            <p>{selected.matched_reason}</p>
-            <div className="score-grid compact">
-              {Object.entries(selected.score_breakdown || {}).map(([key, value]) => (
-                <div key={key}><span>{key.replace(/_/g, " ")}</span><meter min={0} max={1} value={value} /></div>
-              ))}
-            </div>
-          </>
-        ) : (
-          <p>Select a moment to jump the main player and inspect score breakdowns.</p>
-        )}
+      <div className="rail-scroll">
+        {items.map((item) => (
+          <button
+            key={item.moment_id}
+            className={`rail-card ${selected?.moment_id === item.moment_id ? "selected" : ""}`}
+            onClick={() => onJump(item)}
+          >
+            {item.thumbnail_url && <img src={mediaUrl(item.thumbnail_url)} alt="" />}
+            <span>
+              <strong>{item.start_time.toFixed(0)}-{item.end_time.toFixed(0)}s</strong>
+              <small>{Math.round(item.score * 100)}% / {item.matched_modalities.slice(0, 2).join(", ")}</small>
+              <em>{item.matched_reason}</em>
+            </span>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SelectedEvidencePanel({ selected, moments }: { selected: SearchResult | null; moments: any[] }) {
+  if (!selected) {
+    return (
+      <div className="selected-evidence empty-watch">
+        <Play size={26} />
+        <h3>Watch first, search beside it</h3>
+        <p>The video stays in the center. Search results and lecture moments appear on the left; feature controls stay on the right.</p>
+        <div className="moment-summary">
+          {moments.slice(0, 3).map((moment: any) => (
+            <span key={moment.moment_id}>{Number(moment.start_time || 0).toFixed(0)}-{Number(moment.end_time || 0).toFixed(0)}s</span>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="selected-evidence">
+      <div className="selected-copy">
+        <span className="eyebrow">Selected timestamp</span>
+        <h3>{selected.lecture_title}</h3>
+        <p className="timestamp">{selected.start_time.toFixed(0)}-{selected.end_time.toFixed(0)}s / {Math.round(selected.score * 100)}% match</p>
+        <p>{selected.matched_reason}</p>
+        <div className="chips">
+          {selected.matched_modalities.map((modality) => <span key={modality}>{modality}</span>)}
+        </div>
+        {selected.transcript_snippet && <blockquote>{selected.transcript_snippet}</blockquote>}
+        {selected.ocr_snippet && <blockquote>{selected.ocr_snippet}</blockquote>}
+        {selected.formula_latex && <code>{selected.formula_latex}</code>}
+      </div>
+      <div className="selected-scores">
+        <h4>Modality scores</h4>
+        {Object.entries(selected.score_breakdown || {}).length ? Object.entries(selected.score_breakdown || {}).map(([key, value]) => (
+          <div key={key}>
+            <span>{key.replace(/_/g, " ")}</span>
+            <meter min={0} max={1} value={value} />
+          </div>
+        )) : <p>No detailed score breakdown for this moment yet.</p>}
       </div>
     </div>
   );
@@ -365,8 +491,8 @@ function CheatsheetWorkspace({ cheatsheet, onCompile }: { cheatsheet: any; onCom
   return (
     <div className="cheatsheet-workspace">
       <div className="cheatsheet-toolbar">
-        {cheatsheet.tex_file_url && <a href={`${API_BASE}${cheatsheet.tex_file_url}`} target="_blank"><Download size={16} /> Download .tex</a>}
-        {cheatsheet.pdf_file_url && <a href={`${API_BASE}${cheatsheet.pdf_file_url}`} target="_blank"><Download size={16} /> Download .pdf</a>}
+        {cheatsheet.tex_file_url && <a href={`${API_BASE}${cheatsheet.tex_file_url}`} target="_blank" rel="noreferrer"><Download size={16} /> Download .tex</a>}
+        {cheatsheet.pdf_file_url && <a href={`${API_BASE}${cheatsheet.pdf_file_url}`} target="_blank" rel="noreferrer"><Download size={16} /> Download .pdf</a>}
         <button onClick={onCompile}>Compile LaTeX</button>
         <button onClick={() => navigator.clipboard.writeText(cheatsheet.tex_content)}>Copy LaTeX</button>
       </div>
@@ -390,7 +516,7 @@ function GraphWorkspace({ graph, selectedNode, setSelectedNode }: { graph: any; 
         <h3>{selectedNode?.label || "Graph Summary"}</h3>
         <p>{selectedNode ? selectedNode.type.replace("_", " ") : graph.summary}</p>
         {selectedNode?.timestamp !== undefined && <p>{selectedNode.timestamp.toFixed(0)}s</p>}
-        {Boolean(selectedNode?.metadata?.thumbnail_url) && <img src={`${API_BASE}${String(selectedNode?.metadata?.thumbnail_url)}`} alt={selectedNode?.label || "graph node"} />}
+        {Boolean(selectedNode?.metadata?.thumbnail_url) && <img src={mediaUrl(String(selectedNode?.metadata?.thumbnail_url))} alt={selectedNode?.label || "graph node"} />}
         <div className="graph-metrics">{(graph.nodes || []).length} nodes / {(graph.edges || []).length} edges</div>
       </aside>
     </div>
@@ -424,4 +550,17 @@ function latexToMarkdownPreview(tex: string) {
     .replace(/\\\[/g, "\n$$")
     .replace(/\\\]/g, "$$\n")
     .slice(0, 5000);
+}
+
+function mediaUrl(path?: string) {
+  if (!path) return undefined;
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  return `${API_BASE}${path}`;
+}
+
+function formatDuration(seconds?: number) {
+  if (!seconds) return "unknown";
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+  return `${mins}:${secs}`;
 }
