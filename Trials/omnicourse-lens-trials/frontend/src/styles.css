@@ -1975,16 +1975,22 @@ body {
 }
 
 .library-actions {
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 
 .library-actions button {
+  align-items: center;
   background: #ffffff;
   border: 1px solid var(--studio-line);
   color: #334155;
-  font-size: 12px;
-  font-weight: 700;
-  height: 38px;
+  font-size: 12.5px;
+  font-weight: 760;
+  gap: 8px;
+  height: 40px;
+  justify-content: flex-start;
+  padding: 0 11px;
+  text-align: left;
+  white-space: normal;
 }
 
 .library-actions button:hover {

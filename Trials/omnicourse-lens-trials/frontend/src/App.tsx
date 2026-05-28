@@ -344,9 +344,18 @@ export default function App() {
         </div>
 
         <div className="library-actions">
-          <button onClick={runIngestSelected} disabled={busy || !selectedVideo}><UploadCloud size={16} /> Ingest</button>
-          <button onClick={() => ingestAllDataset(9).then(() => setStatus("Ingest-all job started."))} disabled={busy}><UploadCloud size={16} /> All</button>
-          <button onClick={() => rebuildIndex().then(() => setStatus("Index rebuilt."))} disabled={busy}><RefreshCcw size={16} /> Index</button>
+          <button onClick={runIngestSelected} disabled={busy || !selectedVideo} title="Prepare the selected video for search, subtitles, QA, cheatsheets, and graph evidence.">
+            <UploadCloud size={16} />
+            <span>Make Current Video Searchable</span>
+          </button>
+          <button onClick={() => ingestAllDataset(9).then(() => setStatus("Preparing every Dataset video in the background."))} disabled={busy} title="Prepare every video in the Dataset folder.">
+            <UploadCloud size={16} />
+            <span>Make All Videos Searchable</span>
+          </button>
+          <button onClick={() => rebuildIndex().then(() => setStatus("Search library refreshed."))} disabled={busy} title="Refresh the search library after adding or changing videos.">
+            <RefreshCcw size={16} />
+            <span>Refresh Search Library</span>
+          </button>
         </div>
 
         <div className="video-list" ref={videoListRef}>
