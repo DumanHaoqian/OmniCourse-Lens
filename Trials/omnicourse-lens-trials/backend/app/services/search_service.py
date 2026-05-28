@@ -117,9 +117,10 @@ class SearchService:
             ]
         query = self._expand_query(query)
         image_descriptor = self.embedding.image_descriptor(image_path) if image_path else None
+        query_dense = self.embedding.dense_text_embedding(query)
         scored = []
         for moment in moments:
-            breakdown = self._score_moment(moment, query, index, image_descriptor, image_ocr_text)
+            breakdown = self._score_moment(moment, query, index, image_descriptor, image_ocr_text, query_dense)
             final_score = self._weighted_score(breakdown, image_mode=bool(image_path))
             result = self._to_result(moment, final_score, breakdown)
             scored.append(result)
@@ -134,6 +135,7 @@ class SearchService:
         index: dict[str, Any],
         image_descriptor: list[float] | None,
         image_ocr_text: str,
+        query_dense: list[float],
     ) -> dict[str, float]:
         transcript = moment.get("transcript", "")
         ocr_text = moment.get("ocr_text", "")
@@ -143,8 +145,15 @@ class SearchService:
         document = "\n".join([transcript, ocr_text, formula, concepts, visual, moment.get("lecture_title", "")])
         lexical = self.embedding.lexical_relevance
         idf = index.get("lexical", {}).get("idf", {})
-        doc_vector = index.get("lexical", {}).get("docs", [{}])[self._moment_index(index, moment.get("moment_id"))]
-        dense_text_score = self.embedding.sparse_cosine(self.embedding.text_sparse_vector(query, idf), doc_vector)
+        moment_idx = self._moment_index(index, moment.get("moment_id"))
+        doc_vector = index.get("lexical", {}).get("docs", [{}])[moment_idx]
+        sparse_text_score = self.embedding.sparse_cosine(self.embedding.text_sparse_vector(query, idf), doc_vector)
+        dense_vectors = index.get("dense_text_embeddings", [])
+        dense_text_score = 0.0
+        if query_dense and moment_idx < len(dense_vectors):
+            dense_text_score = self.embedding.dense_similarity(query_dense, dense_vectors[moment_idx])
+        if dense_text_score <= 0:
+            dense_text_score = sparse_text_score
         image_visual_score = 0.0
         if image_descriptor:
             frame_descriptors = index.get("image_descriptors", {})
@@ -377,6 +386,7 @@ class SearchService:
             "moments": self._read_json(settings.indexes_dir / "moments.json", []),
             "lexical": self._read_json(settings.indexes_dir / "lexical_index.json", {"idf": {}, "docs": []}),
             "image_descriptors": self._read_json(settings.indexes_dir / "image_descriptors.json", {}),
+            "dense_text_embeddings": self._read_json(settings.indexes_dir / "dense_text_embeddings.json", []),
         }
         index["moment_positions"] = {moment.get("moment_id"): idx for idx, moment in enumerate(index["moments"])}
         self._cache = index
@@ -400,6 +410,7 @@ class SearchService:
             "moments": settings.indexes_dir / "moments.json",
             "lexical": settings.indexes_dir / "lexical_index.json",
             "image_descriptors": settings.indexes_dir / "image_descriptors.json",
+            "dense_text_embeddings": settings.indexes_dir / "dense_text_embeddings.json",
         }
         return {name: path.stat().st_mtime if path.exists() else None for name, path in paths.items()}
 

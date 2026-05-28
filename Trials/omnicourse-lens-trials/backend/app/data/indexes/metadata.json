@@ -7,7 +7,21 @@
   "image_descriptor_count": 91,
   "providers": {
     "text_index": "json_tfidf",
-    "image_descriptor": "pil_color_histogram",
+    "image_descriptor": {
+      "provider": "open_clip",
+      "model": "ViT-B-32",
+      "pretrained": "laion2b_s34b_b79k",
+      "dimension": 512,
+      "count": 91,
+      "error": null
+    },
+    "dense_text_embedding": {
+      "provider": "sentence_transformers",
+      "model": "sentence-transformers/all-MiniLM-L6-v2",
+      "dimension": 384,
+      "count": 91,
+      "error": null
+    },
     "video_embedding": "optional_internvideo3_or_disabled"
   }
 }

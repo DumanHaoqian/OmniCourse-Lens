@@ -1,0 +1,123 @@
+{
+  "course_id": "real_i2ml",
+  "provider": {
+    "faster_whisper_available": false,
+    "faster_whisper_runner_available": true,
+    "ctranslate2_runner_available": true,
+    "openai_whisper_available": true,
+    "openai_whisper_enabled": true,
+    "enabled": true,
+    "active_provider": "faster_whisper",
+    "model": "small.en",
+    "device": "auto",
+    "compute_type": "float16",
+    "language": "en",
+    "word_timestamps": true,
+    "vad_filter": true,
+    "runner": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/scripts/asr_transcribe.py",
+    "runner_python": "/home/haoqian/miniconda3/envs/omniC/bin/python",
+    "model_cache": "/mnt/e/Data/OmniCourse-Lens/Trials/checkpoints/asr",
+    "cuda_library_paths": [
+      "/home/haoqian/miniconda3/lib/python3.13/site-packages/nvidia/cublas/lib",
+      "/home/haoqian/miniconda3/envs/omniC/lib/python3.11/site-packages/nvidia/cudnn/lib",
+      "/usr/local/cuda-13.0/targets/x86_64-linux/lib"
+    ],
+    "runner_dependencies": {
+      "faster_whisper": true,
+      "ctranslate2": true,
+      "whisper": false,
+      "torch": true
+    },
+    "fallback": "transcript_file_or_deterministic_demo_segments"
+  },
+  "lectures": [
+    {
+      "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+      "status": "refreshed",
+      "segment_count": 307,
+      "provider_counts": {
+        "faster_whisper_small.en_cuda_float16": 307
+      },
+      "sample": "Hi and welcome to our next session here in our first chapter on ML Basics in our"
+    },
+    {
+      "lecture_id": "01_i2ml_01_ml_basics_00_in_a_nutshell",
+      "status": "refreshed",
+      "segment_count": 107,
+      "provider_counts": {
+        "faster_whisper_small.en_cuda_float16": 107
+      },
+      "sample": "Welcome to Introduction to Machine Learning. I'm Ludwig Bortmann and in this video I will tell"
+    },
+    {
+      "lecture_id": "02_i2ml_01_ml_basics_01_what_is_machine_learning",
+      "status": "refreshed",
+      "segment_count": 289,
+      "provider_counts": {
+        "faster_whisper_small.en_cuda_float16": 289
+      },
+      "sample": "Hi, and welcome to the first session here of our lecture on introduction to machine learning."
+    },
+    {
+      "lecture_id": "03_i2ml_01_ml_basics_02_data",
+      "status": "refreshed",
+      "segment_count": 155,
+      "provider_counts": {
+        "faster_whisper_small.en_cuda_float16": 155
+      },
+      "sample": "Welcome back to Introduction to Machine Learning. I'm Ludwig Butmann and in this video I will tell"
+    },
+    {
+      "lecture_id": "04_i2ml_01_ml_basics_03_tasks",
+      "status": "refreshed",
+      "segment_count": 60,
+      "provider_counts": {
+        "faster_whisper_small.en_cuda_float16": 60
+      },
+      "sample": "Welcome back to Introduction to Machine Learning."
+    },
+    {
+      "lecture_id": "05_i2ml_01_ml_basics_04_models_and_parameters",
+      "status": "refreshed",
+      "segment_count": 190,
+      "provider_counts": {
+        "faster_whisper_small.en_cuda_float16": 190
+      },
+      "sample": "Hi, and welcome to our next session here in our lecture, in our first chapter of our lecture"
+    },
+    {
+      "lecture_id": "06_i2ml_01_ml_basics_05_learner",
+      "status": "refreshed",
+      "segment_count": 62,
+      "provider_counts": {
+        "faster_whisper_small.en_cuda_float16": 62
+      },
+      "sample": "Welcome back to Introduction to Machine Learning. I'm Ludwig Bortmann and in this video I will speak about the learner."
+    },
+    {
+      "lecture_id": "07_i2ml_01_ml_basics_06_losses_and_risk_minimization",
+      "status": "refreshed",
+      "segment_count": 315,
+      "provider_counts": {
+        "faster_whisper_small.en_cuda_float16": 315
+      },
+      "sample": "Hi and welcome to our next session here in our ML Basics chapter in our lecture introduction"
+    },
+    {
+      "lecture_id": "09_i2ml_01_ml_basics_08_components_of_supervised_learning",
+      "status": "refreshed",
+      "segment_count": 105,
+      "provider_counts": {
+        "faster_whisper_small.en_cuda_float16": 105
+      },
+      "sample": "Welcome back to Introduction to Machine Learning. I'm Ludwig Bortmann and in this"
+    }
+  ],
+  "started_at": "2026-05-29T04:08:05",
+  "completed_at": "2026-05-29T04:11:18",
+  "rebuild_index": {
+    "returncode": 0,
+    "stdout": "{\n  \"courses\": [\n    \"ml_foundations\",\n    \"real_i2ml\"\n  ],\n  \"moment_count\": 91,\n  \"image_descriptor_count\": 91,\n  \"providers\": {\n    \"text_index\": \"json_tfidf\",\n    \"image_descriptor\": \"pil_color_histogram\",\n    \"dense_text_embedding\": {\n      \"provider\": \"sentence_transformers\",\n      \"model\": \"sentence-transformers/all-MiniLM-L6-v2\",\n      \"dimension\": 384,\n      \"count\": 91,\n      \"error\": null\n    },\n    \"video_embedding\": \"optional_internvideo3_or_disabled\"\n  }\n}\n",
+    "stderr": ""
+  }
+}

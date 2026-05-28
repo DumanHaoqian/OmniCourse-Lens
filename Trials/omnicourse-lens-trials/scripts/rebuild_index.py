@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import json
 import math
+import os
+import subprocess
 import sys
+import tempfile
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
@@ -56,12 +59,101 @@ def moment_document(moment: dict[str, Any], lecture: dict[str, Any]) -> str:
     return "\n".join(parts)
 
 
+def build_dense_embeddings(texts: list[str]) -> dict[str, Any]:
+    runner = ROOT / "scripts" / "embed_text.py"
+    python = os.getenv("OMNICOURSE_EMBED_PYTHON", "/home/haoqian/miniconda3/envs/omniC/bin/python")
+    model = os.getenv("OMNICOURSE_TEXT_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
+    cache_dir = Path(os.getenv("OMNICOURSE_EMBED_MODEL_DIR", str(settings.repo_root / "Trials" / "checkpoints" / "embeddings"))).expanduser()
+    if not runner.exists():
+        return {"provider": "unavailable", "model": model, "embeddings": [], "error": "embed_text.py missing"}
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as src:
+        json.dump(texts, src, ensure_ascii=False)
+        input_path = Path(src.name)
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as dst:
+        output_path = Path(dst.name)
+    try:
+        command = [
+            python if Path(python).exists() else sys.executable,
+            str(runner),
+            "--input-json",
+            str(input_path),
+            "--output-json",
+            str(output_path),
+            "--model",
+            model,
+            "--cache-dir",
+            str(cache_dir),
+        ]
+        result = subprocess.run(command, capture_output=True, text=True, timeout=int(os.getenv("OMNICOURSE_EMBED_INDEX_TIMEOUT", "900")))
+        if result.returncode != 0:
+            return {
+                "provider": "unavailable",
+                "model": model,
+                "embeddings": [],
+                "error": result.stderr[-1000:] or result.stdout[-1000:],
+            }
+        return json.loads(output_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return {"provider": "unavailable", "model": model, "embeddings": [], "error": f"{type(exc).__name__}: {str(exc)[:500]}"}
+    finally:
+        input_path.unlink(missing_ok=True)
+        output_path.unlink(missing_ok=True)
+
+
+def build_image_embeddings(image_paths: list[str]) -> dict[str, Any]:
+    runner = ROOT / "scripts" / "embed_image.py"
+    python = os.getenv("OMNICOURSE_EMBED_PYTHON", "/home/haoqian/miniconda3/envs/omniC/bin/python")
+    model = os.getenv("OMNICOURSE_IMAGE_EMBED_MODEL", "ViT-B-32")
+    pretrained = os.getenv("OMNICOURSE_IMAGE_EMBED_PRETRAINED", "laion2b_s34b_b79k")
+    device = os.getenv("OMNICOURSE_IMAGE_EMBED_DEVICE", "auto")
+    if not runner.exists():
+        return {"provider": "unavailable", "model": model, "embeddings": {}, "error": "embed_image.py missing"}
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as src:
+        json.dump(image_paths, src, ensure_ascii=False)
+        input_path = Path(src.name)
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as dst:
+        output_path = Path(dst.name)
+    try:
+        command = [
+            python if Path(python).exists() else sys.executable,
+            str(runner),
+            "--input-json",
+            str(input_path),
+            "--output-json",
+            str(output_path),
+            "--model",
+            model,
+            "--pretrained",
+            pretrained,
+            "--device",
+            device,
+        ]
+        result = subprocess.run(command, capture_output=True, text=True, timeout=int(os.getenv("OMNICOURSE_IMAGE_EMBED_INDEX_TIMEOUT", "900")))
+        if result.returncode != 0:
+            return {
+                "provider": "unavailable",
+                "model": model,
+                "pretrained": pretrained,
+                "embeddings": {},
+                "error": result.stderr[-1000:] or result.stdout[-1000:],
+            }
+        return json.loads(output_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return {"provider": "unavailable", "model": model, "pretrained": pretrained, "embeddings": {}, "error": f"{type(exc).__name__}: {str(exc)[:500]}"}
+    finally:
+        input_path.unlink(missing_ok=True)
+        output_path.unlink(missing_ok=True)
+
+
 def main() -> None:
     ensure_directories()
     courses = [course.model_dump(mode="json") for course in list_courses()]
     moments: list[dict[str, Any]] = []
     docs: list[list[str]] = []
+    dense_texts: list[str] = []
     image_descriptors: dict[str, list[float]] = {}
+    all_frame_paths: list[str] = []
     for course in courses:
         for lecture in course.get("lectures", []):
             for moment in lecture.get("moments", []):
@@ -72,10 +164,12 @@ def main() -> None:
                     "video_id": moment.get("video_id") or moment.get("metadata", {}).get("video_id") or lecture.get("metadata", {}).get("video_id"),
                 }
                 moments.append(record)
-                docs.append(tokenize(moment_document(moment, lecture)))
+                document = moment_document(moment, lecture)
+                dense_texts.append(document)
+                docs.append(tokenize(document))
                 for frame in moment.get("keyframes", []):
                     if frame:
-                        image_descriptors[frame] = image_descriptor(frame)
+                        all_frame_paths.append(frame)
 
     document_frequency: Counter[str] = Counter()
     for tokens in docs:
@@ -97,19 +191,42 @@ def main() -> None:
             inverted[term].append({"moment_index": idx, "weight": round(weight, 6)})
         sparse_docs.append(weights)
 
+    dense_payload = build_dense_embeddings(dense_texts)
+    dense_embeddings = dense_payload.get("embeddings", []) if dense_payload.get("provider") == "sentence_transformers" else []
+    unique_frames = sorted(set(all_frame_paths))
+    image_payload = build_image_embeddings(unique_frames)
+    if image_payload.get("provider") == "open_clip":
+        image_descriptors = image_payload.get("embeddings", {})
+    else:
+        image_descriptors = {frame: image_descriptor(frame) for frame in unique_frames}
     metadata = {
         "courses": [course["course_id"] for course in courses],
         "moment_count": len(moments),
         "image_descriptor_count": len(image_descriptors),
         "providers": {
             "text_index": "json_tfidf",
-            "image_descriptor": "pil_color_histogram",
+            "image_descriptor": {
+                "provider": image_payload.get("provider") or "pil_color_histogram",
+                "model": image_payload.get("model"),
+                "pretrained": image_payload.get("pretrained"),
+                "dimension": image_payload.get("dimension"),
+                "count": image_payload.get("count") or len(image_descriptors),
+                "error": image_payload.get("error"),
+            },
+            "dense_text_embedding": {
+                "provider": dense_payload.get("provider"),
+                "model": dense_payload.get("model"),
+                "dimension": dense_payload.get("dimension"),
+                "count": dense_payload.get("count"),
+                "error": dense_payload.get("error"),
+            },
             "video_embedding": "optional_internvideo3_or_disabled",
         },
     }
     write_json(settings.indexes_dir / "moments.json", moments)
     write_json(settings.indexes_dir / "lexical_index.json", {"idf": idf, "docs": sparse_docs, "inverted": inverted})
     write_json(settings.indexes_dir / "image_descriptors.json", image_descriptors)
+    write_json(settings.indexes_dir / "dense_text_embeddings.json", dense_embeddings)
     write_json(settings.indexes_dir / "metadata.json", metadata)
     print(json.dumps(metadata, indent=2))
 

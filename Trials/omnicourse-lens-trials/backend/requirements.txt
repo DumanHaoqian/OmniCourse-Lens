@@ -24,3 +24,5 @@ huggingface_hub
 safetensors
 faster-whisper
 openai-whisper
+sentence-transformers
+open_clip_torch

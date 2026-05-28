@@ -68,7 +68,7 @@ Smoke checks passed:
 ## Provider Status
 
 - GPT-4o: credentials detected from `/home/haoqian/Data/OmniCourse-Lens/openai_keys.txt`; full key was not committed or printed.
-- ASR: local `faster-whisper` runner is active through the `omniC` environment; default model is `small.en` with CPU/int8 for stable subtitle generation. OpenAI Whisper remains a fallback.
+- ASR: local `faster-whisper` runner is active through the `omniC` environment; default model is `small.en` with auto CUDA/float16 and CPU fallback. OpenAI Whisper remains a fallback.
 - DeepSeek OCR: local `deepseek-ai/DeepSeek-OCR` checkpoint detected at `Trials/checkpoints/DeepSeek-OCR`; backend provider mode is `local_hf_lazy`.
 - OCR fallback: PaddleOCR/EasyOCR/Tesseract not detected; DeepSeek-OCR is now the active frame/image OCR provider, with associated slide PDF text as supplemental evidence.
 - InternVideo3: local `InternVideo3-8B-Instruct` checkpoint detected at `Trials/checkpoints/InternVideo3-8B-Instruct`; backend provider mode is `local_hf_lazy`. Local reranking runs through the `omniC` Python environment to avoid Transformers-version conflicts with DeepSeek-OCR.
@@ -82,17 +82,19 @@ Smoke checks passed:
 
 ## Known Remaining Issues
 
-- Existing ingested JSON still includes earlier fallback/slide-derived ASR for videos that have not been reingested since the ASR activation pass. Reingest a video to replace those segments with `faster_whisper_*` timestamped speech transcripts.
+- Real `real_i2ml` ASR has now been refreshed across all 9 Dataset videos: 79 real moments use 1659 `faster_whisper_small.en_cuda_float16` subtitle segments and no `fallback_asr` remains in the real course/index.
 - DeepSeek-OCR local inference is active, but it is a heavy model and should be used selectively for ingestion/image OCR rather than on every UI refresh.
-- InternVideo3 local inference is active and verified through a subprocess runner, but cold-start loading of the 8B checkpoint is slow. For smooth demos, run a persistent InternVideo3 endpoint and set `INTERNVIDEO3_ENDPOINT`, or keep local reranking limited to top-1.
+- InternVideo3 local inference is active and verified through a subprocess runner. A persistent FastAPI scorer is available via `scripts/run_internvideo3_server.sh` so the 8B checkpoint can be loaded once for demos.
+- Dense text retrieval now uses `sentence-transformers/all-MiniLM-L6-v2`; the rebuilt index contains 91 vectors with dimension 384.
+- Image retrieval now uses OpenCLIP `ViT-B-32/laion2b_s34b_b79k`; the rebuilt index contains 91 frame vectors with dimension 512.
 - PaddleOCR/EasyOCR/Tesseract are still unavailable; DeepSeek-OCR plus slide PDF text currently provide OCR evidence.
 - No local LaTeX compiler is installed in this environment, so PDF generation reports a clear unavailable status.
-- The search stack is still hybrid lexical/TF-IDF + image color histogram fallback, not a full production dense multimodal retrieval stack.
+- The search stack is now hybrid lexical + sentence-transformers dense text + OpenCLIP visual + OCR/formula/concept + InternVideo3 reranking. A production vector DB is still a future scalability step.
 - Vite build passes but warns that the main JS bundle is large because Cytoscape, KaTeX, and motion libraries are included.
 
 ## Next Steps
 
-- Reingest all 9 videos with the active faster-whisper runner to refresh subtitles/search transcripts.
+- Keep InternVideo3 server warm during demos to avoid 8B cold-start latency.
 - Add a real InternVideo3 scoring microservice using the existing checkpoint.
 - Add a stronger OCR provider for actual frame text extraction.
 - Add CLIP/SigLIP image embeddings for better visual search.
@@ -136,7 +138,21 @@ Validation:
 - `scripts/asr_transcribe.py` was run on the first 20 seconds of a real Dataset lecture audio file.
 - Output included timestamped speech: "Welcome to Introduction to Machine Learning. I'm Ludwig Bortmann..." and word-level timestamps.
 - Backend `AudioASRService.transcribe(...)` integration returned 4 real `faster_whisper_small.en_cpu_int8` subtitle segments for a 20-second real audio clip.
-- CUDA CTranslate2 attempted first with `auto/cuda` but failed because `libcublas.so.12` is not visible to CTranslate2; CPU/int8 is therefore the stable default until CUDA library paths are fixed.
+- Initial CUDA CTranslate2 failed because `libcublas.so.12` was not visible to CTranslate2.
+
+Follow-up completion:
+
+- Added CUDA library path injection for CTranslate2.
+- Verified `faster_whisper_small.en_cuda_float16` on real audio.
+- Refreshed all 9 real Dataset lectures with true ASR and rebuilt the index.
+
+## Embedding Completion Pass - May 29, 2026
+
+- Added `scripts/embed_text.py` and indexed all 91 moments with sentence-transformers `all-MiniLM-L6-v2`, dimension 384.
+- Added `scripts/embed_image.py` and indexed all 91 keyframes with OpenCLIP `ViT-B-32/laion2b_s34b_b79k`, dimension 512.
+- Updated `SearchService` so `dense_text` is real dense similarity, not sparse TF-IDF.
+- Updated image query descriptors so OpenCLIP is the primary visual search path.
+- Added `scripts/internvideo3_server.py` and `scripts/run_internvideo3_server.sh` for a persistent local InternVideo3 scorer.
 
 ## Knowledge Graph Repair Pass - May 29, 2026
 

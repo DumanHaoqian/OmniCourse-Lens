@@ -17,8 +17,8 @@ class AudioASRService:
         self.enabled = os.getenv("OMNICOURSE_ENABLE_ASR", "1").lower() in {"1", "true", "yes"}
         self.provider = os.getenv("OMNICOURSE_ASR_PROVIDER", "faster_whisper").strip() or "faster_whisper"
         self.model = os.getenv("OMNICOURSE_ASR_MODEL", "small.en").strip() or "small.en"
-        self.device = os.getenv("OMNICOURSE_ASR_DEVICE", "cpu").strip() or "cpu"
-        self.compute_type = os.getenv("OMNICOURSE_ASR_COMPUTE_TYPE", "int8").strip() or "int8"
+        self.device = os.getenv("OMNICOURSE_ASR_DEVICE", "auto").strip() or "auto"
+        self.compute_type = os.getenv("OMNICOURSE_ASR_COMPUTE_TYPE", "float16").strip() or "float16"
         self.language = os.getenv("OMNICOURSE_ASR_LANGUAGE", "en").strip()
         self.beam_size = int(os.getenv("OMNICOURSE_ASR_BEAM_SIZE", "5"))
         self.word_timestamps = os.getenv("OMNICOURSE_ASR_WORD_TIMESTAMPS", "1").lower() in {"1", "true", "yes"}
@@ -49,6 +49,7 @@ class AudioASRService:
             "runner": str(self.runner) if runner_available else None,
             "runner_python": self.python if python_available else None,
             "model_cache": str(self.download_root),
+            "cuda_library_paths": self._cuda_library_paths(),
             "runner_dependencies": runner_deps,
             "fallback": "transcript_file_or_deterministic_demo_segments",
         }
@@ -143,7 +144,7 @@ class AudioASRService:
             command.append("--vad-filter")
         timeout = int(os.getenv("OMNICOURSE_ASR_TIMEOUT", "1800"))
         try:
-            result = subprocess.run(command, capture_output=True, text=True, timeout=timeout)
+            result = subprocess.run(command, capture_output=True, text=True, timeout=timeout, env=self._runner_env())
             text = (result.stdout or "").strip().splitlines()[-1] if result.stdout.strip() else "{}"
             payload = json.loads(text)
             if result.returncode != 0 or payload.get("error"):
@@ -233,10 +234,27 @@ class AudioASRService:
             "import importlib.util, json; print(json.dumps({m: importlib.util.find_spec(m) is not None for m in ['faster_whisper','ctranslate2','whisper','torch']}))",
         ]
         try:
-            result = subprocess.run(command, capture_output=True, text=True, timeout=8)
+            result = subprocess.run(command, capture_output=True, text=True, timeout=8, env=self._runner_env())
             return json.loads(result.stdout.strip() or "{}")
         except Exception:
             return {}
+
+    def _runner_env(self) -> dict[str, str]:
+        env = os.environ.copy()
+        paths = self._cuda_library_paths()
+        if paths:
+            existing = env.get("LD_LIBRARY_PATH", "")
+            env["LD_LIBRARY_PATH"] = ":".join([*paths, existing] if existing else paths)
+        return env
+
+    def _cuda_library_paths(self) -> list[str]:
+        candidates = [
+            "/home/haoqian/miniconda3/lib/python3.13/site-packages/nvidia/cublas/lib",
+            "/home/haoqian/miniconda3/envs/omniC/lib/python3.11/site-packages/nvidia/cublas/lib",
+            "/home/haoqian/miniconda3/envs/omniC/lib/python3.11/site-packages/nvidia/cudnn/lib",
+            "/usr/local/cuda-13.0/targets/x86_64-linux/lib",
+        ]
+        return [path for path in candidates if Path(path).exists()]
 
     def _openai_model_name(self) -> str:
         return os.getenv("OMNICOURSE_OPENAI_WHISPER_MODEL", "base.en")

@@ -1,0 +1,5812 @@
+{
+  "segments": [
+    {
+      "start_time": 1.39,
+      "end_time": 4.03,
+      "text": "Welcome back to Introduction to Machine Learning.",
+      "confidence": -0.25502231894504457,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 1.39,
+          "end_time": 1.95,
+          "text": "Welcome",
+          "confidence": 0.92041015625
+        },
+        {
+          "start_time": 1.95,
+          "end_time": 2.35,
+          "text": "back",
+          "confidence": 0.98046875
+        },
+        {
+          "start_time": 2.35,
+          "end_time": 2.61,
+          "text": "to",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 2.61,
+          "end_time": 3.01,
+          "text": "Introduction",
+          "confidence": 0.48974609375
+        },
+        {
+          "start_time": 3.01,
+          "end_time": 3.45,
+          "text": "to",
+          "confidence": 0.98291015625
+        },
+        {
+          "start_time": 3.45,
+          "end_time": 3.71,
+          "text": "Machine",
+          "confidence": 0.95556640625
+        },
+        {
+          "start_time": 3.71,
+          "end_time": 4.03,
+          "text": "Learning.",
+          "confidence": 0.9599609375
+        }
+      ]
+    },
+    {
+      "start_time": 4.37,
+      "end_time": 10.67,
+      "text": "I'm Elutvik Butmann and in this video I will tell you about supervised tasks that we use in machine learning.",
+      "confidence": -0.25502231894504457,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 4.37,
+          "end_time": 4.67,
+          "text": "I'm",
+          "confidence": 0.8154296875
+        },
+        {
+          "start_time": 4.67,
+          "end_time": 5.01,
+          "text": "Elutvik",
+          "confidence": 0.5817057291666666
+        },
+        {
+          "start_time": 5.01,
+          "end_time": 5.45,
+          "text": "Butmann",
+          "confidence": 0.44781494140625
+        },
+        {
+          "start_time": 5.45,
+          "end_time": 5.85,
+          "text": "and",
+          "confidence": 0.837890625
+        },
+        {
+          "start_time": 5.85,
+          "end_time": 6.05,
+          "text": "in",
+          "confidence": 0.97705078125
+        },
+        {
+          "start_time": 6.05,
+          "end_time": 6.21,
+          "text": "this",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 6.21,
+          "end_time": 6.55,
+          "text": "video",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 6.55,
+          "end_time": 6.87,
+          "text": "I",
+          "confidence": 0.86083984375
+        },
+        {
+          "start_time": 6.87,
+          "end_time": 7.07,
+          "text": "will",
+          "confidence": 0.9755859375
+        },
+        {
+          "start_time": 7.07,
+          "end_time": 7.27,
+          "text": "tell",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 7.27,
+          "end_time": 7.49,
+          "text": "you",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 7.49,
+          "end_time": 7.75,
+          "text": "about",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 7.75,
+          "end_time": 8.41,
+          "text": "supervised",
+          "confidence": 0.65869140625
+        },
+        {
+          "start_time": 8.41,
+          "end_time": 9.07,
+          "text": "tasks",
+          "confidence": 0.97021484375
+        },
+        {
+          "start_time": 9.07,
+          "end_time": 9.51,
+          "text": "that",
+          "confidence": 0.9814453125
+        },
+        {
+          "start_time": 9.51,
+          "end_time": 9.69,
+          "text": "we",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 9.69,
+          "end_time": 9.89,
+          "text": "use",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 9.89,
+          "end_time": 10.05,
+          "text": "in",
+          "confidence": 0.9892578125
+        },
+        {
+          "start_time": 10.05,
+          "end_time": 10.29,
+          "text": "machine",
+          "confidence": 0.8896484375
+        },
+        {
+          "start_time": 10.29,
+          "end_time": 10.67,
+          "text": "learning.",
+          "confidence": 0.99560546875
+        }
+      ]
+    },
+    {
+      "start_time": 11.21,
+      "end_time": 15.59,
+      "text": "You should know at the end the definition and some examples of supervised tasks",
+      "confidence": -0.25502231894504457,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 11.21,
+          "end_time": 11.45,
+          "text": "You",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 11.45,
+          "end_time": 11.59,
+          "text": "should",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 11.59,
+          "end_time": 11.85,
+          "text": "know",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 11.85,
+          "end_time": 12.03,
+          "text": "at",
+          "confidence": 0.9775390625
+        },
+        {
+          "start_time": 12.03,
+          "end_time": 12.17,
+          "text": "the",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 12.17,
+          "end_time": 12.33,
+          "text": "end",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 12.33,
+          "end_time": 12.55,
+          "text": "the",
+          "confidence": 0.9697265625
+        },
+        {
+          "start_time": 12.55,
+          "end_time": 12.87,
+          "text": "definition",
+          "confidence": 0.98193359375
+        },
+        {
+          "start_time": 12.87,
+          "end_time": 13.45,
+          "text": "and",
+          "confidence": 0.98291015625
+        },
+        {
+          "start_time": 13.45,
+          "end_time": 13.77,
+          "text": "some",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 13.77,
+          "end_time": 14.27,
+          "text": "examples",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 14.27,
+          "end_time": 14.51,
+          "text": "of",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 14.51,
+          "end_time": 14.93,
+          "text": "supervised",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 14.93,
+          "end_time": 15.59,
+          "text": "tasks",
+          "confidence": 0.99658203125
+        }
+      ]
+    },
+    {
+      "start_time": 15.59,
+      "end_time": 20.79,
+      "text": "and mainly understand the difference between regression and classification.",
+      "confidence": -0.25502231894504457,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 15.59,
+          "end_time": 16.37,
+          "text": "and",
+          "confidence": 0.9111328125
+        },
+        {
+          "start_time": 16.37,
+          "end_time": 16.87,
+          "text": "mainly",
+          "confidence": 0.98193359375
+        },
+        {
+          "start_time": 16.87,
+          "end_time": 17.85,
+          "text": "understand",
+          "confidence": 0.97119140625
+        },
+        {
+          "start_time": 17.85,
+          "end_time": 18.05,
+          "text": "the",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 18.05,
+          "end_time": 18.37,
+          "text": "difference",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 18.37,
+          "end_time": 18.87,
+          "text": "between",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 18.87,
+          "end_time": 19.57,
+          "text": "regression",
+          "confidence": 0.9755859375
+        },
+        {
+          "start_time": 19.57,
+          "end_time": 20.13,
+          "text": "and",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 20.13,
+          "end_time": 20.79,
+          "text": "classification.",
+          "confidence": 0.99951171875
+        }
+      ]
+    },
+    {
+      "start_time": 23.29,
+      "end_time": 29.85,
+      "text": "With supervised tasks we describe data situations where we want to learn the functional relationship",
+      "confidence": -0.25502231894504457,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 23.29,
+          "end_time": 23.57,
+          "text": "With",
+          "confidence": 0.9931640625
+        },
+        {
+          "start_time": 23.57,
+          "end_time": 24.29,
+          "text": "supervised",
+          "confidence": 0.97998046875
+        },
+        {
+          "start_time": 24.29,
+          "end_time": 25.13,
+          "text": "tasks",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 25.13,
+          "end_time": 25.55,
+          "text": "we",
+          "confidence": 0.78515625
+        },
+        {
+          "start_time": 25.55,
+          "end_time": 26.05,
+          "text": "describe",
+          "confidence": 0.97705078125
+        },
+        {
+          "start_time": 26.05,
+          "end_time": 26.43,
+          "text": "data",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 26.43,
+          "end_time": 26.99,
+          "text": "situations",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 26.99,
+          "end_time": 27.29,
+          "text": "where",
+          "confidence": 0.96337890625
+        },
+        {
+          "start_time": 27.29,
+          "end_time": 27.45,
+          "text": "we",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 27.45,
+          "end_time": 27.65,
+          "text": "want",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 27.65,
+          "end_time": 27.91,
+          "text": "to",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 27.91,
+          "end_time": 28.21,
+          "text": "learn",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 28.21,
+          "end_time": 28.51,
+          "text": "the",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 28.51,
+          "end_time": 29.01,
+          "text": "functional",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 29.01,
+          "end_time": 29.85,
+          "text": "relationship",
+          "confidence": 0.98095703125
+        }
+      ]
+    },
+    {
+      "start_time": 29.85,
+      "end_time": 37.27,
+      "text": "between features and target or between input and output. We have two basic",
+      "confidence": -0.12268066545948386,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 29.85,
+          "end_time": 30.63,
+          "text": "between",
+          "confidence": 0.9228515625
+        },
+        {
+          "start_time": 30.63,
+          "end_time": 31.23,
+          "text": "features",
+          "confidence": 0.92333984375
+        },
+        {
+          "start_time": 31.23,
+          "end_time": 31.75,
+          "text": "and",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 31.75,
+          "end_time": 32.27,
+          "text": "target",
+          "confidence": 0.96923828125
+        },
+        {
+          "start_time": 32.27,
+          "end_time": 32.81,
+          "text": "or",
+          "confidence": 0.8251953125
+        },
+        {
+          "start_time": 32.81,
+          "end_time": 33.15,
+          "text": "between",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 33.15,
+          "end_time": 33.73,
+          "text": "input",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 33.73,
+          "end_time": 34.49,
+          "text": "and",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 34.49,
+          "end_time": 35.07,
+          "text": "output.",
+          "confidence": 0.97900390625
+        },
+        {
+          "start_time": 35.67,
+          "end_time": 36.35,
+          "text": "We",
+          "confidence": 0.9833984375
+        },
+        {
+          "start_time": 36.35,
+          "end_time": 36.47,
+          "text": "have",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 36.47,
+          "end_time": 36.71,
+          "text": "two",
+          "confidence": 0.98486328125
+        },
+        {
+          "start_time": 36.71,
+          "end_time": 37.27,
+          "text": "basic",
+          "confidence": 0.99560546875
+        }
+      ]
+    },
+    {
+      "start_time": 37.27,
+      "end_time": 44.05,
+      "text": "tasks called regression and classification and whether we are dealing",
+      "confidence": -0.12268066545948386,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 37.27,
+          "end_time": 37.91,
+          "text": "tasks",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 37.91,
+          "end_time": 38.49,
+          "text": "called",
+          "confidence": 0.9755859375
+        },
+        {
+          "start_time": 38.49,
+          "end_time": 39.23,
+          "text": "regression",
+          "confidence": 0.96923828125
+        },
+        {
+          "start_time": 39.23,
+          "end_time": 40.01,
+          "text": "and",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 40.01,
+          "end_time": 41.13,
+          "text": "classification",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 41.13,
+          "end_time": 42.53,
+          "text": "and",
+          "confidence": 0.71728515625
+        },
+        {
+          "start_time": 42.53,
+          "end_time": 43.43,
+          "text": "whether",
+          "confidence": 0.98095703125
+        },
+        {
+          "start_time": 43.43,
+          "end_time": 43.73,
+          "text": "we",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 43.73,
+          "end_time": 43.87,
+          "text": "are",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 43.87,
+          "end_time": 44.05,
+          "text": "dealing",
+          "confidence": 0.99951171875
+        }
+      ]
+    },
+    {
+      "start_time": 44.05,
+      "end_time": 50.63,
+      "text": "with regression or classification only depends on the scale of the target",
+      "confidence": -0.12268066545948386,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 44.05,
+          "end_time": 44.31,
+          "text": "with",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 44.31,
+          "end_time": 44.79,
+          "text": "regression",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 44.79,
+          "end_time": 45.23,
+          "text": "or",
+          "confidence": 0.9921875
+        },
+        {
+          "start_time": 45.23,
+          "end_time": 45.93,
+          "text": "classification",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 45.93,
+          "end_time": 46.69,
+          "text": "only",
+          "confidence": 0.966796875
+        },
+        {
+          "start_time": 46.69,
+          "end_time": 47.21,
+          "text": "depends",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 47.21,
+          "end_time": 48.29,
+          "text": "on",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 48.29,
+          "end_time": 48.83,
+          "text": "the",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 48.83,
+          "end_time": 49.77,
+          "text": "scale",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 49.77,
+          "end_time": 50.05,
+          "text": "of",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 50.05,
+          "end_time": 50.23,
+          "text": "the",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 50.23,
+          "end_time": 50.63,
+          "text": "target",
+          "confidence": 0.99609375
+        }
+      ]
+    },
+    {
+      "start_time": 50.63,
+      "end_time": 58.23,
+      "text": "variable. So if the target space is a subspace from R or we have a numerical",
+      "confidence": -0.12268066545948386,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 50.63,
+          "end_time": 51.25,
+          "text": "variable.",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 52.29,
+          "end_time": 52.61,
+          "text": "So",
+          "confidence": 0.9287109375
+        },
+        {
+          "start_time": 52.61,
+          "end_time": 53.05,
+          "text": "if",
+          "confidence": 0.85791015625
+        },
+        {
+          "start_time": 53.05,
+          "end_time": 53.37,
+          "text": "the",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 53.37,
+          "end_time": 53.85,
+          "text": "target",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 53.85,
+          "end_time": 54.59,
+          "text": "space",
+          "confidence": 0.9765625
+        },
+        {
+          "start_time": 54.59,
+          "end_time": 55.23,
+          "text": "is",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 55.23,
+          "end_time": 55.39,
+          "text": "a",
+          "confidence": 0.98779296875
+        },
+        {
+          "start_time": 55.39,
+          "end_time": 55.93,
+          "text": "subspace",
+          "confidence": 0.984130859375
+        },
+        {
+          "start_time": 55.93,
+          "end_time": 56.33,
+          "text": "from",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 56.33,
+          "end_time": 56.81,
+          "text": "R",
+          "confidence": 0.8095703125
+        },
+        {
+          "start_time": 56.81,
+          "end_time": 57.43,
+          "text": "or",
+          "confidence": 0.7958984375
+        },
+        {
+          "start_time": 57.43,
+          "end_time": 57.61,
+          "text": "we",
+          "confidence": 0.9931640625
+        },
+        {
+          "start_time": 57.61,
+          "end_time": 57.75,
+          "text": "have",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 57.75,
+          "end_time": 57.89,
+          "text": "a",
+          "confidence": 0.96044921875
+        },
+        {
+          "start_time": 57.89,
+          "end_time": 58.23,
+          "text": "numerical",
+          "confidence": 0.99609375
+        }
+      ]
+    },
+    {
+      "start_time": 58.23,
+      "end_time": 66.01,
+      "text": "target then we are speaking of regression and if the target space is some categorical space",
+      "confidence": -0.13013392324958528,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 58.23,
+          "end_time": 58.59,
+          "text": "target",
+          "confidence": 0.859375
+        },
+        {
+          "start_time": 58.59,
+          "end_time": 59.33,
+          "text": "then",
+          "confidence": 0.47021484375
+        },
+        {
+          "start_time": 59.33,
+          "end_time": 60.25,
+          "text": "we",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 60.25,
+          "end_time": 60.63,
+          "text": "are",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 60.63,
+          "end_time": 60.95,
+          "text": "speaking",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 60.95,
+          "end_time": 61.21,
+          "text": "of",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 61.21,
+          "end_time": 61.69,
+          "text": "regression",
+          "confidence": 0.9384765625
+        },
+        {
+          "start_time": 61.69,
+          "end_time": 63.21,
+          "text": "and",
+          "confidence": 0.5859375
+        },
+        {
+          "start_time": 63.21,
+          "end_time": 63.35,
+          "text": "if",
+          "confidence": 0.98974609375
+        },
+        {
+          "start_time": 63.35,
+          "end_time": 63.53,
+          "text": "the",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 63.53,
+          "end_time": 63.83,
+          "text": "target",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 63.83,
+          "end_time": 64.23,
+          "text": "space",
+          "confidence": 0.97021484375
+        },
+        {
+          "start_time": 64.23,
+          "end_time": 64.51,
+          "text": "is",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 64.51,
+          "end_time": 64.83,
+          "text": "some",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 64.83,
+          "end_time": 65.53,
+          "text": "categorical",
+          "confidence": 0.998779296875
+        },
+        {
+          "start_time": 65.53,
+          "end_time": 66.01,
+          "text": "space",
+          "confidence": 0.998046875
+        }
+      ]
+    },
+    {
+      "start_time": 66.39,
+      "end_time": 72.37,
+      "text": "with a finite number of categories then we are speaking of classification.",
+      "confidence": -0.13013392324958528,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 66.39,
+          "end_time": 66.81,
+          "text": "with",
+          "confidence": 0.9755859375
+        },
+        {
+          "start_time": 66.81,
+          "end_time": 67.39,
+          "text": "a",
+          "confidence": 0.943359375
+        },
+        {
+          "start_time": 67.39,
+          "end_time": 67.97,
+          "text": "finite",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 67.97,
+          "end_time": 68.39,
+          "text": "number",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 68.39,
+          "end_time": 68.73,
+          "text": "of",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 68.73,
+          "end_time": 69.23,
+          "text": "categories",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 69.23,
+          "end_time": 70.05,
+          "text": "then",
+          "confidence": 0.81103515625
+        },
+        {
+          "start_time": 70.05,
+          "end_time": 70.51,
+          "text": "we",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 70.51,
+          "end_time": 70.61,
+          "text": "are",
+          "confidence": 0.9736328125
+        },
+        {
+          "start_time": 70.61,
+          "end_time": 70.99,
+          "text": "speaking",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 70.99,
+          "end_time": 71.41,
+          "text": "of",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 71.41,
+          "end_time": 72.37,
+          "text": "classification.",
+          "confidence": 0.99755859375
+        }
+      ]
+    },
+    {
+      "start_time": 74.91,
+      "end_time": 78.95,
+      "text": "In statistics the nomenclature here is sometimes a little bit different,",
+      "confidence": -0.13013392324958528,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 74.91,
+          "end_time": 75.11,
+          "text": "In",
+          "confidence": 0.978515625
+        },
+        {
+          "start_time": 75.11,
+          "end_time": 75.75,
+          "text": "statistics",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 75.75,
+          "end_time": 76.21,
+          "text": "the",
+          "confidence": 0.82958984375
+        },
+        {
+          "start_time": 76.21,
+          "end_time": 76.85,
+          "text": "nomenclature",
+          "confidence": 0.974609375
+        },
+        {
+          "start_time": 76.85,
+          "end_time": 77.13,
+          "text": "here",
+          "confidence": 0.9853515625
+        },
+        {
+          "start_time": 77.13,
+          "end_time": 77.31,
+          "text": "is",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 77.31,
+          "end_time": 77.81,
+          "text": "sometimes",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 77.81,
+          "end_time": 78.05,
+          "text": "a",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 78.05,
+          "end_time": 78.17,
+          "text": "little",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 78.17,
+          "end_time": 78.39,
+          "text": "bit",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 78.39,
+          "end_time": 78.95,
+          "text": "different,",
+          "confidence": 0.99951171875
+        }
+      ]
+    },
+    {
+      "start_time": 79.51,
+      "end_time": 85.53,
+      "text": "perhaps the term logistic regression. There appears regression but nevertheless it's from",
+      "confidence": -0.13013392324958528,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 79.51,
+          "end_time": 79.93,
+          "text": "perhaps",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 79.93,
+          "end_time": 80.17,
+          "text": "the",
+          "confidence": 0.57958984375
+        },
+        {
+          "start_time": 80.17,
+          "end_time": 80.55,
+          "text": "term",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 80.55,
+          "end_time": 81.09,
+          "text": "logistic",
+          "confidence": 0.96728515625
+        },
+        {
+          "start_time": 81.09,
+          "end_time": 81.83,
+          "text": "regression.",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 82.69,
+          "end_time": 82.91,
+          "text": "There",
+          "confidence": 0.982421875
+        },
+        {
+          "start_time": 82.91,
+          "end_time": 83.25,
+          "text": "appears",
+          "confidence": 0.9931640625
+        },
+        {
+          "start_time": 83.25,
+          "end_time": 83.77,
+          "text": "regression",
+          "confidence": 0.76318359375
+        },
+        {
+          "start_time": 83.77,
+          "end_time": 84.09,
+          "text": "but",
+          "confidence": 0.84228515625
+        },
+        {
+          "start_time": 84.09,
+          "end_time": 84.55,
+          "text": "nevertheless",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 84.55,
+          "end_time": 85.25,
+          "text": "it's",
+          "confidence": 0.975341796875
+        },
+        {
+          "start_time": 85.25,
+          "end_time": 85.53,
+          "text": "from",
+          "confidence": 0.95263671875
+        }
+      ]
+    },
+    {
+      "start_time": 85.53,
+      "end_time": 92.45,
+      "text": "supervised learning prospective classification tasks because we want to differentiate between",
+      "confidence": -0.11431961987591997,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 85.53,
+          "end_time": 86.05,
+          "text": "supervised",
+          "confidence": 0.8173828125
+        },
+        {
+          "start_time": 86.05,
+          "end_time": 86.75,
+          "text": "learning",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 86.75,
+          "end_time": 87.39,
+          "text": "prospective",
+          "confidence": 0.5390625
+        },
+        {
+          "start_time": 87.39,
+          "end_time": 88.31,
+          "text": "classification",
+          "confidence": 0.95361328125
+        },
+        {
+          "start_time": 88.31,
+          "end_time": 89.11,
+          "text": "tasks",
+          "confidence": 0.72412109375
+        },
+        {
+          "start_time": 89.11,
+          "end_time": 89.99,
+          "text": "because",
+          "confidence": 0.59716796875
+        },
+        {
+          "start_time": 89.99,
+          "end_time": 90.57,
+          "text": "we",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 90.57,
+          "end_time": 90.77,
+          "text": "want",
+          "confidence": 0.98974609375
+        },
+        {
+          "start_time": 90.77,
+          "end_time": 90.95,
+          "text": "to",
+          "confidence": 0.9931640625
+        },
+        {
+          "start_time": 90.95,
+          "end_time": 91.89,
+          "text": "differentiate",
+          "confidence": 0.95849609375
+        },
+        {
+          "start_time": 91.89,
+          "end_time": 92.45,
+          "text": "between",
+          "confidence": 0.99169921875
+        }
+      ]
+    },
+    {
+      "start_time": 92.45,
+      "end_time": 99.05,
+      "text": "two classes. So here are also two examples of a regression and a classification task.",
+      "confidence": -0.11431961987591997,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 92.45,
+          "end_time": 92.79,
+          "text": "two",
+          "confidence": 0.10614013671875
+        },
+        {
+          "start_time": 92.79,
+          "end_time": 93.29,
+          "text": "classes.",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 95.13,
+          "end_time": 95.19,
+          "text": "So",
+          "confidence": 0.7783203125
+        },
+        {
+          "start_time": 95.19,
+          "end_time": 95.67,
+          "text": "here",
+          "confidence": 0.88134765625
+        },
+        {
+          "start_time": 95.67,
+          "end_time": 95.85,
+          "text": "are",
+          "confidence": 0.99365234375
+        },
+        {
+          "start_time": 95.85,
+          "end_time": 96.13,
+          "text": "also",
+          "confidence": 0.98291015625
+        },
+        {
+          "start_time": 96.13,
+          "end_time": 96.29,
+          "text": "two",
+          "confidence": 0.99365234375
+        },
+        {
+          "start_time": 96.29,
+          "end_time": 96.73,
+          "text": "examples",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 96.73,
+          "end_time": 97.03,
+          "text": "of",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 97.03,
+          "end_time": 97.13,
+          "text": "a",
+          "confidence": 0.6826171875
+        },
+        {
+          "start_time": 97.13,
+          "end_time": 97.43,
+          "text": "regression",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 97.43,
+          "end_time": 97.83,
+          "text": "and",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 97.83,
+          "end_time": 97.97,
+          "text": "a",
+          "confidence": 0.95166015625
+        },
+        {
+          "start_time": 97.97,
+          "end_time": 98.35,
+          "text": "classification",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 98.35,
+          "end_time": 99.05,
+          "text": "task.",
+          "confidence": 0.9912109375
+        }
+      ]
+    },
+    {
+      "start_time": 99.55,
+      "end_time": 105.59,
+      "text": "For a regression task on the left hand side we have a numerical target Y and a numerical feature",
+      "confidence": -0.11431961987591997,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 99.55,
+          "end_time": 99.67,
+          "text": "For",
+          "confidence": 0.97021484375
+        },
+        {
+          "start_time": 99.67,
+          "end_time": 99.75,
+          "text": "a",
+          "confidence": 0.5166015625
+        },
+        {
+          "start_time": 99.75,
+          "end_time": 99.99,
+          "text": "regression",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 99.99,
+          "end_time": 100.41,
+          "text": "task",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 100.41,
+          "end_time": 100.59,
+          "text": "on",
+          "confidence": 0.89990234375
+        },
+        {
+          "start_time": 100.59,
+          "end_time": 100.69,
+          "text": "the",
+          "confidence": 1.0
+        },
+        {
+          "start_time": 100.69,
+          "end_time": 100.87,
+          "text": "left",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 100.87,
+          "end_time": 101.03,
+          "text": "hand",
+          "confidence": 0.71142578125
+        },
+        {
+          "start_time": 101.03,
+          "end_time": 101.41,
+          "text": "side",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 101.41,
+          "end_time": 101.69,
+          "text": "we",
+          "confidence": 0.88818359375
+        },
+        {
+          "start_time": 101.69,
+          "end_time": 101.89,
+          "text": "have",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 101.89,
+          "end_time": 102.03,
+          "text": "a",
+          "confidence": 0.97705078125
+        },
+        {
+          "start_time": 102.03,
+          "end_time": 102.35,
+          "text": "numerical",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 102.35,
+          "end_time": 103.27,
+          "text": "target",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 103.27,
+          "end_time": 103.83,
+          "text": "Y",
+          "confidence": 0.402587890625
+        },
+        {
+          "start_time": 103.83,
+          "end_time": 104.67,
+          "text": "and",
+          "confidence": 0.951171875
+        },
+        {
+          "start_time": 104.67,
+          "end_time": 104.81,
+          "text": "a",
+          "confidence": 0.72412109375
+        },
+        {
+          "start_time": 104.81,
+          "end_time": 105.21,
+          "text": "numerical",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 105.21,
+          "end_time": 105.59,
+          "text": "feature",
+          "confidence": 0.99365234375
+        }
+      ]
+    },
+    {
+      "start_time": 105.59,
+      "end_time": 113.17,
+      "text": "X, some data points and we try to fit a line to these data points. On the right hand side",
+      "confidence": -0.11431961987591997,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 105.59,
+          "end_time": 106.13,
+          "text": "X,",
+          "confidence": 0.962890625
+        },
+        {
+          "start_time": 106.37,
+          "end_time": 106.63,
+          "text": "some",
+          "confidence": 0.984375
+        },
+        {
+          "start_time": 106.63,
+          "end_time": 106.91,
+          "text": "data",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 106.91,
+          "end_time": 107.21,
+          "text": "points",
+          "confidence": 0.99365234375
+        },
+        {
+          "start_time": 107.21,
+          "end_time": 107.37,
+          "text": "and",
+          "confidence": 0.66015625
+        },
+        {
+          "start_time": 107.37,
+          "end_time": 107.49,
+          "text": "we",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 107.49,
+          "end_time": 107.77,
+          "text": "try",
+          "confidence": 0.90576171875
+        },
+        {
+          "start_time": 107.77,
+          "end_time": 107.95,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 107.95,
+          "end_time": 108.25,
+          "text": "fit",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 108.25,
+          "end_time": 109.05,
+          "text": "a",
+          "confidence": 0.98681640625
+        },
+        {
+          "start_time": 109.05,
+          "end_time": 109.39,
+          "text": "line",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 109.39,
+          "end_time": 109.81,
+          "text": "to",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 109.81,
+          "end_time": 110.11,
+          "text": "these",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 110.11,
+          "end_time": 110.37,
+          "text": "data",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 110.37,
+          "end_time": 110.79,
+          "text": "points.",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 111.89,
+          "end_time": 112.17,
+          "text": "On",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 112.17,
+          "end_time": 112.31,
+          "text": "the",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 112.31,
+          "end_time": 112.47,
+          "text": "right",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 112.47,
+          "end_time": 112.69,
+          "text": "hand",
+          "confidence": 0.951171875
+        },
+        {
+          "start_time": 112.69,
+          "end_time": 113.17,
+          "text": "side",
+          "confidence": 0.9990234375
+        }
+      ]
+    },
+    {
+      "start_time": 113.17,
+      "end_time": 121.89,
+      "text": "for the classification task the target variable is not on the y-axis as on the",
+      "confidence": -0.1613498315629032,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 113.17,
+          "end_time": 113.81,
+          "text": "for",
+          "confidence": 0.489013671875
+        },
+        {
+          "start_time": 113.81,
+          "end_time": 114.19,
+          "text": "the",
+          "confidence": 0.98974609375
+        },
+        {
+          "start_time": 114.19,
+          "end_time": 114.81,
+          "text": "classification",
+          "confidence": 0.98095703125
+        },
+        {
+          "start_time": 114.81,
+          "end_time": 115.71,
+          "text": "task",
+          "confidence": 0.978515625
+        },
+        {
+          "start_time": 115.71,
+          "end_time": 116.97,
+          "text": "the",
+          "confidence": 0.3603515625
+        },
+        {
+          "start_time": 116.97,
+          "end_time": 117.67,
+          "text": "target",
+          "confidence": 0.9638671875
+        },
+        {
+          "start_time": 117.67,
+          "end_time": 118.17,
+          "text": "variable",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 118.17,
+          "end_time": 118.47,
+          "text": "is",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 118.47,
+          "end_time": 118.93,
+          "text": "not",
+          "confidence": 0.98828125
+        },
+        {
+          "start_time": 118.93,
+          "end_time": 119.39,
+          "text": "on",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 119.39,
+          "end_time": 119.53,
+          "text": "the",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 119.53,
+          "end_time": 119.83,
+          "text": "y",
+          "confidence": 0.75244140625
+        },
+        {
+          "start_time": 119.83,
+          "end_time": 120.23,
+          "text": "-axis",
+          "confidence": 0.86181640625
+        },
+        {
+          "start_time": 120.23,
+          "end_time": 121.19,
+          "text": "as",
+          "confidence": 0.86669921875
+        },
+        {
+          "start_time": 121.19,
+          "end_time": 121.79,
+          "text": "on",
+          "confidence": 0.97705078125
+        },
+        {
+          "start_time": 121.79,
+          "end_time": 121.89,
+          "text": "the",
+          "confidence": 0.9990234375
+        }
+      ]
+    },
+    {
+      "start_time": 121.89,
+      "end_time": 128.39,
+      "text": "left hand side for the regression task but the y label so the target is just",
+      "confidence": -0.1613498315629032,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 121.89,
+          "end_time": 122.05,
+          "text": "left",
+          "confidence": 0.9873046875
+        },
+        {
+          "start_time": 122.05,
+          "end_time": 122.21,
+          "text": "hand",
+          "confidence": 0.77294921875
+        },
+        {
+          "start_time": 122.21,
+          "end_time": 122.43,
+          "text": "side",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 122.43,
+          "end_time": 122.65,
+          "text": "for",
+          "confidence": 0.9814453125
+        },
+        {
+          "start_time": 122.65,
+          "end_time": 122.75,
+          "text": "the",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 122.75,
+          "end_time": 123.11,
+          "text": "regression",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 123.11,
+          "end_time": 123.59,
+          "text": "task",
+          "confidence": 0.95751953125
+        },
+        {
+          "start_time": 123.59,
+          "end_time": 124.33,
+          "text": "but",
+          "confidence": 0.62353515625
+        },
+        {
+          "start_time": 124.33,
+          "end_time": 124.67,
+          "text": "the",
+          "confidence": 0.931640625
+        },
+        {
+          "start_time": 124.67,
+          "end_time": 125.31,
+          "text": "y",
+          "confidence": 0.8857421875
+        },
+        {
+          "start_time": 125.31,
+          "end_time": 125.87,
+          "text": "label",
+          "confidence": 0.464111328125
+        },
+        {
+          "start_time": 125.87,
+          "end_time": 126.45,
+          "text": "so",
+          "confidence": 0.406005859375
+        },
+        {
+          "start_time": 126.45,
+          "end_time": 126.63,
+          "text": "the",
+          "confidence": 0.96533203125
+        },
+        {
+          "start_time": 126.63,
+          "end_time": 127.05,
+          "text": "target",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 127.05,
+          "end_time": 127.97,
+          "text": "is",
+          "confidence": 0.9921875
+        },
+        {
+          "start_time": 127.97,
+          "end_time": 128.39,
+          "text": "just",
+          "confidence": 0.9873046875
+        }
+      ]
+    },
+    {
+      "start_time": 128.39,
+      "end_time": 133.57,
+      "text": "denoted by the symbol and color of these points so we have circles and triangles",
+      "confidence": -0.1613498315629032,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 128.39,
+          "end_time": 128.99,
+          "text": "denoted",
+          "confidence": 0.997314453125
+        },
+        {
+          "start_time": 128.99,
+          "end_time": 129.43,
+          "text": "by",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 129.43,
+          "end_time": 129.63,
+          "text": "the",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 129.63,
+          "end_time": 129.97,
+          "text": "symbol",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 129.97,
+          "end_time": 130.45,
+          "text": "and",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 130.45,
+          "end_time": 130.83,
+          "text": "color",
+          "confidence": 0.83349609375
+        },
+        {
+          "start_time": 130.83,
+          "end_time": 131.17,
+          "text": "of",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 131.17,
+          "end_time": 131.37,
+          "text": "these",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 131.37,
+          "end_time": 131.77,
+          "text": "points",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 131.77,
+          "end_time": 132.09,
+          "text": "so",
+          "confidence": 0.61376953125
+        },
+        {
+          "start_time": 132.09,
+          "end_time": 132.23,
+          "text": "we",
+          "confidence": 0.96435546875
+        },
+        {
+          "start_time": 132.23,
+          "end_time": 132.33,
+          "text": "have",
+          "confidence": 0.97509765625
+        },
+        {
+          "start_time": 132.33,
+          "end_time": 132.73,
+          "text": "circles",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 132.73,
+          "end_time": 133.03,
+          "text": "and",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 133.03,
+          "end_time": 133.57,
+          "text": "triangles",
+          "confidence": 0.9990234375
+        }
+      ]
+    },
+    {
+      "start_time": 133.57,
+      "end_time": 138.75,
+      "text": "and this denotes to which class of the target variable and observation belongs",
+      "confidence": -0.1613498315629032,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 133.57,
+          "end_time": 134.57,
+          "text": "and",
+          "confidence": 0.96923828125
+        },
+        {
+          "start_time": 134.57,
+          "end_time": 134.77,
+          "text": "this",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 134.77,
+          "end_time": 135.07,
+          "text": "denotes",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 135.07,
+          "end_time": 135.35,
+          "text": "to",
+          "confidence": 0.97412109375
+        },
+        {
+          "start_time": 135.35,
+          "end_time": 135.59,
+          "text": "which",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 135.59,
+          "end_time": 136.07,
+          "text": "class",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 136.07,
+          "end_time": 136.51,
+          "text": "of",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 136.51,
+          "end_time": 136.65,
+          "text": "the",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 136.65,
+          "end_time": 137.01,
+          "text": "target",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 137.01,
+          "end_time": 137.51,
+          "text": "variable",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 137.51,
+          "end_time": 137.83,
+          "text": "and",
+          "confidence": 0.4873046875
+        },
+        {
+          "start_time": 137.83,
+          "end_time": 138.31,
+          "text": "observation",
+          "confidence": 0.970703125
+        },
+        {
+          "start_time": 138.31,
+          "end_time": 138.75,
+          "text": "belongs",
+          "confidence": 0.98486328125
+        }
+      ]
+    },
+    {
+      "start_time": 138.75,
+      "end_time": 146.65,
+      "text": "So here we have two features, x1 and x2, a lot of data points and what we try to",
+      "confidence": -0.17828124716877938,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 138.75,
+          "end_time": 139.25,
+          "text": "So",
+          "confidence": 0.6396484375
+        },
+        {
+          "start_time": 139.25,
+          "end_time": 139.67,
+          "text": "here",
+          "confidence": 0.92626953125
+        },
+        {
+          "start_time": 139.67,
+          "end_time": 140.47,
+          "text": "we",
+          "confidence": 0.93115234375
+        },
+        {
+          "start_time": 140.47,
+          "end_time": 140.63,
+          "text": "have",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 140.63,
+          "end_time": 141.05,
+          "text": "two",
+          "confidence": 0.9658203125
+        },
+        {
+          "start_time": 141.05,
+          "end_time": 141.51,
+          "text": "features,",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 141.79,
+          "end_time": 142.03,
+          "text": "x1",
+          "confidence": 0.658203125
+        },
+        {
+          "start_time": 142.03,
+          "end_time": 142.19,
+          "text": "and",
+          "confidence": 0.98681640625
+        },
+        {
+          "start_time": 142.19,
+          "end_time": 143.03,
+          "text": "x2,",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 143.23,
+          "end_time": 144.19,
+          "text": "a",
+          "confidence": 0.300048828125
+        },
+        {
+          "start_time": 144.19,
+          "end_time": 144.41,
+          "text": "lot",
+          "confidence": 0.98046875
+        },
+        {
+          "start_time": 144.41,
+          "end_time": 144.53,
+          "text": "of",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 144.53,
+          "end_time": 144.71,
+          "text": "data",
+          "confidence": 0.9853515625
+        },
+        {
+          "start_time": 144.71,
+          "end_time": 145.11,
+          "text": "points",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 145.11,
+          "end_time": 145.81,
+          "text": "and",
+          "confidence": 0.381591796875
+        },
+        {
+          "start_time": 145.81,
+          "end_time": 145.99,
+          "text": "what",
+          "confidence": 0.9931640625
+        },
+        {
+          "start_time": 145.99,
+          "end_time": 146.17,
+          "text": "we",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 146.17,
+          "end_time": 146.41,
+          "text": "try",
+          "confidence": 0.84814453125
+        },
+        {
+          "start_time": 146.41,
+          "end_time": 146.65,
+          "text": "to",
+          "confidence": 0.99951171875
+        }
+      ]
+    },
+    {
+      "start_time": 146.65,
+      "end_time": 152.39,
+      "text": "learn is a model that is able to differentiate between these two classes.",
+      "confidence": -0.17828124716877938,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 146.65,
+          "end_time": 146.97,
+          "text": "learn",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 146.97,
+          "end_time": 147.43,
+          "text": "is",
+          "confidence": 0.9912109375
+        },
+        {
+          "start_time": 147.43,
+          "end_time": 147.69,
+          "text": "a",
+          "confidence": 0.89794921875
+        },
+        {
+          "start_time": 147.69,
+          "end_time": 147.91,
+          "text": "model",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 147.91,
+          "end_time": 148.27,
+          "text": "that",
+          "confidence": 0.9912109375
+        },
+        {
+          "start_time": 148.27,
+          "end_time": 149.51,
+          "text": "is",
+          "confidence": 0.88427734375
+        },
+        {
+          "start_time": 149.51,
+          "end_time": 149.81,
+          "text": "able",
+          "confidence": 0.94873046875
+        },
+        {
+          "start_time": 149.81,
+          "end_time": 150.11,
+          "text": "to",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 150.11,
+          "end_time": 150.71,
+          "text": "differentiate",
+          "confidence": 0.9501953125
+        },
+        {
+          "start_time": 150.71,
+          "end_time": 151.37,
+          "text": "between",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 151.37,
+          "end_time": 151.67,
+          "text": "these",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 151.67,
+          "end_time": 151.91,
+          "text": "two",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 151.91,
+          "end_time": 152.39,
+          "text": "classes.",
+          "confidence": 0.9970703125
+        }
+      ]
+    },
+    {
+      "start_time": 152.63,
+      "end_time": 157.39,
+      "text": "So this could be some linear model like here for example a logistic regression",
+      "confidence": -0.17828124716877938,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 152.63,
+          "end_time": 152.67,
+          "text": "So",
+          "confidence": 0.95654296875
+        },
+        {
+          "start_time": 152.67,
+          "end_time": 152.87,
+          "text": "this",
+          "confidence": 0.8818359375
+        },
+        {
+          "start_time": 152.87,
+          "end_time": 153.09,
+          "text": "could",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 153.09,
+          "end_time": 153.45,
+          "text": "be",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 153.45,
+          "end_time": 153.93,
+          "text": "some",
+          "confidence": 0.96142578125
+        },
+        {
+          "start_time": 153.93,
+          "end_time": 154.21,
+          "text": "linear",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 154.21,
+          "end_time": 154.57,
+          "text": "model",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 154.57,
+          "end_time": 155.25,
+          "text": "like",
+          "confidence": 0.658203125
+        },
+        {
+          "start_time": 155.25,
+          "end_time": 155.59,
+          "text": "here",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 155.59,
+          "end_time": 155.83,
+          "text": "for",
+          "confidence": 0.54833984375
+        },
+        {
+          "start_time": 155.83,
+          "end_time": 156.27,
+          "text": "example",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 156.27,
+          "end_time": 156.51,
+          "text": "a",
+          "confidence": 0.7255859375
+        },
+        {
+          "start_time": 156.51,
+          "end_time": 156.95,
+          "text": "logistic",
+          "confidence": 0.9775390625
+        },
+        {
+          "start_time": 156.95,
+          "end_time": 157.39,
+          "text": "regression",
+          "confidence": 0.73486328125
+        }
+      ]
+    },
+    {
+      "start_time": 157.39,
+      "end_time": 163.03,
+      "text": "which you will see later but it could also be a nonlinear model and also this",
+      "confidence": -0.17828124716877938,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 157.39,
+          "end_time": 157.85,
+          "text": "which",
+          "confidence": 0.61865234375
+        },
+        {
+          "start_time": 157.85,
+          "end_time": 158.01,
+          "text": "you",
+          "confidence": 0.95849609375
+        },
+        {
+          "start_time": 158.01,
+          "end_time": 158.23,
+          "text": "will",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 158.23,
+          "end_time": 158.43,
+          "text": "see",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 158.43,
+          "end_time": 158.83,
+          "text": "later",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 158.83,
+          "end_time": 159.41,
+          "text": "but",
+          "confidence": 0.434814453125
+        },
+        {
+          "start_time": 159.41,
+          "end_time": 159.55,
+          "text": "it",
+          "confidence": 0.9921875
+        },
+        {
+          "start_time": 159.55,
+          "end_time": 159.71,
+          "text": "could",
+          "confidence": 0.974609375
+        },
+        {
+          "start_time": 159.71,
+          "end_time": 160.05,
+          "text": "also",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 160.05,
+          "end_time": 160.23,
+          "text": "be",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 160.23,
+          "end_time": 160.35,
+          "text": "a",
+          "confidence": 0.966796875
+        },
+        {
+          "start_time": 160.35,
+          "end_time": 160.83,
+          "text": "nonlinear",
+          "confidence": 0.84716796875
+        },
+        {
+          "start_time": 160.83,
+          "end_time": 161.29,
+          "text": "model",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 161.29,
+          "end_time": 161.69,
+          "text": "and",
+          "confidence": 0.93505859375
+        },
+        {
+          "start_time": 161.69,
+          "end_time": 162.57,
+          "text": "also",
+          "confidence": 0.9775390625
+        },
+        {
+          "start_time": 162.57,
+          "end_time": 163.03,
+          "text": "this",
+          "confidence": 0.91748046875
+        }
+      ]
+    },
+    {
+      "start_time": 163.03,
+      "end_time": 171.29,
+      "text": "will be treated later. We can, we don't have to, but we can distinguish between",
+      "confidence": -0.17828124716877938,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 163.03,
+          "end_time": 163.23,
+          "text": "will",
+          "confidence": 0.90673828125
+        },
+        {
+          "start_time": 163.23,
+          "end_time": 163.35,
+          "text": "be",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 163.35,
+          "end_time": 163.57,
+          "text": "treated",
+          "confidence": 0.95556640625
+        },
+        {
+          "start_time": 163.57,
+          "end_time": 163.93,
+          "text": "later.",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 167.95,
+          "end_time": 168.15,
+          "text": "We",
+          "confidence": 0.97119140625
+        },
+        {
+          "start_time": 168.15,
+          "end_time": 168.51,
+          "text": "can,",
+          "confidence": 0.66748046875
+        },
+        {
+          "start_time": 168.51,
+          "end_time": 169.13,
+          "text": "we",
+          "confidence": 0.9814453125
+        },
+        {
+          "start_time": 169.13,
+          "end_time": 169.33,
+          "text": "don't",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 169.33,
+          "end_time": 169.59,
+          "text": "have",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 169.59,
+          "end_time": 169.71,
+          "text": "to,",
+          "confidence": 0.990234375
+        },
+        {
+          "start_time": 169.83,
+          "end_time": 169.87,
+          "text": "but",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 169.87,
+          "end_time": 170.01,
+          "text": "we",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 170.01,
+          "end_time": 170.29,
+          "text": "can",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 170.29,
+          "end_time": 170.67,
+          "text": "distinguish",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 170.67,
+          "end_time": 171.29,
+          "text": "between",
+          "confidence": 0.9970703125
+        }
+      ]
+    },
+    {
+      "start_time": 171.29,
+      "end_time": 177.31,
+      "text": "two main reasons to learn this relationship. There's a difference between learning to predict",
+      "confidence": -0.08587128934213671,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 171.29,
+          "end_time": 171.57,
+          "text": "two",
+          "confidence": 0.96044921875
+        },
+        {
+          "start_time": 171.57,
+          "end_time": 171.83,
+          "text": "main",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 171.83,
+          "end_time": 172.19,
+          "text": "reasons",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 172.19,
+          "end_time": 172.59,
+          "text": "to",
+          "confidence": 0.98876953125
+        },
+        {
+          "start_time": 172.59,
+          "end_time": 172.83,
+          "text": "learn",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 172.83,
+          "end_time": 173.01,
+          "text": "this",
+          "confidence": 0.79150390625
+        },
+        {
+          "start_time": 173.01,
+          "end_time": 174.25,
+          "text": "relationship.",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 175.03,
+          "end_time": 175.41,
+          "text": "There's",
+          "confidence": 0.836181640625
+        },
+        {
+          "start_time": 175.41,
+          "end_time": 175.53,
+          "text": "a",
+          "confidence": 0.873046875
+        },
+        {
+          "start_time": 175.53,
+          "end_time": 175.77,
+          "text": "difference",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 175.77,
+          "end_time": 176.19,
+          "text": "between",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 176.19,
+          "end_time": 176.51,
+          "text": "learning",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 176.51,
+          "end_time": 176.85,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 176.85,
+          "end_time": 177.31,
+          "text": "predict",
+          "confidence": 0.99609375
+        }
+      ]
+    },
+    {
+      "start_time": 177.91,
+      "end_time": 186.15,
+      "text": "and learning to explain. In learning to predict we mainly care about the predictive performance",
+      "confidence": -0.08587128934213671,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 177.91,
+          "end_time": 178.37,
+          "text": "and",
+          "confidence": 0.98388671875
+        },
+        {
+          "start_time": 178.37,
+          "end_time": 179.07,
+          "text": "learning",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 179.07,
+          "end_time": 179.69,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 179.69,
+          "end_time": 180.33,
+          "text": "explain.",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 181.15,
+          "end_time": 181.29,
+          "text": "In",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 181.29,
+          "end_time": 181.55,
+          "text": "learning",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 181.55,
+          "end_time": 181.81,
+          "text": "to",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 181.81,
+          "end_time": 182.31,
+          "text": "predict",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 182.31,
+          "end_time": 182.89,
+          "text": "we",
+          "confidence": 0.75830078125
+        },
+        {
+          "start_time": 182.89,
+          "end_time": 183.57,
+          "text": "mainly",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 183.57,
+          "end_time": 184.17,
+          "text": "care",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 184.17,
+          "end_time": 184.63,
+          "text": "about",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 184.63,
+          "end_time": 184.85,
+          "text": "the",
+          "confidence": 0.70947265625
+        },
+        {
+          "start_time": 184.85,
+          "end_time": 185.41,
+          "text": "predictive",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 185.41,
+          "end_time": 186.15,
+          "text": "performance",
+          "confidence": 0.9990234375
+        }
+      ]
+    },
+    {
+      "start_time": 186.15,
+      "end_time": 195.89,
+      "text": "of a model so we really just want to predict very well the target y from some new feature",
+      "confidence": -0.08587128934213671,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 186.15,
+          "end_time": 186.67,
+          "text": "of",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 186.67,
+          "end_time": 186.81,
+          "text": "a",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 186.81,
+          "end_time": 187.11,
+          "text": "model",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 187.11,
+          "end_time": 188.01,
+          "text": "so",
+          "confidence": 0.378173828125
+        },
+        {
+          "start_time": 188.01,
+          "end_time": 188.29,
+          "text": "we",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 188.29,
+          "end_time": 188.59,
+          "text": "really",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 188.59,
+          "end_time": 189.17,
+          "text": "just",
+          "confidence": 0.9921875
+        },
+        {
+          "start_time": 189.17,
+          "end_time": 189.55,
+          "text": "want",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 189.55,
+          "end_time": 189.93,
+          "text": "to",
+          "confidence": 1.0
+        },
+        {
+          "start_time": 189.93,
+          "end_time": 190.49,
+          "text": "predict",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 190.49,
+          "end_time": 190.91,
+          "text": "very",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 190.91,
+          "end_time": 191.37,
+          "text": "well",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 191.37,
+          "end_time": 191.95,
+          "text": "the",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 191.95,
+          "end_time": 192.51,
+          "text": "target",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 192.51,
+          "end_time": 192.91,
+          "text": "y",
+          "confidence": 0.5595703125
+        },
+        {
+          "start_time": 192.91,
+          "end_time": 193.91,
+          "text": "from",
+          "confidence": 0.990234375
+        },
+        {
+          "start_time": 193.91,
+          "end_time": 194.61,
+          "text": "some",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 194.61,
+          "end_time": 195.25,
+          "text": "new",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 195.25,
+          "end_time": 195.89,
+          "text": "feature",
+          "confidence": 0.99658203125
+        }
+      ]
+    },
+    {
+      "start_time": 195.89,
+      "end_time": 201.47,
+      "text": "vector X where we do not know the target Y and an accurate predictor is all we",
+      "confidence": -0.12321428571428572,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 195.89,
+          "end_time": 196.47,
+          "text": "vector",
+          "confidence": 0.2208251953125
+        },
+        {
+          "start_time": 196.47,
+          "end_time": 196.81,
+          "text": "X",
+          "confidence": 0.471923828125
+        },
+        {
+          "start_time": 196.81,
+          "end_time": 196.99,
+          "text": "where",
+          "confidence": 0.59912109375
+        },
+        {
+          "start_time": 196.99,
+          "end_time": 197.09,
+          "text": "we",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 197.09,
+          "end_time": 197.23,
+          "text": "do",
+          "confidence": 0.98193359375
+        },
+        {
+          "start_time": 197.23,
+          "end_time": 197.39,
+          "text": "not",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 197.39,
+          "end_time": 197.67,
+          "text": "know",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 197.67,
+          "end_time": 197.87,
+          "text": "the",
+          "confidence": 0.92724609375
+        },
+        {
+          "start_time": 197.87,
+          "end_time": 198.17,
+          "text": "target",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 198.17,
+          "end_time": 198.53,
+          "text": "Y",
+          "confidence": 0.85400390625
+        },
+        {
+          "start_time": 198.53,
+          "end_time": 199.93,
+          "text": "and",
+          "confidence": 0.4150390625
+        },
+        {
+          "start_time": 199.93,
+          "end_time": 200.07,
+          "text": "an",
+          "confidence": 0.87451171875
+        },
+        {
+          "start_time": 200.07,
+          "end_time": 200.41,
+          "text": "accurate",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 200.41,
+          "end_time": 200.83,
+          "text": "predictor",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 200.83,
+          "end_time": 201.11,
+          "text": "is",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 201.11,
+          "end_time": 201.33,
+          "text": "all",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 201.33,
+          "end_time": 201.47,
+          "text": "we",
+          "confidence": 0.9736328125
+        }
+      ]
+    },
+    {
+      "start_time": 201.47,
+      "end_time": 208.95,
+      "text": "want. On the other hand in learning to explain we want to understand the",
+      "confidence": -0.12321428571428572,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 201.47,
+          "end_time": 201.75,
+          "text": "want.",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 202.99,
+          "end_time": 203.27,
+          "text": "On",
+          "confidence": 0.98388671875
+        },
+        {
+          "start_time": 203.27,
+          "end_time": 203.41,
+          "text": "the",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 203.41,
+          "end_time": 203.67,
+          "text": "other",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 203.67,
+          "end_time": 204.09,
+          "text": "hand",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 204.09,
+          "end_time": 204.85,
+          "text": "in",
+          "confidence": 0.640625
+        },
+        {
+          "start_time": 204.85,
+          "end_time": 205.09,
+          "text": "learning",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 205.09,
+          "end_time": 205.33,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 205.33,
+          "end_time": 205.91,
+          "text": "explain",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 205.91,
+          "end_time": 206.61,
+          "text": "we",
+          "confidence": 0.81201171875
+        },
+        {
+          "start_time": 206.61,
+          "end_time": 207.47,
+          "text": "want",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 207.47,
+          "end_time": 207.79,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 207.79,
+          "end_time": 208.53,
+          "text": "understand",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 208.53,
+          "end_time": 208.95,
+          "text": "the",
+          "confidence": 0.98583984375
+        }
+      ]
+    },
+    {
+      "start_time": 208.95,
+      "end_time": 213.63,
+      "text": "relationship between X and Y or we want to be able to interpret this",
+      "confidence": -0.12321428571428572,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 208.95,
+          "end_time": 209.63,
+          "text": "relationship",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 209.63,
+          "end_time": 210.21,
+          "text": "between",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 210.21,
+          "end_time": 210.49,
+          "text": "X",
+          "confidence": 0.953125
+        },
+        {
+          "start_time": 210.49,
+          "end_time": 210.69,
+          "text": "and",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 210.69,
+          "end_time": 211.01,
+          "text": "Y",
+          "confidence": 0.98876953125
+        },
+        {
+          "start_time": 211.01,
+          "end_time": 211.33,
+          "text": "or",
+          "confidence": 0.83837890625
+        },
+        {
+          "start_time": 211.33,
+          "end_time": 211.47,
+          "text": "we",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 211.47,
+          "end_time": 211.63,
+          "text": "want",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 211.63,
+          "end_time": 211.83,
+          "text": "to",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 211.83,
+          "end_time": 212.09,
+          "text": "be",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 212.09,
+          "end_time": 212.65,
+          "text": "able",
+          "confidence": 0.724609375
+        },
+        {
+          "start_time": 212.65,
+          "end_time": 212.91,
+          "text": "to",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 212.91,
+          "end_time": 213.35,
+          "text": "interpret",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 213.35,
+          "end_time": 213.63,
+          "text": "this",
+          "confidence": 0.98779296875
+        }
+      ]
+    },
+    {
+      "start_time": 213.63,
+      "end_time": 219.87,
+      "text": "relationship or to explain this relationship between X and Y in the data.",
+      "confidence": -0.12321428571428572,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 213.63,
+          "end_time": 214.07,
+          "text": "relationship",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 214.07,
+          "end_time": 214.43,
+          "text": "or",
+          "confidence": 0.98046875
+        },
+        {
+          "start_time": 214.43,
+          "end_time": 214.79,
+          "text": "to",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 214.79,
+          "end_time": 215.33,
+          "text": "explain",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 215.33,
+          "end_time": 216.07,
+          "text": "this",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 216.07,
+          "end_time": 216.77,
+          "text": "relationship",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 216.77,
+          "end_time": 217.77,
+          "text": "between",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 217.77,
+          "end_time": 218.19,
+          "text": "X",
+          "confidence": 0.98046875
+        },
+        {
+          "start_time": 218.19,
+          "end_time": 218.61,
+          "text": "and",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 218.61,
+          "end_time": 219.01,
+          "text": "Y",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 219.01,
+          "end_time": 219.41,
+          "text": "in",
+          "confidence": 0.9853515625
+        },
+        {
+          "start_time": 219.41,
+          "end_time": 219.55,
+          "text": "the",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 219.55,
+          "end_time": 219.87,
+          "text": "data.",
+          "confidence": 0.99755859375
+        }
+      ]
+    },
+    {
+      "start_time": 221.63,
+      "end_time": 227.39,
+      "text": "Of course, a model that is well able to explain the relationship can also be a good prediction",
+      "confidence": -0.15422453115015855,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 221.63,
+          "end_time": 222.23,
+          "text": "Of",
+          "confidence": 0.481201171875
+        },
+        {
+          "start_time": 222.23,
+          "end_time": 222.53,
+          "text": "course,",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 222.83,
+          "end_time": 223.03,
+          "text": "a",
+          "confidence": 0.8857421875
+        },
+        {
+          "start_time": 223.03,
+          "end_time": 223.15,
+          "text": "model",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 223.15,
+          "end_time": 223.41,
+          "text": "that",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 223.41,
+          "end_time": 223.67,
+          "text": "is",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 223.67,
+          "end_time": 224.17,
+          "text": "well",
+          "confidence": 0.96484375
+        },
+        {
+          "start_time": 224.17,
+          "end_time": 224.47,
+          "text": "able",
+          "confidence": 0.958984375
+        },
+        {
+          "start_time": 224.47,
+          "end_time": 224.67,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 224.67,
+          "end_time": 225.21,
+          "text": "explain",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 225.21,
+          "end_time": 225.49,
+          "text": "the",
+          "confidence": 0.9833984375
+        },
+        {
+          "start_time": 225.49,
+          "end_time": 226.05,
+          "text": "relationship",
+          "confidence": 0.9931640625
+        },
+        {
+          "start_time": 226.05,
+          "end_time": 226.33,
+          "text": "can",
+          "confidence": 0.96923828125
+        },
+        {
+          "start_time": 226.33,
+          "end_time": 226.59,
+          "text": "also",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 226.59,
+          "end_time": 226.77,
+          "text": "be",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 226.77,
+          "end_time": 226.85,
+          "text": "a",
+          "confidence": 0.8876953125
+        },
+        {
+          "start_time": 226.85,
+          "end_time": 226.97,
+          "text": "good",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 226.97,
+          "end_time": 227.39,
+          "text": "prediction",
+          "confidence": 0.99755859375
+        }
+      ]
+    },
+    {
+      "start_time": 227.39,
+      "end_time": 234.45,
+      "text": "model, also a good prediction model can be explainable. So these things are not that far",
+      "confidence": -0.15422453115015855,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 227.39,
+          "end_time": 227.61,
+          "text": "model,",
+          "confidence": 0.93994140625
+        },
+        {
+          "start_time": 227.61,
+          "end_time": 227.91,
+          "text": "also",
+          "confidence": 0.44384765625
+        },
+        {
+          "start_time": 227.91,
+          "end_time": 228.79,
+          "text": "a",
+          "confidence": 0.86083984375
+        },
+        {
+          "start_time": 228.79,
+          "end_time": 228.93,
+          "text": "good",
+          "confidence": 0.85107421875
+        },
+        {
+          "start_time": 228.93,
+          "end_time": 229.25,
+          "text": "prediction",
+          "confidence": 0.99365234375
+        },
+        {
+          "start_time": 229.25,
+          "end_time": 229.49,
+          "text": "model",
+          "confidence": 0.99365234375
+        },
+        {
+          "start_time": 229.49,
+          "end_time": 229.77,
+          "text": "can",
+          "confidence": 0.98291015625
+        },
+        {
+          "start_time": 229.77,
+          "end_time": 229.99,
+          "text": "be",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 229.99,
+          "end_time": 230.79,
+          "text": "explainable.",
+          "confidence": 0.990234375
+        },
+        {
+          "start_time": 231.99,
+          "end_time": 232.09,
+          "text": "So",
+          "confidence": 0.92822265625
+        },
+        {
+          "start_time": 232.09,
+          "end_time": 232.61,
+          "text": "these",
+          "confidence": 0.7861328125
+        },
+        {
+          "start_time": 232.61,
+          "end_time": 233.33,
+          "text": "things",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 233.33,
+          "end_time": 233.55,
+          "text": "are",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 233.55,
+          "end_time": 233.75,
+          "text": "not",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 233.75,
+          "end_time": 234.09,
+          "text": "that",
+          "confidence": 0.96875
+        },
+        {
+          "start_time": 234.09,
+          "end_time": 234.45,
+          "text": "far",
+          "confidence": 0.99951171875
+        }
+      ]
+    },
+    {
+      "start_time": 234.45,
+      "end_time": 242.05,
+      "text": "apart. And more or less traditionally, machine learning comes more from the learning to predict",
+      "confidence": -0.15422453115015855,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 234.45,
+          "end_time": 235.07,
+          "text": "apart.",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 236.21,
+          "end_time": 236.21,
+          "text": "And",
+          "confidence": 0.79541015625
+        },
+        {
+          "start_time": 236.21,
+          "end_time": 237.27,
+          "text": "more",
+          "confidence": 0.556640625
+        },
+        {
+          "start_time": 237.27,
+          "end_time": 237.35,
+          "text": "or",
+          "confidence": 0.8955078125
+        },
+        {
+          "start_time": 237.35,
+          "end_time": 238.21,
+          "text": "less",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 238.21,
+          "end_time": 238.21,
+          "text": "traditionally,",
+          "confidence": 0.8828125
+        },
+        {
+          "start_time": 238.55,
+          "end_time": 238.79,
+          "text": "machine",
+          "confidence": 0.9580078125
+        },
+        {
+          "start_time": 238.79,
+          "end_time": 239.07,
+          "text": "learning",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 239.07,
+          "end_time": 239.47,
+          "text": "comes",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 239.47,
+          "end_time": 240.15,
+          "text": "more",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 240.15,
+          "end_time": 240.73,
+          "text": "from",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 240.73,
+          "end_time": 240.95,
+          "text": "the",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 240.95,
+          "end_time": 241.25,
+          "text": "learning",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 241.25,
+          "end_time": 241.57,
+          "text": "to",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 241.57,
+          "end_time": 242.05,
+          "text": "predict",
+          "confidence": 0.9892578125
+        }
+      ]
+    },
+    {
+      "start_time": 242.05,
+      "end_time": 248.75,
+      "text": "paradigm. And statistics comes more from the learning to explain paradigm. But nowadays,",
+      "confidence": -0.15422453115015855,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 242.05,
+          "end_time": 242.83,
+          "text": "paradigm.",
+          "confidence": 0.875
+        },
+        {
+          "start_time": 244.25,
+          "end_time": 244.25,
+          "text": "And",
+          "confidence": 0.87255859375
+        },
+        {
+          "start_time": 244.25,
+          "end_time": 244.77,
+          "text": "statistics",
+          "confidence": 0.98974609375
+        },
+        {
+          "start_time": 244.77,
+          "end_time": 245.33,
+          "text": "comes",
+          "confidence": 0.95361328125
+        },
+        {
+          "start_time": 245.33,
+          "end_time": 245.67,
+          "text": "more",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 245.67,
+          "end_time": 245.89,
+          "text": "from",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 245.89,
+          "end_time": 246.03,
+          "text": "the",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 246.03,
+          "end_time": 246.29,
+          "text": "learning",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 246.29,
+          "end_time": 246.51,
+          "text": "to",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 246.51,
+          "end_time": 247.17,
+          "text": "explain",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 247.17,
+          "end_time": 247.99,
+          "text": "paradigm.",
+          "confidence": 0.98828125
+        },
+        {
+          "start_time": 248.25,
+          "end_time": 248.25,
+          "text": "But",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 248.25,
+          "end_time": 248.75,
+          "text": "nowadays,",
+          "confidence": 0.99462890625
+        }
+      ]
+    },
+    {
+      "start_time": 248.75,
+      "end_time": 255.87,
+      "text": "we really can't make that distinction anymore. Both fields are pursuing",
+      "confidence": -0.14396067683616381,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 248.75,
+          "end_time": 249.29,
+          "text": "we",
+          "confidence": 0.36669921875
+        },
+        {
+          "start_time": 249.29,
+          "end_time": 250.01,
+          "text": "really",
+          "confidence": 0.98828125
+        },
+        {
+          "start_time": 250.01,
+          "end_time": 250.43,
+          "text": "can't",
+          "confidence": 0.980224609375
+        },
+        {
+          "start_time": 250.43,
+          "end_time": 250.71,
+          "text": "make",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 250.71,
+          "end_time": 250.95,
+          "text": "that",
+          "confidence": 0.56005859375
+        },
+        {
+          "start_time": 250.95,
+          "end_time": 251.91,
+          "text": "distinction",
+          "confidence": 0.93359375
+        },
+        {
+          "start_time": 251.91,
+          "end_time": 252.55,
+          "text": "anymore.",
+          "confidence": 0.95849609375
+        },
+        {
+          "start_time": 253.71,
+          "end_time": 253.73,
+          "text": "Both",
+          "confidence": 0.98876953125
+        },
+        {
+          "start_time": 253.73,
+          "end_time": 254.83,
+          "text": "fields",
+          "confidence": 0.92578125
+        },
+        {
+          "start_time": 254.83,
+          "end_time": 255.49,
+          "text": "are",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 255.49,
+          "end_time": 255.87,
+          "text": "pursuing",
+          "confidence": 0.87451171875
+        }
+      ]
+    },
+    {
+      "start_time": 255.87,
+      "end_time": 266.1,
+      "text": "both goals, let's say. Let's finish with three examples on regression and",
+      "confidence": -0.14396067683616381,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 255.87,
+          "end_time": 256.69,
+          "text": "both",
+          "confidence": 0.98095703125
+        },
+        {
+          "start_time": 256.69,
+          "end_time": 257.29,
+          "text": "goals,",
+          "confidence": 0.98388671875
+        },
+        {
+          "start_time": 257.49,
+          "end_time": 257.91,
+          "text": "let's",
+          "confidence": 0.98876953125
+        },
+        {
+          "start_time": 257.91,
+          "end_time": 258.07,
+          "text": "say.",
+          "confidence": 0.9912109375
+        },
+        {
+          "start_time": 261.88,
+          "end_time": 262.38,
+          "text": "Let's",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 262.38,
+          "end_time": 262.66,
+          "text": "finish",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 262.66,
+          "end_time": 263.28,
+          "text": "with",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 263.28,
+          "end_time": 264.14,
+          "text": "three",
+          "confidence": 0.9677734375
+        },
+        {
+          "start_time": 264.14,
+          "end_time": 264.9,
+          "text": "examples",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 264.9,
+          "end_time": 265.48,
+          "text": "on",
+          "confidence": 0.9833984375
+        },
+        {
+          "start_time": 265.48,
+          "end_time": 265.84,
+          "text": "regression",
+          "confidence": 0.8408203125
+        },
+        {
+          "start_time": 265.84,
+          "end_time": 266.1,
+          "text": "and",
+          "confidence": 0.90673828125
+        }
+      ]
+    },
+    {
+      "start_time": 266.1,
+      "end_time": 271.12,
+      "text": "classification. The first is a regression example where the target variable is the",
+      "confidence": -0.14396067683616381,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 266.1,
+          "end_time": 266.74,
+          "text": "classification.",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 267.54,
+          "end_time": 267.72,
+          "text": "The",
+          "confidence": 0.97607421875
+        },
+        {
+          "start_time": 267.72,
+          "end_time": 267.92,
+          "text": "first",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 267.92,
+          "end_time": 268.1,
+          "text": "is",
+          "confidence": 0.98828125
+        },
+        {
+          "start_time": 268.1,
+          "end_time": 268.2,
+          "text": "a",
+          "confidence": 0.943359375
+        },
+        {
+          "start_time": 268.2,
+          "end_time": 268.46,
+          "text": "regression",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 268.46,
+          "end_time": 269.2,
+          "text": "example",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 269.2,
+          "end_time": 269.52,
+          "text": "where",
+          "confidence": 0.6982421875
+        },
+        {
+          "start_time": 269.52,
+          "end_time": 269.7,
+          "text": "the",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 269.7,
+          "end_time": 270.04,
+          "text": "target",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 270.04,
+          "end_time": 270.4,
+          "text": "variable",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 270.4,
+          "end_time": 270.86,
+          "text": "is",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 270.86,
+          "end_time": 271.12,
+          "text": "the",
+          "confidence": 0.99755859375
+        }
+      ]
+    },
+    {
+      "start_time": 271.12,
+      "end_time": 276.72,
+      "text": "house price of certain houses and as features we have the size of the house,",
+      "confidence": -0.14396067683616381,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 271.12,
+          "end_time": 271.44,
+          "text": "house",
+          "confidence": 0.9794921875
+        },
+        {
+          "start_time": 271.44,
+          "end_time": 271.86,
+          "text": "price",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 271.86,
+          "end_time": 272.92,
+          "text": "of",
+          "confidence": 0.9892578125
+        },
+        {
+          "start_time": 272.92,
+          "end_time": 273.22,
+          "text": "certain",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 273.22,
+          "end_time": 273.64,
+          "text": "houses",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 273.64,
+          "end_time": 274.08,
+          "text": "and",
+          "confidence": 0.62646484375
+        },
+        {
+          "start_time": 274.08,
+          "end_time": 274.24,
+          "text": "as",
+          "confidence": 0.9423828125
+        },
+        {
+          "start_time": 274.24,
+          "end_time": 274.62,
+          "text": "features",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 274.62,
+          "end_time": 275.04,
+          "text": "we",
+          "confidence": 0.80322265625
+        },
+        {
+          "start_time": 275.04,
+          "end_time": 275.38,
+          "text": "have",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 275.38,
+          "end_time": 275.6,
+          "text": "the",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 275.6,
+          "end_time": 275.94,
+          "text": "size",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 275.94,
+          "end_time": 276.2,
+          "text": "of",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 276.2,
+          "end_time": 276.36,
+          "text": "the",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 276.36,
+          "end_time": 276.72,
+          "text": "house,",
+          "confidence": 0.99755859375
+        }
+      ]
+    },
+    {
+      "start_time": 276.78,
+      "end_time": 281.6,
+      "text": "number of bedrooms, swimming pool, yes or no. We could want to explain the price",
+      "confidence": -0.14396067683616381,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 276.78,
+          "end_time": 277.0,
+          "text": "number",
+          "confidence": 0.95947265625
+        },
+        {
+          "start_time": 277.0,
+          "end_time": 277.32,
+          "text": "of",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 277.32,
+          "end_time": 277.68,
+          "text": "bedrooms,",
+          "confidence": 0.98388671875
+        },
+        {
+          "start_time": 277.92,
+          "end_time": 278.16,
+          "text": "swimming",
+          "confidence": 0.6962890625
+        },
+        {
+          "start_time": 278.16,
+          "end_time": 278.44,
+          "text": "pool,",
+          "confidence": 0.98095703125
+        },
+        {
+          "start_time": 278.58,
+          "end_time": 278.7,
+          "text": "yes",
+          "confidence": 0.900390625
+        },
+        {
+          "start_time": 278.7,
+          "end_time": 278.9,
+          "text": "or",
+          "confidence": 0.9716796875
+        },
+        {
+          "start_time": 278.9,
+          "end_time": 279.16,
+          "text": "no.",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 279.64,
+          "end_time": 279.74,
+          "text": "We",
+          "confidence": 0.9853515625
+        },
+        {
+          "start_time": 279.74,
+          "end_time": 279.98,
+          "text": "could",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 279.98,
+          "end_time": 280.28,
+          "text": "want",
+          "confidence": 0.9853515625
+        },
+        {
+          "start_time": 280.28,
+          "end_time": 280.46,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 280.46,
+          "end_time": 280.88,
+          "text": "explain",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 280.88,
+          "end_time": 281.18,
+          "text": "the",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 281.18,
+          "end_time": 281.6,
+          "text": "price",
+          "confidence": 0.9912109375
+        }
+      ]
+    },
+    {
+      "start_time": 281.6,
+      "end_time": 289.53,
+      "text": "for a certain house. Here in this case we are probably more interested in",
+      "confidence": -0.1667018542821343,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 281.6,
+          "end_time": 282.12,
+          "text": "for",
+          "confidence": 0.45361328125
+        },
+        {
+          "start_time": 282.12,
+          "end_time": 282.28,
+          "text": "a",
+          "confidence": 0.91357421875
+        },
+        {
+          "start_time": 282.28,
+          "end_time": 282.54,
+          "text": "certain",
+          "confidence": 0.9775390625
+        },
+        {
+          "start_time": 282.54,
+          "end_time": 282.86,
+          "text": "house.",
+          "confidence": 0.98193359375
+        },
+        {
+          "start_time": 285.61,
+          "end_time": 286.05,
+          "text": "Here",
+          "confidence": 0.94140625
+        },
+        {
+          "start_time": 286.05,
+          "end_time": 286.19,
+          "text": "in",
+          "confidence": 0.8251953125
+        },
+        {
+          "start_time": 286.19,
+          "end_time": 286.37,
+          "text": "this",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 286.37,
+          "end_time": 286.65,
+          "text": "case",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 286.65,
+          "end_time": 287.37,
+          "text": "we",
+          "confidence": 0.74462890625
+        },
+        {
+          "start_time": 287.37,
+          "end_time": 287.55,
+          "text": "are",
+          "confidence": 0.9931640625
+        },
+        {
+          "start_time": 287.55,
+          "end_time": 288.35,
+          "text": "probably",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 288.35,
+          "end_time": 288.79,
+          "text": "more",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 288.79,
+          "end_time": 289.21,
+          "text": "interested",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 289.21,
+          "end_time": 289.53,
+          "text": "in",
+          "confidence": 0.92578125
+        }
+      ]
+    },
+    {
+      "start_time": 289.53,
+      "end_time": 293.67,
+      "text": "learning to explain. We might want to understand what influences a house price",
+      "confidence": -0.1667018542821343,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 289.53,
+          "end_time": 289.73,
+          "text": "learning",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 289.73,
+          "end_time": 289.99,
+          "text": "to",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 289.99,
+          "end_time": 290.47,
+          "text": "explain.",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 290.67,
+          "end_time": 290.83,
+          "text": "We",
+          "confidence": 0.98681640625
+        },
+        {
+          "start_time": 290.83,
+          "end_time": 291.27,
+          "text": "might",
+          "confidence": 0.96630859375
+        },
+        {
+          "start_time": 291.27,
+          "end_time": 291.55,
+          "text": "want",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 291.55,
+          "end_time": 291.71,
+          "text": "to",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 291.71,
+          "end_time": 292.03,
+          "text": "understand",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 292.03,
+          "end_time": 292.27,
+          "text": "what",
+          "confidence": 0.9931640625
+        },
+        {
+          "start_time": 292.27,
+          "end_time": 292.83,
+          "text": "influences",
+          "confidence": 0.96875
+        },
+        {
+          "start_time": 292.83,
+          "end_time": 293.17,
+          "text": "a",
+          "confidence": 0.55078125
+        },
+        {
+          "start_time": 293.17,
+          "end_time": 293.39,
+          "text": "house",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 293.39,
+          "end_time": 293.67,
+          "text": "price",
+          "confidence": 0.91943359375
+        }
+      ]
+    },
+    {
+      "start_time": 293.67,
+      "end_time": 300.77,
+      "text": "most, but we could also try to make our prediction model to predict if or to",
+      "confidence": -0.1667018542821343,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 293.67,
+          "end_time": 294.09,
+          "text": "most,",
+          "confidence": 0.9619140625
+        },
+        {
+          "start_time": 294.59,
+          "end_time": 295.01,
+          "text": "but",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 295.01,
+          "end_time": 295.63,
+          "text": "we",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 295.63,
+          "end_time": 295.95,
+          "text": "could",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 295.95,
+          "end_time": 296.27,
+          "text": "also",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 296.27,
+          "end_time": 296.75,
+          "text": "try",
+          "confidence": 0.990234375
+        },
+        {
+          "start_time": 296.75,
+          "end_time": 296.93,
+          "text": "to",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 296.93,
+          "end_time": 297.09,
+          "text": "make",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 297.09,
+          "end_time": 297.27,
+          "text": "our",
+          "confidence": 0.814453125
+        },
+        {
+          "start_time": 297.27,
+          "end_time": 297.67,
+          "text": "prediction",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 297.67,
+          "end_time": 298.17,
+          "text": "model",
+          "confidence": 0.978515625
+        },
+        {
+          "start_time": 298.17,
+          "end_time": 298.77,
+          "text": "to",
+          "confidence": 0.7548828125
+        },
+        {
+          "start_time": 298.77,
+          "end_time": 299.35,
+          "text": "predict",
+          "confidence": 0.8525390625
+        },
+        {
+          "start_time": 299.35,
+          "end_time": 299.95,
+          "text": "if",
+          "confidence": 0.72021484375
+        },
+        {
+          "start_time": 299.95,
+          "end_time": 300.33,
+          "text": "or",
+          "confidence": 0.7041015625
+        },
+        {
+          "start_time": 300.33,
+          "end_time": 300.77,
+          "text": "to",
+          "confidence": 0.98291015625
+        }
+      ]
+    },
+    {
+      "start_time": 300.77,
+      "end_time": 306.75,
+      "text": "find out if a house is underpriced or not. So learning to explain and learning to",
+      "confidence": -0.1667018542821343,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 300.77,
+          "end_time": 301.55,
+          "text": "find",
+          "confidence": 0.8818359375
+        },
+        {
+          "start_time": 301.55,
+          "end_time": 301.79,
+          "text": "out",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 301.79,
+          "end_time": 302.03,
+          "text": "if",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 302.03,
+          "end_time": 302.31,
+          "text": "a",
+          "confidence": 0.80224609375
+        },
+        {
+          "start_time": 302.31,
+          "end_time": 302.59,
+          "text": "house",
+          "confidence": 0.97119140625
+        },
+        {
+          "start_time": 302.59,
+          "end_time": 302.75,
+          "text": "is",
+          "confidence": 0.95751953125
+        },
+        {
+          "start_time": 302.75,
+          "end_time": 303.17,
+          "text": "underpriced",
+          "confidence": 0.730712890625
+        },
+        {
+          "start_time": 303.17,
+          "end_time": 303.37,
+          "text": "or",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 303.37,
+          "end_time": 303.59,
+          "text": "not.",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 305.09,
+          "end_time": 305.09,
+          "text": "So",
+          "confidence": 0.9697265625
+        },
+        {
+          "start_time": 305.09,
+          "end_time": 305.73,
+          "text": "learning",
+          "confidence": 0.8310546875
+        },
+        {
+          "start_time": 305.73,
+          "end_time": 305.91,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 305.91,
+          "end_time": 306.19,
+          "text": "explain",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 306.19,
+          "end_time": 306.35,
+          "text": "and",
+          "confidence": 0.9453125
+        },
+        {
+          "start_time": 306.35,
+          "end_time": 306.49,
+          "text": "learning",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 306.49,
+          "end_time": 306.75,
+          "text": "to",
+          "confidence": 0.99951171875
+        }
+      ]
+    },
+    {
+      "start_time": 306.75,
+      "end_time": 313.07,
+      "text": "predict could both be viable goals in this example. Second regression example",
+      "confidence": -0.169921875,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 306.75,
+          "end_time": 307.01,
+          "text": "predict",
+          "confidence": 0.55224609375
+        },
+        {
+          "start_time": 307.01,
+          "end_time": 307.65,
+          "text": "could",
+          "confidence": 0.8515625
+        },
+        {
+          "start_time": 307.65,
+          "end_time": 307.87,
+          "text": "both",
+          "confidence": 0.9638671875
+        },
+        {
+          "start_time": 307.87,
+          "end_time": 308.23,
+          "text": "be",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 308.23,
+          "end_time": 308.73,
+          "text": "viable",
+          "confidence": 0.796875
+        },
+        {
+          "start_time": 308.73,
+          "end_time": 309.35,
+          "text": "goals",
+          "confidence": 0.94580078125
+        },
+        {
+          "start_time": 309.35,
+          "end_time": 309.59,
+          "text": "in",
+          "confidence": 0.96484375
+        },
+        {
+          "start_time": 309.59,
+          "end_time": 309.77,
+          "text": "this",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 309.77,
+          "end_time": 310.21,
+          "text": "example.",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 311.81,
+          "end_time": 312.09,
+          "text": "Second",
+          "confidence": 0.783203125
+        },
+        {
+          "start_time": 312.09,
+          "end_time": 312.59,
+          "text": "regression",
+          "confidence": 0.98095703125
+        },
+        {
+          "start_time": 312.59,
+          "end_time": 313.07,
+          "text": "example",
+          "confidence": 0.99560546875
+        }
+      ]
+    },
+    {
+      "start_time": 313.07,
+      "end_time": 318.95,
+      "text": "is the length of stay in in a hospital. So as target variable we have today a",
+      "confidence": -0.169921875,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 313.07,
+          "end_time": 313.37,
+          "text": "is",
+          "confidence": 0.98583984375
+        },
+        {
+          "start_time": 313.37,
+          "end_time": 313.61,
+          "text": "the",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 313.61,
+          "end_time": 314.31,
+          "text": "length",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 314.31,
+          "end_time": 314.71,
+          "text": "of",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 314.71,
+          "end_time": 315.13,
+          "text": "stay",
+          "confidence": 0.96728515625
+        },
+        {
+          "start_time": 315.13,
+          "end_time": 315.43,
+          "text": "in",
+          "confidence": 0.99365234375
+        },
+        {
+          "start_time": 315.43,
+          "end_time": 315.75,
+          "text": "in",
+          "confidence": 0.349853515625
+        },
+        {
+          "start_time": 315.75,
+          "end_time": 315.89,
+          "text": "a",
+          "confidence": 0.98486328125
+        },
+        {
+          "start_time": 315.89,
+          "end_time": 316.35,
+          "text": "hospital.",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 316.83,
+          "end_time": 316.91,
+          "text": "So",
+          "confidence": 0.982421875
+        },
+        {
+          "start_time": 316.91,
+          "end_time": 317.25,
+          "text": "as",
+          "confidence": 0.81787109375
+        },
+        {
+          "start_time": 317.25,
+          "end_time": 317.49,
+          "text": "target",
+          "confidence": 0.9384765625
+        },
+        {
+          "start_time": 317.49,
+          "end_time": 317.93,
+          "text": "variable",
+          "confidence": 0.98583984375
+        },
+        {
+          "start_time": 317.93,
+          "end_time": 318.19,
+          "text": "we",
+          "confidence": 0.60546875
+        },
+        {
+          "start_time": 318.19,
+          "end_time": 318.29,
+          "text": "have",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 318.29,
+          "end_time": 318.69,
+          "text": "today",
+          "confidence": 0.50830078125
+        },
+        {
+          "start_time": 318.69,
+          "end_time": 318.95,
+          "text": "a",
+          "confidence": 0.78564453125
+        }
+      ]
+    },
+    {
+      "start_time": 318.95,
+      "end_time": 324.47,
+      "text": "patient stays in the hospital or has stayed in the hospital of course for",
+      "confidence": -0.169921875,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 318.95,
+          "end_time": 319.35,
+          "text": "patient",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 319.35,
+          "end_time": 319.89,
+          "text": "stays",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 319.89,
+          "end_time": 320.21,
+          "text": "in",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 320.21,
+          "end_time": 320.33,
+          "text": "the",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 320.33,
+          "end_time": 320.75,
+          "text": "hospital",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 320.75,
+          "end_time": 321.99,
+          "text": "or",
+          "confidence": 0.83056640625
+        },
+        {
+          "start_time": 321.99,
+          "end_time": 322.43,
+          "text": "has",
+          "confidence": 0.98486328125
+        },
+        {
+          "start_time": 322.43,
+          "end_time": 322.85,
+          "text": "stayed",
+          "confidence": 0.85302734375
+        },
+        {
+          "start_time": 322.85,
+          "end_time": 323.07,
+          "text": "in",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 323.07,
+          "end_time": 323.19,
+          "text": "the",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 323.19,
+          "end_time": 323.57,
+          "text": "hospital",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 323.57,
+          "end_time": 323.81,
+          "text": "of",
+          "confidence": 0.70751953125
+        },
+        {
+          "start_time": 323.81,
+          "end_time": 324.07,
+          "text": "course",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 324.07,
+          "end_time": 324.47,
+          "text": "for",
+          "confidence": 0.91259765625
+        }
+      ]
+    },
+    {
+      "start_time": 324.47,
+      "end_time": 330.25,
+      "text": "historic data and we have features X the diagnosis admission type, gender, age and",
+      "confidence": -0.169921875,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 324.47,
+          "end_time": 324.91,
+          "text": "historic",
+          "confidence": 0.8193359375
+        },
+        {
+          "start_time": 324.91,
+          "end_time": 325.29,
+          "text": "data",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 325.29,
+          "end_time": 326.07,
+          "text": "and",
+          "confidence": 0.7236328125
+        },
+        {
+          "start_time": 326.07,
+          "end_time": 326.23,
+          "text": "we",
+          "confidence": 0.90576171875
+        },
+        {
+          "start_time": 326.23,
+          "end_time": 326.33,
+          "text": "have",
+          "confidence": 0.9794921875
+        },
+        {
+          "start_time": 326.33,
+          "end_time": 326.59,
+          "text": "features",
+          "confidence": 0.904296875
+        },
+        {
+          "start_time": 326.59,
+          "end_time": 326.99,
+          "text": "X",
+          "confidence": 0.69091796875
+        },
+        {
+          "start_time": 326.99,
+          "end_time": 327.29,
+          "text": "the",
+          "confidence": 0.59521484375
+        },
+        {
+          "start_time": 327.29,
+          "end_time": 327.77,
+          "text": "diagnosis",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 327.77,
+          "end_time": 328.25,
+          "text": "admission",
+          "confidence": 0.66259765625
+        },
+        {
+          "start_time": 328.25,
+          "end_time": 328.63,
+          "text": "type,",
+          "confidence": 0.72216796875
+        },
+        {
+          "start_time": 328.81,
+          "end_time": 328.87,
+          "text": "gender,",
+          "confidence": 0.92333984375
+        },
+        {
+          "start_time": 329.07,
+          "end_time": 329.33,
+          "text": "age",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 329.33,
+          "end_time": 330.25,
+          "text": "and",
+          "confidence": 0.828125
+        }
+      ]
+    },
+    {
+      "start_time": 330.25,
+      "end_time": 334.63,
+      "text": "others. Also here learning to explain or learning to predict could be helpful.",
+      "confidence": -0.169921875,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 330.25,
+          "end_time": 330.63,
+          "text": "others.",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 330.91,
+          "end_time": 331.15,
+          "text": "Also",
+          "confidence": 0.9931640625
+        },
+        {
+          "start_time": 331.15,
+          "end_time": 331.49,
+          "text": "here",
+          "confidence": 0.95703125
+        },
+        {
+          "start_time": 331.49,
+          "end_time": 331.95,
+          "text": "learning",
+          "confidence": 0.94287109375
+        },
+        {
+          "start_time": 331.95,
+          "end_time": 332.23,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 332.23,
+          "end_time": 332.59,
+          "text": "explain",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 332.59,
+          "end_time": 332.85,
+          "text": "or",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 332.85,
+          "end_time": 333.13,
+          "text": "learning",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 333.13,
+          "end_time": 333.39,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 333.39,
+          "end_time": 333.71,
+          "text": "predict",
+          "confidence": 0.9921875
+        },
+        {
+          "start_time": 333.71,
+          "end_time": 334.03,
+          "text": "could",
+          "confidence": 0.84912109375
+        },
+        {
+          "start_time": 334.03,
+          "end_time": 334.21,
+          "text": "be",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 334.21,
+          "end_time": 334.63,
+          "text": "helpful.",
+          "confidence": 0.9990234375
+        }
+      ]
+    },
+    {
+      "start_time": 334.63,
+      "end_time": 340.59,
+      "text": "perhaps the hospital wants to understand which factors drive the length of the stay in the",
+      "confidence": -0.11304012051335087,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 334.63,
+          "end_time": 335.03,
+          "text": "perhaps",
+          "confidence": 0.337158203125
+        },
+        {
+          "start_time": 335.03,
+          "end_time": 335.61,
+          "text": "the",
+          "confidence": 0.962890625
+        },
+        {
+          "start_time": 335.61,
+          "end_time": 335.89,
+          "text": "hospital",
+          "confidence": 0.9853515625
+        },
+        {
+          "start_time": 335.89,
+          "end_time": 336.23,
+          "text": "wants",
+          "confidence": 0.982421875
+        },
+        {
+          "start_time": 336.23,
+          "end_time": 336.39,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 336.39,
+          "end_time": 336.81,
+          "text": "understand",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 336.81,
+          "end_time": 337.47,
+          "text": "which",
+          "confidence": 0.98486328125
+        },
+        {
+          "start_time": 337.47,
+          "end_time": 337.99,
+          "text": "factors",
+          "confidence": 0.9912109375
+        },
+        {
+          "start_time": 337.99,
+          "end_time": 338.53,
+          "text": "drive",
+          "confidence": 0.9921875
+        },
+        {
+          "start_time": 338.53,
+          "end_time": 339.35,
+          "text": "the",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 339.35,
+          "end_time": 339.71,
+          "text": "length",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 339.71,
+          "end_time": 340.03,
+          "text": "of",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 340.03,
+          "end_time": 340.15,
+          "text": "the",
+          "confidence": 0.96630859375
+        },
+        {
+          "start_time": 340.15,
+          "end_time": 340.39,
+          "text": "stay",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 340.39,
+          "end_time": 340.51,
+          "text": "in",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 340.51,
+          "end_time": 340.59,
+          "text": "the",
+          "confidence": 0.9970703125
+        }
+      ]
+    },
+    {
+      "start_time": 340.59,
+      "end_time": 347.87,
+      "text": "hospital, to have some policies to perhaps improve their workflows. But on the other hand,",
+      "confidence": -0.11304012051335087,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 340.59,
+          "end_time": 341.05,
+          "text": "hospital,",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 341.49,
+          "end_time": 341.89,
+          "text": "to",
+          "confidence": 0.96435546875
+        },
+        {
+          "start_time": 341.89,
+          "end_time": 342.19,
+          "text": "have",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 342.19,
+          "end_time": 342.41,
+          "text": "some",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 342.41,
+          "end_time": 342.83,
+          "text": "policies",
+          "confidence": 0.9794921875
+        },
+        {
+          "start_time": 342.83,
+          "end_time": 343.15,
+          "text": "to",
+          "confidence": 0.97314453125
+        },
+        {
+          "start_time": 343.15,
+          "end_time": 343.47,
+          "text": "perhaps",
+          "confidence": 0.94580078125
+        },
+        {
+          "start_time": 343.47,
+          "end_time": 343.97,
+          "text": "improve",
+          "confidence": 0.990234375
+        },
+        {
+          "start_time": 343.97,
+          "end_time": 344.51,
+          "text": "their",
+          "confidence": 0.9814453125
+        },
+        {
+          "start_time": 344.51,
+          "end_time": 345.29,
+          "text": "workflows.",
+          "confidence": 0.905517578125
+        },
+        {
+          "start_time": 346.71,
+          "end_time": 347.03,
+          "text": "But",
+          "confidence": 0.9443359375
+        },
+        {
+          "start_time": 347.03,
+          "end_time": 347.15,
+          "text": "on",
+          "confidence": 0.9580078125
+        },
+        {
+          "start_time": 347.15,
+          "end_time": 347.29,
+          "text": "the",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 347.29,
+          "end_time": 347.53,
+          "text": "other",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 347.53,
+          "end_time": 347.87,
+          "text": "hand,",
+          "confidence": 0.99853515625
+        }
+      ]
+    },
+    {
+      "start_time": 348.03,
+      "end_time": 355.79,
+      "text": "perhaps they just want to predict how long a new patient will be in the hospital to be able to",
+      "confidence": -0.11304012051335087,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 348.03,
+          "end_time": 348.23,
+          "text": "perhaps",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 348.23,
+          "end_time": 348.49,
+          "text": "they",
+          "confidence": 0.96630859375
+        },
+        {
+          "start_time": 348.49,
+          "end_time": 349.19,
+          "text": "just",
+          "confidence": 0.8740234375
+        },
+        {
+          "start_time": 349.19,
+          "end_time": 349.43,
+          "text": "want",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 349.43,
+          "end_time": 349.89,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 349.89,
+          "end_time": 350.69,
+          "text": "predict",
+          "confidence": 0.8017578125
+        },
+        {
+          "start_time": 350.69,
+          "end_time": 351.03,
+          "text": "how",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 351.03,
+          "end_time": 351.29,
+          "text": "long",
+          "confidence": 0.99365234375
+        },
+        {
+          "start_time": 351.29,
+          "end_time": 351.45,
+          "text": "a",
+          "confidence": 0.9873046875
+        },
+        {
+          "start_time": 351.45,
+          "end_time": 351.63,
+          "text": "new",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 351.63,
+          "end_time": 352.07,
+          "text": "patient",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 352.07,
+          "end_time": 352.55,
+          "text": "will",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 352.55,
+          "end_time": 352.81,
+          "text": "be",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 352.81,
+          "end_time": 352.97,
+          "text": "in",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 352.97,
+          "end_time": 353.09,
+          "text": "the",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 353.09,
+          "end_time": 353.45,
+          "text": "hospital",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 353.45,
+          "end_time": 354.01,
+          "text": "to",
+          "confidence": 0.787109375
+        },
+        {
+          "start_time": 354.01,
+          "end_time": 354.73,
+          "text": "be",
+          "confidence": 0.9892578125
+        },
+        {
+          "start_time": 354.73,
+          "end_time": 355.53,
+          "text": "able",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 355.53,
+          "end_time": 355.79,
+          "text": "to",
+          "confidence": 0.99951171875
+        }
+      ]
+    },
+    {
+      "start_time": 355.79,
+      "end_time": 364.17,
+      "text": "plan better with their available resources. And as a last example, a classification example,",
+      "confidence": -0.11304012051335087,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 355.79,
+          "end_time": 356.23,
+          "text": "plan",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 356.23,
+          "end_time": 356.71,
+          "text": "better",
+          "confidence": 0.98046875
+        },
+        {
+          "start_time": 356.71,
+          "end_time": 357.31,
+          "text": "with",
+          "confidence": 0.9658203125
+        },
+        {
+          "start_time": 357.31,
+          "end_time": 357.73,
+          "text": "their",
+          "confidence": 0.68408203125
+        },
+        {
+          "start_time": 357.73,
+          "end_time": 358.65,
+          "text": "available",
+          "confidence": 0.91796875
+        },
+        {
+          "start_time": 358.65,
+          "end_time": 359.39,
+          "text": "resources.",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 361.43,
+          "end_time": 361.71,
+          "text": "And",
+          "confidence": 0.875
+        },
+        {
+          "start_time": 361.71,
+          "end_time": 361.85,
+          "text": "as",
+          "confidence": 0.939453125
+        },
+        {
+          "start_time": 361.85,
+          "end_time": 361.93,
+          "text": "a",
+          "confidence": 0.884765625
+        },
+        {
+          "start_time": 361.93,
+          "end_time": 362.11,
+          "text": "last",
+          "confidence": 0.99169921875
+        },
+        {
+          "start_time": 362.11,
+          "end_time": 362.51,
+          "text": "example,",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 362.73,
+          "end_time": 362.73,
+          "text": "a",
+          "confidence": 0.97314453125
+        },
+        {
+          "start_time": 362.73,
+          "end_time": 363.29,
+          "text": "classification",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 363.29,
+          "end_time": 364.17,
+          "text": "example,",
+          "confidence": 0.998046875
+        }
+      ]
+    },
+    {
+      "start_time": 364.63,
+      "end_time": 371.01,
+      "text": "an insurance in our example the target variable Y is the risk group, perhaps we have five risk",
+      "confidence": -0.1985576923076923,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 364.63,
+          "end_time": 364.93,
+          "text": "an",
+          "confidence": 0.29541015625
+        },
+        {
+          "start_time": 364.93,
+          "end_time": 365.49,
+          "text": "insurance",
+          "confidence": 0.9765625
+        },
+        {
+          "start_time": 365.49,
+          "end_time": 366.01,
+          "text": "in",
+          "confidence": 0.282958984375
+        },
+        {
+          "start_time": 366.01,
+          "end_time": 366.29,
+          "text": "our",
+          "confidence": 0.74462890625
+        },
+        {
+          "start_time": 366.29,
+          "end_time": 366.89,
+          "text": "example",
+          "confidence": 0.9951171875
+        },
+        {
+          "start_time": 366.89,
+          "end_time": 367.35,
+          "text": "the",
+          "confidence": 0.70751953125
+        },
+        {
+          "start_time": 367.35,
+          "end_time": 367.77,
+          "text": "target",
+          "confidence": 0.93408203125
+        },
+        {
+          "start_time": 367.77,
+          "end_time": 368.23,
+          "text": "variable",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 368.23,
+          "end_time": 368.51,
+          "text": "Y",
+          "confidence": 0.441162109375
+        },
+        {
+          "start_time": 368.51,
+          "end_time": 368.67,
+          "text": "is",
+          "confidence": 0.97265625
+        },
+        {
+          "start_time": 368.67,
+          "end_time": 368.77,
+          "text": "the",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 368.77,
+          "end_time": 368.97,
+          "text": "risk",
+          "confidence": 0.97021484375
+        },
+        {
+          "start_time": 368.97,
+          "end_time": 369.49,
+          "text": "group,",
+          "confidence": 0.99267578125
+        },
+        {
+          "start_time": 369.87,
+          "end_time": 370.05,
+          "text": "perhaps",
+          "confidence": 0.55859375
+        },
+        {
+          "start_time": 370.05,
+          "end_time": 370.21,
+          "text": "we",
+          "confidence": 0.583984375
+        },
+        {
+          "start_time": 370.21,
+          "end_time": 370.33,
+          "text": "have",
+          "confidence": 0.93310546875
+        },
+        {
+          "start_time": 370.33,
+          "end_time": 370.67,
+          "text": "five",
+          "confidence": 0.935546875
+        },
+        {
+          "start_time": 370.67,
+          "end_time": 371.01,
+          "text": "risk",
+          "confidence": 0.99609375
+        }
+      ]
+    },
+    {
+      "start_time": 371.01,
+      "end_time": 379.15,
+      "text": "groups for life insurance, customer and we have some features that we might use to predict the risk",
+      "confidence": -0.1985576923076923,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 371.01,
+          "end_time": 371.45,
+          "text": "groups",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 371.45,
+          "end_time": 371.75,
+          "text": "for",
+          "confidence": 0.434326171875
+        },
+        {
+          "start_time": 371.75,
+          "end_time": 372.65,
+          "text": "life",
+          "confidence": 0.66796875
+        },
+        {
+          "start_time": 372.65,
+          "end_time": 373.29,
+          "text": "insurance,",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 373.87,
+          "end_time": 374.31,
+          "text": "customer",
+          "confidence": 0.947265625
+        },
+        {
+          "start_time": 374.31,
+          "end_time": 374.91,
+          "text": "and",
+          "confidence": 0.8046875
+        },
+        {
+          "start_time": 374.91,
+          "end_time": 375.37,
+          "text": "we",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 375.37,
+          "end_time": 375.47,
+          "text": "have",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 375.47,
+          "end_time": 375.75,
+          "text": "some",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 375.75,
+          "end_time": 376.33,
+          "text": "features",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 376.33,
+          "end_time": 376.77,
+          "text": "that",
+          "confidence": 0.99560546875
+        },
+        {
+          "start_time": 376.77,
+          "end_time": 376.99,
+          "text": "we",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 376.99,
+          "end_time": 377.17,
+          "text": "might",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 377.17,
+          "end_time": 377.47,
+          "text": "use",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 377.47,
+          "end_time": 377.83,
+          "text": "to",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 377.83,
+          "end_time": 378.27,
+          "text": "predict",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 378.27,
+          "end_time": 378.83,
+          "text": "the",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 378.83,
+          "end_time": 379.15,
+          "text": "risk",
+          "confidence": 0.99267578125
+        }
+      ]
+    },
+    {
+      "start_time": 379.91,
+      "end_time": 386.97,
+      "text": "of this new customer. So mainly this would be a learning probe to predict but a company might",
+      "confidence": -0.1985576923076923,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 379.91,
+          "end_time": 380.31,
+          "text": "of",
+          "confidence": 0.99462890625
+        },
+        {
+          "start_time": 380.31,
+          "end_time": 380.81,
+          "text": "this",
+          "confidence": 0.75048828125
+        },
+        {
+          "start_time": 380.81,
+          "end_time": 381.17,
+          "text": "new",
+          "confidence": 0.99072265625
+        },
+        {
+          "start_time": 381.17,
+          "end_time": 381.75,
+          "text": "customer.",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 382.45,
+          "end_time": 382.49,
+          "text": "So",
+          "confidence": 0.96484375
+        },
+        {
+          "start_time": 382.49,
+          "end_time": 382.73,
+          "text": "mainly",
+          "confidence": 0.9501953125
+        },
+        {
+          "start_time": 382.73,
+          "end_time": 382.99,
+          "text": "this",
+          "confidence": 0.96435546875
+        },
+        {
+          "start_time": 382.99,
+          "end_time": 383.37,
+          "text": "would",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 383.37,
+          "end_time": 383.65,
+          "text": "be",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 383.65,
+          "end_time": 383.91,
+          "text": "a",
+          "confidence": 0.8310546875
+        },
+        {
+          "start_time": 383.91,
+          "end_time": 384.15,
+          "text": "learning",
+          "confidence": 0.99853515625
+        },
+        {
+          "start_time": 384.15,
+          "end_time": 384.41,
+          "text": "probe",
+          "confidence": 0.93896484375
+        },
+        {
+          "start_time": 384.41,
+          "end_time": 384.77,
+          "text": "to",
+          "confidence": 0.99609375
+        },
+        {
+          "start_time": 384.77,
+          "end_time": 385.17,
+          "text": "predict",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 385.17,
+          "end_time": 385.93,
+          "text": "but",
+          "confidence": 0.54736328125
+        },
+        {
+          "start_time": 385.93,
+          "end_time": 386.31,
+          "text": "a",
+          "confidence": 0.986328125
+        },
+        {
+          "start_time": 386.31,
+          "end_time": 386.57,
+          "text": "company",
+          "confidence": 1.0
+        },
+        {
+          "start_time": 386.57,
+          "end_time": 386.97,
+          "text": "might",
+          "confidence": 0.9912109375
+        }
+      ]
+    },
+    {
+      "start_time": 386.97,
+      "end_time": 394.89,
+      "text": "also be required to explain its predictions to its customers or to some auditing position.",
+      "confidence": -0.1943080382687705,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 386.97,
+          "end_time": 387.25,
+          "text": "also",
+          "confidence": 0.94775390625
+        },
+        {
+          "start_time": 387.25,
+          "end_time": 387.41,
+          "text": "be",
+          "confidence": 0.96533203125
+        },
+        {
+          "start_time": 387.41,
+          "end_time": 387.89,
+          "text": "required",
+          "confidence": 1.0
+        },
+        {
+          "start_time": 387.89,
+          "end_time": 388.29,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 388.29,
+          "end_time": 388.85,
+          "text": "explain",
+          "confidence": 0.998046875
+        },
+        {
+          "start_time": 388.85,
+          "end_time": 389.13,
+          "text": "its",
+          "confidence": 0.98828125
+        },
+        {
+          "start_time": 389.13,
+          "end_time": 389.65,
+          "text": "predictions",
+          "confidence": 0.99365234375
+        },
+        {
+          "start_time": 389.65,
+          "end_time": 390.11,
+          "text": "to",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 390.11,
+          "end_time": 390.25,
+          "text": "its",
+          "confidence": 0.99365234375
+        },
+        {
+          "start_time": 390.25,
+          "end_time": 390.77,
+          "text": "customers",
+          "confidence": 0.99658203125
+        },
+        {
+          "start_time": 390.77,
+          "end_time": 391.53,
+          "text": "or",
+          "confidence": 0.9482421875
+        },
+        {
+          "start_time": 391.53,
+          "end_time": 392.03,
+          "text": "to",
+          "confidence": 0.990234375
+        },
+        {
+          "start_time": 392.03,
+          "end_time": 392.41,
+          "text": "some",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 392.41,
+          "end_time": 393.53,
+          "text": "auditing",
+          "confidence": 0.992431640625
+        },
+        {
+          "start_time": 393.53,
+          "end_time": 394.89,
+          "text": "position.",
+          "confidence": 0.64990234375
+        }
+      ]
+    },
+    {
+      "start_time": 396.01,
+      "end_time": 399.73,
+      "text": "So this also could be learning to predict and learning to explain.",
+      "confidence": -0.1943080382687705,
+      "provider": "faster_whisper_small.en_cuda_float16",
+      "words": [
+        {
+          "start_time": 396.01,
+          "end_time": 396.01,
+          "text": "So",
+          "confidence": 0.8359375
+        },
+        {
+          "start_time": 396.01,
+          "end_time": 396.51,
+          "text": "this",
+          "confidence": 0.91064453125
+        },
+        {
+          "start_time": 396.51,
+          "end_time": 396.87,
+          "text": "also",
+          "confidence": 0.9716796875
+        },
+        {
+          "start_time": 396.87,
+          "end_time": 397.13,
+          "text": "could",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 397.13,
+          "end_time": 397.37,
+          "text": "be",
+          "confidence": 0.99755859375
+        },
+        {
+          "start_time": 397.37,
+          "end_time": 397.63,
+          "text": "learning",
+          "confidence": 0.95849609375
+        },
+        {
+          "start_time": 397.63,
+          "end_time": 397.87,
+          "text": "to",
+          "confidence": 0.994140625
+        },
+        {
+          "start_time": 397.87,
+          "end_time": 398.19,
+          "text": "predict",
+          "confidence": 0.9990234375
+        },
+        {
+          "start_time": 398.19,
+          "end_time": 398.71,
+          "text": "and",
+          "confidence": 0.9873046875
+        },
+        {
+          "start_time": 398.71,
+          "end_time": 399.15,
+          "text": "learning",
+          "confidence": 0.9970703125
+        },
+        {
+          "start_time": 399.15,
+          "end_time": 399.41,
+          "text": "to",
+          "confidence": 0.99951171875
+        },
+        {
+          "start_time": 399.41,
+          "end_time": 399.73,
+          "text": "explain.",
+          "confidence": 0.99853515625
+        }
+      ]
+    }
+  ]
+}

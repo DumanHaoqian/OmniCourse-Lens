@@ -2,13 +2,18 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import re
+import subprocess
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 from PIL import Image
+
+from ..config import settings
 
 
 TOKEN_RE = re.compile(r"[a-zA-Z0-9_]+")
@@ -36,10 +41,26 @@ def tokenize(text: str) -> list[str]:
 
 
 class EmbeddingService:
+    def __init__(self) -> None:
+        self.text_model = os.getenv("OMNICOURSE_TEXT_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
+        self.embed_python = os.getenv("OMNICOURSE_EMBED_PYTHON", "/home/haoqian/miniconda3/envs/omniC/bin/python")
+        self.cache_dir = Path(os.getenv("OMNICOURSE_EMBED_MODEL_DIR", str(settings.repo_root / "Trials" / "checkpoints" / "embeddings"))).expanduser()
+        self.runner = settings.project_root / "scripts" / "embed_text.py"
+        self.image_model = os.getenv("OMNICOURSE_IMAGE_EMBED_MODEL", "ViT-B-32")
+        self.image_pretrained = os.getenv("OMNICOURSE_IMAGE_EMBED_PRETRAINED", "laion2b_s34b_b79k")
+        self.image_runner = settings.project_root / "scripts" / "embed_image.py"
+
     def describe_provider(self) -> dict[str, Any]:
         return {
-            "text_embedding": "json_tfidf_or_token_overlap_fallback",
-            "image_embedding": "pil_color_histogram_fallback",
+            "text_embedding": "sentence_transformers" if self._runner_ready() else "unavailable",
+            "text_model": self.text_model,
+            "runner": str(self.runner) if self.runner.exists() else None,
+            "runner_python": self.embed_python if Path(self.embed_python).exists() else None,
+            "model_cache": str(self.cache_dir),
+            "image_embedding": "open_clip" if self._image_runner_ready() else "unavailable",
+            "image_model": self.image_model,
+            "image_pretrained": self.image_pretrained,
+            "image_runner": str(self.image_runner) if self.image_runner.exists() else None,
             "heavy_models_loaded": False,
         }
 
@@ -74,6 +95,12 @@ class EmbeddingService:
         return max(0.0, min(1.0, score + phrase_bonus))
 
     def image_descriptor(self, path: str | Path) -> list[float]:
+        open_clip_embedding = self.image_embedding(path)
+        if open_clip_embedding:
+            return open_clip_embedding
+        return self.image_color_descriptor(path)
+
+    def image_color_descriptor(self, path: str | Path) -> list[float]:
         try:
             img = Image.open(path).convert("RGB").resize((64, 64))
         except Exception:
@@ -100,6 +127,60 @@ class EmbeddingService:
         if not denom:
             return 0.0
         return max(0.0, min(1.0, float(np.dot(a, b) / denom)))
+
+    def dense_text_embedding(self, text: str) -> list[float]:
+        if not self._runner_ready():
+            return []
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        command = [
+            self.embed_python if Path(self.embed_python).exists() else sys.executable,
+            str(self.runner),
+            "--text",
+            text,
+            "--model",
+            self.text_model,
+            "--cache-dir",
+            str(self.cache_dir),
+        ]
+        try:
+            result = subprocess.run(command, capture_output=True, text=True, timeout=int(os.getenv("OMNICOURSE_EMBED_TIMEOUT", "180")))
+            payload = json.loads((result.stdout or "").strip().splitlines()[-1])
+            embeddings = payload.get("embeddings") or []
+            return embeddings[0] if embeddings else []
+        except Exception:
+            return []
+
+    def dense_similarity(self, left: list[float], right: list[float]) -> float:
+        return self.vector_similarity(left, right)
+
+    def image_embedding(self, path: str | Path) -> list[float]:
+        if not self._image_runner_ready():
+            return []
+        command = [
+            self.embed_python if Path(self.embed_python).exists() else sys.executable,
+            str(self.image_runner),
+            "--image-path",
+            str(path),
+            "--model",
+            self.image_model,
+            "--pretrained",
+            self.image_pretrained,
+            "--device",
+            os.getenv("OMNICOURSE_IMAGE_EMBED_DEVICE", "auto"),
+        ]
+        try:
+            result = subprocess.run(command, capture_output=True, text=True, timeout=int(os.getenv("OMNICOURSE_IMAGE_EMBED_TIMEOUT", "240")))
+            payload = json.loads((result.stdout or "").strip().splitlines()[-1])
+            embeddings = payload.get("embeddings") or {}
+            return embeddings.get(str(path), [])
+        except Exception:
+            return []
+
+    def _runner_ready(self) -> bool:
+        return self.runner.exists() and (Path(self.embed_python).exists() or sys.executable)
+
+    def _image_runner_ready(self) -> bool:
+        return self.image_runner.exists() and (Path(self.embed_python).exists() or sys.executable)
 
     def load_json(self, path: Path, default: Any) -> Any:
         if not path.exists():

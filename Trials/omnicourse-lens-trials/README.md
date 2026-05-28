@@ -44,7 +44,7 @@ The multimodal record for every moment combines:
 - concept tags and metadata,
 - optional InternVideo3 video signals.
 
-Search fusion uses weighted modality scores. Text search defaults to transcript, OCR, formula, dense text, concept, and optional InternVideo3 weights. Image search adds image visual similarity and image OCR.
+Search fusion uses weighted modality scores. Text search defaults to transcript, OCR, formula, real sentence-transformers dense text embeddings, concept, and InternVideo3 weights when the scorer is running. Image search adds OpenCLIP visual embeddings and image OCR.
 
 ## Setup
 
@@ -130,9 +130,9 @@ Local ASR / speech-to-text:
 
 - Primary provider: `SYSTRAN/faster-whisper` through `scripts/asr_transcribe.py`.
 - Default model: `small.en`, stored under `Trials/checkpoints/asr`.
-- Default runtime: `OMNICOURSE_ASR_PYTHON=/home/haoqian/miniconda3/envs/omniC/bin/python`, `OMNICOURSE_ASR_DEVICE=cpu`, `OMNICOURSE_ASR_COMPUTE_TYPE=int8`.
+- Default runtime: `OMNICOURSE_ASR_PYTHON=/home/haoqian/miniconda3/envs/omniC/bin/python`, `OMNICOURSE_ASR_DEVICE=auto`, `OMNICOURSE_ASR_COMPUTE_TYPE=float16`.
 - The runner returns timestamped subtitle segments and word timestamps when enabled.
-- CUDA CTranslate2 can be enabled with `OMNICOURSE_ASR_DEVICE=cuda`, but this machine currently needs CUDA library path fixes for `libcublas.so.12`; CPU/int8 is the stable default.
+- CUDA CTranslate2 is enabled by injecting the available conda CUDA library paths for `libcublas.so.12` and cuDNN; it falls back to CPU/int8 only if CUDA fails.
 - OpenAI Whisper remains a fallback via `OMNICOURSE_ASR_PROVIDER=openai_whisper`.
 
 Useful ASR environment variables:
@@ -166,12 +166,33 @@ If unavailable, OCR falls back to Tesseract when installed and then deterministi
 
 InternVideo3:
 
-- `INTERNVIDEO3_ENDPOINT` for an embedding/scoring HTTP service
+- `INTERNVIDEO3_ENDPOINT` for an embedding/scoring HTTP service. For a persistent local scorer, run:
+
+```bash
+scripts/run_internvideo3_server.sh
+```
+
+Then use:
+
+```bash
+INTERNVIDEO3_ENDPOINT=http://127.0.0.1:8011/score
+```
+
 - `INTERNVIDEO3_CLI` for a local script wrapper
 - `INTERNVIDEO3_MODEL_PATH` for checkpoint discovery
 - `INTERNVIDEO3_ENABLE_LOCAL=1` to opt into local import mode
 
-The existing checkpoint at `Trials/checkpoints/InternVideo3-8B-Instruct` is detected but not loaded during API startup. Search proceeds without it if no endpoint/CLI is configured.
+The existing checkpoint at `Trials/checkpoints/InternVideo3-8B-Instruct` is detected but not loaded during API startup. The persistent server loads it once; otherwise search can fall back to the slower subprocess scorer.
+
+Embeddings:
+
+- Text dense retrieval uses `sentence-transformers/all-MiniLM-L6-v2` through `scripts/embed_text.py`.
+- Image retrieval uses OpenCLIP `ViT-B-32` / `laion2b_s34b_b79k` through `scripts/embed_image.py`.
+- Rebuild both with:
+
+```bash
+python scripts/rebuild_index.py
+```
 
 ## API
 
