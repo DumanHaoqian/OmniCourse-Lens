@@ -147,6 +147,7 @@ class GraphRequest(BaseModel):
     video_ids: Optional[list[str]] = None
     focus_topic: Optional[str] = None
     max_concepts: int = 35
+    max_moments: int = 45
     include_moments: bool = True
 
 
@@ -171,6 +172,7 @@ class GraphResponse(BaseModel):
     nodes: list[GraphNode]
     edges: list[GraphEdge]
     summary: str
+    metrics: dict[str, Any] = Field(default_factory=dict)
     self_check: Optional[dict[str, Any]] = None
 
 

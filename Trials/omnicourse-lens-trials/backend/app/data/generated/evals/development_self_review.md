@@ -97,3 +97,22 @@ Smoke checks passed:
 - Add CLIP/SigLIP image embeddings for better visual search.
 - Replace heuristic self-evaluation fast paths with real GPT-4o judge calls where latency allows.
 - Split frontend bundles for faster initial load.
+
+## Knowledge Graph Repair Pass - May 29, 2026
+
+Implemented after reviewing open-source graph visualization approaches including Cytoscape.js/fCoSE and react-force-graph:
+
+- Rebuilt `GraphService` so the graph is generated from real timestamped evidence instead of sparse toy tags.
+- Added concept normalization, STEM phrase extraction, slide-title concept mapping, prerequisite edges, co-occurrence edges, formula cleanup, visual evidence nodes, graph metrics, and safer lecture/video filtering.
+- Added `max_moments` and graph `metrics` to the API schema.
+- Replaced the basic graph renderer with a product graph panel: searchable nodes, node-type filters, fCoSE layout tuning, hover labels, edge-label toggle, Fit/Focus/Reset controls, neighborhood highlighting, and a richer inspector.
+- Added timestamp jump support from graph nodes back into the central video workspace.
+
+Validation:
+
+- `python -m py_compile backend/app/services/graph_service.py backend/app/schemas.py`
+- Direct graph generation for `08_i2ml_01_ml_basics_07_optimization`: 43 nodes, 167 edges, 15 concepts, 6 formulas, 10 moment nodes, 10 visual evidence nodes.
+- `POST /api/knowledge-graph` returned the same graph metrics through the running backend.
+- `cd frontend && npm run build`
+- `pytest tests/test_api_smoke.py -q`
+- `python scripts/smoke_test.py`

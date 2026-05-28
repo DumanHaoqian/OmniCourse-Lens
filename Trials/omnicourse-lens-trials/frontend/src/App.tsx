@@ -360,7 +360,7 @@ export default function App() {
             >
               {feature === "search" && <SelectedEvidencePanel selected={selectedResult} moments={selectedVideoMoments} />}
               {feature === "cheatsheet" && <CheatsheetWorkspace cheatsheet={cheatsheet} onCompile={runCompile} />}
-              {feature === "graph" && <GraphWorkspace graph={graph} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />}
+              {feature === "graph" && <GraphWorkspace graph={graph} selectedNode={selectedNode} setSelectedNode={setSelectedNode} onJump={jumpToEvidence} />}
               {feature === "qa" && <QAWorkspace qa={qa} onJump={jumpToEvidence} />}
             </motion.div>
           </AnimatePresence>
@@ -560,17 +560,57 @@ function CheatsheetWorkspace({ cheatsheet, onCompile }: { cheatsheet: any; onCom
   );
 }
 
-function GraphWorkspace({ graph, selectedNode, setSelectedNode }: { graph: any; selectedNode: GraphNode | null; setSelectedNode: (node: GraphNode) => void }) {
-  if (!graph) return <EmptyState title="Generate a knowledge graph" text="Cytoscape fcose layout will build a zoomable, pannable graph from the selected real video evidence." />;
+function GraphWorkspace({
+  graph,
+  selectedNode,
+  setSelectedNode,
+  onJump
+}: {
+  graph: any;
+  selectedNode: GraphNode | null;
+  setSelectedNode: (node: GraphNode) => void;
+  onJump: (item: any) => void;
+}) {
+  if (!graph) return <EmptyState title="Generate a knowledge graph" text="Cytoscape fCoSE will build a searchable, pannable concept graph from the selected real Dataset video evidence." />;
+  const metadata = selectedNode?.metadata || {};
+  const canJump = Boolean(metadata.moment_id || selectedNode?.timestamp !== undefined);
+  const jump = () => {
+    if (!selectedNode || !canJump) return;
+    onJump({
+      moment_id: String(metadata.moment_id || selectedNode.id),
+      video_id: String(metadata.video_id || ""),
+      lecture_id: selectedNode.lecture_id || "",
+      lecture_title: selectedNode.label,
+      start_time: Number(metadata.start_time ?? selectedNode.timestamp ?? 0),
+      end_time: Number(metadata.end_time ?? selectedNode.timestamp ?? 0) + 30,
+      thumbnail_url: String(metadata.thumbnail_url || ""),
+      matched_reason: `Knowledge graph node: ${selectedNode.label}`,
+      matched_modalities: [selectedNode.type.replace("_", " ")],
+      transcript_snippet: String(metadata.transcript_snippet || ""),
+      ocr_snippet: String(metadata.ocr_snippet || ""),
+      formula_latex: String(metadata.latex || ""),
+      score: Number(metadata.relevance || 0.7)
+    });
+  };
   return (
     <motion.div className="graph-workspace" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
       <CytoscapeGraph nodes={graph.nodes || []} edges={graph.edges || []} onSelect={setSelectedNode} />
       <aside className="graph-inspector">
+        <span className={`node-type-pill ${selectedNode?.type || "summary"}`}>{selectedNode ? selectedNode.type.replace("_", " ") : "Summary"}</span>
         <h3>{selectedNode?.label || "Graph Summary"}</h3>
-        <p>{selectedNode ? selectedNode.type.replace("_", " ") : graph.summary}</p>
-        {selectedNode?.timestamp !== undefined && <p>{selectedNode.timestamp.toFixed(0)}s</p>}
+        <p>{selectedNode ? nodeDescription(selectedNode) : graph.summary}</p>
+        {selectedNode?.timestamp !== undefined && <p className="timestamp">Timestamp {selectedNode.timestamp.toFixed(0)}s</p>}
         {Boolean(selectedNode?.metadata?.thumbnail_url) && <img src={mediaUrl(String(selectedNode?.metadata?.thumbnail_url))} alt={selectedNode?.label || "graph node"} />}
-        <div className="graph-metrics">{(graph.nodes || []).length} nodes / {(graph.edges || []).length} edges</div>
+        {Boolean(metadata.transcript_snippet) && <blockquote>{String(metadata.transcript_snippet)}</blockquote>}
+        {Boolean(metadata.ocr_snippet) && <blockquote>{String(metadata.ocr_snippet)}</blockquote>}
+        {Boolean(metadata.latex) && <code>{String(metadata.latex)}</code>}
+        {canJump && <button className="jump-button" type="button" onClick={jump}><Play size={15} /> Jump to timestamp</button>}
+        <div className="graph-metrics">
+          <strong>{graph.metrics?.concept_count ?? 0}</strong> concepts
+          <strong>{graph.metrics?.formula_count ?? 0}</strong> formulas
+          <strong>{graph.metrics?.moment_count ?? 0}</strong> moments
+          <span>{(graph.nodes || []).length} nodes / {(graph.edges || []).length} edges</span>
+        </div>
       </aside>
     </motion.div>
   );
@@ -593,6 +633,16 @@ function QAWorkspace({ qa, onJump }: { qa: any; onJump: (item: EvidenceItem) => 
 
 function EmptyState({ title, text }: { title: string; text: string }) {
   return <motion.div className="empty-state" initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }}><Play size={26} /><h3>{title}</h3><p>{text}</p></motion.div>;
+}
+
+function nodeDescription(node: GraphNode) {
+  const frequency = Number(node.metadata?.frequency || 0);
+  if (node.type === "concept") return frequency ? `Concept appears in ${frequency} evidence windows.` : "Concept extracted from lecture transcript, slide text, formulas, and visual evidence.";
+  if (node.type === "formula") return "Formula node grounded in OCR/formula evidence from the selected lecture moment.";
+  if (node.type === "moment") return "Timestamped lecture moment connected to concepts, formulas, and keyframes.";
+  if (node.type === "visual_evidence") return "Keyframe evidence sampled from the lecture video.";
+  if (node.type === "lecture") return "Lecture/video node containing timestamped evidence moments.";
+  return "Course-level graph root.";
 }
 
 function SubtitleBar({ cue, currentTime, hasMoments }: { cue: SubtitleCue | null; currentTime: number; hasMoments: boolean }) {
