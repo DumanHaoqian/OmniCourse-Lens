@@ -5,15 +5,16 @@ import tempfile
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from .config import ensure_directories, settings
-from .schemas import CheatsheetRequest, GraphRequest, SearchRequest
+from .schemas import CheatsheetRequest, GraphRequest, QARequest, SearchRequest
 from .services.cheatsheet_service import CheatsheetService
 from .services.graph_service import GraphService
+from .services.qa_agent import QAAgent
 from .services.deepseek_ocr_service import DeepSeekOCRService
 from .services.search_service import SearchService
 from .services.video_ingest import VideoIngestService
@@ -34,6 +35,7 @@ app.mount("/static", StaticFiles(directory=settings.static_dir), name="static")
 search_service = SearchService()
 cheatsheet_service = CheatsheetService()
 graph_service = GraphService()
+qa_agent = QAAgent()
 
 
 @app.get("/api/health")
@@ -80,6 +82,32 @@ def cheatsheet(request: CheatsheetRequest) -> dict:
 @app.post("/api/knowledge-graph")
 def knowledge_graph(request: GraphRequest) -> dict:
     return graph_service.generate(request).model_dump(mode="json")
+
+
+@app.post("/api/qa")
+async def qa(request: Request) -> dict:
+    content_type = request.headers.get("content-type", "")
+    image_path = None
+    if "multipart/form-data" in content_type:
+        form = await request.form()
+        upload = form.get("image")
+        if hasattr(upload, "file"):
+            suffix = Path(upload.filename or "qa_image.png").suffix or ".png"
+            with tempfile.NamedTemporaryFile(delete=False, suffix=suffix, dir=settings.uploads_dir) as tmp:
+                shutil.copyfileobj(upload.file, tmp)
+                image_path = tmp.name
+        qa_request = QARequest(
+            course_id=str(form.get("course_id")),
+            question=str(form.get("question")),
+            lecture_id=str(form.get("lecture_id")) if form.get("lecture_id") else None,
+            current_timestamp=float(form.get("current_timestamp")) if form.get("current_timestamp") else None,
+            top_k=int(form.get("top_k") or 5),
+        )
+    else:
+        payload = await request.json()
+        image_path = payload.get("image_path")
+        qa_request = QARequest.model_validate(payload)
+    return qa_agent.answer(qa_request, image_path=image_path).model_dump(mode="json")
 
 
 @app.post("/api/search/image")
