@@ -11,7 +11,8 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from .config import ensure_directories, settings
-from .schemas import SearchRequest
+from .schemas import CheatsheetRequest, SearchRequest
+from .services.cheatsheet_service import CheatsheetService
 from .services.deepseek_ocr_service import DeepSeekOCRService
 from .services.search_service import SearchService
 from .services.video_ingest import VideoIngestService
@@ -30,6 +31,7 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory=settings.static_dir), name="static")
 
 search_service = SearchService()
+cheatsheet_service = CheatsheetService()
 
 
 @app.get("/api/health")
@@ -66,6 +68,11 @@ def course(course_id: str) -> dict:
 @app.post("/api/search/text")
 def search_text(request: SearchRequest) -> dict:
     return search_service.text_search(request)
+
+
+@app.post("/api/cheatsheet")
+def cheatsheet(request: CheatsheetRequest) -> dict:
+    return cheatsheet_service.generate(request).model_dump(mode="json")
 
 
 @app.post("/api/search/image")

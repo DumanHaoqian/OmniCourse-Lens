@@ -12,6 +12,7 @@ from ..storage import list_courses, static_url
 from .embedding_service import EmbeddingService, normalize_text
 from .internvideo3_service import InternVideo3Service
 from .ocr_service import OCRService
+from .self_improvement_service import SelfImprovementService
 
 
 class SearchService:
@@ -19,6 +20,7 @@ class SearchService:
         self.embedding = EmbeddingService()
         self.ocr = OCRService()
         self.internvideo3 = InternVideo3Service()
+        self.improver = SelfImprovementService()
         self._cache: dict[str, Any] | None = None
 
     def describe_provider(self) -> dict[str, Any]:
@@ -31,7 +33,21 @@ class SearchService:
 
     def text_search(self, request: SearchRequest) -> dict[str, Any]:
         results = self._rank(request.course_id, request.query, request.lecture_ids, request.top_k, image_path=None, image_ocr_text="")
-        return {"results": results, "provider_status": self.describe_provider()}
+        improved = self.improver.improve_search(
+            request.query,
+            results,
+            context={
+                "rerun": lambda query: self._rank(
+                    request.course_id,
+                    f"{query} {self._broad_expansion(query)}",
+                    request.lecture_ids,
+                    request.top_k,
+                    image_path=None,
+                    image_ocr_text="",
+                )
+            },
+        )
+        return {"results": improved["results"], "self_check": improved["self_check"], "provider_status": self.describe_provider()}
 
     def image_search(
         self,
@@ -45,9 +61,24 @@ class SearchService:
         image_ocr_text = ocr_result.get("text", "")
         composed_query = " ".join(part for part in [text_query, image_ocr_text] if part).strip()
         results = self._rank(course_id, composed_query, lecture_ids, top_k, image_path=image_path, image_ocr_text=image_ocr_text)
+        improved = self.improver.improve_search(
+            composed_query or text_query or "image query",
+            results,
+            context={
+                "rerun": lambda query: self._rank(
+                    course_id,
+                    f"{query} {image_ocr_text}",
+                    lecture_ids,
+                    top_k,
+                    image_path=image_path,
+                    image_ocr_text=image_ocr_text,
+                )
+            },
+        )
         return {
-            "results": results,
+            "results": improved["results"],
             "image_ocr": ocr_result,
+            "self_check": improved["self_check"],
             "provider_status": self.describe_provider(),
         }
 
@@ -227,6 +258,16 @@ class SearchService:
         lower = normalize_text(query)
         extras = [text for key, text in expansions.items() if key in lower]
         return " ".join([query, *extras]).strip()
+
+    def _broad_expansion(self, query: str) -> str:
+        lower = normalize_text(query)
+        if "gradient" in lower:
+            return "descent learning rate loss function update rule"
+        if "normal" in lower:
+            return "linear regression closed form matrix equation"
+        if "network" in lower or "backprop" in lower:
+            return "activation function chain rule neural network"
+        return "lecture formula slide concept transcript visual evidence"
 
     def _modality_name(self, key: str) -> str:
         mapping = {
