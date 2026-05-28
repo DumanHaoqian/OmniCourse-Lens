@@ -122,9 +122,31 @@ python scripts/ingest_video.py \
 python scripts/rebuild_index.py
 ```
 
-The ingestion pipeline probes metadata, extracts mono 16kHz WAV with `ffmpeg`, runs ASR fallback order, extracts keyframes, reads associated slides PDF text when present, runs DeepSeek/Paddle/EasyOCR/Tesseract/fallback OCR, extracts formula-like text, constructs overlapping moments, and updates course JSON.
+The ingestion pipeline probes metadata, extracts mono 16kHz WAV with `ffmpeg`, runs local ASR, extracts keyframes, reads associated slides PDF text when present, runs DeepSeek/Paddle/EasyOCR/Tesseract/fallback OCR, extracts formula-like text, constructs overlapping moments, and updates course JSON.
 
 ## Providers
+
+Local ASR / speech-to-text:
+
+- Primary provider: `SYSTRAN/faster-whisper` through `scripts/asr_transcribe.py`.
+- Default model: `small.en`, stored under `Trials/checkpoints/asr`.
+- Default runtime: `OMNICOURSE_ASR_PYTHON=/home/haoqian/miniconda3/envs/omniC/bin/python`, `OMNICOURSE_ASR_DEVICE=cpu`, `OMNICOURSE_ASR_COMPUTE_TYPE=int8`.
+- The runner returns timestamped subtitle segments and word timestamps when enabled.
+- CUDA CTranslate2 can be enabled with `OMNICOURSE_ASR_DEVICE=cuda`, but this machine currently needs CUDA library path fixes for `libcublas.so.12`; CPU/int8 is the stable default.
+- OpenAI Whisper remains a fallback via `OMNICOURSE_ASR_PROVIDER=openai_whisper`.
+
+Useful ASR environment variables:
+
+```bash
+OMNICOURSE_ENABLE_ASR=1
+OMNICOURSE_ASR_PROVIDER=faster_whisper
+OMNICOURSE_ASR_MODEL=small.en
+OMNICOURSE_ASR_DEVICE=cpu
+OMNICOURSE_ASR_COMPUTE_TYPE=int8
+OMNICOURSE_ASR_WORD_TIMESTAMPS=1
+OMNICOURSE_ASR_VAD_FILTER=1
+OMNICOURSE_ASR_REUSE_CACHE=1
+```
 
 GPT-4o / Azure OpenAI:
 

@@ -22,3 +22,5 @@ qwen-vl-utils
 decord
 huggingface_hub
 safetensors
+faster-whisper
+openai-whisper

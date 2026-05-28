@@ -68,7 +68,7 @@ Smoke checks passed:
 ## Provider Status
 
 - GPT-4o: credentials detected from `/home/haoqian/Data/OmniCourse-Lens/openai_keys.txt`; full key was not committed or printed.
-- ASR: `openai-whisper` import is available, but Whisper execution is disabled unless `OMNICOURSE_ENABLE_WHISPER=1`; faster-whisper not detected.
+- ASR: local `faster-whisper` runner is active through the `omniC` environment; default model is `small.en` with CPU/int8 for stable subtitle generation. OpenAI Whisper remains a fallback.
 - DeepSeek OCR: local `deepseek-ai/DeepSeek-OCR` checkpoint detected at `Trials/checkpoints/DeepSeek-OCR`; backend provider mode is `local_hf_lazy`.
 - OCR fallback: PaddleOCR/EasyOCR/Tesseract not detected; DeepSeek-OCR is now the active frame/image OCR provider, with associated slide PDF text as supplemental evidence.
 - InternVideo3: local `InternVideo3-8B-Instruct` checkpoint detected at `Trials/checkpoints/InternVideo3-8B-Instruct`; backend provider mode is `local_hf_lazy`. Local reranking runs through the `omniC` Python environment to avoid Transformers-version conflicts with DeepSeek-OCR.
@@ -82,7 +82,7 @@ Smoke checks passed:
 
 ## Known Remaining Issues
 
-- All 9 videos are now ingested locally, but ASR is still not true speech transcription by default. The current evidence is a blend of fallback ASR segments and slide PDF text. Enable Whisper with `OMNICOURSE_ENABLE_WHISPER=1` for actual speech transcripts.
+- Existing ingested JSON still includes earlier fallback/slide-derived ASR for videos that have not been reingested since the ASR activation pass. Reingest a video to replace those segments with `faster_whisper_*` timestamped speech transcripts.
 - DeepSeek-OCR local inference is active, but it is a heavy model and should be used selectively for ingestion/image OCR rather than on every UI refresh.
 - InternVideo3 local inference is active and verified through a subprocess runner, but cold-start loading of the 8B checkpoint is slow. For smooth demos, run a persistent InternVideo3 endpoint and set `INTERNVIDEO3_ENDPOINT`, or keep local reranking limited to top-1.
 - PaddleOCR/EasyOCR/Tesseract are still unavailable; DeepSeek-OCR plus slide PDF text currently provide OCR evidence.
@@ -92,7 +92,7 @@ Smoke checks passed:
 
 ## Next Steps
 
-- Run Whisper transcription for all 9 videos or import official captions if available.
+- Reingest all 9 videos with the active faster-whisper runner to refresh subtitles/search transcripts.
 - Add a real InternVideo3 scoring microservice using the existing checkpoint.
 - Add a stronger OCR provider for actual frame text extraction.
 - Add CLIP/SigLIP image embeddings for better visual search.
@@ -119,6 +119,24 @@ Validation:
 - InternVideo3 was run on a real Dataset video clip with query "machine learning introduction" and returned JSON score `1.0`.
 - `python -m py_compile backend/app/services/deepseek_ocr_service.py backend/app/services/internvideo3_service.py backend/app/services/search_service.py scripts/internvideo3_score.py`
 - `cd frontend && npm run build`
+
+## ASR / Speech-To-Text Activation Pass - May 29, 2026
+
+Implemented after the ASR provider was still effectively falling back:
+
+- Installed `faster-whisper` in the `omniC` environment.
+- Added `scripts/asr_transcribe.py`, a standalone ASR runner that returns JSON subtitle segments with start/end timestamps and optional word timestamps.
+- Updated `AudioASRService` to call the runner by default during ingestion, cache `.asr.json` transcripts beside extracted WAV files, and fall back to OpenAI Whisper or deterministic segments only when needed.
+- Added ASR provider status to `/api/health`: active provider, model, runner Python, CTranslate2 availability, model cache path, VAD, and word-timestamp settings.
+- Documented ASR configuration in `.env.example` and README.
+
+Validation:
+
+- `faster_whisper=True` and `ctranslate2=True` in `/home/haoqian/miniconda3/envs/omniC`.
+- `scripts/asr_transcribe.py` was run on the first 20 seconds of a real Dataset lecture audio file.
+- Output included timestamped speech: "Welcome to Introduction to Machine Learning. I'm Ludwig Bortmann..." and word-level timestamps.
+- Backend `AudioASRService.transcribe(...)` integration returned 4 real `faster_whisper_small.en_cpu_int8` subtitle segments for a 20-second real audio clip.
+- CUDA CTranslate2 attempted first with `auto/cuda` but failed because `libcublas.so.12` is not visible to CTranslate2; CPU/int8 is therefore the stable default until CUDA library paths are fixed.
 
 ## Knowledge Graph Repair Pass - May 29, 2026
 
