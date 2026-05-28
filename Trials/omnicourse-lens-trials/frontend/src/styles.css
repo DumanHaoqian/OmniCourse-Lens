@@ -1716,3 +1716,149 @@ meter::-moz-meter-bar {
     height: clamp(360px, 56vh, 690px);
   }
 }
+
+/* Open-source motion modules layer: Framer Motion + AutoAnimate + Lenis. */
+.atlas-shell.watch-layout {
+  isolation: isolate;
+  position: relative;
+}
+
+.atlas-shell.watch-layout::before {
+  animation: lensGridShift 18s linear infinite;
+  background-image:
+    linear-gradient(rgba(35, 72, 91, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(35, 72, 91, 0.04) 1px, transparent 1px);
+  background-size: 46px 46px;
+  content: "";
+  inset: 0;
+  mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent);
+  opacity: 0.72;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.video-library,
+.watch-center,
+.watch-layout .feature-sidebar {
+  position: relative;
+  z-index: 1;
+}
+
+.watch-player-card {
+  isolation: isolate;
+  position: relative;
+}
+
+.watch-player-card::before {
+  animation: theaterSweep 7.5s ease-in-out infinite;
+  background: linear-gradient(115deg, transparent 0%, rgba(134, 224, 203, 0.08) 46%, rgba(255, 255, 255, 0.035) 50%, transparent 56%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-120%);
+  z-index: 0;
+}
+
+.watch-player-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.feature-motion-surface {
+  min-height: 100%;
+}
+
+.watch-layout .feature-tabs button {
+  overflow: hidden;
+  position: relative;
+}
+
+.watch-layout .feature-tabs button.active {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: #ffffff;
+}
+
+.watch-layout .feature-tabs button svg,
+.watch-layout .feature-tabs button span:not(.active-feature-mark) {
+  position: relative;
+  z-index: 1;
+}
+
+.active-feature-mark {
+  background: linear-gradient(135deg, #1f6f65, #2f8b7c);
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(31, 111, 101, 0.24);
+  inset: 3px;
+  position: absolute;
+  z-index: 0;
+}
+
+.video-row,
+.rail-card {
+  will-change: transform;
+}
+
+.rail-card.selected::after,
+.video-row.selected::after {
+  background: linear-gradient(90deg, rgba(31, 111, 101, 0), rgba(31, 111, 101, 0.18), rgba(31, 111, 101, 0));
+  content: "";
+  height: 1px;
+  left: 14px;
+  position: absolute;
+  right: 14px;
+  top: 0;
+}
+
+.rail-card,
+.video-row {
+  position: relative;
+}
+
+.status-note {
+  animation: statusBreath 2.7s ease-in-out infinite;
+}
+
+@keyframes lensGridShift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 46px 46px, 46px 46px;
+  }
+}
+
+@keyframes theaterSweep {
+  0%,
+  42% {
+    transform: translateX(-120%);
+  }
+  70%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes statusBreath {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(183, 111, 17, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(183, 111, 17, 0.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

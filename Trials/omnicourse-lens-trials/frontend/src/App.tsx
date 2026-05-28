@@ -1,4 +1,7 @@
 import { Bot, BrainCircuit, Download, FileText, Loader2, Network, Play, RefreshCcw, Search, UploadCloud } from "lucide-react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { AnimatePresence, motion } from "framer-motion";
+import Lenis from "lenis";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   apiGet,
@@ -50,6 +53,7 @@ export default function App() {
   const [question, setQuestion] = useState("Why does gradient descent move opposite to the gradient?");
   const [qa, setQa] = useState<any>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [videoListRef] = useAutoAnimate<HTMLDivElement>({ duration: 240, easing: "ease-out" });
 
   const load = useCallback(async () => {
     const [videoItems, healthInfo] = await Promise.all([datasetVideos(), apiGet<any>("/api/health")]);
@@ -64,6 +68,15 @@ export default function App() {
   useEffect(() => {
     load().catch((err) => setStatus(String(err)));
   }, [load]);
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      autoRaf: true,
+      duration: 0.9,
+      smoothWheel: true
+    });
+    return () => lenis.destroy();
+  }, []);
 
   useEffect(() => {
     if (!selectedVideo?.course_id) {
@@ -234,8 +247,8 @@ export default function App() {
   const selectedTimestamp = selectedResult ? `${selectedResult.start_time.toFixed(0)}-${selectedResult.end_time.toFixed(0)}s` : "full lecture";
 
   return (
-    <div className="atlas-shell watch-layout">
-      <aside className="video-library" aria-label="Dataset video loader">
+    <motion.div className="atlas-shell watch-layout" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, ease: "easeOut" }}>
+      <motion.aside className="video-library" aria-label="Dataset video loader" initial={{ x: -24, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.42, ease: "easeOut" }}>
         <div className="library-brand">
           <div>
             <h1>OmniCourse Lens</h1>
@@ -250,19 +263,22 @@ export default function App() {
           <button onClick={() => rebuildIndex().then(() => setStatus("Index rebuilt."))} disabled={busy}><RefreshCcw size={16} /> Index</button>
         </div>
 
-        <div className="video-list">
+        <div className="video-list" ref={videoListRef}>
           {videos.map((video) => (
-            <button
+            <motion.button
               key={video.video_id}
+              layout
               className={`video-row ${selectedVideo?.video_id === video.video_id ? "selected" : ""}`}
               onClick={() => selectVideo(video)}
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.985 }}
             >
               {video.thumbnail && <img src={mediaUrl(video.thumbnail)} alt="" />}
               <span>
                 <strong>{video.title}</strong>
                 <small>{video.ingestion_status} / {video.indexed_status} / {formatDuration(video.duration)}</small>
               </span>
-            </button>
+            </motion.button>
           ))}
         </div>
 
@@ -274,10 +290,10 @@ export default function App() {
           courseId={courseId}
           onJump={jumpToEvidence}
         />
-      </aside>
+      </motion.aside>
 
-      <main className="watch-center" aria-label="Main video workspace">
-        <section className="watch-player-card">
+      <motion.main className="watch-center" aria-label="Main video workspace" initial={{ y: 18, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.44, ease: "easeOut", delay: 0.05 }}>
+        <motion.section className="watch-player-card" layout>
           <div className="watch-head">
             <div>
               <span className="eyebrow">Now watching</span>
@@ -311,25 +327,37 @@ export default function App() {
             <span>{selectedTimestamp}</span>
             <span>{selectedVideo?.relative_path || "/home/haoqian/Data/OmniCourse-Lens/Dataset"}</span>
           </div>
-        </section>
+        </motion.section>
 
         <section className="watch-output">
-          {feature === "search" && <SelectedEvidencePanel selected={selectedResult} moments={selectedVideoMoments} />}
-          {feature === "cheatsheet" && <CheatsheetWorkspace cheatsheet={cheatsheet} onCompile={runCompile} />}
-          {feature === "graph" && <GraphWorkspace graph={graph} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />}
-          {feature === "qa" && <QAWorkspace qa={qa} onJump={jumpToEvidence} />}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={feature}
+              className="feature-motion-surface"
+              initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+            >
+              {feature === "search" && <SelectedEvidencePanel selected={selectedResult} moments={selectedVideoMoments} />}
+              {feature === "cheatsheet" && <CheatsheetWorkspace cheatsheet={cheatsheet} onCompile={runCompile} />}
+              {feature === "graph" && <GraphWorkspace graph={graph} selectedNode={selectedNode} setSelectedNode={setSelectedNode} />}
+              {feature === "qa" && <QAWorkspace qa={qa} onJump={jumpToEvidence} />}
+            </motion.div>
+          </AnimatePresence>
         </section>
-      </main>
+      </motion.main>
 
-      <aside className="feature-sidebar control-sidebar" aria-label="Feature controls">
+      <motion.aside className="feature-sidebar control-sidebar" aria-label="Feature controls" initial={{ x: 24, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.42, ease: "easeOut", delay: 0.08 }}>
         <div className="feature-tabs" aria-label="Feature tabs">
           {featureItems.map((item) => {
             const Icon = item.icon;
             return (
-              <button key={item.key} className={feature === item.key ? "active" : ""} onClick={() => setFeature(item.key)}>
+              <motion.button key={item.key} layout className={feature === item.key ? "active" : ""} onClick={() => setFeature(item.key)} whileHover={{ x: 2 }} whileTap={{ scale: 0.98 }}>
+                {feature === item.key && <motion.span className="active-feature-mark" layoutId="activeFeatureMark" />}
                 <Icon size={18} />
-                {item.label}
-              </button>
+                <span>{item.label}</span>
+              </motion.button>
             );
           })}
         </div>
@@ -377,8 +405,8 @@ export default function App() {
         </div>
 
         {status && <div className="status-note">{status}</div>}
-      </aside>
-    </div>
+      </motion.aside>
+    </motion.div>
   );
 }
 
@@ -397,6 +425,7 @@ function EvidenceRail({
   courseId: string;
   onJump: (item: SearchResult) => void;
 }) {
+  const [railRef] = useAutoAnimate<HTMLDivElement>({ duration: 220, easing: "ease-out" });
   const items: SearchResult[] = (results.length ? results : moments.slice(0, 10).map((moment: any) => ({
     moment_id: moment.moment_id,
     video_id: moment.video_id || selectedVideo?.video_id,
@@ -423,12 +452,17 @@ function EvidenceRail({
         <h3>{results.length ? "Search Results" : "Lecture Moments"}</h3>
         <small>{items.length}</small>
       </div>
-      <div className="rail-scroll">
+      <div className="rail-scroll" ref={railRef}>
         {items.map((item) => (
-          <button
+          <motion.button
             key={item.moment_id}
+            layout
             className={`rail-card ${selected?.moment_id === item.moment_id ? "selected" : ""}`}
             onClick={() => onJump(item)}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.985 }}
           >
             {item.thumbnail_url && <img src={mediaUrl(item.thumbnail_url)} alt="" />}
             <span>
@@ -436,7 +470,7 @@ function EvidenceRail({
               <small>{Math.round(item.score * 100)}% / {item.matched_modalities.slice(0, 2).join(", ")}</small>
               <em>{item.matched_reason}</em>
             </span>
-          </button>
+          </motion.button>
         ))}
       </div>
     </section>
@@ -446,7 +480,7 @@ function EvidenceRail({
 function SelectedEvidencePanel({ selected, moments }: { selected: SearchResult | null; moments: any[] }) {
   if (!selected) {
     return (
-      <div className="selected-evidence empty-watch">
+      <motion.div className="selected-evidence empty-watch" initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.24 }}>
         <Play size={26} />
         <h3>Watch first, search beside it</h3>
         <p>The video stays in the center. Search results and lecture moments appear on the left; feature controls stay on the right.</p>
@@ -455,12 +489,12 @@ function SelectedEvidencePanel({ selected, moments }: { selected: SearchResult |
             <span key={moment.moment_id}>{Number(moment.start_time || 0).toFixed(0)}-{Number(moment.end_time || 0).toFixed(0)}s</span>
           ))}
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="selected-evidence">
+    <motion.div className="selected-evidence" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.24 }}>
       <div className="selected-copy">
         <span className="eyebrow">Selected timestamp</span>
         <h3>{selected.lecture_title}</h3>
@@ -482,14 +516,14 @@ function SelectedEvidencePanel({ selected, moments }: { selected: SearchResult |
           </div>
         )) : <p>No detailed score breakdown for this moment yet.</p>}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function CheatsheetWorkspace({ cheatsheet, onCompile }: { cheatsheet: any; onCompile: () => void }) {
   if (!cheatsheet) return <EmptyState title="Generate a cheatsheet" text="Use the right sidebar to generate LaTeX from the selected real Dataset video." />;
   return (
-    <div className="cheatsheet-workspace">
+    <motion.div className="cheatsheet-workspace" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
       <div className="cheatsheet-toolbar">
         {cheatsheet.tex_file_url && <a href={`${API_BASE}${cheatsheet.tex_file_url}`} target="_blank" rel="noreferrer"><Download size={16} /> Download .tex</a>}
         {cheatsheet.pdf_file_url && <a href={`${API_BASE}${cheatsheet.pdf_file_url}`} target="_blank" rel="noreferrer"><Download size={16} /> Download .pdf</a>}
@@ -503,14 +537,14 @@ function CheatsheetWorkspace({ cheatsheet, onCompile }: { cheatsheet: any; onCom
         <pre className="latex-preview">{cheatsheet.tex_content}</pre>
         <MarkdownMath text={latexToMarkdownPreview(cheatsheet.tex_content)} />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function GraphWorkspace({ graph, selectedNode, setSelectedNode }: { graph: any; selectedNode: GraphNode | null; setSelectedNode: (node: GraphNode) => void }) {
   if (!graph) return <EmptyState title="Generate a knowledge graph" text="Cytoscape fcose layout will build a zoomable, pannable graph from the selected real video evidence." />;
   return (
-    <div className="graph-workspace">
+    <motion.div className="graph-workspace" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
       <CytoscapeGraph nodes={graph.nodes || []} edges={graph.edges || []} onSelect={setSelectedNode} />
       <aside className="graph-inspector">
         <h3>{selectedNode?.label || "Graph Summary"}</h3>
@@ -519,14 +553,14 @@ function GraphWorkspace({ graph, selectedNode, setSelectedNode }: { graph: any; 
         {Boolean(selectedNode?.metadata?.thumbnail_url) && <img src={mediaUrl(String(selectedNode?.metadata?.thumbnail_url))} alt={selectedNode?.label || "graph node"} />}
         <div className="graph-metrics">{(graph.nodes || []).length} nodes / {(graph.edges || []).length} edges</div>
       </aside>
-    </div>
+    </motion.div>
   );
 }
 
 function QAWorkspace({ qa, onJump }: { qa: any; onJump: (item: EvidenceItem) => void }) {
   if (!qa) return <EmptyState title="Ask the AI Tutor" text="The answer will render Markdown and LaTeX with evidence cards and timestamp jumps." />;
   return (
-    <div className="qa-workspace">
+    <motion.div className="qa-workspace" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
       <div className="answer-card">
         <div className="answer-head"><Bot size={18} /><strong>{qa.generation_mode}</strong><span>{Math.round((qa.confidence || 0) * 100)}%</span></div>
         <MarkdownMath text={qa.answer} />
@@ -534,12 +568,12 @@ function QAWorkspace({ qa, onJump }: { qa: any; onJump: (item: EvidenceItem) => 
       <div className="result-column">
         {(qa.evidence || []).map((item: EvidenceItem) => <VideoEvidenceCard key={item.moment_id} item={item} onSelect={() => onJump(item)} />)}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 function EmptyState({ title, text }: { title: string; text: string }) {
-  return <div className="empty-state"><Play size={26} /><h3>{title}</h3><p>{text}</p></div>;
+  return <motion.div className="empty-state" initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }}><Play size={26} /><h3>{title}</h3><p>{text}</p></motion.div>;
 }
 
 function latexToMarkdownPreview(tex: string) {
