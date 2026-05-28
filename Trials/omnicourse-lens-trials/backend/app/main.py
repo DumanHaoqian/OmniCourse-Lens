@@ -15,6 +15,7 @@ from .schemas import CheatsheetRequest, GraphRequest, QARequest, SearchRequest
 from .services.cheatsheet_service import CheatsheetService
 from .services.dataset_service import DatasetService
 from .services.graph_service import GraphService
+from .services.llm_service import LLMService
 from .services.qa_agent import QAAgent
 from .services.deepseek_ocr_service import DeepSeekOCRService
 from .services.search_service import SearchService
@@ -51,6 +52,8 @@ def health() -> dict:
             "deepseek_ocr": DeepSeekOCRService().describe_provider(),
             "dataset": {"root": str(settings.dataset_dir), "exists": settings.dataset_dir.exists()},
             "latex": cheatsheet_service.describe_provider(),
+            "llm": LLMService().describe_provider(),
+            "ingest": VideoIngestService().describe_provider(),
         },
     }
 

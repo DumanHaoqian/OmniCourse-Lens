@@ -15,6 +15,13 @@ backend/app/data/audio/*.mp3
 backend/app/data/audio/*.m4a
 backend/app/data/generated/**/*.pdf
 backend/app/data/generated/**/*.log
+backend/app/data/generated/cheatsheets/*.tex
+backend/app/data/generated/graphs/*.json
+backend/app/data/generated/qa/*.json
+backend/app/data/generated/evals/[0-9]*.json
+!backend/app/data/generated/evals/smoke_test_summary.json
+!backend/app/data/generated/evals/overnight_smoke_test_summary.json
+!backend/app/data/generated/evals/development_self_review.md
 backend/app/data/indexes/*.pkl
 backend/app/data/indexes/*.npy
 backend/app/data/indexes/*.npz

@@ -216,7 +216,7 @@ export default function App() {
             <p>Real Dataset videos from `/home/haoqian/Data/OmniCourse-Lens/Dataset`</p>
           </div>
           <div className="provider-row">
-            <StatusBadge label="GPT-4o" ok={Boolean(health?.providers?.search)} muted />
+            <StatusBadge label="GPT-4o" ok={Boolean(health?.providers?.llm?.available)} muted={Boolean(!health?.providers?.llm?.available)} />
             <StatusBadge label="Dataset" ok={Boolean(health?.providers?.dataset?.exists)} />
             <StatusBadge label="InternVideo3" ok={Boolean(health?.providers?.search?.internvideo3?.available)} muted={Boolean(health?.providers?.search?.internvideo3?.local_checkpoint_detected)} />
             <StatusBadge label="DeepSeek OCR" ok={Boolean(health?.providers?.deepseek_ocr?.available)} />

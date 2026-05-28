@@ -62,6 +62,8 @@ class EvaluationService:
             issues.append("Answer may not cite timestamps.")
         if len(answer.strip()) < 60:
             issues.append("Answer is too short to be useful.")
+        if "gradient descent" in question.lower() and "\\[" not in answer and "\\(" not in answer:
+            issues.append("Answer should include rendered-friendly LaTeX math for the gradient descent formula.")
         score = 10.0 - 1.5 * len(issues)
         uses = self._modalities_from_evidence(evidence)
         return self._result("qa", score, issues, ["retrieve_more_evidence", "add_timestamps", "tighten_grounding"] if issues else [], uses)

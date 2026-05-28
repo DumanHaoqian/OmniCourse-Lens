@@ -12,6 +12,7 @@
       "moments": [
         {
           "moment_id": "ml_foundations_lec_01_001",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_01",
           "start_time": 0.0,
@@ -84,6 +85,7 @@
         },
         {
           "moment_id": "ml_foundations_lec_01_002",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_01",
           "start_time": 40.0,
@@ -156,6 +158,7 @@
         },
         {
           "moment_id": "ml_foundations_lec_01_003",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_01",
           "start_time": 80.0,
@@ -228,6 +231,7 @@
         },
         {
           "moment_id": "ml_foundations_lec_01_004",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_01",
           "start_time": 120.0,
@@ -312,6 +316,7 @@
       "moments": [
         {
           "moment_id": "ml_foundations_lec_02_001",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_02",
           "start_time": 0.0,
@@ -384,6 +389,7 @@
         },
         {
           "moment_id": "ml_foundations_lec_02_002",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_02",
           "start_time": 40.0,
@@ -456,6 +462,7 @@
         },
         {
           "moment_id": "ml_foundations_lec_02_003",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_02",
           "start_time": 80.0,
@@ -528,6 +535,7 @@
         },
         {
           "moment_id": "ml_foundations_lec_02_004",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_02",
           "start_time": 120.0,
@@ -612,6 +620,7 @@
       "moments": [
         {
           "moment_id": "ml_foundations_lec_03_001",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_03",
           "start_time": 0.0,
@@ -684,6 +693,7 @@
         },
         {
           "moment_id": "ml_foundations_lec_03_002",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_03",
           "start_time": 40.0,
@@ -756,6 +766,7 @@
         },
         {
           "moment_id": "ml_foundations_lec_03_003",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_03",
           "start_time": 80.0,
@@ -828,6 +839,7 @@
         },
         {
           "moment_id": "ml_foundations_lec_03_004",
+          "video_id": null,
           "course_id": "ml_foundations",
           "lecture_id": "lec_03",
           "start_time": 120.0,

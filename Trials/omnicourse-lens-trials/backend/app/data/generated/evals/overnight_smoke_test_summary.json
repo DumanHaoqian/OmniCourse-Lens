@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "checks": [
+    "health",
+    "dataset_videos",
+    "real_video_ingest",
+    "rebuild_index",
+    "real_text_search_gradient_descent",
+    "real_text_search_lecture_term",
+    "real_image_search_keyframe",
+    "qa_latex_answer",
+    "cheatsheet_generation_and_compile_endpoint",
+    "knowledge_graph_pruned",
+    "provider_status"
+  ],
+  "real_dataset": {
+    "video_count": 9,
+    "tested_video": {
+      "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+      "filename": "08_i2ml_01_ml_basics_07_optimization__video.mp4",
+      "absolute_path": "/mnt/e/Data/OmniCourse-Lens/Dataset/08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__video.mp4",
+      "relative_path": "08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__video.mp4",
+      "size": 51778758,
+      "duration": 1675.621587,
+      "ingestion_status": "ingested",
+      "indexed_status": "indexed",
+      "thumbnail": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00000.png",
+      "title": "I2Ml 01 Ml Basics 07 Optimization",
+      "course_id": "real_i2ml",
+      "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+      "slides_path": "/mnt/e/Data/OmniCourse-Lens/Dataset/08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__slides.pdf"
+    },
+    "ingest_result": {
+      "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+      "status": "already_ingested",
+      "video_path": "/mnt/e/Data/OmniCourse-Lens/Dataset/08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__video.mp4",
+      "course_id": "real_i2ml",
+      "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+      "title": "I2Ml 01 Ml Basics 07 Optimization",
+      "duration": 1675.621587,
+      "ingestion_status": "ingested",
+      "indexed_status": "indexed",
+      "moment_count": 10,
+      "thumbnail": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00000.png",
+      "slides_path": "/mnt/e/Data/OmniCourse-Lens/Dataset/08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__slides.pdf",
+      "updated_at": "2026-05-29T01:44:08"
+    }
+  },
+  "provider_status": {
+    "gpt4o": {
+      "provider": "azure_openai_gpt4o",
+      "available": true,
+      "endpoint_configured": true,
+      "api_key_present": true,
+      "api_key_suffix": "vAGR",
+      "deployment": "gpt-4o",
+      "api_version": "2025-01-01-preview",
+      "credential_file_detected": true
+    },
+    "internvideo3": {
+      "provider": "internvideo3",
+      "available": false,
+      "mode": "disabled",
+      "endpoint_configured": false,
+      "cli_configured": false,
+      "local_checkpoint_detected": true,
+      "model_path": "/mnt/e/Data/OmniCourse-Lens/Trials/checkpoints/InternVideo3-8B-Instruct",
+      "reason": "No INTERNVIDEO3_ENDPOINT/CLI configured. Local checkpoint is detected but not loaded unless INTERNVIDEO3_ENABLE_LOCAL=1."
+    },
+    "deepseek_ocr": {
+      "provider": "deepseek_ocr",
+      "available": false,
+      "mode": "disabled",
+      "endpoint_configured": false,
+      "api_key_present": false,
+      "api_key_suffix": null,
+      "model": "deepseek-ocr",
+      "model_path_present": false,
+      "reason": "No DEEPSEEK_OCR_ENDPOINT / model path configured."
+    },
+    "asr": {
+      "faster_whisper_available": false,
+      "openai_whisper_available": true,
+      "openai_whisper_enabled": false,
+      "fallback": "transcript_file_or_deterministic_demo_segments"
+    },
+    "ocr": {
+      "deepseek": {
+        "provider": "deepseek_ocr",
+        "available": false,
+        "mode": "disabled",
+        "endpoint_configured": false,
+        "api_key_present": false,
+        "api_key_suffix": null,
+        "model": "deepseek-ocr",
+        "model_path_present": false,
+        "reason": "No DEEPSEEK_OCR_ENDPOINT / model path configured."
+      },
+      "pytesseract_available": false,
+      "paddleocr_available": false,
+      "easyocr_available": false,
+      "fallback": "demo_filename_and_image_metadata"
+    },
+    "latex": {
+      "tectonic_available": false,
+      "pdflatex_available": false,
+      "xelatex_available": false,
+      "online_workflow": "download_tex_or_copy_to_overleaf"
+    }
+  },
+  "llm_product_judge": {
+    "raw_text": "```json\n{\n  \"evaluation\": {\n    \"validity\": true,\n    \"reasoning\": {\n      \"dataset_videos_count\": 9,\n      \"top_search_match\": {\n        \"moment_id\": \"real_i2ml_08_i2ml_01_ml_basics_07_optimization_00720_00900\",\n        \"video_id\": \"08_i2ml_01_ml_basics_07_optimization_647ec61326\",\n        \"course_id\": \"real_i2ml\",\n        \"lecture_id\": \"08_i2ml_01_ml_basics_07_optimization\",\n        \"lecture_title\": \"I2Ml 01 Ml Basics 07 Optimization\",\n        \"start_time\": 720.0,\n        \"end_time\": 900.0,\n        \"score\": 0.4435,\n        \"score_breakdown\": {\n          \"audio_transcript\": 0.5,\n          \"ocr_text\": 0.5,\n          \"formula\": 0.75,\n          \"dense_text\": 0.1108,\n          \"concept_tag\": 0.2,\n          \"internvideo3\": 0.0,\n          \"image_visual\": 0.0,\n          \"image_ocr_text\": 0.0\n        },\n        \"matched_reason\": \"Formula match: gradient, so direction of steepest descent Use step size / learning rate \\u03b1 \\u03b8[t+1] = \\u03b8[t] \\u2212 \\u03b1 dRemp d\\u03b8 (\\u03b8[t]) \\u03b81 \\u03b82 R emp \\u03b8 [0] Random start \\u03b8[0] with Remp(\\u03b8[0]) = 76; \\u00a9 Introduction to Machine Learning \\u2013 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE \\u03b81 \\u03b82 R emp \\u2212\\u03b1 d R emp d\\u03b8 ( \\u03b8 [0] ) Direction of the neg; gradient at \\u03b8[0] \\u03b81 \\u03b82 R emp \\u03b8 [1] Arrive at \\u03b8[1] with Remp(\\u03b8[1]) \\u2248 42; We improved: Remp(\\u03b8[1]) < Remp(\\u03b8[0]) \\u00a9 Introduction to Machine Learning \\u2013 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE \\u03b81 \\u03b82 R emp \\u2212\\u03b1 d R emp d\\u03b8 ( \\u03b8",
+    "parse_error": "JSONDecodeError"
+  }
+}
