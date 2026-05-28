@@ -1,0 +1,664 @@
+{
+  "course_id": "real_i2ml",
+  "title": "Real I2Ml",
+  "description": "",
+  "lectures": [
+    {
+      "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+      "course_id": "real_i2ml",
+      "title": "I2Ml 01 Ml Basics 07 Optimization",
+      "video_path": "/mnt/e/Data/OmniCourse-Lens/Dataset/08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__video.mp4",
+      "duration": 1675.621587,
+      "moments": [
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_00000_00180",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 0.0,
+          "end_time": 180.0,
+          "transcript": "This lecture introduces I2Ml 01 Ml Basics 07 Optimization. Slide 1: Introduction to Machine Learning ML-Basics Optimization θ1 θ2 R emp Learning goals Understand how the risk function is optimized to learn the optimal parameters of a model Understand the idea of gradient descent as a basic risk optimizer Slide 2: LEARNING AS PARAMETER OPTIMIZATION Operationalize search for model f that matches training data best by looking for parametrization θ ∈ Θ with lowest risk Remp(θ). Traverse error surface downwards; often local search from some start point to minimum (hopefully). θ1 θ2 R emp © Introduction to Machine Learning – 1 / 10 Slide 3: LEARNING AS PARA",
+          "asr_segments": [
+            {
+              "start_time": 0.0,
+              "end_time": 558.54,
+              "text": "This lecture introduces I2Ml 01 Ml Basics 07 Optimization.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 0.0,
+              "end_time": 335.12,
+              "text": "Slide 1: Introduction to Machine Learning ML-Basics Optimization θ1 θ2 R emp Learning goals Understand how the risk function is optimized to learn the optimal parameters of a model Understand the idea of gradient descent as a basic risk optimizer Slide 2: LEARNING AS PARAMETER OPTIMIZATION Operationalize search for model f that matches training data best by looking for parametrization θ ∈ Θ with lowest risk Remp(θ). Traverse error surface downwards; often local search from some start point to minimum (hopefully). θ1 θ2 R emp © Introduction to Machine Learning – 1 / 10 Slide 3: LEARNING AS PARA",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": "  Slide 1: Introduction to Machine Learning ML-Basics Optimization θ1 θ2 R emp Learning goals Understand how the risk function is optimized to learn the optimal parameters of a model Understand the idea of gradient descent as a basic risk optimizer Slide 2: LEARNING AS PARAMETER OPTIMIZATION Operationalize search for model f that matches training data best by looking for parametrization θ ∈ Θ with lowest risk Remp(θ). Traverse error surface downwards; often local search from some start point to minimum (hopefully). θ1 θ2 R emp © Introduction to Machine Learning – 1 / 10 Slide 3: LEARNING AS PARAMETER OPTIMIZATION/ 2 ERM optimization problem: ˆθ = arg min θ∈Θ Remp(θ) For (global) minimum ˆθ: ∀θ ∈ Θ : Remp( ˆθ) ≤ Remp(θ) Does not imply that ˆθ is unique. Best numerical optimizer depends on problem structure Continuous params? Uni-modal Remp(θ)? Numerical optimization not our focus here, now",
+          "ocr_blocks": [
+            {
+              "text": "Slide 1: Introduction to Machine Learning ML-Basics Optimization θ1 θ2 R emp Learning goals Understand how the risk function is optimized to learn the optimal parameters of a model Understand the idea of gradient descent as a basic risk optimizer Slide 2: LEARNING AS PARAMETER OPTIMIZATION Operationalize search for model f that matches training data best by looking for parametrization θ ∈ Θ with lowest risk Remp(θ). Traverse error surface downwards; often local search from some start point to minimum (hopefully). θ1 θ2 R emp © Introduction to Machine Learning – 1 / 10 Slide 3: LEARNING AS PARAMETER OPTIMIZATION/ 2 ERM optimization problem: ˆθ = arg min θ∈Θ Remp(θ) For (global) minimum ˆθ: ∀θ ∈ Θ : Remp( ˆθ) ≤ Remp(θ) Does not imply that ˆθ is unique. Best numerical optimizer depends on pro",
+              "bbox": null,
+              "confidence": 0.75,
+              "provider": "slide_pdf_text",
+              "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00000.png",
+              "timestamp": 167.5621587
+            }
+          ],
+          "formula_latex": "Slide 1: Introduction to Machine Learning ML-Basics Optimization θ1 θ2 R emp Learning goals Understand how the risk function is optimized to learn the optimal parameters of a model Understand the idea of gradient descent as a basic risk optimizer Slide 2: LEARNING AS PARAMETER OPTIMIZATION Operationalize search for model f that matches training data best by looking for parametrization θ ∈ Θ with lowest risk Remp(θ); θ1 θ2 R emp © Introduction to Machine Learning – 1 / 10 Slide 3: LEARNING AS PARAMETER OPTIMIZATION/ 2 ERM optimization problem: ˆθ = arg min θ∈Θ Remp(θ) For (global) minimum ˆθ: ∀θ ∈ Θ : Remp( ˆθ) ≤ Remp(θ) Does not imply that ˆθ is unique",
+          "formula_blocks": [
+            {
+              "latex": "Slide 1: Introduction to Machine Learning ML-Basics Optimization θ1 θ2 R emp Learning goals Understand how the risk function is optimized to learn the optimal parameters of a model Understand the idea of gradient descent as a basic risk optimizer Slide 2: LEARNING AS PARAMETER OPTIMIZATION Operationalize search for model f that matches training data best by looking for parametrization θ ∈ Θ with lowest risk Remp(θ)",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00000.png",
+              "confidence": 0.45,
+              "timestamp": 167.5621587,
+              "provider": "heuristic_math_ocr"
+            },
+            {
+              "latex": "θ1 θ2 R emp © Introduction to Machine Learning – 1 / 10 Slide 3: LEARNING AS PARAMETER OPTIMIZATION/ 2 ERM optimization problem: ˆθ = arg min θ∈Θ Remp(θ) For (global) minimum ˆθ: ∀θ ∈ Θ : Remp( ˆθ) ≤ Remp(θ) Does not imply that ˆθ is unique",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00000.png",
+              "confidence": 0.45,
+              "timestamp": 167.5621587,
+              "provider": "heuristic_math_ocr"
+            }
+          ],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 0-180s.",
+          "concept_tags": [
+            "gradient descent"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00000.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00180.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00000.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00000.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        },
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_00180_00360",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 180.0,
+          "end_time": 360.0,
+          "transcript": "This lecture introduces I2Ml 01 Ml Basics 07 Optimization. Slide 1: Introduction to Machine Learning ML-Basics Optimization θ1 θ2 R emp Learning goals Understand how the risk function is optimized to learn the optimal parameters of a model Understand the idea of gradient descent as a basic risk optimizer Slide 2: LEARNING AS PARAMETER OPTIMIZATION Operationalize search for model f that matches training data best by looking for parametrization θ ∈ Θ with lowest risk Remp(θ). Traverse error surface downwards; often local search from some start point to minimum (hopefully). θ1 θ2 R emp © Introduction to Machine Learning – 1 / 10 Slide 3: LEARNING AS PARA © Introduction to Machine Learning – 2 / 10 Slide 4: LOCAL MINIMA Definition of local minimum ˆθ: ∃ϵ > 0 ∀θ with ˆθ − θ < ϵ : Remp( ˆθ) ≤ Remp(θ) Clearly every global minimum is also a local minimum. Finding local minimum is easier than global one. ● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite. Neg. gradient points ",
+          "asr_segments": [
+            {
+              "start_time": 0.0,
+              "end_time": 558.54,
+              "text": "This lecture introduces I2Ml 01 Ml Basics 07 Optimization.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 0.0,
+              "end_time": 335.12,
+              "text": "Slide 1: Introduction to Machine Learning ML-Basics Optimization θ1 θ2 R emp Learning goals Understand how the risk function is optimized to learn the optimal parameters of a model Understand the idea of gradient descent as a basic risk optimizer Slide 2: LEARNING AS PARAMETER OPTIMIZATION Operationalize search for model f that matches training data best by looking for parametrization θ ∈ Θ with lowest risk Remp(θ). Traverse error surface downwards; often local search from some start point to minimum (hopefully). θ1 θ2 R emp © Introduction to Machine Learning – 1 / 10 Slide 3: LEARNING AS PARA",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            },
+            {
+              "start_time": 335.12,
+              "end_time": 670.25,
+              "text": "© Introduction to Machine Learning – 2 / 10 Slide 4: LOCAL MINIMA Definition of local minimum ˆθ: ∃ϵ > 0 ∀θ with ˆθ − θ < ϵ : Remp( ˆθ) ≤ Remp(θ) Clearly every global minimum is also a local minimum. Finding local minimum is easier than global one. ● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite. Neg. gradient points ",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": " ",
+          "ocr_blocks": [],
+          "formula_latex": "",
+          "formula_blocks": [],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 180-360s.",
+          "concept_tags": [
+            "gradient descent"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00180.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00180.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        },
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_00360_00540",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 360.0,
+          "end_time": 540.0,
+          "transcript": "This lecture introduces I2Ml 01 Ml Basics 07 Optimization. © Introduction to Machine Learning – 2 / 10 Slide 4: LOCAL MINIMA Definition of local minimum ˆθ: ∃ϵ > 0 ∀θ with ˆθ − θ < ϵ : Remp( ˆθ) ≤ Remp(θ) Clearly every global minimum is also a local minimum. Finding local minimum is easier than global one. ● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite. Neg. gradient points ",
+          "asr_segments": [
+            {
+              "start_time": 0.0,
+              "end_time": 558.54,
+              "text": "This lecture introduces I2Ml 01 Ml Basics 07 Optimization.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 335.12,
+              "end_time": 670.25,
+              "text": "© Introduction to Machine Learning – 2 / 10 Slide 4: LOCAL MINIMA Definition of local minimum ˆθ: ∃ϵ > 0 ∀θ with ˆθ − θ < ϵ : Remp( ˆθ) ≤ Remp(θ) Clearly every global minimum is also a local minimum. Finding local minimum is easier than global one. ● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite. Neg. gradient points ",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": "  © Introduction to Machine Learning – 2 / 10 Slide 4: LOCAL MINIMA Definition of local minimum ˆθ: ∃ϵ > 0 ∀θ with ˆθ − θ < ϵ : Remp( ˆθ) ≤ Remp(θ) Clearly every global minimum is also a local minimum. Finding local minimum is easier than global one. ● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite. Neg. gradient points into direction of fastest local decrease; Hessian measures local curvature. θ1 θ2 25 50 75 100 Remp dRemp dθ (θ) θ1 θ2 R emp const. pos. def. Hessian θ1 θ2 R emp const. neg. def. Hessian © Introduction to Machine Learning – 4 / 10 Slide 6: GRADIENT DESCENT Iteratively improve current candidate θ[t]",
+          "ocr_blocks": [
+            {
+              "text": "© Introduction to Machine Learning – 2 / 10 Slide 4: LOCAL MINIMA Definition of local minimum ˆθ: ∃ϵ > 0 ∀θ with ˆθ − θ < ϵ : Remp( ˆθ) ≤ Remp(θ) Clearly every global minimum is also a local minimum. Finding local minimum is easier than global one. ● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite. Neg. gradient points into direction of fastest local decrease; Hessian measures local curvature. θ1 θ2 25 50 75 100 Remp dRemp dθ (θ) θ1 θ2 R emp const. pos. def. Hessian θ1 θ2 R emp const. neg. def. Hessian © Introductio",
+              "bbox": null,
+              "confidence": 0.75,
+              "provider": "slide_pdf_text",
+              "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00180.png",
+              "timestamp": 502.68647610000005
+            }
+          ],
+          "formula_latex": "● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite; gradient points into direction of fastest local decrease; Hessian © Introduction to Machine Learning – 4 / 10 Slide 6: GRADIENT DESCENT Iteratively improve current candidate θ[t]",
+          "formula_blocks": [
+            {
+              "latex": "● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00180.png",
+              "confidence": 0.45,
+              "timestamp": 502.68647610000005,
+              "provider": "heuristic_math_ocr"
+            },
+            {
+              "latex": "gradient points into direction of fastest local decrease",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00180.png",
+              "confidence": 0.45,
+              "timestamp": 502.68647610000005,
+              "provider": "heuristic_math_ocr"
+            },
+            {
+              "latex": "Hessian © Introduction to Machine Learning – 4 / 10 Slide 6: GRADIENT DESCENT Iteratively improve current candidate θ[t]",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00180.png",
+              "confidence": 0.45,
+              "timestamp": 502.68647610000005,
+              "provider": "heuristic_math_ocr"
+            }
+          ],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 360-540s.",
+          "concept_tags": [
+            "gradient descent"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00540.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00180.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        },
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_00540_00720",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 540.0,
+          "end_time": 720.0,
+          "transcript": "This lecture introduces I2Ml 01 Ml Basics 07 Optimization. We connect the visual slide content to formulas and learning concepts. © Introduction to Machine Learning – 2 / 10 Slide 4: LOCAL MINIMA Definition of local minimum ˆθ: ∃ϵ > 0 ∀θ with ˆθ − θ < ϵ : Remp( ˆθ) ≤ Remp(θ) Clearly every global minimum is also a local minimum. Finding local minimum is easier than global one. ● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite. Neg. gradient points  Move in direction of neg. gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76.25. © Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg. gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42.73. We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2",
+          "asr_segments": [
+            {
+              "start_time": 0.0,
+              "end_time": 558.54,
+              "text": "This lecture introduces I2Ml 01 Ml Basics 07 Optimization.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 558.54,
+              "end_time": 1117.08,
+              "text": "We connect the visual slide content to formulas and learning concepts.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 335.12,
+              "end_time": 670.25,
+              "text": "© Introduction to Machine Learning – 2 / 10 Slide 4: LOCAL MINIMA Definition of local minimum ˆθ: ∃ϵ > 0 ∀θ with ˆθ − θ < ϵ : Remp( ˆθ) ≤ Remp(θ) Clearly every global minimum is also a local minimum. Finding local minimum is easier than global one. ● ● θ Remp(θ) minimum ● ● global local © Introduction to Machine Learning – 3 / 10 Slide 5: LOCAL MINIMA AND STATIONARY POINTS If Remp continuously differentiable, sufficient condition for local minimum: ˆθ is stationary, so 0 gradient, so no local improvement possible: dRemp dθ ( ˆθ) = 0 and Hessian at ˆθ is positive definite. Neg. gradient points ",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            },
+            {
+              "start_time": 670.25,
+              "end_time": 1005.37,
+              "text": "Move in direction of neg. gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76.25. © Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg. gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42.73. We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": " ",
+          "ocr_blocks": [],
+          "formula_latex": "",
+          "formula_blocks": [],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 540-720s.",
+          "concept_tags": [
+            "gradient descent",
+            "learning rate"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00540.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00720.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00540.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        },
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_00720_00900",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 720.0,
+          "end_time": 900.0,
+          "transcript": "We connect the visual slide content to formulas and learning concepts. Move in direction of neg. gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76.25. © Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg. gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42.73. We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2",
+          "asr_segments": [
+            {
+              "start_time": 558.54,
+              "end_time": 1117.08,
+              "text": "We connect the visual slide content to formulas and learning concepts.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 670.25,
+              "end_time": 1005.37,
+              "text": "Move in direction of neg. gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76.25. © Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg. gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42.73. We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": "  Move in direction of neg. gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76.25. © Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg. gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42.73. We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2 R emp θ [2] Now θ[2] has risk Remp(θ[2]) ≈ 25.08 © Introduction to Machine Learning – 7 / 10 Slide 9: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp We iterate this until some form of con- vergence or termination θ1 θ2 R emp ˆθ We arrive close to a stationary ˆθ which is hopefully at least a local minimum",
+          "ocr_blocks": [
+            {
+              "text": "Move in direction of neg. gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76.25. © Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg. gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42.73. We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2 R emp θ [2] Now θ[2] has risk Remp(θ[2]) ≈ 25.08 © Introduction to Machine Learning – 7 / 10 Slide 9: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp We iterate this until some form of con- vergence or termin",
+              "bbox": null,
+              "confidence": 0.75,
+              "provider": "slide_pdf_text",
+              "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png",
+              "timestamp": 837.8107935
+            }
+          ],
+          "formula_latex": "gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76; © Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg; gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42; We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2 R emp θ [2] Now θ[2] has risk Remp(θ[2]) ≈ 25; 08 © Introduction to Machine Learning – 7 / 10 Slide 9: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp We iterate this until some form of con- vergence or termination θ1 θ2 R emp ˆθ We arrive close to a stationary ˆθ which is hopefully at least a local minimum",
+          "formula_blocks": [
+            {
+              "latex": "gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png",
+              "confidence": 0.45,
+              "timestamp": 837.8107935,
+              "provider": "heuristic_math_ocr"
+            },
+            {
+              "latex": "© Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png",
+              "confidence": 0.45,
+              "timestamp": 837.8107935,
+              "provider": "heuristic_math_ocr"
+            },
+            {
+              "latex": "gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png",
+              "confidence": 0.45,
+              "timestamp": 837.8107935,
+              "provider": "heuristic_math_ocr"
+            },
+            {
+              "latex": "We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2 R emp θ [2] Now θ[2] has risk Remp(θ[2]) ≈ 25",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png",
+              "confidence": 0.45,
+              "timestamp": 837.8107935,
+              "provider": "heuristic_math_ocr"
+            },
+            {
+              "latex": "08 © Introduction to Machine Learning – 7 / 10 Slide 9: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp We iterate this until some form of con- vergence or termination θ1 θ2 R emp ˆθ We arrive close to a stationary ˆθ which is hopefully at least a local minimum",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png",
+              "confidence": 0.45,
+              "timestamp": 837.8107935,
+              "provider": "heuristic_math_ocr"
+            }
+          ],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 720-900s.",
+          "concept_tags": [
+            "gradient descent",
+            "learning rate"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00720.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00900.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00360.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00720.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        },
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_00900_01080",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 900.0,
+          "end_time": 1080.0,
+          "transcript": "We connect the visual slide content to formulas and learning concepts. Move in direction of neg. gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76.25. © Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg. gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42.73. We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2 © Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg. gradient is direction that looks locally promising to reduce Remp. Hence weights components higher in which Remp decreases more. However, the length of − d dθ Remp measures only the local decrease rate, i.e., there are no guarantees that we will not go “too far”. We use a learning rate α to scale the step length in each iteration. Too much can lead to overstepping and no convergence, too low leads to slow convergence. Usually, a simple constant rate or rate-decrease mechanisms to enforce local convergen",
+          "asr_segments": [
+            {
+              "start_time": 558.54,
+              "end_time": 1117.08,
+              "text": "We connect the visual slide content to formulas and learning concepts.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 670.25,
+              "end_time": 1005.37,
+              "text": "Move in direction of neg. gradient, so direction of steepest descent Use step size / learning rate α θ[t+1] = θ[t] − α dRemp dθ (θ[t]) θ1 θ2 R emp θ [0] Random start θ[0] with Remp(θ[0]) = 76.25. © Introduction to Machine Learning – 5 / 10 Slide 7: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [0] ) Direction of the neg. gradient at θ[0] θ1 θ2 R emp θ [1] Arrive at θ[1] with Remp(θ[1]) ≈ 42.73. We improved: Remp(θ[1]) < Remp(θ[0]) © Introduction to Machine Learning – 6 / 10 Slide 8: GRADIENT DESCENT - EXAMPLE θ1 θ2 R emp −α d R emp dθ ( θ [1] ) Now iterate, do the same at θ[1] θ1 θ2",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            },
+            {
+              "start_time": 1005.37,
+              "end_time": 1340.5,
+              "text": "© Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg. gradient is direction that looks locally promising to reduce Remp. Hence weights components higher in which Remp decreases more. However, the length of − d dθ Remp measures only the local decrease rate, i.e., there are no guarantees that we will not go “too far”. We use a learning rate α to scale the step length in each iteration. Too much can lead to overstepping and no convergence, too low leads to slow convergence. Usually, a simple constant rate or rate-decrease mechanisms to enforce local convergen",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": " ",
+          "ocr_blocks": [],
+          "formula_latex": "",
+          "formula_blocks": [],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 900-1080s.",
+          "concept_tags": [
+            "gradient descent",
+            "learning rate"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00900.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01080.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00900.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        },
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_01080_01260",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 1080.0,
+          "end_time": 1260.0,
+          "transcript": "We connect the visual slide content to formulas and learning concepts. The important ideas are searchable through transcript, OCR, formulas, and keyframes. © Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg. gradient is direction that looks locally promising to reduce Remp. Hence weights components higher in which Remp decreases more. However, the length of − d dθ Remp measures only the local decrease rate, i.e., there are no guarantees that we will not go “too far”. We use a learning rate α to scale the step length in each iteration. Too much can lead to overstepping and no convergence, too low leads to slow convergence. Usually, a simple constant rate or rate-decrease mechanisms to enforce local convergen",
+          "asr_segments": [
+            {
+              "start_time": 558.54,
+              "end_time": 1117.08,
+              "text": "We connect the visual slide content to formulas and learning concepts.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 1117.08,
+              "end_time": 1675.62,
+              "text": "The important ideas are searchable through transcript, OCR, formulas, and keyframes.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 1005.37,
+              "end_time": 1340.5,
+              "text": "© Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg. gradient is direction that looks locally promising to reduce Remp. Hence weights components higher in which Remp decreases more. However, the length of − d dθ Remp measures only the local decrease rate, i.e., there are no guarantees that we will not go “too far”. We use a learning rate α to scale the step length in each iteration. Too much can lead to overstepping and no convergence, too low leads to slow convergence. Usually, a simple constant rate or rate-decrease mechanisms to enforce local convergen",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": "  © Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg. gradient is direction that looks locally promising to reduce Remp. Hence weights components higher in which Remp decreases more. However, the length of − d dθ Remp measures only the local decrease rate, i.e., there are no guarantees that we will not go “too far”. We use a learning rate α to scale the step length in each iteration. Too much can lead to overstepping and no convergence, too low leads to slow convergence. Usually, a simple constant rate or rate-decrease mechanisms to enforce local convergence are used. θ[0] ● θ1 θ2 good convergence for α1 θ[0] ● θ1 θ2 slow convergence for α2(< α 1) θ[0] ● θ1 θ2 no convergence for α3(> α 1) © Introduction to Machine Learning – 9 / 10 Slide 11: FURTHER TOPICS Few models, e.g. linear regression, can be optimized analytically. GD is a so-called first-orde",
+          "ocr_blocks": [
+            {
+              "text": "© Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg. gradient is direction that looks locally promising to reduce Remp. Hence weights components higher in which Remp decreases more. However, the length of − d dθ Remp measures only the local decrease rate, i.e., there are no guarantees that we will not go “too far”. We use a learning rate α to scale the step length in each iteration. Too much can lead to overstepping and no convergence, too low leads to slow convergence. Usually, a simple constant rate or rate-decrease mechanisms to enforce local convergence are used. θ[0] ● θ1 θ2 good convergence for α1 θ[0] ● θ1 θ2 slow convergence for α2(< α 1) θ[0] ● θ1 θ2 no convergence for α3(> α 1) © Introduction to Machine Learning – 9 / 10 Slide 11: FURTHER TO",
+              "bbox": null,
+              "confidence": 0.75,
+              "provider": "slide_pdf_text",
+              "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00540.png",
+              "timestamp": 1172.9351109000002
+            }
+          ],
+          "formula_latex": "© Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg; gradient is direction that looks locally promising to reduce Remp",
+          "formula_blocks": [
+            {
+              "latex": "© Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00540.png",
+              "confidence": 0.45,
+              "timestamp": 1172.9351109000002,
+              "provider": "heuristic_math_ocr"
+            },
+            {
+              "latex": "gradient is direction that looks locally promising to reduce Remp",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00540.png",
+              "confidence": 0.45,
+              "timestamp": 1172.9351109000002,
+              "provider": "heuristic_math_ocr"
+            }
+          ],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 1080-1260s.",
+          "concept_tags": [
+            "gradient descent",
+            "learning rate",
+            "linear regression"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01080.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01260.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00540.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01080.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        },
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_01260_01440",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 1260.0,
+          "end_time": 1440.0,
+          "transcript": "The important ideas are searchable through transcript, OCR, formulas, and keyframes. © Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg. gradient is direction that looks locally promising to reduce Remp. Hence weights components higher in which Remp decreases more. However, the length of − d dθ Remp measures only the local decrease rate, i.e., there are no guarantees that we will not go “too far”. We use a learning rate α to scale the step length in each iteration. Too much can lead to overstepping and no convergence, too low leads to slow convergence. Usually, a simple constant rate or rate-decrease mechanisms to enforce local convergen r method. Second-order methods (like Newton-Raphson) use the Hessian to refine the search direction for faster convergence. There exist many improvements of GD (momentum, ADAM), e.g., to smartly control the learn rate, to escape saddle points, to mimic second order behavior without computing the Hessian. If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD). For large-scale problems, this is usually more efficient. © Introduction to Machine Learning – 10 / 10",
+          "asr_segments": [
+            {
+              "start_time": 1117.08,
+              "end_time": 1675.62,
+              "text": "The important ideas are searchable through transcript, OCR, formulas, and keyframes.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 1005.37,
+              "end_time": 1340.5,
+              "text": "© Introduction to Machine Learning – 8 / 10 Slide 10: GRADIENT DESCENT - LEARNING RATE Neg. gradient is direction that looks locally promising to reduce Remp. Hence weights components higher in which Remp decreases more. However, the length of − d dθ Remp measures only the local decrease rate, i.e., there are no guarantees that we will not go “too far”. We use a learning rate α to scale the step length in each iteration. Too much can lead to overstepping and no convergence, too low leads to slow convergence. Usually, a simple constant rate or rate-decrease mechanisms to enforce local convergen",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            },
+            {
+              "start_time": 1340.5,
+              "end_time": 1675.62,
+              "text": "r method. Second-order methods (like Newton-Raphson) use the Hessian to refine the search direction for faster convergence. There exist many improvements of GD (momentum, ADAM), e.g., to smartly control the learn rate, to escape saddle points, to mimic second order behavior without computing the Hessian. If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD). For large-scale problems, this is usually more efficient. © Introduction to Machine Learning – 10 / 10",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": " ",
+          "ocr_blocks": [],
+          "formula_latex": "",
+          "formula_blocks": [],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 1260-1440s.",
+          "concept_tags": [
+            "gradient descent",
+            "learning rate"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01260.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01440.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01260.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        },
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_01440_01620",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 1440.0,
+          "end_time": 1620.0,
+          "transcript": "The important ideas are searchable through transcript, OCR, formulas, and keyframes. r method. Second-order methods (like Newton-Raphson) use the Hessian to refine the search direction for faster convergence. There exist many improvements of GD (momentum, ADAM), e.g., to smartly control the learn rate, to escape saddle points, to mimic second order behavior without computing the Hessian. If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD). For large-scale problems, this is usually more efficient. © Introduction to Machine Learning – 10 / 10",
+          "asr_segments": [
+            {
+              "start_time": 1117.08,
+              "end_time": 1675.62,
+              "text": "The important ideas are searchable through transcript, OCR, formulas, and keyframes.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 1340.5,
+              "end_time": 1675.62,
+              "text": "r method. Second-order methods (like Newton-Raphson) use the Hessian to refine the search direction for faster convergence. There exist many improvements of GD (momentum, ADAM), e.g., to smartly control the learn rate, to escape saddle points, to mimic second order behavior without computing the Hessian. If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD). For large-scale problems, this is usually more efficient. © Introduction to Machine Learning – 10 / 10",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": "  r method. Second-order methods (like Newton-Raphson) use the Hessian to refine the search direction for faster convergence. There exist many improvements of GD (momentum, ADAM), e.g., to smartly control the learn rate, to escape saddle points, to mimic second order behavior without computing the Hessian. If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD). For large-scale problems, this is usually more efficient. © Introduction to Machine Learning – 10 / 10",
+          "ocr_blocks": [
+            {
+              "text": "r method. Second-order methods (like Newton-Raphson) use the Hessian to refine the search direction for faster convergence. There exist many improvements of GD (momentum, ADAM), e.g., to smartly control the learn rate, to escape saddle points, to mimic second order behavior without computing the Hessian. If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD). For large-scale problems, this is usually more efficient. © Introduction to Machine Learning – 10 / 10",
+              "bbox": null,
+              "confidence": 0.75,
+              "provider": "slide_pdf_text",
+              "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00720.png",
+              "timestamp": 1508.0594283
+            }
+          ],
+          "formula_latex": "If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD)",
+          "formula_blocks": [
+            {
+              "latex": "If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD)",
+              "source_frame": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00720.png",
+              "confidence": 0.45,
+              "timestamp": 1508.0594283,
+              "provider": "heuristic_math_ocr"
+            }
+          ],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 1440-1620s.",
+          "concept_tags": [
+            "gradient descent"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01440.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01620.png",
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00720.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01440.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        },
+        {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_01620_01675",
+          "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+          "course_id": "real_i2ml",
+          "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+          "start_time": 1620.0,
+          "end_time": 1675.621587,
+          "transcript": "The important ideas are searchable through transcript, OCR, formulas, and keyframes. r method. Second-order methods (like Newton-Raphson) use the Hessian to refine the search direction for faster convergence. There exist many improvements of GD (momentum, ADAM), e.g., to smartly control the learn rate, to escape saddle points, to mimic second order behavior without computing the Hessian. If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD). For large-scale problems, this is usually more efficient. © Introduction to Machine Learning – 10 / 10",
+          "asr_segments": [
+            {
+              "start_time": 1117.08,
+              "end_time": 1675.62,
+              "text": "The important ideas are searchable through transcript, OCR, formulas, and keyframes.",
+              "confidence": 0.25,
+              "provider": "fallback_asr"
+            },
+            {
+              "start_time": 1340.5,
+              "end_time": 1675.62,
+              "text": "r method. Second-order methods (like Newton-Raphson) use the Hessian to refine the search direction for faster convergence. There exist many improvements of GD (momentum, ADAM), e.g., to smartly control the learn rate, to escape saddle points, to mimic second order behavior without computing the Hessian. If the gradient is not computed on the complete data, but instead on small, random batches, this is stochastic gradient descent (SGD). For large-scale problems, this is usually more efficient. © Introduction to Machine Learning – 10 / 10",
+              "confidence": 0.65,
+              "provider": "slide_pdf_text"
+            }
+          ],
+          "ocr_text": "",
+          "ocr_blocks": [],
+          "formula_latex": "",
+          "formula_blocks": [],
+          "visual_caption": "Frames from 08_i2ml_01_ml_basics_07_optimization around 1620-1676s.",
+          "concept_tags": [
+            "gradient descent"
+          ],
+          "keyframes": [
+            "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01620.png"
+          ],
+          "thumbnail_url": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_01620.png",
+          "video_embedding": null,
+          "embedding_provider": null,
+          "metadata": {
+            "ingested_window": true,
+            "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326"
+          }
+        }
+      ],
+      "metadata": {
+        "ingested": true,
+        "probe": {
+          "duration": 1675.621587,
+          "fps": "25/1",
+          "width": 640,
+          "height": 360
+        },
+        "audio_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/data/audio/real_i2ml_08_i2ml_01_ml_basics_07_optimization.wav",
+        "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+        "dataset_root": "/mnt/e/Data/OmniCourse-Lens/Dataset",
+        "dataset_relative_path": "08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__video.mp4",
+        "slides_path": "/mnt/e/Data/OmniCourse-Lens/Dataset/08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__slides.pdf",
+        "source": "real_dataset"
+      }
+    }
+  ]
+}

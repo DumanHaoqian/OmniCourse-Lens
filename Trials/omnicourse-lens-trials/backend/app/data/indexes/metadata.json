@@ -1,9 +1,10 @@
 {
   "courses": [
-    "ml_foundations"
+    "ml_foundations",
+    "real_i2ml"
   ],
-  "moment_count": 12,
-  "image_descriptor_count": 12,
+  "moment_count": 22,
+  "image_descriptor_count": 22,
   "providers": {
     "text_index": "json_tfidf",
     "image_descriptor": "pil_color_histogram",

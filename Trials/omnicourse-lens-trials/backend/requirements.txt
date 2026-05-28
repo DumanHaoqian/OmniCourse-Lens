@@ -10,3 +10,4 @@ openai
 python-dotenv
 pytest
 httpx
+pypdf

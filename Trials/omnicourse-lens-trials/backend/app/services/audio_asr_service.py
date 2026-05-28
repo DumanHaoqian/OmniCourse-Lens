@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -14,6 +15,7 @@ class AudioASRService:
         return {
             "faster_whisper_available": importlib.util.find_spec("faster_whisper") is not None,
             "openai_whisper_available": importlib.util.find_spec("whisper") is not None,
+            "openai_whisper_enabled": os.getenv("OMNICOURSE_ENABLE_WHISPER", "0").lower() in {"1", "true", "yes"},
             "fallback": "transcript_file_or_deterministic_demo_segments",
         }
 
@@ -55,6 +57,10 @@ class AudioASRService:
             result = self._try_faster_whisper(audio_path)
             if result:
                 return result
+        if audio_path and importlib.util.find_spec("whisper") is not None:
+            result = self._try_openai_whisper(audio_path)
+            if result:
+                return result
         return self._fallback_segments(duration, title)
 
     def _try_faster_whisper(self, audio_path: str) -> list[dict[str, Any]]:
@@ -72,6 +78,29 @@ class AudioASRService:
                     "provider": "faster_whisper",
                 }
                 for seg in segments
+            ]
+        except Exception:
+            return []
+
+    def _try_openai_whisper(self, audio_path: str) -> list[dict[str, Any]]:
+        if os.getenv("OMNICOURSE_ENABLE_WHISPER", "0").lower() not in {"1", "true", "yes"}:
+            return []
+        try:
+            import whisper
+
+            model_name = os.getenv("OMNICOURSE_WHISPER_MODEL", "base")
+            model = whisper.load_model(model_name)
+            result = model.transcribe(audio_path, fp16=False)
+            return [
+                {
+                    "start_time": float(seg.get("start", 0.0)),
+                    "end_time": float(seg.get("end", 0.0)),
+                    "text": str(seg.get("text", "")).strip(),
+                    "confidence": None,
+                    "provider": f"openai_whisper_{model_name}",
+                }
+                for seg in result.get("segments", [])
+                if str(seg.get("text", "")).strip()
             ]
         except Exception:
             return []

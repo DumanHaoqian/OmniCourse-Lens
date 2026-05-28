@@ -32,6 +32,7 @@ class FormulaBlock(BaseModel):
 
 class Moment(BaseModel):
     moment_id: str
+    video_id: Optional[str] = None
     course_id: str
     lecture_id: str
     start_time: float
@@ -72,12 +73,14 @@ class SearchRequest(BaseModel):
     course_id: str
     query: str = ""
     lecture_ids: Optional[list[str]] = None
+    video_ids: Optional[list[str]] = None
     top_k: int = 5
     search_mode: Optional[str] = "hybrid"
 
 
 class SearchResult(BaseModel):
     moment_id: str
+    video_id: Optional[str] = None
     course_id: str
     lecture_id: str
     lecture_title: str
@@ -98,6 +101,7 @@ class SearchResult(BaseModel):
 class CheatsheetRequest(BaseModel):
     course_id: str
     lecture_ids: list[str]
+    video_ids: Optional[list[str]] = None
     focus_topics: Optional[str] = None
     style: str = "exam"
     max_pages: int = 2
@@ -140,7 +144,10 @@ class CheatsheetResponse(BaseModel):
 class GraphRequest(BaseModel):
     course_id: str
     lecture_ids: list[str]
+    video_ids: Optional[list[str]] = None
     focus_topic: Optional[str] = None
+    max_concepts: int = 35
+    include_moments: bool = True
 
 
 class GraphNode(BaseModel):
@@ -171,6 +178,7 @@ class QARequest(BaseModel):
     course_id: str
     question: str
     lecture_id: Optional[str] = None
+    video_id: Optional[str] = None
     current_timestamp: Optional[float] = None
     top_k: Optional[int] = 5
 

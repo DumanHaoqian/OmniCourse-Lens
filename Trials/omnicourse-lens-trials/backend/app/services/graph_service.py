@@ -27,30 +27,46 @@ class GraphService:
         edges: dict[tuple[str, str, str], GraphEdge] = {}
         concept_to_moments: dict[str, list[Moment]] = defaultdict(list)
         focus = (request.focus_topic or "").lower().strip()
+        concept_frequency: Counter[str] = Counter()
+        for lecture in lectures:
+            for moment in lecture.moments:
+                if request.video_ids and moment.video_id not in request.video_ids and moment.metadata.get("video_id") not in request.video_ids:
+                    continue
+                concept_frequency.update(self._concepts(moment))
+        allowed_concepts = {concept for concept, _ in concept_frequency.most_common(max(5, request.max_concepts))}
 
         for lecture in lectures:
             lecture_id = f"lecture:{lecture.lecture_id}"
             nodes[lecture_id] = GraphNode(id=lecture_id, label=lecture.title, type="lecture", lecture_id=lecture.lecture_id)
             self._edge(edges, f"course:{course.course_id}", lecture_id, "contains", 1.0)
             for moment in lecture.moments:
+                if request.video_ids and moment.video_id not in request.video_ids and moment.metadata.get("video_id") not in request.video_ids:
+                    continue
                 if focus and focus not in self._moment_text(moment).lower():
                     continue
                 moment_id = f"moment:{moment.moment_id}"
-                nodes[moment_id] = GraphNode(
-                    id=moment_id,
-                    label=f"{lecture.title} {moment.start_time:.0f}-{moment.end_time:.0f}s",
-                    type="moment",
-                    lecture_id=lecture.lecture_id,
-                    timestamp=moment.start_time,
-                    metadata={"thumbnail_url": moment.thumbnail_url, "moment_id": moment.moment_id},
-                )
-                self._edge(edges, lecture_id, moment_id, "contains", 1.0)
-                concepts = self._concepts(moment)
+                if request.include_moments:
+                    nodes[moment_id] = GraphNode(
+                        id=moment_id,
+                        label=f"{lecture.title} {moment.start_time:.0f}-{moment.end_time:.0f}s",
+                        type="moment",
+                        lecture_id=lecture.lecture_id,
+                        timestamp=moment.start_time,
+                        metadata={"thumbnail_url": moment.thumbnail_url, "moment_id": moment.moment_id, "video_id": moment.video_id},
+                    )
+                    self._edge(edges, lecture_id, moment_id, "contains", 1.0)
+                concepts = [concept for concept in self._concepts(moment) if concept in allowed_concepts]
                 for concept in concepts:
                     concept_id = f"concept:{self._slug(concept)}"
-                    nodes.setdefault(concept_id, GraphNode(id=concept_id, label=concept.title(), type="concept"))
-                    self._edge(edges, concept_id, moment_id, "appears_in", 0.9)
-                    self._edge(edges, moment_id, concept_id, "explained_by", 0.5)
+                    nodes.setdefault(
+                        concept_id,
+                        GraphNode(id=concept_id, label=concept.title(), type="concept", metadata={"frequency": concept_frequency[concept]}),
+                    )
+                    if request.include_moments:
+                        self._edge(edges, concept_id, moment_id, "appears_in", 0.9)
+                        self._edge(edges, moment_id, concept_id, "explained_by", 0.5)
+                    else:
+                        self._edge(edges, lecture_id, concept_id, "contains", 0.55)
                     concept_to_moments[concept].append(moment)
                 if moment.formula_latex:
                     formula_id = f"formula:{self._slug(moment.formula_latex[:50])}"
@@ -65,10 +81,13 @@ class GraphService:
                             metadata={"latex": moment.formula_latex},
                         ),
                     )
-                    self._edge(edges, formula_id, moment_id, "appears_in", 0.8)
+                    if request.include_moments:
+                        self._edge(edges, formula_id, moment_id, "appears_in", 0.8)
+                    else:
+                        self._edge(edges, lecture_id, formula_id, "uses_formula", 0.55)
                     for concept in concepts[:3]:
                         self._edge(edges, f"concept:{self._slug(concept)}", formula_id, "uses_formula", 0.7)
-                for frame in moment.keyframes[:1]:
+                for frame in moment.keyframes[:1] if request.include_moments else []:
                     frame_id = f"visual:{self._slug(frame)}"
                     nodes.setdefault(
                         frame_id,
@@ -81,7 +100,8 @@ class GraphService:
                             metadata={"thumbnail_url": moment.thumbnail_url, "frame_path": frame},
                         ),
                     )
-                    self._edge(edges, frame_id, moment_id, "shown_in_frame", 0.6)
+                    if request.include_moments:
+                        self._edge(edges, frame_id, moment_id, "shown_in_frame", 0.6)
 
         self._add_cooccurrence_edges(edges, concept_to_moments)
         self._add_prerequisites(edges, nodes)
@@ -91,7 +111,7 @@ class GraphService:
         response = GraphResponse(
             nodes=list(nodes.values()),
             edges=list(edges.values()),
-            summary=f"Built a lightweight course graph with {len(nodes)} nodes and {len(edges)} edges from {len(lectures)} lectures.",
+            summary=f"Built a pruned course graph with {len(nodes)} nodes, {len(edges)} edges, and top {len(allowed_concepts)} concepts from {len(lectures)} lectures.",
         )
         improved = self.improver.improve_graph(request, response)
         response.self_check = improved["self_check"]

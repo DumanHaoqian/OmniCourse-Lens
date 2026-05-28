@@ -69,11 +69,13 @@ def main() -> None:
                     **moment,
                     "lecture_title": lecture.get("title", ""),
                     "video_path": lecture.get("video_path"),
+                    "video_id": moment.get("video_id") or moment.get("metadata", {}).get("video_id") or lecture.get("metadata", {}).get("video_id"),
                 }
                 moments.append(record)
                 docs.append(tokenize(moment_document(moment, lecture)))
                 for frame in moment.get("keyframes", []):
-                    image_descriptors[frame] = image_descriptor(frame)
+                    if frame:
+                        image_descriptors[frame] = image_descriptor(frame)
 
     document_frequency: Counter[str] = Counter()
     for tokens in docs:

@@ -24,6 +24,7 @@ class Settings:
     clips_dir: Path = PROJECT_ROOT / "backend" / "app" / "static" / "clips"
     credential_file: Path = REPO_ROOT / "openai_keys.txt"
     legacy_internvideo3_path: Path = REPO_ROOT / "Trials" / "checkpoints" / "InternVideo3-8B-Instruct"
+    dataset_dir: Path = REPO_ROOT / "Dataset"
 
     @property
     def demo_mode(self) -> bool:

@@ -1,0 +1,16 @@
+{
+  "08_i2ml_01_ml_basics_07_optimization_647ec61326": {
+    "video_id": "08_i2ml_01_ml_basics_07_optimization_647ec61326",
+    "video_path": "/mnt/e/Data/OmniCourse-Lens/Dataset/08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__video.mp4",
+    "course_id": "real_i2ml",
+    "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+    "title": "I2Ml 01 Ml Basics 07 Optimization",
+    "duration": 1675.621587,
+    "ingestion_status": "ingested",
+    "indexed_status": "indexed",
+    "moment_count": 10,
+    "thumbnail": "/static/frames/real_i2ml/08_i2ml_01_ml_basics_07_optimization/frame_00000.png",
+    "slides_path": "/mnt/e/Data/OmniCourse-Lens/Dataset/08_i2ml_01_ml_basics_07_optimization/08_i2ml_01_ml_basics_07_optimization__slides.pdf",
+    "updated_at": "2026-05-29T01:44:08"
+  }
+}

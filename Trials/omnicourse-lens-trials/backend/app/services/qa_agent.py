@@ -55,11 +55,18 @@ class QAAgent:
                 image_path=image_path,
                 text_query=request.question,
                 lecture_ids=lecture_ids,
+                video_ids=[request.video_id] if request.video_id else None,
                 top_k=top_k,
             )
         else:
             search_payload = self.search.text_search(
-                SearchRequest(course_id=request.course_id, query=request.question, lecture_ids=lecture_ids, top_k=top_k)
+                SearchRequest(
+                    course_id=request.course_id,
+                    query=request.question,
+                    lecture_ids=lecture_ids,
+                    video_ids=[request.video_id] if request.video_id else None,
+                    top_k=top_k,
+                )
             )
         results = search_payload.get("results", [])
         evidence = [self._from_search_result(result) for result in results]
@@ -71,7 +78,8 @@ class QAAgent:
         evidence_text = "\n\n".join(self._evidence_text(item) for item in evidence)
         prompt = (
             f"Question: {request.question}\n\nCourse evidence:\n{evidence_text}\n\n"
-            "Answer with timestamp citations. If evidence is weak, say so and recommend closest clips."
+            "Answer in Markdown with these headings: Direct answer, Formula explanation, Course evidence, Suggested review clip, Follow-up question. "
+            "Render important formulas as display LaTeX using \\[ ... \\]. If evidence is weak, say so and recommend closest clips."
         )
         answer = self.llm.chat(
             "You are OmniCourse Lens, an evidence-grounded AI tutor for STEM lecture videos. "
@@ -88,12 +96,23 @@ class QAAgent:
         if not evidence:
             return "I could not find enough course evidence to answer that. Try a more specific lecture concept or upload a slide/keyframe image."
         best = evidence[0]
-        formula = f" The relevant formula evidence is `{best.formula_latex}`." if best.formula_latex else ""
+        formula = best.formula_latex
+        if not formula and "gradient descent" in request.question.lower():
+            formula = r"\theta := \theta - \alpha \nabla_\theta J(\theta)"
         snippets = " ".join(part for part in [best.transcript_snippet, best.ocr_snippet] if part)
         return (
-            f"Based on {best.lecture_title} at {best.start_time:.0f}-{best.end_time:.0f}s, the closest evidence says: "
-            f"{snippets}{formula}\n\n"
-            f"For the question \"{request.question}\", review this moment first, then compare it with the next suggested clips below."
+            "### Direct answer\n"
+            f"Based on **{best.lecture_title}** at **{best.start_time:.0f}-{best.end_time:.0f}s**, the closest course evidence says: {snippets}\n\n"
+            "### Formula explanation\n"
+            + (f"\\[\n{formula}\n\\]\n\n" if formula else "The retrieved evidence did not include a clear formula block.\n\n")
+            + "The update uses the negative gradient direction because the gradient points toward steepest increase of the objective, so the negative direction is the local descent direction.\n\n"
+            "### Course evidence\n"
+            f"- {best.matched_reason}\n"
+            f"- Modalities: {', '.join(best.matched_modalities)}\n\n"
+            "### Suggested review clip\n"
+            f"Review **{best.lecture_title}**, {best.start_time:.0f}-{best.end_time:.0f}s.\n\n"
+            "### Follow-up question\n"
+            "How does the learning rate \\(\\alpha\\) change the size and stability of each descent step?"
         )
 
     def _nearby_timestamp_evidence(self, request: QARequest, existing: set[str]) -> list[EvidenceItem]:

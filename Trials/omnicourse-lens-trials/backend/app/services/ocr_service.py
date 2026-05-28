@@ -56,6 +56,14 @@ class OCRService:
             }
 
     def _demo_fallback(self, image_path: str, timestamp: float | None) -> dict[str, Any]:
+        path_text = str(image_path)
+        if "ml_foundations" not in path_text and "fallback" not in Path(image_path).stem:
+            return {
+                "provider": "empty_ocr",
+                "text": "",
+                "blocks": [],
+                "raw": {"fallback": True, "reason": "No OCR provider available for real extracted frame."},
+            }
         stem = Path(image_path).stem.replace("_", " ")
         text = f"Visual frame OCR fallback: {stem}"
         return {

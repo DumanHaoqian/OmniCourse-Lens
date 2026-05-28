@@ -32,7 +32,7 @@ class SearchService:
         }
 
     def text_search(self, request: SearchRequest) -> dict[str, Any]:
-        results = self._rank(request.course_id, request.query, request.lecture_ids, request.top_k, image_path=None, image_ocr_text="")
+        results = self._rank(request.course_id, request.query, request.lecture_ids, request.video_ids, request.top_k, image_path=None, image_ocr_text="")
         improved = self.improver.improve_search(
             request.query,
             results,
@@ -41,6 +41,7 @@ class SearchService:
                     request.course_id,
                     f"{query} {self._broad_expansion(query)}",
                     request.lecture_ids,
+                    request.video_ids,
                     request.top_k,
                     image_path=None,
                     image_ocr_text="",
@@ -55,12 +56,13 @@ class SearchService:
         image_path: str,
         text_query: str = "",
         lecture_ids: list[str] | None = None,
+        video_ids: list[str] | None = None,
         top_k: int = 5,
     ) -> dict[str, Any]:
         ocr_result = self.ocr.ocr_image(image_path)
         image_ocr_text = ocr_result.get("text", "")
         composed_query = " ".join(part for part in [text_query, image_ocr_text] if part).strip()
-        results = self._rank(course_id, composed_query, lecture_ids, top_k, image_path=image_path, image_ocr_text=image_ocr_text)
+        results = self._rank(course_id, composed_query, lecture_ids, video_ids, top_k, image_path=image_path, image_ocr_text=image_ocr_text)
         improved = self.improver.improve_search(
             composed_query or text_query or "image query",
             results,
@@ -69,6 +71,7 @@ class SearchService:
                     course_id,
                     f"{query} {image_ocr_text}",
                     lecture_ids,
+                    video_ids,
                     top_k,
                     image_path=image_path,
                     image_ocr_text=image_ocr_text,
@@ -87,6 +90,7 @@ class SearchService:
         course_id: str,
         query: str,
         lecture_ids: list[str] | None,
+        video_ids: list[str] | None,
         top_k: int,
         image_path: str | None,
         image_ocr_text: str,
@@ -95,7 +99,9 @@ class SearchService:
         moments = [
             moment
             for moment in index["moments"]
-            if moment.get("course_id") == course_id and (not lecture_ids or moment.get("lecture_id") in lecture_ids)
+            if moment.get("course_id") == course_id
+            and (not lecture_ids or moment.get("lecture_id") in lecture_ids)
+            and (not video_ids or moment.get("video_id") in video_ids or moment.get("metadata", {}).get("video_id") in video_ids)
         ]
         if not moments:
             self._ensure_index()
@@ -103,7 +109,9 @@ class SearchService:
             moments = [
                 moment
                 for moment in index["moments"]
-                if moment.get("course_id") == course_id and (not lecture_ids or moment.get("lecture_id") in lecture_ids)
+                if moment.get("course_id") == course_id
+                and (not lecture_ids or moment.get("lecture_id") in lecture_ids)
+                and (not video_ids or moment.get("video_id") in video_ids or moment.get("metadata", {}).get("video_id") in video_ids)
             ]
         query = self._expand_query(query)
         image_descriptor = self.embedding.image_descriptor(image_path) if image_path else None
@@ -188,9 +196,11 @@ class SearchService:
         if not modalities:
             modalities = [self._modality_name(max(breakdown, key=breakdown.get))]
         reason = self._matched_reason(moment, breakdown)
-        video_url = static_url(moment.get("video_path"))
+        video_id = moment.get("video_id") or moment.get("metadata", {}).get("video_id")
+        video_url = f"/api/dataset/videos/{video_id}/stream" if video_id else static_url(moment.get("video_path"))
         return SearchResult(
             moment_id=moment["moment_id"],
+            video_id=video_id,
             course_id=moment["course_id"],
             lecture_id=moment["lecture_id"],
             lecture_title=lecture_title,

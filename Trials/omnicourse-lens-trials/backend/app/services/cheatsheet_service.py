@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import shutil
 import subprocess
 import time
 from pathlib import Path
@@ -18,11 +19,24 @@ class CheatsheetService:
         self.llm = LLMService()
         self.improver = SelfImprovementService()
 
+    def describe_provider(self) -> dict[str, Any]:
+        return {
+            "tectonic_available": shutil.which("tectonic") is not None,
+            "pdflatex_available": shutil.which("pdflatex") is not None,
+            "xelatex_available": shutil.which("xelatex") is not None,
+            "online_workflow": "download_tex_or_copy_to_overleaf",
+        }
+
     def generate(self, request: CheatsheetRequest) -> CheatsheetResponse:
         course = load_course(request.course_id)
         lectures = [lecture for lecture in course.lectures if lecture.lecture_id in request.lecture_ids]
-        moments = [moment for lecture in lectures for moment in lecture.moments]
-        evidence = [self._evidence(moment, lecture.title) for lecture in lectures for moment in lecture.moments[:4]]
+        moments = [
+            moment
+            for lecture in lectures
+            for moment in lecture.moments
+            if not request.video_ids or moment.video_id in request.video_ids or moment.metadata.get("video_id") in request.video_ids
+        ]
+        evidence = [self._evidence(moment, lecture.title) for lecture in lectures for moment in lecture.moments[:8] if moment in moments]
         if self.llm.is_available():
             tex = self._generate_with_llm(request, moments)
             mode = "gpt-4o"
@@ -47,6 +61,28 @@ class CheatsheetService:
             generation_mode=mode,
             self_check={**improved["self_check"], "pdf_compile_error": compile_error},
         )
+
+    def compile_existing(self, tex_content: str | None = None, filename: str | None = None) -> dict[str, Any]:
+        out_dir = settings.generated_dir / "cheatsheets"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        if tex_content:
+            stamp = time.strftime("%Y%m%d_%H%M%S")
+            tex_path = out_dir / f"manual_compile_{stamp}.tex"
+            tex_path.write_text(tex_content, encoding="utf-8")
+        elif filename:
+            tex_path = out_dir / Path(filename).name
+            if not tex_path.exists():
+                return {"ok": False, "compile_error": f"File not found: {tex_path.name}"}
+        else:
+            return {"ok": False, "compile_error": "tex_content or filename is required."}
+        pdf_path, compile_error = self._compile_tex(tex_path)
+        return {
+            "ok": pdf_path is not None,
+            "tex_file_url": generated_url("cheatsheets", tex_path.name),
+            "pdf_file_url": generated_url("cheatsheets", pdf_path.name) if pdf_path else None,
+            "compile_error": compile_error,
+            "provider": self.describe_provider(),
+        }
 
     def _generate_with_llm(self, request: CheatsheetRequest, moments: list[Moment]) -> str:
         evidence = "\n\n".join(self._moment_pack(moment) for moment in moments)
@@ -117,17 +153,31 @@ class CheatsheetService:
         stamp = time.strftime("%Y%m%d_%H%M%S")
         tex_path = out_dir / f"{request.course_id}_{stamp}.tex"
         tex_path.write_text(tex, encoding="utf-8")
-        for command in (["tectonic", tex_path.name], ["pdflatex", "-interaction=nonstopmode", tex_path.name]):
+        pdf_path, compile_error = self._compile_tex(tex_path)
+        return tex_path, pdf_path, compile_error
+
+    def _compile_tex(self, tex_path: Path) -> tuple[Path | None, str | None]:
+        out_dir = tex_path.parent
+        logs = []
+        for command in (
+            ["tectonic", tex_path.name],
+            ["pdflatex", "-interaction=nonstopmode", tex_path.name],
+            ["xelatex", "-interaction=nonstopmode", tex_path.name],
+        ):
             try:
-                subprocess.run(command, cwd=out_dir, check=True, capture_output=True, text=True, timeout=60)
+                result = subprocess.run(command, cwd=out_dir, check=True, capture_output=True, text=True, timeout=60)
                 pdf_path = tex_path.with_suffix(".pdf")
                 if pdf_path.exists():
-                    return tex_path, pdf_path, None
+                    return pdf_path, None
+                logs.append(result.stdout[-1000:] + result.stderr[-1000:])
             except FileNotFoundError:
                 continue
             except Exception as exc:
-                return tex_path, None, str(exc)[:500]
-        return tex_path, None, "No LaTeX compiler found (tectonic or pdflatex)."
+                logs.append(str(exc)[:1000])
+                continue
+        if logs:
+            return None, "\n".join(logs)[-2500:]
+        return None, "No LaTeX compiler found (tectonic, pdflatex, or xelatex)."
 
     def _evidence(self, moment: Moment, lecture_title: str) -> EvidenceItem:
         return EvidenceItem(

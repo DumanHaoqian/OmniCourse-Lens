@@ -37,6 +37,9 @@ class VideoIngestService:
         transcript_file: str | None = None,
         frame_interval: float = 10.0,
         window_sec: float = 20.0,
+        supplemental_text: str = "",
+        video_id: str | None = None,
+        source_metadata: dict[str, Any] | None = None,
     ) -> Course:
         ensure_directories()
         metadata = self.probe_video(video_path)
@@ -56,6 +59,32 @@ class VideoIngestService:
                     timestamp=frame["timestamp"],
                 )
             )
+        supplemental_chunks = self._supplemental_chunks(supplemental_text)
+        for idx, chunk in enumerate(supplemental_chunks):
+            timestamp = min(duration, (idx + 0.5) * duration / max(len(supplemental_chunks), 1))
+            frame = frames[min(idx, len(frames) - 1)] if frames else {"path": "", "timestamp": timestamp}
+            ocr_by_frame.append(
+                {
+                    "frame": {"path": frame.get("path", ""), "timestamp": timestamp},
+                    "ocr": {
+                        "provider": "slide_pdf_text",
+                        "text": chunk,
+                        "blocks": [
+                            {
+                                "text": chunk[:800],
+                                "confidence": 0.75,
+                                "provider": "slide_pdf_text",
+                                "frame_path": frame.get("path", ""),
+                                "timestamp": timestamp,
+                            }
+                        ],
+                        "raw": {"source": "associated_slides_pdf"},
+                    },
+                }
+            )
+            formula_blocks.extend(self.math_ocr.extract_formula_blocks(chunk, frame_path=frame.get("path", ""), timestamp=timestamp))
+        if supplemental_chunks and all(seg.get("provider") == "fallback_asr" for seg in asr_segments):
+            asr_segments.extend(self._supplemental_asr_segments(supplemental_chunks, duration))
         moments = self.construct_moments(
             course_id=course_id,
             lecture_id=lecture_id,
@@ -64,7 +93,10 @@ class VideoIngestService:
             ocr_by_frame=ocr_by_frame,
             formula_blocks=formula_blocks,
             window_sec=window_sec,
+            video_id=video_id,
         )
+        metadata_payload = {"ingested": True, "probe": metadata, "audio_path": audio_path, "video_id": video_id}
+        metadata_payload.update(source_metadata or {})
         lecture = Lecture(
             lecture_id=lecture_id,
             course_id=course_id,
@@ -72,7 +104,7 @@ class VideoIngestService:
             video_path=str(video_path),
             duration=duration,
             moments=moments,
-            metadata={"ingested": True, "probe": metadata, "audio_path": audio_path},
+            metadata=metadata_payload,
         )
         if course_path(course_id).exists():
             course = load_course(course_id)
@@ -160,6 +192,7 @@ class VideoIngestService:
         ocr_by_frame: list[dict[str, Any]],
         formula_blocks: list[dict[str, Any]],
         window_sec: float,
+        video_id: str | None = None,
     ) -> list[Moment]:
         moments: list[Moment] = []
         start = 0.0
@@ -179,6 +212,7 @@ class VideoIngestService:
             moments.append(
                 Moment(
                     moment_id=moment_id,
+                    video_id=video_id,
                     course_id=course_id,
                     lecture_id=lecture_id,
                     start_time=start,
@@ -193,11 +227,37 @@ class VideoIngestService:
                     concept_tags=concepts,
                     keyframes=keyframes,
                     thumbnail_url=static_url(keyframes[0]) if keyframes else None,
-                    metadata={"ingested_window": True},
+                    metadata={"ingested_window": True, "video_id": video_id},
                 )
             )
             start += window_sec
         return moments
+
+    def _supplemental_chunks(self, text: str, max_chunks: int = 36, chunk_chars: int = 900) -> list[str]:
+        text = " ".join((text or "").split())
+        if not text:
+            return []
+        chunks = []
+        for idx in range(0, len(text), chunk_chars):
+            chunk = text[idx : idx + chunk_chars].strip()
+            if chunk:
+                chunks.append(chunk)
+            if len(chunks) >= max_chunks:
+                break
+        return chunks
+
+    def _supplemental_asr_segments(self, chunks: list[str], duration: float) -> list[dict[str, Any]]:
+        segment_len = max(duration / max(len(chunks), 1), 1.0)
+        return [
+            {
+                "start_time": round(idx * segment_len, 2),
+                "end_time": round(min(duration, (idx + 1) * segment_len), 2),
+                "text": chunk[:600],
+                "confidence": 0.65,
+                "provider": "slide_pdf_text",
+            }
+            for idx, chunk in enumerate(chunks)
+        ]
 
     def _concept_tags(self, asr_segments: list[dict[str, Any]], ocr_by_frame: list[dict[str, Any]], formulas: list[dict[str, Any]]) -> list[str]:
         text = " ".join([*(s["text"] for s in asr_segments), *(x["ocr"].get("text", "") for x in ocr_by_frame), *(f["latex"] for f in formulas)]).lower()

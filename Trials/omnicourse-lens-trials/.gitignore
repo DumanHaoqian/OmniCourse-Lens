@@ -10,6 +10,9 @@ venv/
 
 # Local uploads and generated heavy artifacts.
 backend/app/data/uploads/
+backend/app/data/audio/*.wav
+backend/app/data/audio/*.mp3
+backend/app/data/audio/*.m4a
 backend/app/data/generated/**/*.pdf
 backend/app/data/generated/**/*.log
 backend/app/data/indexes/*.pkl
