@@ -1,0 +1,37 @@
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Local uploads and generated heavy artifacts.
+backend/app/data/uploads/
+backend/app/data/generated/**/*.pdf
+backend/app/data/generated/**/*.log
+backend/app/data/indexes/*.pkl
+backend/app/data/indexes/*.npy
+backend/app/data/indexes/*.npz
+backend/app/static/clips/*.mp4
+backend/app/static/clips/*.mov
+backend/app/static/clips/*.mkv
+
+# Model weights and checkpoints.
+checkpoints/
+checkpoint*/
+model*.safetensors
+*.ckpt
+*.pt
+*.pth
+
+# Secrets.
+openai_keys.txt
+*_keys.txt
+secrets/
+
+# Build outputs.
+frontend/dist/
+frontend/.vite/
