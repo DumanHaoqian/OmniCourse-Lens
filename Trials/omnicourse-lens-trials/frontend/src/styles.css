@@ -2599,6 +2599,11 @@ body {
   min-height: 0;
 }
 
+.watch-output .qa-workspace,
+.watch-output .graph-workspace {
+  grid-template-columns: minmax(0, 1fr) 12px var(--output-side-width, 360px) !important;
+}
+
 .control-sidebar .sidebar-controls,
 .status-note {
   min-height: 0;
@@ -2616,6 +2621,7 @@ body {
   justify-content: center;
   margin: 0;
   padding: 0;
+  position: relative;
   touch-action: none;
   z-index: 45;
 }
@@ -2628,19 +2634,36 @@ body {
   transition: opacity 0.16s ease, transform 0.16s ease, background 0.16s ease;
 }
 
+.resize-handle svg {
+  color: rgba(15, 95, 87, 0.78);
+  opacity: 0;
+  position: absolute;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
 .resize-handle:hover span,
 .resize-handle:focus-visible span,
-.workspace-resizing .resize-handle span {
+.workspace-resizing .resize-handle span,
+.resize-handle:hover svg,
+.resize-handle:focus-visible svg,
+.workspace-resizing .resize-handle svg {
   opacity: 1;
 }
 
 .resize-handle.left-edge,
-.resize-handle.right-edge {
+.resize-handle.right-edge,
+.resize-handle.output-vertical {
   bottom: 0;
   cursor: col-resize;
-  position: absolute;
   top: 0;
   width: 12px;
+}
+
+.resize-handle.left-edge,
+.resize-handle.right-edge {
+  background:
+    linear-gradient(90deg, transparent, rgba(22, 117, 106, 0.11), transparent);
+  position: absolute;
 }
 
 .resize-handle.left-edge {
@@ -2652,14 +2675,26 @@ body {
 }
 
 .resize-handle.left-edge span,
-.resize-handle.right-edge span {
+.resize-handle.right-edge span,
+.resize-handle.output-vertical span {
   height: 58px;
+  opacity: 0.42;
   width: 4px;
 }
 
 .resize-handle.left-edge:hover span,
-.resize-handle.right-edge:hover span {
+.resize-handle.right-edge:hover span,
+.resize-handle.output-vertical:hover span {
   transform: scaleX(1.35);
+}
+
+.resize-handle.output-vertical {
+  align-self: stretch;
+  background:
+    linear-gradient(180deg, transparent, rgba(22, 117, 106, 0.13), transparent);
+  border-radius: 999px;
+  height: auto !important;
+  min-height: 100% !important;
 }
 
 .resize-handle.center-horizontal,

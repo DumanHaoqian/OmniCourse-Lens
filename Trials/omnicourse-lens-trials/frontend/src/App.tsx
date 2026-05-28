@@ -1,4 +1,4 @@
-import { Bot, BrainCircuit, Download, FileText, Loader2, Network, Play, RefreshCcw, Search, UploadCloud } from "lucide-react";
+import { Bot, BrainCircuit, Download, FileText, GripHorizontal, GripVertical, Loader2, Network, Play, RefreshCcw, Search, UploadCloud } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Lenis from "lenis";
@@ -42,6 +42,7 @@ type WorkspaceSizes = {
   videoHeight: number;
   libraryListHeight: number;
   sidebarControlsHeight: number;
+  outputSideWidth: number;
 };
 
 type ResizeTarget = keyof WorkspaceSizes;
@@ -51,7 +52,8 @@ const DEFAULT_WORKSPACE_SIZES: WorkspaceSizes = {
   rightWidth: 374,
   videoHeight: 520,
   libraryListHeight: 320,
-  sidebarControlsHeight: 520
+  sidebarControlsHeight: 520,
+  outputSideWidth: 360
 };
 
 const featureItems = [
@@ -291,7 +293,8 @@ export default function App() {
         "--right-panel-width": `${workspaceSizes.rightWidth}px`,
         "--video-height": `${workspaceSizes.videoHeight}px`,
         "--library-list-height": `${workspaceSizes.libraryListHeight}px`,
-        "--sidebar-controls-height": `${workspaceSizes.sidebarControlsHeight}px`
+        "--sidebar-controls-height": `${workspaceSizes.sidebarControlsHeight}px`,
+        "--output-side-width": `${workspaceSizes.outputSideWidth}px`
       }) as CSSProperties,
     [workspaceSizes]
   );
@@ -315,6 +318,10 @@ export default function App() {
         if (target === "videoHeight") next.videoHeight = clamp(origin + dy, 260, Math.max(320, window.innerHeight - 260));
         if (target === "libraryListHeight") next.libraryListHeight = clamp(origin + dy, 140, Math.max(220, window.innerHeight - 350));
         if (target === "sidebarControlsHeight") next.sidebarControlsHeight = clamp(origin + dy, 180, Math.max(260, window.innerHeight - 260));
+        if (target === "outputSideWidth") {
+          const outputMax = Math.max(240, window.innerWidth - current.leftWidth - current.rightWidth - 420);
+          next.outputSideWidth = clamp(origin - dx, 260, Math.min(620, outputMax));
+        }
         return next;
       });
     };
@@ -448,8 +455,8 @@ export default function App() {
             >
               {feature === "search" && <SelectedEvidencePanel selected={selectedResult} moments={selectedVideoMoments} />}
               {feature === "cheatsheet" && <CheatsheetWorkspace cheatsheet={cheatsheet} onCompile={runCompile} />}
-              {feature === "graph" && <GraphWorkspace graph={graph} selectedNode={selectedNode} setSelectedNode={setSelectedNode} onJump={jumpToEvidence} />}
-              {feature === "qa" && <QAWorkspace qa={qa} onJump={jumpToEvidence} />}
+              {feature === "graph" && <GraphWorkspace graph={graph} selectedNode={selectedNode} setSelectedNode={setSelectedNode} onJump={jumpToEvidence} onResizeSide={(event) => startResize("outputSideWidth", event)} />}
+              {feature === "qa" && <QAWorkspace qa={qa} onJump={jumpToEvidence} onResizeSide={(event) => startResize("outputSideWidth", event)} />}
             </motion.div>
           </AnimatePresence>
         </section>
@@ -659,12 +666,14 @@ function GraphWorkspace({
   graph,
   selectedNode,
   setSelectedNode,
-  onJump
+  onJump,
+  onResizeSide
 }: {
   graph: any;
   selectedNode: GraphNode | null;
   setSelectedNode: (node: GraphNode) => void;
   onJump: (item: any) => void;
+  onResizeSide: (event: ReactPointerEvent) => void;
 }) {
   if (!graph) return <EmptyState title="Generate a knowledge graph" text="Cytoscape fCoSE will build a searchable, pannable concept graph from the selected real Dataset video evidence." />;
   const metadata = selectedNode?.metadata || {};
@@ -690,6 +699,7 @@ function GraphWorkspace({
   return (
     <motion.div className="graph-workspace" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
       <CytoscapeGraph nodes={graph.nodes || []} edges={graph.edges || []} onSelect={setSelectedNode} />
+      <ResizeHandle placement="output-vertical" label="Resize graph inspector" onPointerDown={onResizeSide} />
       <aside className="graph-inspector">
         <span className={`node-type-pill ${selectedNode?.type || "summary"}`}>{selectedNode ? selectedNode.type.replace("_", " ") : "Summary"}</span>
         <h3>{selectedNode?.label || "Graph Summary"}</h3>
@@ -711,7 +721,7 @@ function GraphWorkspace({
   );
 }
 
-function QAWorkspace({ qa, onJump }: { qa: any; onJump: (item: EvidenceItem) => void }) {
+function QAWorkspace({ qa, onJump, onResizeSide }: { qa: any; onJump: (item: EvidenceItem) => void; onResizeSide: (event: ReactPointerEvent) => void }) {
   if (!qa) return <EmptyState title="Ask the AI Tutor" text="The answer will render Markdown and LaTeX with evidence cards and timestamp jumps." />;
   return (
     <motion.div className="qa-workspace" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
@@ -719,6 +729,7 @@ function QAWorkspace({ qa, onJump }: { qa: any; onJump: (item: EvidenceItem) => 
         <div className="answer-head"><Bot size={18} /><strong>{qa.generation_mode}</strong><span>{Math.round((qa.confidence || 0) * 100)}%</span></div>
         <MarkdownMath text={renderModelMarkdown(qa.answer)} />
       </div>
+      <ResizeHandle placement="output-vertical" label="Resize AI Tutor evidence column" onPointerDown={onResizeSide} />
       <div className="result-column">
         {(qa.evidence || []).map((item: EvidenceItem) => <VideoEvidenceCard key={item.moment_id} item={item} onSelect={() => onJump(item)} />)}
       </div>
@@ -735,10 +746,11 @@ function ResizeHandle({
   label,
   onPointerDown
 }: {
-  placement: "left-edge" | "right-edge" | "center-horizontal" | "library-horizontal" | "sidebar-horizontal";
+  placement: "left-edge" | "right-edge" | "center-horizontal" | "library-horizontal" | "sidebar-horizontal" | "output-vertical";
   label: string;
   onPointerDown: (event: ReactPointerEvent) => void;
 }) {
+  const vertical = placement === "left-edge" || placement === "right-edge" || placement === "output-vertical";
   return (
     <button
       type="button"
@@ -747,6 +759,7 @@ function ResizeHandle({
       title={label}
       onPointerDown={onPointerDown}
     >
+      {vertical ? <GripVertical size={18} /> : <GripHorizontal size={18} />}
       <span />
     </button>
   );
@@ -877,7 +890,8 @@ function loadWorkspaceSizes(): WorkspaceSizes {
       rightWidth: clamp(Number(parsed.rightWidth || DEFAULT_WORKSPACE_SIZES.rightWidth), 300, 620),
       videoHeight: clamp(Number(parsed.videoHeight || DEFAULT_WORKSPACE_SIZES.videoHeight), 260, 900),
       libraryListHeight: clamp(Number(parsed.libraryListHeight || DEFAULT_WORKSPACE_SIZES.libraryListHeight), 140, 720),
-      sidebarControlsHeight: clamp(Number(parsed.sidebarControlsHeight || DEFAULT_WORKSPACE_SIZES.sidebarControlsHeight), 180, 720)
+      sidebarControlsHeight: clamp(Number(parsed.sidebarControlsHeight || DEFAULT_WORKSPACE_SIZES.sidebarControlsHeight), 180, 720),
+      outputSideWidth: clamp(Number(parsed.outputSideWidth || DEFAULT_WORKSPACE_SIZES.outputSideWidth), 260, 620)
     };
   } catch {
     return DEFAULT_WORKSPACE_SIZES;
