@@ -791,6 +791,47 @@ meter {
   margin-top: 0.85em;
 }
 
+.markdown-math.math-text {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  max-height: none;
+  overflow: visible;
+  padding: 0;
+}
+
+.markdown-math.math-text p {
+  margin: 0;
+}
+
+.math-block-text {
+  background: #f8fbfd;
+  border: 1px solid #d7e2ea;
+  border-radius: 8px;
+  margin: 8px 0;
+  padding: 8px 10px;
+}
+
+.math-block-text .katex-display {
+  margin: 0.2em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.evidence-formula,
+.selected-formula,
+.graph-formula {
+  background: #0f172a;
+  border-color: #1f2937;
+  color: #ecfdf5;
+}
+
+.evidence-formula .katex,
+.selected-formula .katex,
+.graph-formula .katex {
+  color: #ecfdf5;
+}
+
 .graph-workspace {
   display: grid;
   gap: 12px;

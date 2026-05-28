@@ -1,6 +1,7 @@
 import { Download, FileText, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { apiPost, API_BASE, Course, EvidenceItem } from "../api";
+import MarkdownMath from "./MarkdownMath";
 import StatusBadge from "./StatusBadge";
 import VideoEvidenceCard from "./VideoEvidenceCard";
 
@@ -79,6 +80,7 @@ export default function CheatsheetPage({ course }: { course: Course | null }) {
             )}
           </div>
         )}
+        {response?.tex_content && <MarkdownMath text={latexToMarkdownPreview(response.tex_content)} className="cheatsheet-rendered-preview" />}
         <pre className="latex-preview">{response?.tex_content || ""}</pre>
       </div>
       <aside className="side-list">
@@ -88,4 +90,17 @@ export default function CheatsheetPage({ course }: { course: Course | null }) {
       </aside>
     </section>
   );
+}
+
+function latexToMarkdownPreview(tex: string) {
+  return tex
+    .replace(/\\section\*\{([^}]+)\}/g, "## $1")
+    .replace(/\\subsection\*\{([^}]+)\}/g, "### $1")
+    .replace(/\\item/g, "-")
+    .replace(/\\begin\{itemize\}|\\end\{itemize\}/g, "")
+    .replace(/\\begin\{enumerate\}|\\end\{enumerate\}/g, "")
+    .replace(/\\begin\{[^}]+\}|\\end\{[^}]+\}/g, "")
+    .replace(/\\\[/g, "\n$$")
+    .replace(/\\\]/g, "$$\n")
+    .slice(0, 5000);
 }

@@ -1,4 +1,5 @@
 import { API_BASE, EvidenceItem, SearchResult } from "../api";
+import MathText from "./MathText";
 
 type Item = SearchResult | EvidenceItem;
 
@@ -15,15 +16,15 @@ export default function VideoEvidenceCard({ item, onSelect }: { item: Item; onSe
         <div className="timestamp">
           {item.start_time.toFixed(0)}-{item.end_time.toFixed(0)}s
         </div>
-        <p>{item.matched_reason}</p>
+        <MathText text={item.matched_reason} className="evidence-reason" />
         <div className="chips">
           {item.matched_modalities.slice(0, 5).map((modality) => (
             <span key={modality}>{modality}</span>
           ))}
         </div>
-        {item.transcript_snippet && <blockquote>{item.transcript_snippet}</blockquote>}
-        {item.ocr_snippet && <blockquote>{item.ocr_snippet}</blockquote>}
-        {item.formula_latex && <code>{item.formula_latex}</code>}
+        {item.transcript_snippet && <blockquote><MathText text={item.transcript_snippet} /></blockquote>}
+        {item.ocr_snippet && <blockquote><MathText text={item.ocr_snippet} /></blockquote>}
+        {item.formula_latex && <MathText text={item.formula_latex} block className="evidence-formula" />}
       </div>
     </article>
   );

@@ -1,6 +1,8 @@
 import { Bot, Loader2, Send } from "lucide-react";
 import { useState } from "react";
 import { askTutor, Course, EvidenceItem } from "../api";
+import MarkdownMath from "./MarkdownMath";
+import { renderModelMarkdown } from "./MathText";
 import StatusBadge from "./StatusBadge";
 import UploadPanel from "./UploadPanel";
 import VideoEvidenceCard from "./VideoEvidenceCard";
@@ -70,7 +72,7 @@ export default function AgentQAPage({ course }: { course: Course | null }) {
               <strong>{response.generation_mode}</strong>
               <span>{Math.round(response.confidence * 100)}%</span>
             </div>
-            <p>{response.answer}</p>
+            <MarkdownMath text={renderModelMarkdown(response.answer)} />
             <div className="followups">
               {(response.follow_up_questions || []).map((item: string) => (
                 <button key={item} onClick={() => setQuestion(item)}>

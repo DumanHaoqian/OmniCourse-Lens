@@ -22,6 +22,7 @@ import {
 } from "./api";
 import CytoscapeGraph, { GraphNode } from "./components/CytoscapeGraph";
 import MarkdownMath from "./components/MarkdownMath";
+import MathText, { renderModelMarkdown } from "./components/MathText";
 import StatusBadge from "./components/StatusBadge";
 import UploadPanel from "./components/UploadPanel";
 import VideoEvidenceCard from "./components/VideoEvidenceCard";
@@ -527,13 +528,13 @@ function SelectedEvidencePanel({ selected, moments }: { selected: SearchResult |
         <span className="eyebrow">Selected timestamp</span>
         <h3>{selected.lecture_title}</h3>
         <p className="timestamp">{selected.start_time.toFixed(0)}-{selected.end_time.toFixed(0)}s / {Math.round(selected.score * 100)}% match</p>
-        <p>{selected.matched_reason}</p>
+        <MathText text={selected.matched_reason} className="selected-reason" />
         <div className="chips">
           {selected.matched_modalities.map((modality) => <span key={modality}>{modality}</span>)}
         </div>
-        {selected.transcript_snippet && <blockquote>{selected.transcript_snippet}</blockquote>}
-        {selected.ocr_snippet && <blockquote>{selected.ocr_snippet}</blockquote>}
-        {selected.formula_latex && <code>{selected.formula_latex}</code>}
+        {selected.transcript_snippet && <blockquote><MathText text={selected.transcript_snippet} /></blockquote>}
+        {selected.ocr_snippet && <blockquote><MathText text={selected.ocr_snippet} /></blockquote>}
+        {selected.formula_latex && <MathText text={selected.formula_latex} block className="selected-formula" />}
       </div>
       <div className="selected-scores">
         <h4>Modality scores</h4>
@@ -610,9 +611,9 @@ function GraphWorkspace({
         <p>{selectedNode ? nodeDescription(selectedNode) : graph.summary}</p>
         {selectedNode?.timestamp !== undefined && <p className="timestamp">Timestamp {selectedNode.timestamp.toFixed(0)}s</p>}
         {Boolean(selectedNode?.metadata?.thumbnail_url) && <img src={mediaUrl(String(selectedNode?.metadata?.thumbnail_url))} alt={selectedNode?.label || "graph node"} />}
-        {Boolean(metadata.transcript_snippet) && <blockquote>{String(metadata.transcript_snippet)}</blockquote>}
-        {Boolean(metadata.ocr_snippet) && <blockquote>{String(metadata.ocr_snippet)}</blockquote>}
-        {Boolean(metadata.latex) && <code>{String(metadata.latex)}</code>}
+        {Boolean(metadata.transcript_snippet) && <blockquote><MathText text={String(metadata.transcript_snippet)} /></blockquote>}
+        {Boolean(metadata.ocr_snippet) && <blockquote><MathText text={String(metadata.ocr_snippet)} /></blockquote>}
+        {Boolean(metadata.latex) && <MathText text={String(metadata.latex)} block className="graph-formula" />}
         {canJump && <button className="jump-button" type="button" onClick={jump}><Play size={15} /> Jump to timestamp</button>}
         <div className="graph-metrics">
           <strong>{graph.metrics?.concept_count ?? 0}</strong> concepts
@@ -631,7 +632,7 @@ function QAWorkspace({ qa, onJump }: { qa: any; onJump: (item: EvidenceItem) => 
     <motion.div className="qa-workspace" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
       <div className="answer-card">
         <div className="answer-head"><Bot size={18} /><strong>{qa.generation_mode}</strong><span>{Math.round((qa.confidence || 0) * 100)}%</span></div>
-        <MarkdownMath text={qa.answer} />
+        <MarkdownMath text={renderModelMarkdown(qa.answer)} />
       </div>
       <div className="result-column">
         {(qa.evidence || []).map((item: EvidenceItem) => <VideoEvidenceCard key={item.moment_id} item={item} onSelect={() => onJump(item)} />)}
