@@ -2065,6 +2065,51 @@ body {
   height: clamp(430px, 62vh, 820px);
 }
 
+.subtitle-strip {
+  background: #0b111b;
+  border-top: 1px solid #1f2937;
+  color: #dbe7f3;
+  display: grid;
+  gap: 6px;
+  min-height: 84px;
+  padding: 12px 16px 14px;
+}
+
+.subtitle-strip.active {
+  background: #08111a;
+}
+
+.subtitle-meta {
+  align-items: center;
+  color: #8fa2b6;
+  display: flex;
+  font-size: 11px;
+  font-weight: 760;
+  gap: 8px;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+
+.subtitle-meta span:first-child {
+  background: rgba(231, 244, 241, 0.08);
+  border: 1px solid rgba(231, 244, 241, 0.12);
+  border-radius: 999px;
+  color: #a7e2d8;
+  padding: 3px 8px;
+}
+
+.subtitle-strip p {
+  color: #f8fbff;
+  font-size: clamp(16px, 1.35vw, 21px);
+  font-weight: 680;
+  letter-spacing: 0;
+  line-height: 1.42;
+  margin: 0;
+  max-width: 1100px;
+  text-align: center;
+  text-wrap: balance;
+}
+
 .watch-meta {
   background: #ffffff;
   border-top: 1px solid var(--studio-line);

@@ -28,6 +28,13 @@ import VideoEvidenceCard from "./components/VideoEvidenceCard";
 
 type Feature = "search" | "cheatsheet" | "graph" | "qa";
 
+type SubtitleCue = {
+  text: string;
+  source: string;
+  start_time: number;
+  end_time: number;
+};
+
 const featureItems = [
   { key: "search" as const, label: "Search Video", icon: Search },
   { key: "cheatsheet" as const, label: "Cheatsheet", icon: FileText },
@@ -52,6 +59,7 @@ export default function App() {
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [question, setQuestion] = useState("Why does gradient descent move opposite to the gradient?");
   const [qa, setQa] = useState<any>(null);
+  const [playbackTime, setPlaybackTime] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoListRef] = useAutoAnimate<HTMLDivElement>({ duration: 240, easing: "ease-out" });
 
@@ -92,6 +100,7 @@ export default function App() {
     if (selectedResult && videoRef.current) {
       const targetTime = Math.max(0, selectedResult.start_time);
       videoRef.current.currentTime = targetTime;
+      setPlaybackTime(targetTime);
     }
   }, [selectedResult]);
 
@@ -99,6 +108,7 @@ export default function App() {
     setSelectedVideo(video);
     setSelectedResult(null);
     setResults([]);
+    setPlaybackTime(0);
   };
 
   const lectureId = selectedVideo?.lecture_id || course?.lectures?.[0]?.lecture_id || "";
@@ -245,6 +255,7 @@ export default function App() {
 
   const selectedPoster = selectedResult?.thumbnail_url || selectedVideo?.thumbnail;
   const selectedTimestamp = selectedResult ? `${selectedResult.start_time.toFixed(0)}-${selectedResult.end_time.toFixed(0)}s` : "full lecture";
+  const activeSubtitle = useMemo(() => findActiveSubtitle(selectedVideoMoments, playbackTime), [selectedVideoMoments, playbackTime]);
 
   return (
     <motion.div className="atlas-shell watch-layout" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, ease: "easeOut" }}>
@@ -315,13 +326,21 @@ export default function App() {
               src={activeVideoUrl}
               controls
               poster={mediaUrl(selectedPoster)}
+              onTimeUpdate={(event) => setPlaybackTime(event.currentTarget.currentTime)}
+              onSeeked={(event) => setPlaybackTime(event.currentTarget.currentTime)}
               onLoadedMetadata={() => {
-                if (selectedResult && videoRef.current) videoRef.current.currentTime = Math.max(0, selectedResult.start_time);
+                if (selectedResult && videoRef.current) {
+                  const targetTime = Math.max(0, selectedResult.start_time);
+                  videoRef.current.currentTime = targetTime;
+                  setPlaybackTime(targetTime);
+                }
               }}
             />
           ) : (
             <div className="main-video preview-empty">Select a Dataset video</div>
           )}
+
+          <SubtitleBar cue={activeSubtitle} currentTime={playbackTime} hasMoments={selectedVideoMoments.length > 0} />
 
           <div className="watch-meta">
             <span>{selectedTimestamp}</span>
@@ -576,6 +595,28 @@ function EmptyState({ title, text }: { title: string; text: string }) {
   return <motion.div className="empty-state" initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }}><Play size={26} /><h3>{title}</h3><p>{text}</p></motion.div>;
 }
 
+function SubtitleBar({ cue, currentTime, hasMoments }: { cue: SubtitleCue | null; currentTime: number; hasMoments: boolean }) {
+  return (
+    <div className={`subtitle-strip ${cue ? "active" : ""}`} aria-live="polite">
+      <div className="subtitle-meta">
+        <span>{formatDuration(currentTime)}</span>
+        <span>{cue?.source || (hasMoments ? "Waiting for subtitle evidence" : "No subtitles indexed")}</span>
+      </div>
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={cue ? `${cue.start_time}-${cue.end_time}-${cue.text}` : "empty-subtitle"}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -4 }}
+          transition={{ duration: 0.18 }}
+        >
+          {cue?.text || (hasMoments ? "Subtitles will update here while the video plays." : "Ingest this video to generate timestamped subtitle evidence.")}
+        </motion.p>
+      </AnimatePresence>
+    </div>
+  );
+}
+
 function latexToMarkdownPreview(tex: string) {
   return tex
     .replace(/\\section\*\{([^}]+)\}/g, "## $1")
@@ -593,8 +634,68 @@ function mediaUrl(path?: string) {
 }
 
 function formatDuration(seconds?: number) {
-  if (!seconds) return "unknown";
-  const mins = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+  if (seconds === undefined || seconds === null || Number.isNaN(seconds)) return "unknown";
+  const safeSeconds = Math.max(0, seconds);
+  const mins = Math.floor(safeSeconds / 60);
+  const secs = Math.floor(safeSeconds % 60).toString().padStart(2, "0");
   return `${mins}:${secs}`;
+}
+
+function findActiveSubtitle(moments: any[], currentTime: number): SubtitleCue | null {
+  if (!moments.length) return null;
+  const segments = moments
+    .flatMap((moment: any) => (moment.asr_segments || []).map((segment: any) => ({ ...segment, moment })))
+    .filter((segment: any) => {
+      const start = Number(segment.start_time ?? 0);
+      const end = Number(segment.end_time ?? start);
+      return segment.text && currentTime >= start && currentTime <= end + 0.35;
+    })
+    .sort((left: any, right: any) => subtitlePriority(right.provider) - subtitlePriority(left.provider));
+
+  if (segments.length) {
+    const segment = segments[0];
+    return {
+      text: cleanSubtitleText(segment.text),
+      source: subtitleSourceLabel(segment.provider),
+      start_time: Number(segment.start_time || 0),
+      end_time: Number(segment.end_time || segment.start_time || 0)
+    };
+  }
+
+  const moment = moments.find((item: any) => currentTime >= Number(item.start_time || 0) && currentTime <= Number(item.end_time || 0));
+  if (!moment) return null;
+  const text = moment.transcript || moment.ocr_text || moment.visual_caption || "";
+  if (!text.trim()) return null;
+  return {
+    text: cleanSubtitleText(text),
+    source: moment.ocr_text ? "Slide/PDF text" : "Moment subtitle",
+    start_time: Number(moment.start_time || 0),
+    end_time: Number(moment.end_time || 0)
+  };
+}
+
+function subtitlePriority(provider?: string) {
+  const value = String(provider || "").toLowerCase();
+  if (value.includes("whisper") || value === "transcript_file") return 4;
+  if (value === "slide_pdf_text") return 3;
+  if (value.includes("ocr")) return 2;
+  if (value === "fallback_asr") return 1;
+  return 0;
+}
+
+function subtitleSourceLabel(provider?: string) {
+  const value = String(provider || "").toLowerCase();
+  if (value.includes("whisper") || value === "transcript_file") return "Audio transcript";
+  if (value === "slide_pdf_text") return "Slide/PDF subtitle";
+  if (value === "fallback_asr") return "Auto fallback subtitle";
+  return "Indexed subtitle";
+}
+
+function cleanSubtitleText(text: string, maxChars = 260) {
+  const cleaned = text
+    .replace(/\s+/g, " ")
+    .replace(/©/g, "")
+    .trim();
+  if (cleaned.length <= maxChars) return cleaned;
+  return `${cleaned.slice(0, maxChars).replace(/\s+\S*$/, "")}...`;
 }
