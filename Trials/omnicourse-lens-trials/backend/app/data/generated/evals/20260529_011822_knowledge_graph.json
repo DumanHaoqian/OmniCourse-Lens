@@ -1,0 +1,38 @@
+{
+  "feature_name": "knowledge_graph",
+  "request": {
+    "course_id": "ml_foundations",
+    "lecture_ids": [
+      "lec_01",
+      "lec_02",
+      "lec_03"
+    ],
+    "focus_topic": null
+  },
+  "initial_output_summary": {
+    "nodes": 60,
+    "edges": 263
+  },
+  "evaluation_result": {
+    "feature_name": "knowledge_graph",
+    "score": 10.0,
+    "passed": true,
+    "issues": [],
+    "improvement_plan": [],
+    "actions_taken": [],
+    "grounding_check": {
+      "uses_evidence": true,
+      "has_timestamps": true,
+      "unsupported_claims": []
+    },
+    "multimodal_check": {
+      "uses_asr": true,
+      "uses_ocr": true,
+      "uses_formula": true,
+      "uses_visual": true,
+      "uses_video_embedding": false
+    },
+    "judge_provider": "gpt-4o_available_heuristic_fast_path"
+  },
+  "actions_taken": []
+}

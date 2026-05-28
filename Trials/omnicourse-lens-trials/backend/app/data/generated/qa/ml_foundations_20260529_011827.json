@@ -1,0 +1,155 @@
+{
+  "request": {
+    "course_id": "ml_foundations",
+    "question": "Why does gradient descent move opposite to the gradient?",
+    "lecture_id": null,
+    "current_timestamp": null,
+    "top_k": 3
+  },
+  "response": {
+    "answer": "Gradient descent moves opposite to the gradient because this direction reduces the value of the objective function. The gradient, \\(\\nabla_\\theta J(\\theta)\\), points in the direction of the steepest ascent of the objective function \\(J(\\theta)\\). By moving in the opposite direction, the algorithm ensures that the parameters \\(\\theta\\) are updated to minimize \\(J(\\theta)\\). This is captured in the formula \\(\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)\\), where \\(\\alpha > 0\\) is the learning rate that controls the step size.\n\nThis explanation is supported by the evidence from **Gradient Descent (lec_02) 0-35s**, where it is stated: \"Move parameters opposite to the gradient to reduce the objective,\" and the formula \\(\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)\\) is shown.\n\nFor further clarification, refer to **Gradient Descent (lec_02) 0-35s**.",
+    "evidence": [
+      {
+        "moment_id": "ml_foundations_lec_02_001",
+        "lecture_id": "lec_02",
+        "lecture_title": "Gradient Descent",
+        "start_time": 0.0,
+        "end_time": 35.0,
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/01_gradient_descent.png",
+        "matched_reason": "Formula match: \\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)",
+        "matched_modalities": [
+          "ASR transcript",
+          "OCR",
+          "Formula",
+          "Text embedding",
+          "Concept tag"
+        ],
+        "transcript_snippet": "In this segment we study gradient descent. Move parameters opposite to the gradient to reduce the objective.",
+        "ocr_snippet": "Gradient Descent. Gradient Descent. Move parameters opposite to the gradient to reduce the objective. Formula: \\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta). A point walks downhill on a loss surface.",
+        "formula_latex": "\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)",
+        "score": 0.5364
+      },
+      {
+        "moment_id": "ml_foundations_lec_02_004",
+        "lecture_id": "lec_02",
+        "lecture_title": "Gradient Descent",
+        "start_time": 120.0,
+        "end_time": 155.0,
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/04_stochastic_gradient.png",
+        "matched_reason": "Formula match: g_t \\approx \\nabla_\\theta J_B(\\theta)",
+        "matched_modalities": [
+          "OCR",
+          "Formula",
+          "Text embedding"
+        ],
+        "transcript_snippet": "In this segment we study stochastic gradient. Mini-batches estimate the gradient cheaply and add useful noise during training.",
+        "ocr_snippet": "Gradient Descent. Stochastic Gradient. Mini-batches estimate the gradient cheaply and add useful noise during training. Formula: g_t \\approx \\nabla_\\theta J_B(\\theta). Noisy arrows move toward a minimum.",
+        "formula_latex": "g_t \\approx \\nabla_\\theta J_B(\\theta)",
+        "score": 0.2633
+      },
+      {
+        "moment_id": "ml_foundations_lec_02_002",
+        "lecture_id": "lec_02",
+        "lecture_title": "Gradient Descent",
+        "start_time": 40.0,
+        "end_time": 75.0,
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/02_learning_rate.png",
+        "matched_reason": "OCR match: Gradient Descent. Learning Rate. The learning rate controls step size; too large can diverge and too small converges slowly. Formula: \\alpha > 0. Small and l...",
+        "matched_modalities": [
+          "OCR",
+          "Formula",
+          "Text embedding"
+        ],
+        "transcript_snippet": "In this segment we study learning rate. The learning rate controls step size; too large can diverge and too small converges slowly.",
+        "ocr_snippet": "Gradient Descent. Learning Rate. The learning rate controls step size; too large can diverge and too small converges slowly. Formula: \\alpha > 0. Small and large arrows show different optimization step sizes.",
+        "formula_latex": "\\alpha > 0",
+        "score": 0.2156
+      }
+    ],
+    "suggested_review": [
+      {
+        "moment_id": "ml_foundations_lec_02_001",
+        "lecture_id": "lec_02",
+        "lecture_title": "Gradient Descent",
+        "start_time": 0.0,
+        "end_time": 35.0,
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/01_gradient_descent.png",
+        "matched_reason": "Formula match: \\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)",
+        "matched_modalities": [
+          "ASR transcript",
+          "OCR",
+          "Formula",
+          "Text embedding",
+          "Concept tag"
+        ],
+        "transcript_snippet": "In this segment we study gradient descent. Move parameters opposite to the gradient to reduce the objective.",
+        "ocr_snippet": "Gradient Descent. Gradient Descent. Move parameters opposite to the gradient to reduce the objective. Formula: \\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta). A point walks downhill on a loss surface.",
+        "formula_latex": "\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)",
+        "score": 0.5364
+      },
+      {
+        "moment_id": "ml_foundations_lec_02_004",
+        "lecture_id": "lec_02",
+        "lecture_title": "Gradient Descent",
+        "start_time": 120.0,
+        "end_time": 155.0,
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/04_stochastic_gradient.png",
+        "matched_reason": "Formula match: g_t \\approx \\nabla_\\theta J_B(\\theta)",
+        "matched_modalities": [
+          "OCR",
+          "Formula",
+          "Text embedding"
+        ],
+        "transcript_snippet": "In this segment we study stochastic gradient. Mini-batches estimate the gradient cheaply and add useful noise during training.",
+        "ocr_snippet": "Gradient Descent. Stochastic Gradient. Mini-batches estimate the gradient cheaply and add useful noise during training. Formula: g_t \\approx \\nabla_\\theta J_B(\\theta). Noisy arrows move toward a minimum.",
+        "formula_latex": "g_t \\approx \\nabla_\\theta J_B(\\theta)",
+        "score": 0.2633
+      },
+      {
+        "moment_id": "ml_foundations_lec_02_002",
+        "lecture_id": "lec_02",
+        "lecture_title": "Gradient Descent",
+        "start_time": 40.0,
+        "end_time": 75.0,
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/02_learning_rate.png",
+        "matched_reason": "OCR match: Gradient Descent. Learning Rate. The learning rate controls step size; too large can diverge and too small converges slowly. Formula: \\alpha > 0. Small and l...",
+        "matched_modalities": [
+          "OCR",
+          "Formula",
+          "Text embedding"
+        ],
+        "transcript_snippet": "In this segment we study learning rate. The learning rate controls step size; too large can diverge and too small converges slowly.",
+        "ocr_snippet": "Gradient Descent. Learning Rate. The learning rate controls step size; too large can diverge and too small converges slowly. Formula: \\alpha > 0. Small and large arrows show different optimization step sizes.",
+        "formula_latex": "\\alpha > 0",
+        "score": 0.2156
+      }
+    ],
+    "follow_up_questions": [
+      "How does learning rate connect to this question?"
+    ],
+    "confidence": 0.699,
+    "self_check": {
+      "feature_name": "qa",
+      "score": 10.0,
+      "passed": true,
+      "issues": [],
+      "improvement_plan": [],
+      "actions_taken": [],
+      "grounding_check": {
+        "uses_evidence": true,
+        "has_timestamps": true,
+        "unsupported_claims": []
+      },
+      "multimodal_check": {
+        "uses_asr": true,
+        "uses_ocr": true,
+        "uses_formula": true,
+        "uses_visual": true,
+        "uses_video_embedding": false
+      },
+      "judge_provider": "gpt-4o_available_heuristic_fast_path"
+    },
+    "generation_mode": "gpt-4o"
+  },
+  "actions_taken": []
+}

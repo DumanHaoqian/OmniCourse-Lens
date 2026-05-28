@@ -1,0 +1,44 @@
+{
+  "feature_name": "cheatsheet",
+  "request": {
+    "course_id": "ml_foundations",
+    "lecture_ids": [
+      "lec_01",
+      "lec_02"
+    ],
+    "focus_topics": "gradient descent normal equation",
+    "style": "exam",
+    "max_pages": 2
+  },
+  "initial_output_summary": {
+    "tex_chars": 2665,
+    "source_moments": 8
+  },
+  "evaluation_result": {
+    "feature_name": "cheatsheet",
+    "score": 10.0,
+    "passed": true,
+    "issues": [],
+    "improvement_plan": [],
+    "actions_taken": [
+      "patched_missing_sections_and_formula_evidence"
+    ],
+    "grounding_check": {
+      "uses_evidence": true,
+      "has_timestamps": true,
+      "unsupported_claims": []
+    },
+    "multimodal_check": {
+      "uses_asr": true,
+      "uses_ocr": true,
+      "uses_formula": true,
+      "uses_visual": true,
+      "uses_video_embedding": false
+    },
+    "judge_provider": "gpt-4o_available_heuristic_fast_path"
+  },
+  "actions_taken": [
+    "patched_missing_sections_and_formula_evidence",
+    "latex_compile_error:No LaTeX compiler found (tectonic or pdflatex)."
+  ]
+}

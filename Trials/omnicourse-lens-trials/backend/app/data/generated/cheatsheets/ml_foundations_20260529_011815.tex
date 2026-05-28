@@ -1,0 +1,90 @@
+```latex
+\documentclass[10pt]{article}
+\usepackage{amsmath, amssymb, graphicx}
+\usepackage[margin=0.75in]{geometry}
+
+\begin{document}
+
+\section*{Linear Regression Cheatsheet}
+
+\subsection*{Linear Regression Basics}
+\textbf{Goal:} Fit a line or hyperplane to predict a continuous target from features.  
+\textbf{Prediction Formula:}  
+\[
+\hat{y} = x^\top \theta
+\]  
+\textbf{Visual:} Scatter plot with fitted prediction line.
+
+\subsection*{Mean Squared Error (MSE)}
+\textbf{Loss Function:} Average squared prediction errors over examples.  
+\[
+J(\theta) = \frac{1}{m} \sum_i (\hat{y}_i - y_i)^2
+\]  
+\textbf{Visual:} Residual arrows from points to the regression line.
+
+\subsection*{Normal Equation}
+\textbf{Closed-Form Solution:} For full-rank linear regression, solve the least-squares objective:  
+\[
+\theta = (X^\top X)^{-1} X^\top y
+\]  
+\textbf{Visual:} Matrix equation linking \(X\), \(y\), and \(\theta\).
+
+\subsection*{Bias-Variance Tradeoff}
+\textbf{Error Decomposition:}  
+\[
+\mathrm{error} = \text{bias}^2 + \text{variance} + \sigma^2
+\]  
+\textbf{Visual:} Curves comparing underfit, good fit, and overfit behavior.
+
+\section*{Gradient Descent Cheatsheet}
+
+\subsection*{Gradient Descent Basics}
+\textbf{Optimization Rule:} Move parameters opposite to the gradient to reduce the objective.  
+\[
+\theta := \theta - \alpha \nabla_\theta J(\theta)
+\]  
+\textbf{Visual:} Point walking downhill on a loss surface.
+
+\subsection*{Learning Rate}
+\textbf{Step Size:} Controls optimization speed.  
+\[
+\alpha > 0
+\]  
+\textbf{Notes:}  
+- Large \(\alpha\): Divergence risk.  
+- Small \(\alpha\): Slow convergence.  
+\textbf{Visual:} Small and large arrows showing step sizes.
+
+\subsection*{Convex Loss}
+\textbf{Property:} For convex objectives, local minima are global minima.  
+\[
+J(\lambda a + (1-\lambda)b) \leq \lambda J(a) + (1-\lambda) J(b)
+\]  
+\textbf{Visual:} Bowl-shaped curve marking the global minimum.
+
+\subsection*{Stochastic Gradient Descent}
+\textbf{Mini-Batch Gradient:} Estimate gradient cheaply and add noise during training.  
+\[
+g_t \approx \nabla_\theta J_B(\theta)
+\]  
+\textbf{Visual:} Noisy arrows moving toward a minimum.
+
+\end{document}
+```
+\section*{Core Concepts}
+Review the selected evidence and add compact notes here.
+
+\section*{Key Formulas}
+Review the selected evidence and add compact notes here.
+
+\section*{Algorithms}
+Review the selected evidence and add compact notes here.
+
+\section*{Important Intuitions}
+Review the selected evidence and add compact notes here.
+
+\section*{Common Pitfalls}
+Review the selected evidence and add compact notes here.
+
+\section*{Mini Quiz}
+Review the selected evidence and add compact notes here.

@@ -1,0 +1,2475 @@
+{
+  "nodes": [
+    {
+      "id": "course:ml_foundations",
+      "label": "Machine Learning Foundations",
+      "type": "course",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "lecture:lec_01",
+      "label": "Linear Regression",
+      "type": "lecture",
+      "lecture_id": "lec_01",
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "moment:ml_foundations_lec_01_001",
+      "label": "Linear Regression 0-35s",
+      "type": "moment",
+      "lecture_id": "lec_01",
+      "timestamp": 0.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_01/01_linear_regression.png",
+        "moment_id": "ml_foundations_lec_01_001"
+      }
+    },
+    {
+      "id": "concept:linear_regression",
+      "label": "Linear Regression",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:prediction",
+      "label": "Prediction",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:features",
+      "label": "Features",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:hat_y_x_top_theta",
+      "label": "\\hat{y} = x^\\top \\theta",
+      "type": "formula",
+      "lecture_id": "lec_01",
+      "timestamp": 0.0,
+      "metadata": {
+        "latex": "\\hat{y} = x^\\top \\theta"
+      }
+    },
+    {
+      "id": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "label": "Keyframe 0s",
+      "type": "visual_evidence",
+      "lecture_id": "lec_01",
+      "timestamp": 0.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_01/01_linear_regression.png",
+        "frame_path": "/mnt/e/Data/OmniCourse-Lens/Trials/omnicourse-lens-trials/backend/app/static/frames/ml_foundations/lec_01/01_linear_regression.png"
+      }
+    },
+    {
+      "id": "moment:ml_foundations_lec_01_002",
+      "label": "Linear Regression 40-75s",
+      "type": "moment",
+      "lecture_id": "lec_01",
+      "timestamp": 40.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_01/02_mean_squared_error.png",
+        "moment_id": "ml_foundations_lec_01_002"
+      }
+    },
+    {
+      "id": "concept:mean_squared_error",
+      "label": "Mean Squared Error",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:loss_function",
+      "label": "Loss Function",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:residual",
+      "label": "Residual",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:j_theta_frac_1_m_sum_i_hat_y_i_y_i_2",
+      "label": "J(\\theta)=\\frac{1}{m}\\sum_i(\\hat{y}_i-y_i)^2",
+      "type": "formula",
+      "lecture_id": "lec_01",
+      "timestamp": 40.0,
+      "metadata": {
+        "latex": "J(\\theta)=\\frac{1}{m}\\sum_i(\\hat{y}_i-y_i)^2"
+      }
+    },
+    {
+      "id": "moment:ml_foundations_lec_01_003",
+      "label": "Linear Regression 80-115s",
+      "type": "moment",
+      "lecture_id": "lec_01",
+      "timestamp": 80.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_01/03_normal_equation.png",
+        "moment_id": "ml_foundations_lec_01_003"
+      }
+    },
+    {
+      "id": "concept:normal_equation",
+      "label": "Normal Equation",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:closed_form",
+      "label": "Closed Form",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:least_squares",
+      "label": "Least Squares",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:theta_x_top_x_1_x_top_y",
+      "label": "\\theta=(X^\\top X)^{-1}X^\\top y",
+      "type": "formula",
+      "lecture_id": "lec_01",
+      "timestamp": 80.0,
+      "metadata": {
+        "latex": "\\theta=(X^\\top X)^{-1}X^\\top y"
+      }
+    },
+    {
+      "id": "moment:ml_foundations_lec_01_004",
+      "label": "Linear Regression 120-155s",
+      "type": "moment",
+      "lecture_id": "lec_01",
+      "timestamp": 120.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_01/04_bias_and_variance.png",
+        "moment_id": "ml_foundations_lec_01_004"
+      }
+    },
+    {
+      "id": "concept:bias",
+      "label": "Bias",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:variance",
+      "label": "Variance",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:overfitting",
+      "label": "Overfitting",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:mathrm_error_bias_2_variance_sigma_2",
+      "label": "\\mathrm{error}=bias^2+variance+\\sigma^2",
+      "type": "formula",
+      "lecture_id": "lec_01",
+      "timestamp": 120.0,
+      "metadata": {
+        "latex": "\\mathrm{error}=bias^2+variance+\\sigma^2"
+      }
+    },
+    {
+      "id": "lecture:lec_02",
+      "label": "Gradient Descent",
+      "type": "lecture",
+      "lecture_id": "lec_02",
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "moment:ml_foundations_lec_02_001",
+      "label": "Gradient Descent 0-35s",
+      "type": "moment",
+      "lecture_id": "lec_02",
+      "timestamp": 0.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/01_gradient_descent.png",
+        "moment_id": "ml_foundations_lec_02_001"
+      }
+    },
+    {
+      "id": "concept:gradient_descent",
+      "label": "Gradient Descent",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:optimization",
+      "label": "Optimization",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:theta_theta_alpha_nabla_theta_j_theta",
+      "label": "\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)",
+      "type": "formula",
+      "lecture_id": "lec_02",
+      "timestamp": 0.0,
+      "metadata": {
+        "latex": "\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)"
+      }
+    },
+    {
+      "id": "moment:ml_foundations_lec_02_002",
+      "label": "Gradient Descent 40-75s",
+      "type": "moment",
+      "lecture_id": "lec_02",
+      "timestamp": 40.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/02_learning_rate.png",
+        "moment_id": "ml_foundations_lec_02_002"
+      }
+    },
+    {
+      "id": "concept:learning_rate",
+      "label": "Learning Rate",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:step_size",
+      "label": "Step Size",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:convergence",
+      "label": "Convergence",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:alpha_0",
+      "label": "\\alpha > 0",
+      "type": "formula",
+      "lecture_id": "lec_02",
+      "timestamp": 40.0,
+      "metadata": {
+        "latex": "\\alpha > 0"
+      }
+    },
+    {
+      "id": "moment:ml_foundations_lec_02_003",
+      "label": "Gradient Descent 80-115s",
+      "type": "moment",
+      "lecture_id": "lec_02",
+      "timestamp": 80.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/03_convex_loss.png",
+        "moment_id": "ml_foundations_lec_02_003"
+      }
+    },
+    {
+      "id": "concept:convexity",
+      "label": "Convexity",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:global_optimum",
+      "label": "Global Optimum",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:j_lambda_a_1_lambda_b_leq_lambda_j_a_1_lam",
+      "label": "J(\\lambda a+(1-\\lambda)b)\\leq \\lambda J(a)+(1-\\lambda)J(b)",
+      "type": "formula",
+      "lecture_id": "lec_02",
+      "timestamp": 80.0,
+      "metadata": {
+        "latex": "J(\\lambda a+(1-\\lambda)b)\\leq \\lambda J(a)+(1-\\lambda)J(b)"
+      }
+    },
+    {
+      "id": "moment:ml_foundations_lec_02_004",
+      "label": "Gradient Descent 120-155s",
+      "type": "moment",
+      "lecture_id": "lec_02",
+      "timestamp": 120.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_02/04_stochastic_gradient.png",
+        "moment_id": "ml_foundations_lec_02_004"
+      }
+    },
+    {
+      "id": "concept:stochastic_gradient",
+      "label": "Stochastic Gradient",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:mini_batch",
+      "label": "Mini Batch",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:g_t_approx_nabla_theta_j_b_theta",
+      "label": "g_t \\approx \\nabla_\\theta J_B(\\theta)",
+      "type": "formula",
+      "lecture_id": "lec_02",
+      "timestamp": 120.0,
+      "metadata": {
+        "latex": "g_t \\approx \\nabla_\\theta J_B(\\theta)"
+      }
+    },
+    {
+      "id": "lecture:lec_03",
+      "label": "Neural Networks",
+      "type": "lecture",
+      "lecture_id": "lec_03",
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "moment:ml_foundations_lec_03_001",
+      "label": "Neural Networks 0-35s",
+      "type": "moment",
+      "lecture_id": "lec_03",
+      "timestamp": 0.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_03/01_neural_network.png",
+        "moment_id": "ml_foundations_lec_03_001"
+      }
+    },
+    {
+      "id": "concept:neural_network",
+      "label": "Neural Network",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:representation",
+      "label": "Representation",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:activation_function",
+      "label": "Activation Function",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:h_sigma_wx_b",
+      "label": "h=\\sigma(Wx+b)",
+      "type": "formula",
+      "lecture_id": "lec_03",
+      "timestamp": 0.0,
+      "metadata": {
+        "latex": "h=\\sigma(Wx+b)"
+      }
+    },
+    {
+      "id": "moment:ml_foundations_lec_03_002",
+      "label": "Neural Networks 40-75s",
+      "type": "moment",
+      "lecture_id": "lec_03",
+      "timestamp": 40.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_03/02_activation_function.png",
+        "moment_id": "ml_foundations_lec_03_002"
+      }
+    },
+    {
+      "id": "concept:relu",
+      "label": "Relu",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:nonlinearity",
+      "label": "Nonlinearity",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:mathrm_relu_z_max_0_z",
+      "label": "\\mathrm{ReLU}(z)=\\max(0,z)",
+      "type": "formula",
+      "lecture_id": "lec_03",
+      "timestamp": 40.0,
+      "metadata": {
+        "latex": "\\mathrm{ReLU}(z)=\\max(0,z)"
+      }
+    },
+    {
+      "id": "moment:ml_foundations_lec_03_003",
+      "label": "Neural Networks 80-115s",
+      "type": "moment",
+      "lecture_id": "lec_03",
+      "timestamp": 80.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_03/03_chain_rule.png",
+        "moment_id": "ml_foundations_lec_03_003"
+      }
+    },
+    {
+      "id": "concept:chain_rule",
+      "label": "Chain Rule",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:gradient",
+      "label": "Gradient",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:calculus",
+      "label": "Calculus",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:derivative",
+      "label": "Derivative",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "concept:backpropagation",
+      "label": "Backpropagation",
+      "type": "concept",
+      "lecture_id": null,
+      "timestamp": null,
+      "metadata": {}
+    },
+    {
+      "id": "formula:frac_partial_l_partial_x_frac_partial_l_p",
+      "label": "\\frac{\\partial L}{\\partial x}=\\frac{\\partial L}{\\partia...",
+      "type": "formula",
+      "lecture_id": "lec_03",
+      "timestamp": 80.0,
+      "metadata": {
+        "latex": "\\frac{\\partial L}{\\partial x}=\\frac{\\partial L}{\\partial h}\\frac{\\partial h}{\\partial x}"
+      }
+    },
+    {
+      "id": "moment:ml_foundations_lec_03_004",
+      "label": "Neural Networks 120-155s",
+      "type": "moment",
+      "lecture_id": "lec_03",
+      "timestamp": 120.0,
+      "metadata": {
+        "thumbnail_url": "/static/frames/ml_foundations/lec_03/04_backpropagation.png",
+        "moment_id": "ml_foundations_lec_03_004"
+      }
+    },
+    {
+      "id": "formula:frac_partial_l_partial_w_l_delta_l_h_l_1",
+      "label": "\\frac{\\partial L}{\\partial W_l}=\\delta_l h_{l-1}^\\top",
+      "type": "formula",
+      "lecture_id": "lec_03",
+      "timestamp": 120.0,
+      "metadata": {
+        "latex": "\\frac{\\partial L}{\\partial W_l}=\\delta_l h_{l-1}^\\top"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "course:ml_foundations",
+      "target": "lecture:lec_01",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_01",
+      "target": "moment:ml_foundations_lec_01_001",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "moment:ml_foundations_lec_01_001",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_001",
+      "target": "concept:linear_regression",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:prediction",
+      "target": "moment:ml_foundations_lec_01_001",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_001",
+      "target": "concept:prediction",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:features",
+      "target": "moment:ml_foundations_lec_01_001",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_001",
+      "target": "concept:features",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:hat_y_x_top_theta",
+      "target": "moment:ml_foundations_lec_01_001",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "formula:hat_y_x_top_theta",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:prediction",
+      "target": "formula:hat_y_x_top_theta",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:features",
+      "target": "formula:hat_y_x_top_theta",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_01_001",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_01",
+      "target": "moment:ml_foundations_lec_01_002",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:mean_squared_error",
+      "target": "moment:ml_foundations_lec_01_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_002",
+      "target": "concept:mean_squared_error",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "moment:ml_foundations_lec_01_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_002",
+      "target": "concept:loss_function",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:residual",
+      "target": "moment:ml_foundations_lec_01_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_002",
+      "target": "concept:residual",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "moment:ml_foundations_lec_01_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_002",
+      "target": "concept:linear_regression",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:j_theta_frac_1_m_sum_i_hat_y_i_y_i_2",
+      "target": "moment:ml_foundations_lec_01_002",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:mean_squared_error",
+      "target": "formula:j_theta_frac_1_m_sum_i_hat_y_i_y_i_2",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "formula:j_theta_frac_1_m_sum_i_hat_y_i_y_i_2",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:residual",
+      "target": "formula:j_theta_frac_1_m_sum_i_hat_y_i_y_i_2",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_01_002",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_01",
+      "target": "moment:ml_foundations_lec_01_003",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:normal_equation",
+      "target": "moment:ml_foundations_lec_01_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_003",
+      "target": "concept:normal_equation",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:closed_form",
+      "target": "moment:ml_foundations_lec_01_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_003",
+      "target": "concept:closed_form",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:least_squares",
+      "target": "moment:ml_foundations_lec_01_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_003",
+      "target": "concept:least_squares",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "moment:ml_foundations_lec_01_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_003",
+      "target": "concept:linear_regression",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:theta_x_top_x_1_x_top_y",
+      "target": "moment:ml_foundations_lec_01_003",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:normal_equation",
+      "target": "formula:theta_x_top_x_1_x_top_y",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:closed_form",
+      "target": "formula:theta_x_top_x_1_x_top_y",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:least_squares",
+      "target": "formula:theta_x_top_x_1_x_top_y",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_01_003",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_01",
+      "target": "moment:ml_foundations_lec_01_004",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:bias",
+      "target": "moment:ml_foundations_lec_01_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_004",
+      "target": "concept:bias",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:variance",
+      "target": "moment:ml_foundations_lec_01_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_004",
+      "target": "concept:variance",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:overfitting",
+      "target": "moment:ml_foundations_lec_01_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_004",
+      "target": "concept:overfitting",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "moment:ml_foundations_lec_01_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_01_004",
+      "target": "concept:linear_regression",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:mathrm_error_bias_2_variance_sigma_2",
+      "target": "moment:ml_foundations_lec_01_004",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:bias",
+      "target": "formula:mathrm_error_bias_2_variance_sigma_2",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:variance",
+      "target": "formula:mathrm_error_bias_2_variance_sigma_2",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:overfitting",
+      "target": "formula:mathrm_error_bias_2_variance_sigma_2",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_01_004",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "course:ml_foundations",
+      "target": "lecture:lec_02",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_02",
+      "target": "moment:ml_foundations_lec_02_001",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "moment:ml_foundations_lec_02_001",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_001",
+      "target": "concept:gradient_descent",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:optimization",
+      "target": "moment:ml_foundations_lec_02_001",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_001",
+      "target": "concept:optimization",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "moment:ml_foundations_lec_02_001",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_001",
+      "target": "concept:loss_function",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:theta_theta_alpha_nabla_theta_j_theta",
+      "target": "moment:ml_foundations_lec_02_001",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "formula:theta_theta_alpha_nabla_theta_j_theta",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:optimization",
+      "target": "formula:theta_theta_alpha_nabla_theta_j_theta",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "formula:theta_theta_alpha_nabla_theta_j_theta",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_02_001",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_02",
+      "target": "moment:ml_foundations_lec_02_002",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:learning_rate",
+      "target": "moment:ml_foundations_lec_02_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_002",
+      "target": "concept:learning_rate",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:step_size",
+      "target": "moment:ml_foundations_lec_02_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_002",
+      "target": "concept:step_size",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convergence",
+      "target": "moment:ml_foundations_lec_02_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_002",
+      "target": "concept:convergence",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "moment:ml_foundations_lec_02_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_002",
+      "target": "concept:gradient_descent",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:alpha_0",
+      "target": "moment:ml_foundations_lec_02_002",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:learning_rate",
+      "target": "formula:alpha_0",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:step_size",
+      "target": "formula:alpha_0",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convergence",
+      "target": "formula:alpha_0",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_02_002",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_02",
+      "target": "moment:ml_foundations_lec_02_003",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convexity",
+      "target": "moment:ml_foundations_lec_02_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_003",
+      "target": "concept:convexity",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:global_optimum",
+      "target": "moment:ml_foundations_lec_02_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_003",
+      "target": "concept:global_optimum",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "moment:ml_foundations_lec_02_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_003",
+      "target": "concept:loss_function",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "moment:ml_foundations_lec_02_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_003",
+      "target": "concept:gradient_descent",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:j_lambda_a_1_lambda_b_leq_lambda_j_a_1_lam",
+      "target": "moment:ml_foundations_lec_02_003",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convexity",
+      "target": "formula:j_lambda_a_1_lambda_b_leq_lambda_j_a_1_lam",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:global_optimum",
+      "target": "formula:j_lambda_a_1_lambda_b_leq_lambda_j_a_1_lam",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "formula:j_lambda_a_1_lambda_b_leq_lambda_j_a_1_lam",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_02_003",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_02",
+      "target": "moment:ml_foundations_lec_02_004",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:stochastic_gradient",
+      "target": "moment:ml_foundations_lec_02_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_004",
+      "target": "concept:stochastic_gradient",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:mini_batch",
+      "target": "moment:ml_foundations_lec_02_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_004",
+      "target": "concept:mini_batch",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:optimization",
+      "target": "moment:ml_foundations_lec_02_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_004",
+      "target": "concept:optimization",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "moment:ml_foundations_lec_02_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_02_004",
+      "target": "concept:gradient_descent",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:g_t_approx_nabla_theta_j_b_theta",
+      "target": "moment:ml_foundations_lec_02_004",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:stochastic_gradient",
+      "target": "formula:g_t_approx_nabla_theta_j_b_theta",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:mini_batch",
+      "target": "formula:g_t_approx_nabla_theta_j_b_theta",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:optimization",
+      "target": "formula:g_t_approx_nabla_theta_j_b_theta",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_02_004",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "course:ml_foundations",
+      "target": "lecture:lec_03",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_03",
+      "target": "moment:ml_foundations_lec_03_001",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "moment:ml_foundations_lec_03_001",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_001",
+      "target": "concept:neural_network",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:representation",
+      "target": "moment:ml_foundations_lec_03_001",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_001",
+      "target": "concept:representation",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "moment:ml_foundations_lec_03_001",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_001",
+      "target": "concept:activation_function",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:h_sigma_wx_b",
+      "target": "moment:ml_foundations_lec_03_001",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "formula:h_sigma_wx_b",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:representation",
+      "target": "formula:h_sigma_wx_b",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "formula:h_sigma_wx_b",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_03_001",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_03",
+      "target": "moment:ml_foundations_lec_03_002",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "moment:ml_foundations_lec_03_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_002",
+      "target": "concept:activation_function",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:relu",
+      "target": "moment:ml_foundations_lec_03_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_002",
+      "target": "concept:relu",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:nonlinearity",
+      "target": "moment:ml_foundations_lec_03_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_002",
+      "target": "concept:nonlinearity",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "moment:ml_foundations_lec_03_002",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_002",
+      "target": "concept:neural_network",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:mathrm_relu_z_max_0_z",
+      "target": "moment:ml_foundations_lec_03_002",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "formula:mathrm_relu_z_max_0_z",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:relu",
+      "target": "formula:mathrm_relu_z_max_0_z",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:nonlinearity",
+      "target": "formula:mathrm_relu_z_max_0_z",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_03_002",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_03",
+      "target": "moment:ml_foundations_lec_03_003",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:chain_rule",
+      "target": "moment:ml_foundations_lec_03_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_003",
+      "target": "concept:chain_rule",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient",
+      "target": "moment:ml_foundations_lec_03_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_003",
+      "target": "concept:gradient",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:calculus",
+      "target": "moment:ml_foundations_lec_03_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_003",
+      "target": "concept:calculus",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:derivative",
+      "target": "moment:ml_foundations_lec_03_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_003",
+      "target": "concept:derivative",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "moment:ml_foundations_lec_03_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_003",
+      "target": "concept:neural_network",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "moment:ml_foundations_lec_03_003",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_003",
+      "target": "concept:backpropagation",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:frac_partial_l_partial_x_frac_partial_l_p",
+      "target": "moment:ml_foundations_lec_03_003",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:chain_rule",
+      "target": "formula:frac_partial_l_partial_x_frac_partial_l_p",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient",
+      "target": "formula:frac_partial_l_partial_x_frac_partial_l_p",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:calculus",
+      "target": "formula:frac_partial_l_partial_x_frac_partial_l_p",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_03_003",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "lecture:lec_03",
+      "target": "moment:ml_foundations_lec_03_004",
+      "type": "contains",
+      "weight": 1.0,
+      "metadata": {}
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "moment:ml_foundations_lec_03_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_004",
+      "target": "concept:backpropagation",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "moment:ml_foundations_lec_03_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_004",
+      "target": "concept:neural_network",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "moment:ml_foundations_lec_03_004",
+      "type": "appears_in",
+      "weight": 0.9,
+      "metadata": {}
+    },
+    {
+      "source": "moment:ml_foundations_lec_03_004",
+      "target": "concept:gradient_descent",
+      "type": "explained_by",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "formula:frac_partial_l_partial_w_l_delta_l_h_l_1",
+      "target": "moment:ml_foundations_lec_03_004",
+      "type": "appears_in",
+      "weight": 0.8,
+      "metadata": {}
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "formula:frac_partial_l_partial_w_l_delta_l_h_l_1",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "formula:frac_partial_l_partial_w_l_delta_l_h_l_1",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "formula:frac_partial_l_partial_w_l_delta_l_h_l_1",
+      "type": "uses_formula",
+      "weight": 0.7,
+      "metadata": {}
+    },
+    {
+      "source": "visual:mnt_e_data_omnicourse_lens_trials_omnicourse_lens_trials_backend_app_static_fram",
+      "target": "moment:ml_foundations_lec_03_004",
+      "type": "shown_in_frame",
+      "weight": 0.6,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:prediction",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:features",
+      "target": "concept:linear_regression",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:features",
+      "target": "concept:prediction",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:mean_squared_error",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:loss_function",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:residual",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "concept:mean_squared_error",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:mean_squared_error",
+      "target": "concept:residual",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "concept:residual",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:normal_equation",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:closed_form",
+      "target": "concept:linear_regression",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:least_squares",
+      "target": "concept:linear_regression",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:closed_form",
+      "target": "concept:normal_equation",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:least_squares",
+      "target": "concept:normal_equation",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:closed_form",
+      "target": "concept:least_squares",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:bias",
+      "target": "concept:linear_regression",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:variance",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:overfitting",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:bias",
+      "target": "concept:variance",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:bias",
+      "target": "concept:overfitting",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:overfitting",
+      "target": "concept:variance",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:loss_function",
+      "type": "related_to",
+      "weight": 0.6499999999999999,
+      "metadata": {}
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "concept:optimization",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:optimization",
+      "type": "related_to",
+      "weight": 0.6499999999999999,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convexity",
+      "target": "concept:loss_function",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:global_optimum",
+      "target": "concept:loss_function",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convexity",
+      "target": "concept:gradient_descent",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:global_optimum",
+      "target": "concept:gradient_descent",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convexity",
+      "target": "concept:global_optimum",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:learning_rate",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:step_size",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convergence",
+      "target": "concept:gradient_descent",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:learning_rate",
+      "target": "concept:step_size",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convergence",
+      "target": "concept:learning_rate",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:convergence",
+      "target": "concept:step_size",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:stochastic_gradient",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:mini_batch",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:optimization",
+      "target": "concept:stochastic_gradient",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:mini_batch",
+      "target": "concept:optimization",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:mini_batch",
+      "target": "concept:stochastic_gradient",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:neural_network",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "concept:gradient_descent",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "concept:neural_network",
+      "type": "related_to",
+      "weight": 0.6499999999999999,
+      "metadata": {}
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "concept:representation",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "concept:neural_network",
+      "type": "related_to",
+      "weight": 0.6499999999999999,
+      "metadata": {}
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "concept:representation",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "concept:relu",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "concept:nonlinearity",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "concept:relu",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "concept:nonlinearity",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:nonlinearity",
+      "target": "concept:relu",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:chain_rule",
+      "target": "concept:neural_network",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:gradient",
+      "target": "concept:neural_network",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:calculus",
+      "target": "concept:neural_network",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:derivative",
+      "target": "concept:neural_network",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:chain_rule",
+      "target": "concept:gradient",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:calculus",
+      "target": "concept:chain_rule",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:chain_rule",
+      "target": "concept:derivative",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "concept:chain_rule",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:calculus",
+      "target": "concept:gradient",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:derivative",
+      "target": "concept:gradient",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "concept:gradient",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:calculus",
+      "target": "concept:derivative",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "concept:calculus",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "concept:derivative",
+      "type": "related_to",
+      "weight": 0.5,
+      "metadata": {}
+    },
+    {
+      "source": "concept:derivative",
+      "target": "concept:gradient_descent",
+      "type": "prerequisite_of",
+      "weight": 0.85,
+      "metadata": {
+        "heuristic": true
+      }
+    },
+    {
+      "source": "concept:chain_rule",
+      "target": "concept:backpropagation",
+      "type": "prerequisite_of",
+      "weight": 0.85,
+      "metadata": {
+        "heuristic": true
+      }
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "concept:gradient_descent",
+      "type": "prerequisite_of",
+      "weight": 0.85,
+      "metadata": {
+        "heuristic": true
+      }
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:normal_equation",
+      "type": "prerequisite_of",
+      "weight": 0.85,
+      "metadata": {
+        "heuristic": true
+      }
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "concept:neural_network",
+      "type": "prerequisite_of",
+      "weight": 0.85,
+      "metadata": {
+        "heuristic": true
+      }
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:prediction",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:features",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:linear_regression",
+      "target": "concept:mean_squared_error",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:mean_squared_error",
+      "target": "concept:loss_function",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:loss_function",
+      "target": "concept:residual",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:normal_equation",
+      "target": "concept:closed_form",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:closed_form",
+      "target": "concept:least_squares",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:bias",
+      "target": "concept:variance",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:variance",
+      "target": "concept:overfitting",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:optimization",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:learning_rate",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:learning_rate",
+      "target": "concept:step_size",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:convergence",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:convergence",
+      "target": "concept:convexity",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:convexity",
+      "target": "concept:global_optimum",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:gradient_descent",
+      "target": "concept:stochastic_gradient",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:stochastic_gradient",
+      "target": "concept:mini_batch",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "concept:representation",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "concept:activation_function",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:activation_function",
+      "target": "concept:relu",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:relu",
+      "target": "concept:nonlinearity",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:backpropagation",
+      "target": "concept:chain_rule",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:chain_rule",
+      "target": "concept:gradient",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:gradient",
+      "target": "concept:calculus",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:calculus",
+      "target": "concept:derivative",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    },
+    {
+      "source": "concept:neural_network",
+      "target": "concept:backpropagation",
+      "type": "prerequisite_of",
+      "weight": 0.75,
+      "metadata": {
+        "llm_refined": true
+      }
+    }
+  ],
+  "summary": "Built a lightweight course graph with 60 nodes and 263 edges from 3 lectures.",
+  "self_check": {
+    "feature_name": "knowledge_graph",
+    "score": 10.0,
+    "passed": true,
+    "issues": [],
+    "improvement_plan": [],
+    "actions_taken": [],
+    "grounding_check": {
+      "uses_evidence": true,
+      "has_timestamps": true,
+      "unsupported_claims": []
+    },
+    "multimodal_check": {
+      "uses_asr": true,
+      "uses_ocr": true,
+      "uses_formula": true,
+      "uses_visual": true,
+      "uses_video_embedding": false
+    },
+    "judge_provider": "gpt-4o_available_heuristic_fast_path"
+  },
+  "actions_taken": []
+}

@@ -1,0 +1,125 @@
+{
+  "passed": true,
+  "checks": [
+    "health",
+    "courses",
+    "text_search_gradient_descent",
+    "text_search_normal_equation",
+    "image_search_keyframe",
+    "cheatsheet_generation",
+    "knowledge_graph_generation",
+    "qa_grounded_answer"
+  ],
+  "provider_status": {
+    "gpt4o": {
+      "provider": "azure_openai_gpt4o",
+      "available": true,
+      "endpoint_configured": true,
+      "api_key_present": true,
+      "api_key_suffix": "vAGR",
+      "deployment": "gpt-4o",
+      "api_version": "2025-01-01-preview",
+      "credential_file_detected": true
+    },
+    "internvideo3": {
+      "provider": "internvideo3",
+      "available": false,
+      "mode": "disabled",
+      "endpoint_configured": false,
+      "cli_configured": false,
+      "local_checkpoint_detected": true,
+      "model_path": "/mnt/e/Data/OmniCourse-Lens/Trials/checkpoints/InternVideo3-8B-Instruct",
+      "reason": "No INTERNVIDEO3_ENDPOINT/CLI configured. Local checkpoint is detected but not loaded unless INTERNVIDEO3_ENABLE_LOCAL=1."
+    },
+    "deepseek_ocr": {
+      "provider": "deepseek_ocr",
+      "available": false,
+      "mode": "disabled",
+      "endpoint_configured": false,
+      "api_key_present": false,
+      "api_key_suffix": null,
+      "model": "deepseek-ocr",
+      "model_path_present": false,
+      "reason": "No DEEPSEEK_OCR_ENDPOINT / model path configured."
+    },
+    "asr": {
+      "faster_whisper_available": false,
+      "openai_whisper_available": true,
+      "fallback": "transcript_file_or_deterministic_demo_segments"
+    },
+    "ocr": {
+      "deepseek": {
+        "provider": "deepseek_ocr",
+        "available": false,
+        "mode": "disabled",
+        "endpoint_configured": false,
+        "api_key_present": false,
+        "api_key_suffix": null,
+        "model": "deepseek-ocr",
+        "model_path_present": false,
+        "reason": "No DEEPSEEK_OCR_ENDPOINT / model path configured."
+      },
+      "pytesseract_available": false,
+      "paddleocr_available": false,
+      "easyocr_available": false,
+      "fallback": "demo_filename_and_image_metadata"
+    }
+  },
+  "api_health": {
+    "status": "ok",
+    "project": "omnicourse-lens-trials",
+    "demo_mode": true,
+    "providers": {
+      "search": {
+        "search": "hybrid_json_index",
+        "embedding": {
+          "text_embedding": "json_tfidf_or_token_overlap_fallback",
+          "image_embedding": "pil_color_histogram_fallback",
+          "heavy_models_loaded": false
+        },
+        "ocr": {
+          "deepseek": {
+            "provider": "deepseek_ocr",
+            "available": false,
+            "mode": "disabled",
+            "endpoint_configured": false,
+            "api_key_present": false,
+            "api_key_suffix": null,
+            "model": "deepseek-ocr",
+            "model_path_present": false,
+            "reason": "No DEEPSEEK_OCR_ENDPOINT / model path configured."
+          },
+          "pytesseract_available": false,
+          "paddleocr_available": false,
+          "easyocr_available": false,
+          "fallback": "demo_filename_and_image_metadata"
+        },
+        "internvideo3": {
+          "provider": "internvideo3",
+          "available": false,
+          "mode": "disabled",
+          "endpoint_configured": false,
+          "cli_configured": false,
+          "local_checkpoint_detected": true,
+          "model_path": "/mnt/e/Data/OmniCourse-Lens/Trials/checkpoints/InternVideo3-8B-Instruct",
+          "reason": "No INTERNVIDEO3_ENDPOINT/CLI configured. Local checkpoint is detected but not loaded unless INTERNVIDEO3_ENABLE_LOCAL=1."
+        }
+      },
+      "deepseek_ocr": {
+        "provider": "deepseek_ocr",
+        "available": false,
+        "mode": "disabled",
+        "endpoint_configured": false,
+        "api_key_present": false,
+        "api_key_suffix": null,
+        "model": "deepseek-ocr",
+        "model_path_present": false,
+        "reason": "No DEEPSEEK_OCR_ENDPOINT / model path configured."
+      }
+    }
+  },
+  "llm_product_judge": {
+    "result": "pass",
+    "reason": "All critical functionalities (search, image search, cheatsheet, graph, QA) passed, indicating coherence in the demo."
+  }
+}

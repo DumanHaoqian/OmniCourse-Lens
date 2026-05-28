@@ -1,0 +1,36 @@
+{
+  "feature_name": "qa",
+  "request": {
+    "course_id": "ml_foundations",
+    "question": "Why does gradient descent move opposite to the gradient?",
+    "lecture_id": null,
+    "current_timestamp": null,
+    "top_k": 3
+  },
+  "initial_output_summary": {
+    "answer_chars": 864,
+    "evidence_count": 3
+  },
+  "evaluation_result": {
+    "feature_name": "qa",
+    "score": 10.0,
+    "passed": true,
+    "issues": [],
+    "improvement_plan": [],
+    "actions_taken": [],
+    "grounding_check": {
+      "uses_evidence": true,
+      "has_timestamps": true,
+      "unsupported_claims": []
+    },
+    "multimodal_check": {
+      "uses_asr": true,
+      "uses_ocr": true,
+      "uses_formula": true,
+      "uses_visual": true,
+      "uses_video_embedding": false
+    },
+    "judge_provider": "gpt-4o_available_heuristic_fast_path"
+  },
+  "actions_taken": []
+}
