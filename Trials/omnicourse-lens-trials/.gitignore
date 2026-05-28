@@ -18,6 +18,7 @@ backend/app/data/generated/**/*.log
 backend/app/data/generated/cheatsheets/*.tex
 backend/app/data/generated/graphs/*.json
 backend/app/data/generated/qa/*.json
+backend/app/data/generated/ocr/
 backend/app/data/generated/evals/[0-9]*.json
 !backend/app/data/generated/evals/smoke_test_summary.json
 !backend/app/data/generated/evals/overnight_smoke_test_summary.json

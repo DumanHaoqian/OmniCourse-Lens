@@ -1,0 +1,27 @@
+{
+  "course_id": "real_i2ml",
+  "lecture_id": null,
+  "provider": {
+    "provider": "deepseek_ocr",
+    "available": true,
+    "mode": "local_hf_lazy",
+    "endpoint_configured": false,
+    "api_key_present": false,
+    "api_key_suffix": null,
+    "model": "deepseek-ai/DeepSeek-OCR",
+    "model_path": "/mnt/e/Data/OmniCourse-Lens/Trials/checkpoints/DeepSeek-OCR",
+    "model_path_present": true,
+    "local_checkpoint_ready": true,
+    "dependencies": {
+      "torch": true,
+      "transformers": true,
+      "einops": true,
+      "addict": true,
+      "easydict": true
+    },
+    "reason": null
+  },
+  "unique_frames_processed_or_loaded": 79,
+  "updated_moments": 79,
+  "elapsed_seconds": 475.97
+}

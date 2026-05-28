@@ -162,7 +162,13 @@ DeepSeek OCR:
 - `DEEPSEEK_OCR_MODEL`
 - `DEEPSEEK_OCR_MODEL_PATH`
 
-If unavailable, OCR falls back to Tesseract when installed and then deterministic demo OCR.
+The local checkpoint is discovered at `Trials/checkpoints/DeepSeek-OCR` and loaded lazily only when OCR is requested. The real Dataset course can be refreshed with true frame OCR:
+
+```bash
+python scripts/refresh_real_ocr.py --course-id real_i2ml --rebuild-index
+```
+
+If unavailable, OCR falls back through PaddleOCR/EasyOCR/Tesseract when installed and then deterministic demo OCR.
 
 InternVideo3:
 
@@ -234,12 +240,12 @@ Do not commit API keys, cookies, model weights, checkpoints, uploads, large clip
 ## Known Limitations
 
 - JSON storage is intentional for the MVP; production should use a vector DB and durable metadata store.
-- Image retrieval uses a PIL color-histogram fallback unless CLIP/SigLIP integration is added later.
-- InternVideo3 is adapted as an optional scorer, not loaded as a default embedding model.
+- Image retrieval uses OpenCLIP when installed, with a PIL descriptor fallback for constrained machines.
+- InternVideo3 is adapted as an optional scorer and reranker; keep `scripts/run_internvideo3_server.sh` warm for lower demo latency.
 - ASR/OCR quality depends on installed optional providers; demo mode remains deterministic.
-- LaTeX PDF output requires `tectonic` or `pdflatex`.
+- LaTeX PDF output uses `tectonic` when available, then `pdflatex`/`xelatex`.
 - If no local LaTeX compiler exists, the UI reports the compile error, supports `.tex` download, copy LaTeX, and an Overleaf import workflow.
 
 ## Git Workflow
 
-Development is on `feature/omnicourse-lens-trials-mvp`. Milestone commits cover scaffold, demo data/indexing, ingestion, search, cheatsheet, graph, QA, frontend, and validation.
+Development is on `feature/overnight-quality-rebuild`. Milestone commits cover real Dataset ingestion, workspace UI, DeepSeek OCR, InternVideo3, faster-whisper ASR, real embeddings, graph repair, cheatsheet PDF compilation, and validation.

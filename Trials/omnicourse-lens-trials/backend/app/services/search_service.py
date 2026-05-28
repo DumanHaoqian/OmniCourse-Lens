@@ -357,10 +357,12 @@ class SearchService:
 
     def _ocr_label(self, moment: dict[str, Any]) -> str:
         providers = {block.get("provider") for block in moment.get("ocr_blocks", []) if isinstance(block, dict)}
+        if "deepseek_ocr" in providers:
+            return "DeepSeek frame OCR"
+        if any(provider in {"tesseract", "paddleocr", "easyocr"} for provider in providers):
+            return "Frame OCR"
         if "slide_pdf_text" in providers:
             return "Slide/PDF OCR"
-        if any(provider in {"deepseek_ocr", "tesseract", "paddleocr", "easyocr"} for provider in providers):
-            return "Frame OCR"
         if "demo_ocr" in providers:
             return "Demo OCR"
         if "empty_ocr" in providers:

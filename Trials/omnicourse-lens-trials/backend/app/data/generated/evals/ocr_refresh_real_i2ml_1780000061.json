@@ -1,0 +1,27 @@
+{
+  "course_id": "real_i2ml",
+  "lecture_id": "08_i2ml_01_ml_basics_07_optimization",
+  "provider": {
+    "provider": "deepseek_ocr",
+    "available": true,
+    "mode": "local_hf_lazy",
+    "endpoint_configured": false,
+    "api_key_present": false,
+    "api_key_suffix": null,
+    "model": "deepseek-ai/DeepSeek-OCR",
+    "model_path": "/mnt/e/Data/OmniCourse-Lens/Trials/checkpoints/DeepSeek-OCR",
+    "model_path_present": true,
+    "local_checkpoint_ready": true,
+    "dependencies": {
+      "torch": true,
+      "transformers": true,
+      "einops": true,
+      "addict": true,
+      "easydict": true
+    },
+    "reason": null
+  },
+  "unique_frames_processed_or_loaded": 2,
+  "updated_moments": 3,
+  "elapsed_seconds": 31.44
+}

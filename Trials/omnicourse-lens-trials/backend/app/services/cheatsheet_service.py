@@ -4,6 +4,7 @@ import re
 import shutil
 import subprocess
 import time
+import os
 from pathlib import Path
 from typing import Any
 
@@ -44,7 +45,7 @@ class CheatsheetService:
             tex = self._generate_fallback(course.title, request, moments)
             mode = "fallback"
         improved = self.improver.improve_cheatsheet(request, tex, evidence)
-        tex = improved["tex_content"]
+        tex = self._clean_tex(improved["tex_content"])
         tex_path, pdf_path, compile_error = self._save_and_compile(request, tex)
         self.improver.evaluator.save_log(
             "cheatsheet",
@@ -68,7 +69,7 @@ class CheatsheetService:
         if tex_content:
             stamp = time.strftime("%Y%m%d_%H%M%S")
             tex_path = out_dir / f"manual_compile_{stamp}.tex"
-            tex_path.write_text(tex_content, encoding="utf-8")
+            tex_path.write_text(self._clean_tex(tex_content), encoding="utf-8")
         elif filename:
             tex_path = out_dir / Path(filename).name
             if not tex_path.exists():
@@ -97,6 +98,7 @@ class CheatsheetService:
             temperature=0.2,
             max_tokens=2200,
         )
+        tex = self._clean_tex(tex)
         return tex if "\\section*" in tex else self._generate_fallback(request.course_id, request, moments)
 
     def _generate_fallback(self, title: str, request: CheatsheetRequest, moments: list[Moment]) -> str:
@@ -152,20 +154,34 @@ class CheatsheetService:
         out_dir.mkdir(parents=True, exist_ok=True)
         stamp = time.strftime("%Y%m%d_%H%M%S")
         tex_path = out_dir / f"{request.course_id}_{stamp}.tex"
-        tex_path.write_text(tex, encoding="utf-8")
+        tex_path.write_text(self._clean_tex(tex), encoding="utf-8")
         pdf_path, compile_error = self._compile_tex(tex_path)
         return tex_path, pdf_path, compile_error
+
+    def _clean_tex(self, tex: str) -> str:
+        tex = (tex or "").strip()
+        fence = re.match(r"^```(?:latex|tex)?\s*(.*?)\s*```$", tex, flags=re.DOTALL | re.IGNORECASE)
+        if fence:
+            tex = fence.group(1).strip()
+        document_start = tex.find("\\documentclass")
+        if document_start > 0:
+            tex = tex[document_start:].strip()
+        document_end = tex.rfind("\\end{document}")
+        if document_end >= 0:
+            tex = tex[: document_end + len("\\end{document}")].strip()
+        return tex
 
     def _compile_tex(self, tex_path: Path) -> tuple[Path | None, str | None]:
         out_dir = tex_path.parent
         logs = []
+        timeout = int(os.getenv("OMNICOURSE_LATEX_TIMEOUT", "180"))
         for command in (
             ["tectonic", tex_path.name],
             ["pdflatex", "-interaction=nonstopmode", tex_path.name],
             ["xelatex", "-interaction=nonstopmode", tex_path.name],
         ):
             try:
-                result = subprocess.run(command, cwd=out_dir, check=True, capture_output=True, text=True, timeout=60)
+                result = subprocess.run(command, cwd=out_dir, check=True, capture_output=True, text=True, timeout=timeout)
                 pdf_path = tex_path.with_suffix(".pdf")
                 if pdf_path.exists():
                     return pdf_path, None

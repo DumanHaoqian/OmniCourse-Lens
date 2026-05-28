@@ -46,6 +46,7 @@ def ensure_directories() -> None:
         settings.generated_dir / "graphs",
         settings.generated_dir / "qa",
         settings.generated_dir / "evals",
+        settings.generated_dir / "ocr",
         settings.audio_dir,
         settings.frames_dir,
         settings.clips_dir,

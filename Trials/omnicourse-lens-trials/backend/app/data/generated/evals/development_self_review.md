@@ -72,7 +72,7 @@ Smoke checks passed:
 - DeepSeek OCR: local `deepseek-ai/DeepSeek-OCR` checkpoint detected at `Trials/checkpoints/DeepSeek-OCR`; backend provider mode is `local_hf_lazy`.
 - OCR fallback: PaddleOCR/EasyOCR/Tesseract not detected; DeepSeek-OCR is now the active frame/image OCR provider, with associated slide PDF text as supplemental evidence.
 - InternVideo3: local `InternVideo3-8B-Instruct` checkpoint detected at `Trials/checkpoints/InternVideo3-8B-Instruct`; backend provider mode is `local_hf_lazy`. Local reranking runs through the `omniC` Python environment to avoid Transformers-version conflicts with DeepSeek-OCR.
-- LaTeX compiler: `tectonic`, `pdflatex`, and `xelatex` not detected; web UI provides compile status, `.tex` download, copy LaTeX, and Overleaf workflow.
+- LaTeX compiler: `tectonic` is installed and detected; backend compile endpoint generates PDFs. The UI still keeps `.tex` download, copy LaTeX, and Overleaf workflow as fallback/export options.
 
 ## Git Commits In This Rebuild
 
@@ -88,7 +88,7 @@ Smoke checks passed:
 - Dense text retrieval now uses `sentence-transformers/all-MiniLM-L6-v2`; the rebuilt index contains 91 vectors with dimension 384.
 - Image retrieval now uses OpenCLIP `ViT-B-32/laion2b_s34b_b79k`; the rebuilt index contains 91 frame vectors with dimension 512.
 - PaddleOCR/EasyOCR/Tesseract are still unavailable; DeepSeek-OCR plus slide PDF text currently provide OCR evidence.
-- No local LaTeX compiler is installed in this environment, so PDF generation reports a clear unavailable status.
+- Local LaTeX PDF generation is now active through `tectonic`; first compile may be slower while Tectonic initializes its bundle cache.
 - The search stack is now hybrid lexical + sentence-transformers dense text + OpenCLIP visual + OCR/formula/concept + InternVideo3 reranking. A production vector DB is still a future scalability step.
 - Vite build passes but warns that the main JS bundle is large because Cytoscape, KaTeX, and motion libraries are included.
 
@@ -100,6 +100,33 @@ Smoke checks passed:
 - Add CLIP/SigLIP image embeddings for better visual search.
 - Replace heuristic self-evaluation fast paths with real GPT-4o judge calls where latency allows.
 - Split frontend bundles for faster initial load.
+
+## Real DeepSeek-OCR and PDF Compile Completion Pass - May 29, 2026
+
+Implemented after finding that real course moments mostly contained slide/PDF text but not true keyframe OCR:
+
+- Added `scripts/refresh_real_ocr.py` to run the local `deepseek-ai/DeepSeek-OCR` checkpoint across extracted Dataset keyframes.
+- Refreshed `real_i2ml` with true frame OCR and rebuilt the index.
+- Provider counts after refresh:
+  - Real course/index moments: 79
+  - Empty OCR moments: 0
+  - `deepseek_ocr` blocks: 190
+  - `slide_pdf_text` blocks: 41
+  - `deepseek_ocr_formula_heuristic` formula blocks: 280
+  - `heuristic_math_ocr` formula blocks: 71
+- Updated Search result labeling so OCR evidence from the local model is shown as `DeepSeek frame OCR`.
+- Verified text search for "gradient descent optimization learning goals" returns optimization timestamps with modalities: audio transcript, DeepSeek frame OCR, formula, text embedding, and concept tag.
+- Verified QA for "Why does gradient descent move opposite to the gradient?" returns GPT-4o Markdown with display LaTeX, timestamp citations, and DeepSeek frame OCR evidence.
+- Installed `tectonic` and increased backend LaTeX compile timeout to 180 seconds.
+- Cleaned GPT-4o cheatsheet output so markdown fences such as `\`\`\`latex` are stripped before saving/compiling.
+- Verified `/api/cheatsheet/compile` creates a real PDF.
+- Verified cheatsheet generation for the real optimization lecture creates both `.tex` and `.pdf` with self-check score 10/10.
+
+Validation:
+
+- `python -m py_compile backend/app/services/*.py scripts/*.py`
+- `cd frontend && npm run build`
+- `pytest tests/test_api_smoke.py -q` passed in 140.59s
 
 ## DeepSeek-OCR and InternVideo3 Activation Pass - May 29, 2026
 
