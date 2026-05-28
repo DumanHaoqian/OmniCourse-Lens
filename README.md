@@ -2,6 +2,25 @@
 
 Toy dataset and experiments for course-video search.
 
+## Environment
+
+The local development environment is named `omniC` and targets the RTX 5090 with
+PyTorch CUDA 13.0 wheels.
+
+Create it from scratch:
+
+```bash
+conda env create -f environment.yml
+conda activate omniC
+python -m ipykernel install --user --name omniC --display-name "Python (omniC)"
+```
+
+Verify GPU support:
+
+```bash
+python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0)); print(torch.cuda.is_available())"
+```
+
 ## Dataset
 
 `Dataset/` contains 9 Introduction to Machine Learning lecture folders. Each folder
