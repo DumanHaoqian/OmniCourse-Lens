@@ -1,0 +1,39 @@
+# Local credentials and exported browser cookies.
+# These can grant access to personal accounts and must never be committed.
+cookies.txt
+cookie.txt
+*cookies*.txt
+
+# Environment files may contain API keys or local machine configuration.
+.env
+.env.*
+!.env.example
+
+# Python caches and local virtual environments.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Notebook and tooling state.
+.ipynb_checkpoints/
+.cache/
+
+# Logs, temporary files, and interrupted download fragments.
+*.log
+*.tmp
+*.part
+*.ytdl
+
+# OS/editor noise.
+.DS_Store
+Thumbs.db
+
+# Dataset/ is intentionally tracked for the hackathon toy dataset.
+# Ignore only transient files created while downloading or converting media.
+Dataset/**/*.part
+Dataset/**/*.ytdl
+Dataset/**/*.tmp

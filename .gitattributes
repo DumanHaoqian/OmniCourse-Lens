@@ -1,0 +1,3 @@
+# Treat course media as binary artifacts.
+*.mp4 binary
+*.pdf binary
