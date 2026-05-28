@@ -3,8 +3,8 @@
     "ml_foundations",
     "real_i2ml"
   ],
-  "moment_count": 22,
-  "image_descriptor_count": 22,
+  "moment_count": 91,
+  "image_descriptor_count": 91,
   "providers": {
     "text_index": "json_tfidf",
     "image_descriptor": "pil_color_histogram",

@@ -16,17 +16,17 @@ Mock `ml_foundations` data remains only as fallback and smoke-test support.
 - Extensions scanned: `.mp4`, `.mov`, `.mkv`, `.avi`, `.webm`, `.m4v`
 - Dataset root is fixed in backend config and arbitrary filesystem browsing is not exposed.
 
-## Real Video Ingested
+## Real Videos Ingested
 
-Ingested and indexed:
+After the core-functionality repair pass on May 29, 2026, all discovered Dataset videos were ingested and indexed:
 
-- `08_i2ml_01_ml_basics_07_optimization__video.mp4`
+- Videos ingested: 9 / 9
 - Course: `real_i2ml`
-- Lecture: `08_i2ml_01_ml_basics_07_optimization`
-- Duration: 1675.621587 seconds
-- Moments: 10
-- Extracted keyframes: 10
-- Associated slides PDF text used as `slide_pdf_text` OCR evidence.
+- Lectures: 9
+- Real Dataset moments: 79
+- Total indexed moments including smoke-test demo fallback course: 91
+- Associated slides PDF text is used as `slide_pdf_text` OCR/evidence for the Dataset lectures.
+- Extracted keyframes are available locally under `backend/app/static/frames/real_i2ml/`.
 
 ## Improvements Implemented
 
@@ -49,7 +49,7 @@ Passed:
 
 - `python -m py_compile backend/app/main.py backend/app/services/evaluation_service.py scripts/smoke_test.py tests/test_api_smoke.py`
 - `cd frontend && npm run build`
-- `python scripts/smoke_test.py`
+- `python scripts/smoke_test.py` after all-video Dataset ingestion
 - `pytest tests/test_api_smoke.py -q`
 
 Smoke checks passed:
@@ -82,16 +82,18 @@ Smoke checks passed:
 
 ## Known Remaining Issues
 
-- Only the optimization video is pre-ingested in the committed baseline; the UI and endpoints can ingest all 9 videos, but all-video ingestion may take longer.
-- Real ASR is not run by default to avoid long blocking Whisper jobs. Enable with `OMNICOURSE_ENABLE_WHISPER=1`.
+- All 9 videos are now ingested locally, but ASR is still not true speech transcription by default. The current evidence is a blend of fallback ASR segments and slide PDF text. Enable Whisper with `OMNICOURSE_ENABLE_WHISPER=1` for actual speech transcripts.
 - DeepSeek OCR and InternVideo3 are adapter-ready but require endpoint/CLI configuration for active use.
+- Frame OCR is unavailable in this environment because PaddleOCR/EasyOCR/Tesseract/DeepSeek OCR are not configured. Slide PDF text currently provides the strongest OCR-like evidence.
 - No local LaTeX compiler is installed in this environment, so PDF generation reports a clear unavailable status.
-- Vite build passes but warns that the main JS bundle is large because Cytoscape and KaTeX are included.
+- The search stack is still hybrid lexical/TF-IDF + image color histogram fallback, not a full production dense multimodal retrieval stack.
+- Vite build passes but warns that the main JS bundle is large because Cytoscape, KaTeX, and motion libraries are included.
 
 ## Next Steps
 
-- Run background ingest-all overnight to pre-index all nine videos.
+- Run Whisper transcription for all 9 videos or import official captions if available.
 - Add a real InternVideo3 scoring microservice using the existing checkpoint.
 - Add a stronger OCR provider for actual frame text extraction.
 - Add CLIP/SigLIP image embeddings for better visual search.
+- Replace heuristic self-evaluation fast paths with real GPT-4o judge calls where latency allows.
 - Split frontend bundles for faster initial load.

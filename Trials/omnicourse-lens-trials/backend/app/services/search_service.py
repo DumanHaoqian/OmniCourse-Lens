@@ -192,9 +192,9 @@ class SearchService:
 
     def _to_result(self, moment: dict[str, Any], score: float, breakdown: dict[str, float]) -> SearchResult:
         lecture_title = moment.get("lecture_title") or moment.get("lecture_id", "")
-        modalities = [self._modality_name(key) for key, value in breakdown.items() if value >= 0.18]
+        modalities = [self._modality_name(key, moment) for key, value in breakdown.items() if value >= 0.18]
         if not modalities:
-            modalities = [self._modality_name(max(breakdown, key=breakdown.get))]
+            modalities = [self._modality_name(max(breakdown, key=breakdown.get), moment)]
         reason = self._matched_reason(moment, breakdown)
         video_id = moment.get("video_id") or moment.get("metadata", {}).get("video_id")
         video_url = f"/api/dataset/videos/{video_id}/stream" if video_id else static_url(moment.get("video_path"))
@@ -221,9 +221,10 @@ class SearchService:
     def _matched_reason(self, moment: dict[str, Any], breakdown: dict[str, float]) -> str:
         best = max(breakdown, key=breakdown.get)
         if best == "audio_transcript":
-            return f"Audio transcript match: {self._snippet(moment.get('transcript', ''), 160)}"
+            transcript_label = self._transcript_label(moment)
+            return f"{transcript_label} match: {self._snippet(self._preferred_transcript_text(moment), 160)}"
         if best in {"ocr_text", "image_ocr_text"}:
-            return f"OCR match: {self._snippet(moment.get('ocr_text', '') or moment.get('visual_caption', ''), 160)}"
+            return f"{self._ocr_label(moment)} match: {self._snippet(moment.get('ocr_text', '') or moment.get('visual_caption', ''), 160)}"
         if best == "formula":
             return f"Formula match: {moment.get('formula_latex', '')}"
         if best == "concept_tag":
@@ -279,10 +280,10 @@ class SearchService:
             return "activation function chain rule neural network"
         return "lecture formula slide concept transcript visual evidence"
 
-    def _modality_name(self, key: str) -> str:
+    def _modality_name(self, key: str, moment: dict[str, Any] | None = None) -> str:
         mapping = {
-            "audio_transcript": "ASR transcript",
-            "ocr_text": "OCR",
+            "audio_transcript": self._transcript_label(moment or {}) if moment is not None else "Audio transcript",
+            "ocr_text": self._ocr_label(moment or {}) if moment is not None else "OCR",
             "formula": "Formula",
             "dense_text": "Text embedding",
             "concept_tag": "Concept tag",
@@ -291,6 +292,39 @@ class SearchService:
             "image_ocr_text": "Image OCR",
         }
         return mapping.get(key, key)
+
+    def _transcript_label(self, moment: dict[str, Any]) -> str:
+        providers = {segment.get("provider") for segment in moment.get("asr_segments", []) if isinstance(segment, dict)}
+        if any(provider and ("whisper" in provider or provider == "transcript_file") for provider in providers):
+            return "Audio transcript"
+        if "slide_pdf_text" in providers:
+            return "Slide/PDF text"
+        if "fallback_asr" in providers:
+            return "Fallback ASR"
+        return "Audio transcript"
+
+    def _ocr_label(self, moment: dict[str, Any]) -> str:
+        providers = {block.get("provider") for block in moment.get("ocr_blocks", []) if isinstance(block, dict)}
+        if "slide_pdf_text" in providers:
+            return "Slide/PDF OCR"
+        if any(provider in {"deepseek_ocr", "tesseract", "paddleocr", "easyocr"} for provider in providers):
+            return "Frame OCR"
+        if "demo_ocr" in providers:
+            return "Demo OCR"
+        if "empty_ocr" in providers:
+            return "OCR unavailable"
+        return "OCR"
+
+    def _preferred_transcript_text(self, moment: dict[str, Any]) -> str:
+        segments = moment.get("asr_segments", [])
+        useful = [
+            segment.get("text", "")
+            for segment in segments
+            if isinstance(segment, dict) and segment.get("provider") not in {"fallback_asr"} and segment.get("text")
+        ]
+        if useful:
+            return " ".join(useful)
+        return moment.get("transcript", "")
 
     def _load_index(self, force: bool = False) -> dict[str, Any]:
         if self._cache is not None and not force:
