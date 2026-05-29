@@ -12,10 +12,23 @@ from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from .config import ensure_directories, settings
-from .schemas import CheatsheetRequest, GraphRequest, QARequest, SearchRequest
+from .schemas import (
+    CheatsheetRequest,
+    FormulaDerivationRequest,
+    GraphRequest,
+    MasteryUpdateRequest,
+    MisconceptionCheckRequest,
+    PrerequisiteRewindRequest,
+    QARequest,
+    RegionExplainRequest,
+    SearchRequest,
+    SocraticDrillRequest,
+    StudyPlanRequest,
+)
 from .services.cheatsheet_service import CheatsheetService
 from .services.dataset_service import DatasetService
 from .services.graph_service import GraphService
+from .services.learning_features_service import LearningFeaturesService
 from .services.llm_service import LLMService
 from .services.qa_agent import QAAgent
 from .services.deepseek_ocr_service import DeepSeekOCRService
@@ -42,6 +55,7 @@ graph_service = GraphService()
 qa_agent = QAAgent()
 dataset_service = DatasetService()
 evidence_service = EvidenceService()
+learning_service = LearningFeaturesService()
 _PROVIDER_CACHE: tuple[float, dict] | None = None
 _PROVIDER_CACHE_TTL = 15.0
 
@@ -183,6 +197,42 @@ def search_text(request: SearchRequest) -> dict:
     return search_service.text_search(request)
 
 
+@app.post("/api/search/multimodal")
+async def search_multimodal(request: Request) -> dict:
+    content_type = request.headers.get("content-type", "")
+    if "multipart/form-data" in content_type:
+        form = await request.form()
+        upload = form.get("image")
+        image_path = None
+        if hasattr(upload, "file"):
+            suffix = Path(upload.filename or "query.png").suffix or ".png"
+            with tempfile.NamedTemporaryFile(delete=False, suffix=suffix, dir=settings.uploads_dir) as tmp:
+                shutil.copyfileobj(upload.file, tmp)
+                image_path = tmp.name
+        lecture_ids = str(form.get("lecture_ids") or "")
+        video_ids = str(form.get("video_ids") or "")
+        if image_path:
+            return search_service.image_search(
+                str(form.get("course_id") or "real_i2ml"),
+                image_path=image_path,
+                text_query=str(form.get("query") or ""),
+                lecture_ids=[item.strip() for item in lecture_ids.split(",") if item.strip()] or None,
+                video_ids=[item.strip() for item in video_ids.split(",") if item.strip()] or None,
+                top_k=int(form.get("top_k") or 5),
+            )
+        return search_service.text_search(
+            SearchRequest(
+                course_id=str(form.get("course_id") or "real_i2ml"),
+                query=str(form.get("query") or ""),
+                lecture_ids=[item.strip() for item in lecture_ids.split(",") if item.strip()] or None,
+                video_ids=[item.strip() for item in video_ids.split(",") if item.strip()] or None,
+                top_k=int(form.get("top_k") or 5),
+            )
+        )
+    payload = await request.json()
+    return search_service.text_search(SearchRequest.model_validate(payload))
+
+
 @app.post("/api/cheatsheet")
 def cheatsheet(request: CheatsheetRequest) -> dict:
     return cheatsheet_service.generate(request).model_dump(mode="json")
@@ -200,6 +250,76 @@ async def compile_cheatsheet(request: Request) -> dict:
 @app.post("/api/knowledge-graph")
 def knowledge_graph(request: GraphRequest) -> dict:
     return graph_service.generate(request).model_dump(mode="json")
+
+
+@app.get("/api/skills")
+def skills() -> dict:
+    return learning_service.skills()
+
+
+@app.post("/api/learning/prerequisite-rewind")
+def prerequisite_rewind(request: PrerequisiteRewindRequest) -> dict:
+    return learning_service.prerequisite_rewind(request)
+
+
+@app.post("/api/learning/misconception-check")
+def misconception_check(request: MisconceptionCheckRequest) -> dict:
+    return learning_service.misconception_check(request)
+
+
+@app.post("/api/learning/socratic-drill")
+def socratic_drill(request: SocraticDrillRequest) -> dict:
+    return learning_service.socratic_drill(request)
+
+
+@app.post("/api/learning/formula-derivation")
+def formula_derivation(request: FormulaDerivationRequest) -> dict:
+    return learning_service.formula_derivation(request)
+
+
+@app.post("/api/learning/region-explain")
+async def region_explain(request: Request) -> dict:
+    content_type = request.headers.get("content-type", "")
+    if "multipart/form-data" in content_type:
+        form = await request.form()
+        image_path = None
+        upload = form.get("image")
+        if hasattr(upload, "file"):
+            suffix = Path(upload.filename or "region.png").suffix or ".png"
+            with tempfile.NamedTemporaryFile(delete=False, suffix=suffix, dir=settings.uploads_dir) as tmp:
+                shutil.copyfileobj(upload.file, tmp)
+                image_path = tmp.name
+        bbox_raw = str(form.get("bbox") or "")
+        bbox = [float(item.strip()) for item in bbox_raw.split(",") if item.strip()] if bbox_raw else None
+        payload = RegionExplainRequest(
+            course_id=str(form.get("course_id") or "real_i2ml"),
+            video_id=str(form.get("video_id")) if form.get("video_id") else None,
+            lecture_id=str(form.get("lecture_id")) if form.get("lecture_id") else None,
+            current_moment_id=str(form.get("current_moment_id")) if form.get("current_moment_id") else None,
+            image_path=image_path or (str(form.get("image_path")) if form.get("image_path") else None),
+            bbox=bbox,
+            question=str(form.get("question") or ""),
+            timestamp=float(form.get("timestamp")) if form.get("timestamp") else None,
+            top_k=int(form.get("top_k") or 5),
+        )
+        return learning_service.region_explain(payload)
+    payload = await request.json()
+    return learning_service.region_explain(RegionExplainRequest.model_validate(payload))
+
+
+@app.post("/api/learning/mastery/update")
+def mastery_update(request: MasteryUpdateRequest) -> dict:
+    return learning_service.mastery_update(request)
+
+
+@app.get("/api/learning/mastery/{student_id}")
+def mastery_profile(student_id: str, course_id: str = "real_i2ml") -> dict:
+    return learning_service.mastery_profile(student_id, course_id)
+
+
+@app.post("/api/learning/study-plan")
+def study_plan(request: StudyPlanRequest) -> dict:
+    return learning_service.study_plan(request)
 
 
 @app.post("/api/qa")
@@ -273,7 +393,7 @@ def ingest_video(
 
 @app.get("/api/generated/{kind}/{filename}")
 def generated_file(kind: str, filename: str) -> FileResponse:
-    allowed = {"cheatsheets", "graphs", "qa", "evals"}
+    allowed = {"cheatsheets", "graphs", "qa", "evals", "study_plans", "quizzes", "notebooks"}
     if kind not in allowed:
         raise HTTPException(status_code=404, detail="Unknown generated file category.")
     path = settings.generated_dir / kind / filename

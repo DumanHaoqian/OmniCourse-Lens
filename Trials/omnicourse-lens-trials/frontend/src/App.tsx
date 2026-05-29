@@ -27,6 +27,7 @@ import MathText, { renderModelMarkdown } from "./components/MathText";
 import StatusBadge from "./components/StatusBadge";
 import UploadPanel from "./components/UploadPanel";
 import VideoEvidenceCard from "./components/VideoEvidenceCard";
+import LearningToolsPanel from "./components/learning/LearningToolsPanel";
 
 type Feature = "search" | "cheatsheet" | "graph" | "qa";
 
@@ -557,6 +558,15 @@ export default function App() {
               <textarea value={question} onChange={(event) => setQuestion(event.target.value)} />
               <UploadPanel file={image} onFile={setImage} label="Optional question image" />
               <button onClick={runQa} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <BrainCircuit size={16} />} Ask AI Tutor</button>
+              <LearningToolsPanel
+                courseId={courseId}
+                selectedVideo={selectedVideo}
+                selectedMomentId={selectedResult?.moment_id}
+                question={question}
+                query={query}
+                playbackTime={playbackTime}
+                onJump={jumpToEvidence}
+              />
             </>
           )}
         </div>

@@ -193,3 +193,82 @@ class QAResponse(BaseModel):
     confidence: float
     self_check: dict[str, Any]
     generation_mode: str
+
+
+class EvidenceLedgerItem(BaseModel):
+    evidence_id: str
+    source_type: str = "video_moment"
+    video_id: Optional[str] = None
+    lecture_id: Optional[str] = None
+    lecture_title: Optional[str] = None
+    start_time: Optional[float] = None
+    end_time: Optional[float] = None
+    modality: list[str] = Field(default_factory=list)
+    content: str = ""
+    confidence: float = 0.0
+    provider: str = "indexed_evidence"
+    score: float = 0.0
+    reason: str = ""
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class SkillDefinition(BaseModel):
+    name: str
+    input_schema: dict[str, Any] = Field(default_factory=dict)
+    tools_used: list[str] = Field(default_factory=list)
+    execution_procedure: list[str] = Field(default_factory=list)
+    evidence_output_schema: dict[str, Any] = Field(default_factory=dict)
+    validator: str = "evaluation_service"
+    repair_policy: str = "retrieve_more_and_regenerate"
+
+
+class LearningBaseRequest(BaseModel):
+    course_id: str = "real_i2ml"
+    video_id: Optional[str] = None
+    lecture_id: Optional[str] = None
+    current_moment_id: Optional[str] = None
+    top_k: int = 5
+
+
+class PrerequisiteRewindRequest(LearningBaseRequest):
+    question: Optional[str] = None
+    target_concept: Optional[str] = None
+
+
+class MisconceptionCheckRequest(LearningBaseRequest):
+    student_text: str
+    related_concept: Optional[str] = None
+
+
+class SocraticDrillRequest(LearningBaseRequest):
+    focus_topic: str = "gradient descent"
+    difficulty: str = "medium"
+    number_of_questions: int = 4
+
+
+class FormulaDerivationRequest(LearningBaseRequest):
+    formula_latex: str = r"\theta := \theta - \alpha \nabla_\theta J(\theta)"
+    question: Optional[str] = None
+
+
+class RegionExplainRequest(LearningBaseRequest):
+    image_path: Optional[str] = None
+    bbox: Optional[list[float]] = None
+    question: Optional[str] = None
+    timestamp: Optional[float] = None
+
+
+class MasteryUpdateRequest(BaseModel):
+    student_id: str = "demo_student"
+    course_id: str = "real_i2ml"
+    interactions: list[dict[str, Any]] = Field(default_factory=list)
+    quiz_answers: list[dict[str, Any]] = Field(default_factory=list)
+    watched_clips: list[dict[str, Any]] = Field(default_factory=list)
+    concepts: list[str] = Field(default_factory=list)
+
+
+class StudyPlanRequest(BaseModel):
+    student_id: str = "demo_student"
+    course_id: str = "real_i2ml"
+    focus_topics: list[str] = Field(default_factory=list)
+    days: int = 3

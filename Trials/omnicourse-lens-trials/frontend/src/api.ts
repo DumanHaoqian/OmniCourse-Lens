@@ -176,3 +176,106 @@ export async function rebuildIndex() {
 export async function compileCheatsheet(payload: { tex_content?: string; filename?: string }) {
   return apiPost<any>("/api/cheatsheet/compile", payload);
 }
+
+export async function listSkills() {
+  return apiGet<any>("/api/skills");
+}
+
+export async function prerequisiteRewind(payload: {
+  course_id: string;
+  video_id?: string;
+  lecture_id?: string;
+  current_moment_id?: string;
+  question?: string;
+  target_concept?: string;
+  top_k?: number;
+}) {
+  return apiPost<any>("/api/learning/prerequisite-rewind", payload);
+}
+
+export async function misconceptionCheck(payload: {
+  course_id: string;
+  video_id?: string;
+  lecture_id?: string;
+  student_text: string;
+  related_concept?: string;
+  top_k?: number;
+}) {
+  return apiPost<any>("/api/learning/misconception-check", payload);
+}
+
+export async function socraticDrill(payload: {
+  course_id: string;
+  video_id?: string;
+  lecture_id?: string;
+  focus_topic: string;
+  difficulty?: string;
+  number_of_questions?: number;
+  top_k?: number;
+}) {
+  return apiPost<any>("/api/learning/socratic-drill", payload);
+}
+
+export async function formulaDerivation(payload: {
+  course_id: string;
+  video_id?: string;
+  lecture_id?: string;
+  formula_latex: string;
+  question?: string;
+  top_k?: number;
+}) {
+  return apiPost<any>("/api/learning/formula-derivation", payload);
+}
+
+export async function regionExplain(payload: {
+  course_id: string;
+  video_id?: string;
+  lecture_id?: string;
+  current_moment_id?: string;
+  question?: string;
+  timestamp?: number;
+  bbox?: number[];
+  top_k?: number;
+  image?: File | null;
+}) {
+  if (payload.image) {
+    const form = new FormData();
+    form.append("course_id", payload.course_id);
+    if (payload.video_id) form.append("video_id", payload.video_id);
+    if (payload.lecture_id) form.append("lecture_id", payload.lecture_id);
+    if (payload.current_moment_id) form.append("current_moment_id", payload.current_moment_id);
+    if (payload.question) form.append("question", payload.question);
+    if (payload.timestamp !== undefined) form.append("timestamp", String(payload.timestamp));
+    if (payload.bbox?.length) form.append("bbox", payload.bbox.join(","));
+    if (payload.top_k) form.append("top_k", String(payload.top_k));
+    form.append("image", payload.image);
+    const res = await fetch(`${API_BASE}/api/learning/region-explain`, { method: "POST", body: form });
+    if (!res.ok) throw new Error(await res.text());
+    return res.json();
+  }
+  return apiPost<any>("/api/learning/region-explain", payload);
+}
+
+export async function masteryUpdate(payload: {
+  student_id: string;
+  course_id: string;
+  interactions?: Record<string, unknown>[];
+  quiz_answers?: Record<string, unknown>[];
+  watched_clips?: Record<string, unknown>[];
+  concepts?: string[];
+}) {
+  return apiPost<any>("/api/learning/mastery/update", payload);
+}
+
+export async function masteryProfile(student_id: string, course_id = "real_i2ml") {
+  return apiGet<any>(`/api/learning/mastery/${student_id}?course_id=${encodeURIComponent(course_id)}`);
+}
+
+export async function studyPlan(payload: {
+  student_id: string;
+  course_id: string;
+  focus_topics?: string[];
+  days?: number;
+}) {
+  return apiPost<any>("/api/learning/study-plan", payload);
+}

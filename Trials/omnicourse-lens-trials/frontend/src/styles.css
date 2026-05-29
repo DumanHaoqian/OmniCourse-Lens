@@ -2734,6 +2734,170 @@ body {
   user-select: none;
 }
 
+.learning-tools-panel {
+  background: linear-gradient(180deg, #ffffff 0%, #f7fbfb 100%);
+  border: 1px solid #dce8e7;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 12px;
+}
+
+.learning-head {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+.learning-head > svg {
+  background: #e5f6f2;
+  border-radius: 8px;
+  color: #0f766e;
+  height: 34px;
+  padding: 8px;
+  width: 34px;
+}
+
+.learning-head strong,
+.learning-result-head strong {
+  color: #122033;
+  display: block;
+  font-size: 14px;
+}
+
+.learning-head span,
+.learning-status {
+  color: #607487;
+  font-size: 12px;
+}
+
+.learning-tool-tabs {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.learning-tool-tabs button {
+  background: #f3f7fa;
+  border: 1px solid #dce5ee;
+  color: #263548;
+  font-size: 12px;
+  font-weight: 700;
+  height: auto;
+  justify-content: flex-start;
+  line-height: 1.25;
+  min-height: 38px;
+  padding: 8px;
+  text-align: left;
+}
+
+.learning-tool-tabs button.active {
+  background: #0f766e;
+  border-color: #0f766e;
+  color: #ffffff;
+}
+
+.compact-textarea {
+  min-height: 92px;
+}
+
+.mono-input {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.region-help {
+  display: grid;
+  gap: 8px;
+}
+
+.region-help small {
+  color: #66788a;
+  line-height: 1.4;
+}
+
+.run-learning-button {
+  width: 100%;
+}
+
+.learning-result {
+  border-top: 1px solid #e2ebf2;
+  display: grid;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.learning-result-head {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.learning-result-head span {
+  background: #e5f6f2;
+  border-radius: 999px;
+  color: #0f766e;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 8px;
+}
+
+.learning-result p {
+  color: #3d4d61;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.learning-formula {
+  background: #ffffff;
+  border: 1px solid #d9e5ee;
+  border-radius: 8px;
+  overflow-x: auto;
+  padding: 8px;
+}
+
+.region-crop {
+  border: 1px solid #d9e5ee;
+  border-radius: 8px;
+  max-height: 160px;
+  object-fit: contain;
+  width: 100%;
+}
+
+.drill-list,
+.study-plan-list,
+.learning-evidence-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.drill-list details,
+.study-plan-list article {
+  background: #ffffff;
+  border: 1px solid #dce5ee;
+  border-radius: 8px;
+  color: #34445a;
+  padding: 9px;
+}
+
+.drill-list summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.drill-list button {
+  background: #eef6f5;
+  color: #0f766e;
+  height: 32px;
+  margin-top: 6px;
+}
+
+.learning-evidence-grid .evidence-card {
+  cursor: pointer;
+}
+
 @media (max-width: 1180px) {
   .atlas-shell.watch-layout {
     grid-template-columns: 1fr !important;

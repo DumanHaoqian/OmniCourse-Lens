@@ -26,6 +26,7 @@ def main() -> None:
     os.environ.setdefault("OMNICOURSE_IMAGE_EMBED_TIMEOUT", "8")
     os.environ.setdefault("OMNICOURSE_IMAGE_QUERY_ALLOW_HEAVY_OCR", "false")
     os.environ.setdefault("OMNICOURSE_ENABLE_OPEN_CLIP_INDEX", "false")
+    os.environ.setdefault("AZURE_OPENAI_TIMEOUT", "12")
     run([sys.executable, "scripts/create_demo_data.py"])
 
     try:
@@ -163,6 +164,77 @@ def main() -> None:
     provider_status = client.get("/api/provider-status")
     assert_true(provider_status.status_code == 200, "provider status failed")
 
+    skills = client.get("/api/skills")
+    assert_true(skills.status_code == 200 and len(skills.json().get("skills", [])) >= 10, "skill registry is missing learning skills")
+
+    prerequisite = client.post(
+        "/api/learning/prerequisite-rewind",
+        json={"course_id": "real_i2ml", "video_id": optimization["video_id"], "target_concept": "gradient descent", "top_k": 3},
+    )
+    assert_true(prerequisite.status_code == 200, "prerequisite rewind failed")
+    assert_true(prerequisite.json().get("supporting_moments"), "prerequisite rewind lacks evidence clips")
+    assert_true(prerequisite.json().get("self_check", {}).get("passed"), "prerequisite rewind self-check failed")
+
+    misconception = client.post(
+        "/api/learning/misconception-check",
+        json={
+            "course_id": "real_i2ml",
+            "video_id": optimization["video_id"],
+            "student_text": "Gradient descent follows the gradient to minimize loss.",
+            "top_k": 3,
+        },
+    )
+    assert_true(misconception.status_code == 200, "misconception detector failed")
+    assert_true(misconception.json().get("detected") is True, "misconception detector missed known gradient misconception")
+
+    drill = client.post(
+        "/api/learning/socratic-drill",
+        json={"course_id": "real_i2ml", "video_id": optimization["video_id"], "focus_topic": "gradient descent", "number_of_questions": 3},
+    )
+    assert_true(drill.status_code == 200 and len(drill.json().get("questions", [])) >= 2, "Socratic drill failed")
+
+    derivation = client.post(
+        "/api/learning/formula-derivation",
+        json={
+            "course_id": "real_i2ml",
+            "video_id": optimization["video_id"],
+            "formula_latex": r"\theta := \theta - \alpha \nabla_\theta J(\theta)",
+            "top_k": 3,
+        },
+    )
+    assert_true(derivation.status_code == 200, "formula derivation tutor failed")
+    assert_true("nabla" in derivation.json().get("formula_latex", ""), "formula derivation did not preserve LaTeX")
+
+    with frame_path.open("rb") as handle:
+        region = client.post(
+            "/api/learning/region-explain",
+            data={
+                "course_id": "real_i2ml",
+                "video_id": optimization["video_id"],
+                "question": "Explain this selected slide region",
+                "timestamp": "720",
+                "bbox": "0.05,0.05,0.95,0.90",
+                "top_k": "2",
+            },
+            files={"image": ("region.png", handle, "image/png")},
+        )
+    assert_true(region.status_code == 200, "region explain failed")
+    assert_true(region.json().get("related_moments"), "region explain lacks related evidence")
+
+    mastery = client.post(
+        "/api/learning/mastery/update",
+        json={
+            "student_id": "smoke_student",
+            "course_id": "real_i2ml",
+            "interactions": [{"query": "gradient descent"}],
+            "watched_clips": [{"moment_id": real_search_json["results"][0]["moment_id"], "concept": "gradient descent"}],
+            "concepts": ["gradient descent", "learning rate"],
+        },
+    )
+    assert_true(mastery.status_code == 200 and mastery.json().get("profile"), "mastery update failed")
+    study_plan = client.post("/api/learning/study-plan", json={"student_id": "smoke_student", "course_id": "real_i2ml", "days": 2})
+    assert_true(study_plan.status_code == 200 and study_plan.json().get("study_plan"), "study plan failed")
+
     llm = LLMService()
     llm_judge: dict[str, Any] | None = None
     if llm.is_available():
@@ -195,6 +267,14 @@ def main() -> None:
             "cheatsheet_generation_and_compile_endpoint",
             "knowledge_graph_pruned",
             "provider_status",
+            "skill_registry",
+            "prerequisite_rewind",
+            "misconception_detector",
+            "socratic_drill",
+            "formula_derivation",
+            "region_explain",
+            "mastery_update",
+            "study_plan",
         ],
         "real_dataset": {
             "video_count": len(videos),
@@ -210,6 +290,12 @@ def main() -> None:
             "latex": health_json.get("providers", {}).get("latex"),
         },
         "llm_product_judge": llm_judge,
+        "learning_feature_checks": {
+            "prerequisite_self_check": prerequisite.json().get("self_check"),
+            "misconception_detected": misconception.json().get("detected"),
+            "socratic_question_count": len(drill.json().get("questions", [])),
+            "study_plan_days": len(study_plan.json().get("study_plan", [])),
+        },
     }
     out_dir = ROOT / "backend/app/data/generated/evals"
     out_dir.mkdir(parents=True, exist_ok=True)
