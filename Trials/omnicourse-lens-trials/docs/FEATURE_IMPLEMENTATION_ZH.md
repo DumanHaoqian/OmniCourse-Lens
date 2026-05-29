@@ -2,6 +2,32 @@
 
 OmniCourse Lens 现在的核心思路不是“做一个视频播放器旁边挂几个 AI 按钮”，而是把课程视频处理成一套可检索、可引用、可解释的多模态证据库。多模态，简单说就是不只看一种信息来源：系统同时使用视频画面、音频转写、课件 PDF、关键帧 OCR、公式文本、概念标签和可选的视频大模型信号。用户看到的是一个学习网站，但底层其实是一条从真实课程视频到结构化知识资产的处理链路。
 
+## 后端整体实现
+
+后端使用 FastAPI 实现，入口是 `backend/app/main.py`。它负责注册 API、挂载静态文件、配置 CORS，并把主要能力拆成多个 service。这里的 service 可以理解成“后端里的功能模块”：`DatasetService` 负责发现和管理真实视频，`VideoIngestService` 负责把视频转成可搜索的 evidence，`SearchService` 负责多模态检索，`EvidenceService` 负责字幕和时间戳证据，`CheatsheetService` 负责 LaTeX cheatsheet，`GraphService` 负责知识图谱，`QAAgent` 负责 AI Tutor，`LLMService` 负责 GPT-4o 调用，`DeepSeekOCRService` 和 `InternVideo3Service` 负责接入重模型。这样做的好处是每个功能边界比较清楚，后面要换 OCR 模型、换搜索策略或换前端 UI，不需要把整个系统推倒重写。
+
+后端的数据层没有一上来引入数据库，而是用 JSON storage 做 MVP。课程文件放在 `backend/app/data/courses/`，索引放在 `backend/app/data/indexes/`，生成的 cheatsheet、graph、QA log 和 eval log 放在 `backend/app/data/generated/`，关键帧放在 `backend/app/static/frames/`。这种设计不是最终生产架构，但很适合 hackathon：可复制、可检查、可提交小型 metadata，也方便 debug。为了避免 JSON 反复读盘，`storage.py` 做了基于文件修改时间的缓存；搜索索引、字幕、视频列表和 provider status 也有缓存，所以普通搜索和播放字幕不会每次都重新扫磁盘。
+
+后端 API 大致分三类。第一类是数据准备 API，例如 `GET /api/dataset/videos`、`POST /api/dataset/ingest`、`POST /api/index/rebuild`，它们负责发现视频、ingest 视频和重建搜索索引。第二类是用户功能 API，例如 `POST /api/search/text`、`POST /api/search/image`、`POST /api/cheatsheet`、`POST /api/knowledge-graph`、`POST /api/qa`。第三类是视频和证据 API，例如 `GET /api/dataset/videos/{video_id}/stream`、`GET /api/dataset/videos/{video_id}/subtitles`、`GET /api/dataset/videos/{video_id}/subtitles.vtt`、`GET /api/dataset/videos/{video_id}/evidence`。前端不直接读本地文件，而是通过这些 API 获取视频流、字幕、证据和模型输出。
+
+后端的核心数据结构定义在 `backend/app/schemas.py`。里面有 `Course`、`Lecture`、`Moment`、`ASRSegment`、`OCRBlock`、`FormulaBlock`、`SearchResult`、`CheatsheetResponse`、`GraphResponse` 和 `QAResponse` 等模型。Pydantic schema 的作用是保证后端每个模块传递的数据结构稳定，比如一个 search result 必须有 `start_time`、`end_time`、`score_breakdown`、`matched_modalities` 和 evidence snippet。这样前端渲染时不用猜字段，也更容易写测试。
+
+模型接入上，后端采用 lazy loading，也就是“用到时再加载”。DeepSeek-OCR、本地 InternVideo3、GPT-4o、faster-whisper 都可能很重，如果 API 一启动就全部加载，会慢、占 GPU，也容易因为某个模型环境不对导致整个服务挂掉。所以当前实现是：启动时只报告 provider 是否可用；真正需要 OCR、ASR、LLM 或视频 rerank 时，再进入对应 service。重模型不可用时，系统会降级到缓存、PDF 文本、启发式公式、轻量视觉描述符或 deterministic fallback，保证 demo 不会因为某个模型失败而完全不可用。
+
+## 前端整体实现
+
+前端使用 React + Vite + TypeScript，核心文件是 `frontend/src/App.tsx`。页面不是传统的多页面跳转，而是一个学习工作台：左边是 Dataset 视频列表和 evidence rail，中间是主视频播放器和功能输出区，右边是四个功能控制栏：Search Video、Cheatsheet、Knowledge Graph、AI Tutor。这个布局的原则是“用户主要是在看视频”，所以视频始终在中间，AI 功能围绕当前视频工作，而不是把视频挤到边角。
+
+前端所有后端请求都集中在 `frontend/src/api.ts`。比如 `datasetVideos()` 调 `/api/dataset/videos`，`textSearch()` 调 `/api/search/text`，`imageSearch()` 调 `/api/search/image`，`askTutor()` 调 `/api/qa`，`videoSubtitles()` 调字幕 API。这样 UI 组件不需要知道具体 HTTP 细节，只关心拿到的数据怎么展示。视频播放用浏览器原生 `<video>` 标签，视频源来自 `/api/dataset/videos/{video_id}/stream`，字幕轨道来自 WebVTT，同时前端还有一个自定义字幕条，用后端返回的 cue 做更好看的动态展示。
+
+前端的四个功能不是四个孤立页面，而是共享同一个 selected video、selected result、playback time 和 evidence 状态。Search 返回结果后，`App.tsx` 会把 `selectedResult` 设置为最相关 moment，并把主视频跳到这个 moment 的 `start_time`。QA evidence、Knowledge Graph moment node、Search result card 都可以调用同一个 `jumpToEvidence()`，所以无论用户从哪个功能点证据，都会回到中间视频播放器的对应时间点。这就是“功能围绕视频”的交互核心。
+
+公式渲染由 `MarkdownMath`、`MathText` 和 KaTeX 完成。后端返回的答案或 evidence 里如果有 `\( ... \)` 或 `\[ ... \]`，前端会把它渲染成真正的数学公式，而不是普通字符串。Cheatsheet 页面一边显示 LaTeX source，一边用 Markdown/KaTeX 做预览；QA 页面用 Markdown + LaTeX 展示回答；搜索结果和 graph inspector 里的公式也会走同一套渲染逻辑。这样所有模型输出都尽量以可读的数学格式呈现。
+
+Knowledge Graph 前端使用 `frontend/src/components/CytoscapeGraph.tsx`。它把后端返回的 nodes 和 edges 转成 Cytoscape elements，再用 fCoSE layout 自动排布。用户可以搜索节点、筛选节点类型、开关 label、focus 某个节点、点击节点查看 inspector。对于 moment 或 visual evidence 节点，前端会保留 timestamp、thumbnail、transcript snippet 和 formula metadata，所以用户可以从图谱直接跳回视频时间点。
+
+前端还做了一些工程性处理。工作区左右和上下区域可以拖动调整大小，尺寸会存到 `localStorage`，下次打开还会保留。视频列表和 evidence card 使用动画，但不是为了炫，而是让状态变化更容易跟踪。Provider badge 会显示 Dataset、GPT-4o、DeepSeek OCR、InternVideo3 的可用状态，但不会把 API key 暴露到浏览器。前端只拿 provider status，真正的密钥和模型调用都留在后端。
+
 ## 真实视频数据流
 
 系统默认读取 `/home/haoqian/Data/OmniCourse-Lens/Dataset` 里的真实课程视频，而不是只靠 mock data。后端的 `DatasetService` 会在固定 Dataset 目录下扫描 `.mp4`、`.mov`、`.mkv`、`.avi`、`.webm`、`.m4v` 等视频文件，为每个视频生成稳定的 `video_id`，并返回标题、路径、大小、时长、是否已 ingest、是否已 index、缩略图和对应 slides PDF。这里的 ingest 可以理解为“把原始视频准备成 AI 能用的数据”，index 可以理解为“把准备好的数据放进搜索库”。
