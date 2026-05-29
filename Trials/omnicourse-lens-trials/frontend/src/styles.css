@@ -3742,3 +3742,269 @@ body {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* Overlap hardening: do not force five product columns onto laptop widths. */
+@media (max-width: 1680px) {
+  .atlas-shell.watch-layout.atlas-reference-ui {
+    gap: 10px;
+    grid-template-columns:
+      minmax(260px, 300px)
+      minmax(480px, 1fr)
+      74px
+      minmax(300px, 360px) !important;
+    padding: 10px;
+    width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .atlas-reference-ui .atlas-topbar {
+    grid-template-columns: minmax(260px, 1fr) minmax(520px, 760px) auto;
+    padding: 0 8px;
+  }
+
+  .atlas-reference-ui .insight-column {
+    display: none;
+  }
+
+  .atlas-reference-ui .video-library {
+    grid-column: 1;
+  }
+
+  .atlas-reference-ui .watch-center {
+    grid-column: 2;
+  }
+
+  .atlas-reference-ui .feature-sidebar {
+    grid-column: 3 / 5;
+    grid-template-columns: 74px minmax(300px, 1fr);
+  }
+
+  .atlas-reference-ui .feature-tabs {
+    padding: 10px 7px;
+  }
+
+  .atlas-reference-ui .feature-tabs button {
+    font-size: 11px;
+    height: 70px;
+  }
+
+  .atlas-reference-ui .main-video {
+    height: clamp(270px, 39vh, 400px) !important;
+  }
+
+  .atlas-reference-ui .subtitle-strip {
+    min-height: 54px;
+  }
+
+  .atlas-reference-ui .watch-meta {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .atlas-reference-ui .watch-meta span:last-child {
+    display: none;
+  }
+
+  .atlas-reference-ui .video-row {
+    grid-template-columns: 118px minmax(0, 1fr);
+  }
+
+  .atlas-reference-ui .rail-card {
+    grid-template-columns: 116px minmax(0, 1fr);
+  }
+
+  .atlas-reference-ui .resize-handle.right-edge {
+    display: none;
+  }
+}
+
+@media (max-width: 1420px) {
+  .atlas-shell.watch-layout.atlas-reference-ui {
+    grid-template-columns:
+      minmax(240px, 286px)
+      minmax(440px, 1fr)
+      68px
+      minmax(286px, 340px) !important;
+  }
+
+  .atlas-reference-ui .atlas-topbar {
+    grid-template-columns: minmax(250px, 1fr) minmax(460px, 650px) auto;
+  }
+
+  .atlas-product-mark {
+    gap: 10px;
+  }
+
+  .atlas-product-mark h1 {
+    font-size: 21px;
+  }
+
+  .atlas-product-mark p {
+    font-size: 12px;
+  }
+
+  .atlas-cube {
+    height: 38px;
+    width: 38px;
+  }
+
+  .top-provider-panel {
+    padding: 7px 10px;
+  }
+
+  .atlas-reference-ui .status {
+    font-size: 10px;
+    padding: 0 7px;
+  }
+
+  .atlas-reference-ui .video-library {
+    padding: 12px;
+  }
+
+  .atlas-reference-ui .library-actions button {
+    font-size: 12px;
+    line-height: 1.15;
+  }
+
+  .atlas-reference-ui .video-row {
+    grid-template-columns: 108px minmax(0, 1fr);
+  }
+
+  .atlas-reference-ui .watch-head h2 {
+    font-size: 16px;
+  }
+
+  .atlas-reference-ui .feature-sidebar {
+    grid-template-columns: 68px minmax(286px, 1fr);
+  }
+
+  .atlas-reference-ui .feature-tabs button {
+    font-size: 10.5px;
+    height: 68px;
+  }
+
+  .atlas-reference-ui .sidebar-controls {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 1260px) {
+  .atlas-shell.watch-layout.atlas-reference-ui {
+    grid-template-columns:
+      minmax(220px, 260px)
+      minmax(420px, 1fr)
+      64px
+      minmax(270px, 316px) !important;
+  }
+
+  .atlas-reference-ui .atlas-topbar {
+    grid-template-columns: minmax(230px, 1fr) minmax(390px, 560px) auto;
+  }
+
+  .atlas-reference-ui .topbar-actions {
+    gap: 6px;
+  }
+
+  .atlas-reference-ui .ghost-icon {
+    width: 30px;
+  }
+
+  .atlas-reference-ui .user-avatar {
+    height: 38px;
+    width: 38px;
+  }
+
+  .atlas-reference-ui .library-brand p,
+  .atlas-reference-ui .top-provider-panel > span {
+    display: none;
+  }
+
+  .atlas-reference-ui .video-row {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+
+  .atlas-reference-ui .rail-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+
+  .atlas-reference-ui .main-video {
+    height: clamp(250px, 36vh, 360px) !important;
+  }
+
+  .atlas-reference-ui .feature-sidebar {
+    grid-template-columns: 64px minmax(270px, 1fr);
+  }
+
+  .atlas-reference-ui .feature-tabs button span:not(.active-feature-mark) {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .atlas-shell.watch-layout.atlas-reference-ui {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto auto;
+    overflow-x: hidden;
+  }
+
+  .atlas-reference-ui .atlas-topbar {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 8px;
+  }
+
+  .top-provider-panel .compact-providers {
+    flex-wrap: wrap;
+  }
+
+  .atlas-reference-ui .topbar-actions {
+    display: none;
+  }
+
+  .atlas-reference-ui .video-library {
+    grid-column: 1 !important;
+    grid-row: 4 !important;
+  }
+
+  .atlas-reference-ui .watch-center {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+  }
+
+  .atlas-reference-ui .feature-sidebar {
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    grid-template-columns: 1fr;
+  }
+
+  .atlas-reference-ui .video-library,
+  .atlas-reference-ui .watch-center,
+  .atlas-reference-ui .feature-sidebar {
+    width: 100%;
+  }
+
+  .atlas-reference-ui .main-video {
+    height: clamp(260px, 52vw, 440px) !important;
+  }
+
+  .atlas-reference-ui .feature-tabs {
+    grid-column: 1;
+    grid-row: 1;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .atlas-reference-ui .feature-tabs button {
+    height: 54px;
+  }
+
+  .atlas-reference-ui .sidebar-panel-title,
+  .atlas-reference-ui .sidebar-controls,
+  .atlas-reference-ui .status-note {
+    grid-column: 1;
+  }
+
+  .atlas-reference-ui .sidebar-controls {
+    max-height: 55vh;
+  }
+}
