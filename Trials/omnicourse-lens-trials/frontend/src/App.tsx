@@ -448,7 +448,7 @@ export default function App() {
           </div>
         </div>
         <div className="top-provider-panel">
-          <span>Provider Status</span>
+          <span>Learning Engines</span>
           <div className="provider-row compact-providers">
             <StatusBadge label="GPT-4o" ok={Boolean(health?.providers?.llm?.available)} muted={Boolean(!health?.providers?.llm?.available)} />
             <StatusBadge label="ASR" ok={Boolean(health?.providers?.ingest?.asr?.enabled || health?.providers?.ingest?.asr?.active_provider)} muted={Boolean(!health?.providers?.ingest?.asr?.enabled && !health?.providers?.ingest?.asr?.active_provider)} />
@@ -524,10 +524,10 @@ export default function App() {
           <div className="watch-head">
             <div>
               <span className="eyebrow">Now watching</span>
-              <h2>{selectedVideo?.title || "Select a Dataset video"}</h2>
+              <h2>{selectedVideo?.title || "Select a lesson video"}</h2>
             </div>
             <div className="provider-row compact-providers">
-              <StatusBadge label="Dataset" ok={Boolean(health?.providers?.dataset?.exists)} />
+              <StatusBadge label="Video" ok={Boolean(health?.providers?.dataset?.exists)} />
               <StatusBadge label="GPT-4o" ok={Boolean(health?.providers?.llm?.available)} muted={Boolean(!health?.providers?.llm?.available)} />
               <StatusBadge label="DeepSeek OCR" ok={Boolean(health?.providers?.deepseek_ocr?.available)} muted={Boolean(!health?.providers?.deepseek_ocr?.available)} />
               <StatusBadge label="InternVideo3" ok={Boolean(health?.providers?.search?.internvideo3?.available)} muted={Boolean(!health?.providers?.search?.internvideo3?.available)} />
@@ -555,7 +555,7 @@ export default function App() {
               {activeVideoId && <track kind="captions" src={`${API_BASE}/api/dataset/videos/${activeVideoId}/subtitles.vtt`} srcLang="en" label="Audio transcript" default />}
             </video>
           ) : (
-            <div className="main-video preview-empty">Select a Dataset video</div>
+            <div className="main-video preview-empty">Select a lesson video</div>
           )}
 
           <SubtitleBar cue={activeSubtitle} currentTime={playbackTime} hasMoments={selectedVideoMoments.length > 0} />
@@ -617,43 +617,46 @@ export default function App() {
         <div className="sidebar-panel-title">
           <div>
             <Sparkles size={18} />
-            <strong>{featureItems.find((item) => item.key === feature)?.label}</strong>
+            <span>
+              <strong>{featureItems.find((item) => item.key === feature)?.label}</strong>
+              <small>{featureIntro(feature)}</small>
+            </span>
           </div>
           <button type="button" className="panel-close" title="Keep panel open"><X size={17} /></button>
         </div>
 
         <div className="sidebar-controls">
-          <label>Active real video</label>
+          <label>Current lesson</label>
           <select value={selectedVideo?.video_id || ""} onChange={(event) => selectVideo(videos.find((video) => video.video_id === event.target.value) || videos[0])}>
             {videos.map((video) => <option key={video.video_id} value={video.video_id}>{video.title}</option>)}
           </select>
 
           {feature === "search" && (
             <>
-              <label>Search scope</label>
+              <label>Search in</label>
               <div className="scope-toggle" role="group" aria-label="Search scope">
-                <button type="button" className={searchScope === "current" ? "active" : ""} onClick={() => setSearchScope("current")}>Current video</button>
-                <button type="button" className={searchScope === "all" ? "active" : ""} onClick={() => setSearchScope("all")}>All videos</button>
+                <button type="button" className={searchScope === "current" ? "active" : ""} onClick={() => setSearchScope("current")}>This lesson</button>
+                <button type="button" className={searchScope === "all" ? "active" : ""} onClick={() => setSearchScope("all")}>All lessons</button>
               </div>
-              <label>Search query</label>
+              <label>Find a concept or formula</label>
               <textarea value={query} onChange={(event) => setQuery(event.target.value)} />
-              <UploadPanel file={image} onFile={setImage} label="Optional image query" />
+              <UploadPanel file={image} onFile={setImage} label="Add image or slide crop" />
               <FeatureRuntimeHint
                 label={searchScope === "current" ? "Current video search" : "All-course search"}
                 estimate={searchScope === "current" ? "Usually 3-8 sec" : "Usually 8-15 sec"}
                 active={activeOperation?.key === "search"}
                 progress={operationProgress}
               />
-              <button onClick={runSearch} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Search size={16} />} Search Moments</button>
+              <button className="primary-action" onClick={runSearch} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Search size={16} />} Find moments</button>
             </>
           )}
 
           {feature === "cheatsheet" && (
             <>
-              <label>Focus topics</label>
+              <label>Topics to emphasize</label>
               <textarea value={query} onChange={(event) => setQuery(event.target.value)} />
               <FeatureRuntimeHint label="Study sheet generation" estimate="Usually 20-45 sec" active={activeOperation?.key === "cheatsheet"} progress={operationProgress} />
-              <button onClick={runCheatsheet} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <FileText size={16} />} Generate Cheatsheet</button>
+              <button className="primary-action" onClick={runCheatsheet} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <FileText size={16} />} Create study sheet</button>
               <FeatureRuntimeHint label="PDF compile" estimate="Usually 5-20 sec" active={activeOperation?.key === "compile"} progress={operationProgress} />
               <button onClick={runCompile} disabled={busy || !cheatsheet?.tex_content}>Compile LaTeX</button>
             </>
@@ -661,20 +664,20 @@ export default function App() {
 
           {feature === "graph" && (
             <>
-              <label>Graph focus</label>
+              <label>Focus concept</label>
               <input value={query} onChange={(event) => setQuery(event.target.value)} />
               <FeatureRuntimeHint label="Concept map generation" estimate="Usually 10-25 sec" active={activeOperation?.key === "graph"} progress={operationProgress} />
-              <button onClick={runGraph} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Network size={16} />} Generate Graph</button>
+              <button className="primary-action" onClick={runGraph} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Network size={16} />} Build concept map</button>
             </>
           )}
 
           {feature === "qa" && (
             <>
-              <label>Tutor question</label>
+              <label>Ask about the lesson</label>
               <textarea value={question} onChange={(event) => setQuestion(event.target.value)} />
-              <UploadPanel file={image} onFile={setImage} label="Optional question image" />
+              <UploadPanel file={image} onFile={setImage} label="Add screenshot or formula" />
               <FeatureRuntimeHint label="AI Tutor answer" estimate="Usually 15-35 sec" active={activeOperation?.key === "qa"} progress={operationProgress} />
-              <button onClick={runQa} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <BrainCircuit size={16} />} Ask AI Tutor</button>
+              <button className="primary-action" onClick={runQa} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <BrainCircuit size={16} />} Ask with evidence</button>
               <TutorSidebarPreview qa={qa} onJump={jumpToEvidence} />
               <LearningToolsPanel
                 courseId={courseId}
@@ -766,6 +769,13 @@ function ProgressBar({ value }: { value: number }) {
       <span style={{ width: `${percent}%` }} />
     </div>
   );
+}
+
+function featureIntro(feature: Feature) {
+  if (feature === "search") return "Jump to the exact timestamp you need.";
+  if (feature === "cheatsheet") return "Turn this lesson into a compact LaTeX review sheet.";
+  if (feature === "graph") return "Map concepts, formulas, and prerequisite links.";
+  return "Ask questions grounded in video evidence.";
 }
 
 function TutorSidebarPreview({ qa, onJump }: { qa: any; onJump: (item: EvidenceItem | any) => void }) {
@@ -935,7 +945,7 @@ function EvidenceRail({
   return (
     <section className="evidence-rail">
       <div className="rail-head">
-        <h3>{results.length ? "Search Results" : "Lecture Moments"}</h3>
+        <h3>{results.length ? "Found Moments" : "Timeline"}</h3>
         <small>{items.length}</small>
       </div>
       <div className="rail-scroll" ref={railRef}>
