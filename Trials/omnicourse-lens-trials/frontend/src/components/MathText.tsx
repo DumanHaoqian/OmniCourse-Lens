@@ -1,3 +1,4 @@
+import katex from "katex";
 import MarkdownMath from "./MarkdownMath";
 
 export default function MathText({
@@ -9,6 +10,17 @@ export default function MathText({
   block?: boolean;
   className?: string;
 }) {
+  if (block) {
+    const latex = formulaLatex(text || "");
+    if (latex) {
+      return (
+        <div
+          className={`math-text math-block-text ${className}`}
+          dangerouslySetInnerHTML={{ __html: katex.renderToString(latex, { displayMode: true, throwOnError: false }) }}
+        />
+      );
+    }
+  }
   const content = block ? formulaMarkdown(text || "") : inlineMathMarkdown(text || "");
   return <MarkdownMath text={content} className={`math-text ${block ? "math-block-text" : "math-inline-text"} ${className}`} />;
 }
@@ -21,7 +33,7 @@ export function inlineMathMarkdown(text: string) {
   for (const candidate of replacements) {
     const latex = latexify(candidate);
     if (!latex) continue;
-    rendered = rendered.replace(candidate, `\\(${latex}\\)`);
+    rendered = rendered.replace(candidate, `$${latex}$`);
   }
   return rendered;
 }
@@ -36,17 +48,49 @@ export function renderModelMarkdown(text: string) {
 }
 
 export function formulaMarkdown(text: string) {
+  const latex = formulaLatex(text);
+  if (latex) return `$$\n${latex}\n$$`;
+  return inlineMathMarkdown(text);
+}
+
+function formulaLatex(text: string) {
   if (!text) return "";
-  if (hasMathDelimiters(text)) return text;
-  const candidates = formulaCandidates(text);
-  const formula = candidates[0] || text;
+  const stripped = stripMathDelimiters(text);
+  if (/\\[A-Za-z]+|(?<!\\)\btheta\b|(?<!\\)\balpha\b|[α∇]/i.test(stripped)) {
+    return normalizeLatexCommandText(stripped);
+  }
+  const candidates = formulaCandidates(stripped);
+  const formula = candidates[0] || stripped;
   const latex = latexify(formula);
-  if (!latex) return inlineMathMarkdown(text);
-  return `\\[\n${latex}\n\\]`;
+  return latex || "";
 }
 
 function hasMathDelimiters(text: string) {
   return /\\\(|\\\[|\$\$|(?<!\\)\$/.test(text);
+}
+
+function stripMathDelimiters(text: string) {
+  return text
+    .trim()
+    .replace(/^\\\[/, "")
+    .replace(/\\\]$/, "")
+    .replace(/^\\\(/, "")
+    .replace(/\\\)$/, "")
+    .replace(/^\$\$/, "")
+    .replace(/\$\$$/, "")
+    .replace(/^\$/, "")
+    .replace(/\$$/, "")
+    .trim();
+}
+
+function normalizeLatexCommandText(text: string) {
+  return text
+    .replace(/−/g, "-")
+    .replace(/(?<!\\)\btheta\b/gi, "\\theta")
+    .replace(/(?<!\\)\balpha\b/gi, "\\alpha")
+    .replace(/α/g, "\\alpha")
+    .replace(/∇/g, "\\nabla")
+    .trim();
 }
 
 function normalizeWhitespace(text: string) {

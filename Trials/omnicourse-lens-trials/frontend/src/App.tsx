@@ -1,4 +1,4 @@
-import { Bot, BrainCircuit, Download, FileText, GripHorizontal, GripVertical, Loader2, Network, Play, RefreshCcw, Search, UploadCloud } from "lucide-react";
+import { Bell, Bot, BrainCircuit, Download, FileText, GripHorizontal, GripVertical, HelpCircle, Loader2, Network, Play, RefreshCcw, Search, Sparkles, UploadCloud, X } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Lenis from "lenis";
@@ -68,7 +68,7 @@ const featureItems = [
 ];
 
 export default function App() {
-  const [feature, setFeature] = useState<Feature>("search");
+  const [feature, setFeature] = useState<Feature>("qa");
   const [videos, setVideos] = useState<DatasetVideo[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<DatasetVideo | null>(null);
   const [course, setCourse] = useState<Course | null>(null);
@@ -373,15 +373,41 @@ export default function App() {
   };
 
   return (
-    <motion.div className="atlas-shell watch-layout" style={workspaceStyle} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, ease: "easeOut" }}>
+    <motion.div className="atlas-shell watch-layout atlas-reference-ui" style={workspaceStyle} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, ease: "easeOut" }}>
+      <header className="atlas-topbar">
+        <div className="atlas-product-mark">
+          <div className="atlas-cube" aria-hidden="true"><span /><span /><span /></div>
+          <div>
+            <h1>OmniCourse-Atlas</h1>
+            <p>A Skill-Augmented Multimodal Agent for Course Learning</p>
+          </div>
+        </div>
+        <div className="top-provider-panel">
+          <span>Provider Status</span>
+          <div className="provider-row compact-providers">
+            <StatusBadge label="GPT-4o" ok={Boolean(health?.providers?.llm?.available)} muted={Boolean(!health?.providers?.llm?.available)} />
+            <StatusBadge label="ASR" ok={Boolean(health?.providers?.ingest?.asr?.enabled || health?.providers?.ingest?.asr?.active_provider)} muted={Boolean(!health?.providers?.ingest?.asr?.enabled && !health?.providers?.ingest?.asr?.active_provider)} />
+            <StatusBadge label="OCR" ok={Boolean(health?.providers?.ingest?.ocr)} />
+            <StatusBadge label="DeepSeek OCR" ok={Boolean(health?.providers?.deepseek_ocr?.available)} muted={Boolean(!health?.providers?.deepseek_ocr?.available)} />
+            <StatusBadge label="InternVideo3" ok={Boolean(health?.providers?.search?.internvideo3?.available)} muted={Boolean(!health?.providers?.search?.internvideo3?.available)} />
+            <StatusBadge label="LaTeX" ok={Boolean(health?.providers?.latex?.tectonic_available || health?.providers?.latex?.pdflatex_available || health?.providers?.latex?.xelatex_available)} />
+          </div>
+        </div>
+        <div className="topbar-actions">
+          <button className="ghost-icon" title="Help"><HelpCircle size={19} /></button>
+          <button className="ghost-icon" title="Notifications"><Bell size={19} /></button>
+          <div className="user-avatar">AK<span /></div>
+        </div>
+      </header>
+
       <ResizeHandle placement="left-edge" label="Resize video library" onPointerDown={(event) => startResize("leftWidth", event)} />
       <ResizeHandle placement="right-edge" label="Resize feature sidebar" onPointerDown={(event) => startResize("rightWidth", event)} />
 
       <motion.aside className="video-library" aria-label="Dataset video loader" initial={{ x: -24, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.42, ease: "easeOut" }}>
         <div className="library-brand">
           <div>
-            <h1>OmniCourse Lens</h1>
-            <p>Real Dataset video workspace</p>
+            <h1>Dataset Loader</h1>
+            <p>Real course videos and indexed moments</p>
           </div>
           <button className="icon-button" onClick={load} disabled={busy} title="Refresh dataset videos"><RefreshCcw size={17} /></button>
         </div>
@@ -501,6 +527,18 @@ export default function App() {
         </section>
       </motion.main>
 
+      <InsightColumn
+        graph={graph}
+        cheatsheet={cheatsheet}
+        results={results}
+        selectedVideo={selectedVideo}
+        onGraph={runGraph}
+        onCheatsheet={runCheatsheet}
+        onCompile={runCompile}
+        onJump={jumpToEvidence}
+        setFeature={setFeature}
+      />
+
       <motion.aside className="feature-sidebar control-sidebar" aria-label="Feature controls" initial={{ x: 24, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.42, ease: "easeOut", delay: 0.08 }}>
         <div className="feature-tabs" aria-label="Feature tabs">
           {featureItems.map((item) => {
@@ -513,6 +551,14 @@ export default function App() {
               </motion.button>
             );
           })}
+        </div>
+
+        <div className="sidebar-panel-title">
+          <div>
+            <Sparkles size={18} />
+            <strong>{featureItems.find((item) => item.key === feature)?.label}</strong>
+          </div>
+          <button type="button" className="panel-close" title="Keep panel open"><X size={17} /></button>
         </div>
 
         <div className="sidebar-controls">
@@ -576,6 +622,93 @@ export default function App() {
         {status && <div className="status-note">{status}</div>}
       </motion.aside>
     </motion.div>
+  );
+}
+
+function InsightColumn({
+  graph,
+  cheatsheet,
+  results,
+  selectedVideo,
+  onGraph,
+  onCheatsheet,
+  onCompile,
+  onJump,
+  setFeature
+}: {
+  graph: any;
+  cheatsheet: any;
+  results: SearchResult[];
+  selectedVideo: DatasetVideo | null;
+  onGraph: () => void;
+  onCheatsheet: () => void;
+  onCompile: () => void;
+  onJump: (item: SearchResult | EvidenceItem | any) => void;
+  setFeature: (feature: Feature) => void;
+}) {
+  const concepts = useMemo((): string[] => {
+    const fromGraph = (graph?.nodes || [])
+      .filter((node: any) => node.type === "concept")
+      .map((node: any) => String(node.label))
+      .slice(0, 6);
+    if (fromGraph.length >= 4) return fromGraph;
+    const tags = results.flatMap((item) => item.concept_tags || []);
+    return Array.from(new Set([...fromGraph, ...tags, "Cost Function", "Learning Rate", "Local Minima", "Convergence"])).slice(0, 6);
+  }, [graph, results]);
+  const reviewClips = results.slice(0, 3);
+  const formula = results.find((item) => item.formula_latex)?.formula_latex || cheatsheet?.source_moments?.find?.((item: any) => item.formula_latex)?.formula_latex || "\\theta := \\theta - \\alpha \\nabla J(\\theta)";
+
+  return (
+    <motion.aside className="insight-column" aria-label="Course intelligence previews" initial={{ y: 18, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.42, ease: "easeOut", delay: 0.08 }}>
+      <section className="preview-card graph-preview-card">
+        <div className="preview-card-head">
+          <strong>Knowledge Graph Preview</strong>
+          <button type="button" onClick={() => { setFeature("graph"); onGraph(); }}>Open Full Graph</button>
+        </div>
+        <div className="mini-graph">
+          <div className="mini-node center">Gradient<br />Descent</div>
+          {concepts.map((concept, idx) => (
+            <span key={concept} className={`mini-node n${idx + 1}`}>{compactInsightLabel(concept)}</span>
+          ))}
+        </div>
+      </section>
+
+      <section className="preview-card cheatsheet-preview-card">
+        <div className="preview-card-head">
+          <strong>Cheatsheet Preview</strong>
+          <button type="button" onClick={() => { setFeature("cheatsheet"); cheatsheet ? onCompile() : onCheatsheet(); }}>Compile LaTeX</button>
+        </div>
+        <MathText text={formula} block className="mini-formula" />
+        <div className="formula-stack">
+          <MathText text={"J(\\theta)=\\frac{1}{m}\\sum_i (h_\\theta(x^{(i)})-y^{(i)})^2"} block />
+        </div>
+      </section>
+
+      <section className="preview-card review-preview-card">
+        <div className="preview-card-head">
+          <strong>Suggested Review Clips</strong>
+          <button type="button" onClick={() => setFeature("search")}>View all</button>
+        </div>
+        <div className="review-strip">
+          {reviewClips.length ? reviewClips.map((item) => (
+            <button key={item.moment_id} type="button" onClick={() => onJump(item)}>
+              {item.thumbnail_url && <img src={mediaUrl(item.thumbnail_url)} alt="" />}
+              <span>{item.start_time.toFixed(0)}s</span>
+            </button>
+          )) : (
+            <p>{selectedVideo ? "Run Search Video to populate review clips." : "Select a Dataset video first."}</p>
+          )}
+        </div>
+      </section>
+
+      <section className="preview-card rewind-preview-card">
+        <div className="preview-card-head">
+          <strong>Prerequisite Rewind</strong>
+        </div>
+        <p>Brush up on topics that strengthen the selected concept before asking the tutor.</p>
+        <button type="button" onClick={() => setFeature("qa")}>Review Prerequisites</button>
+      </section>
+    </motion.aside>
   );
 }
 
@@ -821,6 +954,16 @@ function nodeDescription(node: GraphNode) {
   if (node.type === "visual_evidence") return "Keyframe evidence sampled from the lecture video.";
   if (node.type === "lecture") return "Lecture/video node containing timestamped evidence moments.";
   return "Course-level graph root.";
+}
+
+function compactInsightLabel(label: string) {
+  return label
+    .replace(/gradient descent/i, "Gradient Descent")
+    .replace(/mean squared error/i, "MSE")
+    .replace(/empirical risk minimization/i, "ERM")
+    .split(/\s+/)
+    .slice(0, 2)
+    .join("\n");
 }
 
 function SubtitleBar({ cue, currentTime, hasMoments }: { cue: SubtitleCue | null; currentTime: number; hasMoments: boolean }) {
