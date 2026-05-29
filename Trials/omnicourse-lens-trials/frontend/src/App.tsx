@@ -1,4 +1,4 @@
-import { Bell, Bot, BrainCircuit, Download, FileText, GripHorizontal, GripVertical, HelpCircle, Loader2, Network, Play, RefreshCcw, Search, Sparkles, UploadCloud, X } from "lucide-react";
+import { Bell, Bot, BrainCircuit, CheckCircle2, Clock3, Download, FileText, GripHorizontal, GripVertical, HelpCircle, Loader2, Network, Play, RefreshCcw, Search, Sparkles, X } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { AnimatePresence, motion } from "framer-motion";
 import Lenis from "lenis";
@@ -14,9 +14,7 @@ import {
   datasetVideos,
   EvidenceItem,
   imageSearch,
-  ingestAllDataset,
   ingestDatasetVideo,
-  rebuildIndex,
   SearchResult,
   textSearch,
   videoSubtitles
@@ -51,6 +49,16 @@ type WorkspaceSizes = {
 
 type ResizeTarget = keyof WorkspaceSizes;
 
+type OperationKind = "prepare-video" | "search" | "cheatsheet" | "compile" | "graph" | "qa";
+
+type ActiveOperation = {
+  key: OperationKind;
+  title: string;
+  detail: string;
+  estimateSeconds: number;
+  startedAt: number;
+};
+
 const DEFAULT_WORKSPACE_SIZES: WorkspaceSizes = {
   leftWidth: 318,
   rightWidth: 374,
@@ -75,6 +83,8 @@ export default function App() {
   const [health, setHealth] = useState<any>(null);
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
+  const [activeOperation, setActiveOperation] = useState<ActiveOperation | null>(null);
+  const [operationTick, setOperationTick] = useState(0);
   const [query, setQuery] = useState("gradient descent optimization");
   const [image, setImage] = useState<File | null>(null);
   const [searchScope, setSearchScope] = useState<"current" | "all">("current");
@@ -95,6 +105,12 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem("omnicourse.workspaceSizes", JSON.stringify(workspaceSizes));
   }, [workspaceSizes]);
+
+  useEffect(() => {
+    if (!activeOperation) return undefined;
+    const timer = window.setInterval(() => setOperationTick((value) => value + 1), 300);
+    return () => window.clearInterval(timer);
+  }, [activeOperation]);
 
   const load = useCallback(async () => {
     const [videoItems, healthInfo] = await Promise.all([datasetVideos(), apiGet<any>("/api/health")]);
@@ -176,19 +192,34 @@ export default function App() {
   const runIngestSelected = async () => {
     if (!selectedVideo) return;
     setBusy(true);
-    setStatus(`Ingesting ${selectedVideo.title}`);
+    setActiveOperation({
+      key: "prepare-video",
+      title: "Preparing this lesson",
+      detail: "Creating captions, reading slides, and organizing video moments",
+      estimateSeconds: estimateVideoPrepSeconds(selectedVideo),
+      startedAt: Date.now()
+    });
+    setStatus(`Preparing lesson: ${selectedVideo.title}`);
     try {
       await ingestDatasetVideo(selectedVideo.video_id);
       await load();
-      setStatus("Selected real video ingested and indexed.");
+      setStatus("This lesson is ready for search, AI Tutor, notes, and graph views.");
     } finally {
+      setActiveOperation(null);
       setBusy(false);
     }
   };
 
   const runSearch = async () => {
     setBusy(true);
-    setStatus(searchScope === "current" ? "Searching timestamped moments in the selected real video..." : "Searching across all indexed Dataset videos...");
+    setActiveOperation({
+      key: "search",
+      title: "Finding matching moments",
+      detail: searchScope === "current" ? "Looking inside the current video" : "Looking across prepared course videos",
+      estimateSeconds: searchScope === "current" ? 8 : 14,
+      startedAt: Date.now()
+    });
+    setStatus(searchScope === "current" ? "Finding moments in the current video..." : "Finding moments across course videos...");
     try {
       const payload = image
         ? await imageSearch({ course_id: courseId, query, video_ids: searchVideoIds, top_k: 6, image })
@@ -201,16 +232,24 @@ export default function App() {
       }
       setFeature("search");
       const topScore = payload.results?.[0]?.score ?? 0;
-      const weakHint = topScore < 0.12 && searchScope === "current" ? " Low match in this video; try All videos or a video-specific term." : "";
+      const weakHint = topScore < 0.12 && searchScope === "current" ? " Match is weak in this video; try All videos or a more specific question." : "";
       setStatus(payload.scope_notice || `Search self-check: ${payload.self_check?.score ?? "n/a"}/10.${weakHint}`);
     } finally {
+      setActiveOperation(null);
       setBusy(false);
     }
   };
 
   const runCheatsheet = async () => {
     setBusy(true);
-    setStatus("Generating evidence-grounded cheatsheet...");
+    setActiveOperation({
+      key: "cheatsheet",
+      title: "Drafting study sheet",
+      detail: "Pulling concepts, slide text, and formulas from the lesson",
+      estimateSeconds: 35,
+      startedAt: Date.now()
+    });
+    setStatus("Generating an evidence-grounded LaTeX study sheet...");
     try {
       const payload = await apiPost<any>("/api/cheatsheet", {
         course_id: courseId,
@@ -222,8 +261,9 @@ export default function App() {
       });
       setCheatsheet(payload);
       setFeature("cheatsheet");
-      setStatus(`Cheatsheet self-check: ${payload.self_check?.score ?? "n/a"}/10`);
+      setStatus(`Study sheet self-check: ${payload.self_check?.score ?? "n/a"}/10`);
     } finally {
+      setActiveOperation(null);
       setBusy(false);
     }
   };
@@ -231,18 +271,33 @@ export default function App() {
   const runCompile = async () => {
     if (!cheatsheet?.tex_content) return;
     setBusy(true);
+    setActiveOperation({
+      key: "compile",
+      title: "Compiling PDF",
+      detail: "Trying local LaTeX tools first",
+      estimateSeconds: 18,
+      startedAt: Date.now()
+    });
     try {
       const result = await compileCheatsheet({ tex_content: cheatsheet.tex_content });
       setCheatsheet({ ...cheatsheet, compile_result: result, pdf_file_url: result.pdf_file_url || cheatsheet.pdf_file_url });
-      setStatus(result.ok ? "LaTeX compiled locally." : "Local compile unavailable; use TEX download or Overleaf workflow.");
+      setStatus(result.ok ? "LaTeX compiled into a local PDF." : "Local compile is unavailable; download .tex and import it into Overleaf.");
     } finally {
+      setActiveOperation(null);
       setBusy(false);
     }
   };
 
   const runGraph = async () => {
     setBusy(true);
-    setStatus("Building pruned knowledge graph...");
+    setActiveOperation({
+      key: "graph",
+      title: "Building concept map",
+      detail: "Connecting concepts, formulas, and video timestamps",
+      estimateSeconds: 22,
+      startedAt: Date.now()
+    });
+    setStatus("Building a readable concept map...");
     try {
       const payload = await apiPost<any>("/api/knowledge-graph", {
         course_id: courseId,
@@ -257,13 +312,21 @@ export default function App() {
       setFeature("graph");
       setStatus(`Graph: ${payload.nodes?.length || 0} nodes, ${payload.edges?.length || 0} edges`);
     } finally {
+      setActiveOperation(null);
       setBusy(false);
     }
   };
 
   const runQa = async () => {
     setBusy(true);
-    setStatus("Retrieving evidence and asking the tutor...");
+    setActiveOperation({
+      key: "qa",
+      title: "AI Tutor is thinking",
+      detail: "Retrieving video evidence before writing the answer",
+      estimateSeconds: 28,
+      startedAt: Date.now()
+    });
+    setStatus("Retrieving evidence and writing the answer...");
     try {
       const payload = await askTutor({
         course_id: courseId,
@@ -275,8 +338,9 @@ export default function App() {
       });
       setQa(payload);
       setFeature("qa");
-      setStatus(`QA confidence ${Math.round((payload.confidence || 0) * 100)}%; self-check ${payload.self_check?.score ?? "n/a"}/10`);
+      setStatus(`AI Tutor confidence ${Math.round((payload.confidence || 0) * 100)}%; self-check ${payload.self_check?.score ?? "n/a"}/10`);
     } finally {
+      setActiveOperation(null);
       setBusy(false);
     }
   };
@@ -293,7 +357,7 @@ export default function App() {
       end_time: Number(raw.end_time || raw.start_time || 0),
       score: Number(raw.score ?? 0.5),
       score_breakdown: raw.score_breakdown || {},
-      matched_reason: raw.matched_reason || "Indexed real Dataset moment",
+      matched_reason: raw.matched_reason || "Lesson moment from this video",
       matched_modalities: raw.matched_modalities || ["ASR transcript", "OCR", "Keyframe"],
       transcript_snippet: raw.transcript_snippet || raw.transcript || "",
       ocr_snippet: raw.ocr_snippet || raw.ocr_text || "",
@@ -322,6 +386,7 @@ export default function App() {
     () => findActiveSubtitleCue(subtitleCues, playbackTime) || findActiveSubtitle(selectedVideoMoments, playbackTime),
     [subtitleCues, selectedVideoMoments, playbackTime]
   );
+  const operationProgress = useMemo(() => computeOperationProgress(activeOperation, operationTick), [activeOperation, operationTick]);
   const workspaceStyle = useMemo(
     () =>
       ({
@@ -403,29 +468,22 @@ export default function App() {
       <ResizeHandle placement="left-edge" label="Resize video library" onPointerDown={(event) => startResize("leftWidth", event)} />
       <ResizeHandle placement="right-edge" label="Resize feature sidebar" onPointerDown={(event) => startResize("rightWidth", event)} />
 
-      <motion.aside className="video-library" aria-label="Dataset video loader" initial={{ x: -24, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.42, ease: "easeOut" }}>
+      <motion.aside className="video-library" aria-label="Course video picker" initial={{ x: -24, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.42, ease: "easeOut" }}>
         <div className="library-brand">
           <div>
-            <h1>Dataset Loader</h1>
-            <p>Real course videos and indexed moments</p>
+            <h1>Course Videos</h1>
+            <p>Pick a lesson. Atlas prepares captions, search, and tutor evidence.</p>
           </div>
-          <button className="icon-button" onClick={load} disabled={busy} title="Refresh dataset videos"><RefreshCcw size={17} /></button>
+          <button className="icon-button" onClick={load} disabled={busy} title="Refresh lesson list"><RefreshCcw size={17} /></button>
         </div>
 
-        <div className="library-actions">
-          <button onClick={runIngestSelected} disabled={busy || !selectedVideo} title="Prepare the selected video for search, subtitles, QA, cheatsheets, and graph evidence.">
-            <UploadCloud size={16} />
-            <span>Make Current Video Searchable</span>
-          </button>
-          <button onClick={() => ingestAllDataset(9).then(() => setStatus("Preparing every Dataset video in the background."))} disabled={busy} title="Prepare every video in the Dataset folder.">
-            <UploadCloud size={16} />
-            <span>Make All Videos Searchable</span>
-          </button>
-          <button onClick={() => rebuildIndex().then(() => setStatus("Search library refreshed."))} disabled={busy} title="Refresh the search library after adding or changing videos.">
-            <RefreshCcw size={16} />
-            <span>Refresh Search Library</span>
-          </button>
-        </div>
+        <VideoPrepCard
+          video={selectedVideo}
+          activeOperation={activeOperation}
+          progress={operationProgress}
+          busy={busy}
+          onPrepare={runIngestSelected}
+        />
 
         <div className="video-list" ref={videoListRef}>
           {videos.map((video) => (
@@ -441,7 +499,7 @@ export default function App() {
               <span className="video-copy">
                 <strong>{video.title}</strong>
                 <small>
-                  <b>{video.indexed_status === "indexed" ? "Indexed" : video.ingestion_status === "ingested" ? "Ready" : "Needs indexing"}</b>
+                  <b className={videoStatusClass(video)}>{videoStatusLabel(video)}</b>
                   <em>{formatDuration(video.duration)}</em>
                 </small>
               </span>
@@ -580,6 +638,12 @@ export default function App() {
               <label>Search query</label>
               <textarea value={query} onChange={(event) => setQuery(event.target.value)} />
               <UploadPanel file={image} onFile={setImage} label="Optional image query" />
+              <FeatureRuntimeHint
+                label={searchScope === "current" ? "Current video search" : "All-course search"}
+                estimate={searchScope === "current" ? "Usually 3-8 sec" : "Usually 8-15 sec"}
+                active={activeOperation?.key === "search"}
+                progress={operationProgress}
+              />
               <button onClick={runSearch} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Search size={16} />} Search Moments</button>
             </>
           )}
@@ -588,7 +652,9 @@ export default function App() {
             <>
               <label>Focus topics</label>
               <textarea value={query} onChange={(event) => setQuery(event.target.value)} />
+              <FeatureRuntimeHint label="Study sheet generation" estimate="Usually 20-45 sec" active={activeOperation?.key === "cheatsheet"} progress={operationProgress} />
               <button onClick={runCheatsheet} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <FileText size={16} />} Generate Cheatsheet</button>
+              <FeatureRuntimeHint label="PDF compile" estimate="Usually 5-20 sec" active={activeOperation?.key === "compile"} progress={operationProgress} />
               <button onClick={runCompile} disabled={busy || !cheatsheet?.tex_content}>Compile LaTeX</button>
             </>
           )}
@@ -597,6 +663,7 @@ export default function App() {
             <>
               <label>Graph focus</label>
               <input value={query} onChange={(event) => setQuery(event.target.value)} />
+              <FeatureRuntimeHint label="Concept map generation" estimate="Usually 10-25 sec" active={activeOperation?.key === "graph"} progress={operationProgress} />
               <button onClick={runGraph} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <Network size={16} />} Generate Graph</button>
             </>
           )}
@@ -606,6 +673,7 @@ export default function App() {
               <label>Tutor question</label>
               <textarea value={question} onChange={(event) => setQuestion(event.target.value)} />
               <UploadPanel file={image} onFile={setImage} label="Optional question image" />
+              <FeatureRuntimeHint label="AI Tutor answer" estimate="Usually 15-35 sec" active={activeOperation?.key === "qa"} progress={operationProgress} />
               <button onClick={runQa} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <BrainCircuit size={16} />} Ask AI Tutor</button>
               <TutorSidebarPreview qa={qa} onJump={jumpToEvidence} />
               <LearningToolsPanel
@@ -626,6 +694,77 @@ export default function App() {
         {status && <div className="status-note">{status}</div>}
       </motion.aside>
     </motion.div>
+  );
+}
+
+function VideoPrepCard({
+  video,
+  activeOperation,
+  progress,
+  busy,
+  onPrepare
+}: {
+  video: DatasetVideo | null;
+  activeOperation: ActiveOperation | null;
+  progress: number;
+  busy: boolean;
+  onPrepare: () => void;
+}) {
+  const isPreparing = activeOperation?.key === "prepare-video";
+  const prep = videoPrepState(video, isPreparing ? progress : 0);
+  return (
+    <section className={`video-prep-card ${prep.ready ? "ready" : ""} ${isPreparing ? "active" : ""}`}>
+      <div className="prep-card-head">
+        <span>
+          {prep.ready ? <CheckCircle2 size={16} /> : isPreparing ? <Loader2 className="spin" size={16} /> : <Clock3 size={16} />}
+          <strong>{prep.title}</strong>
+        </span>
+        <small>{prep.estimate}</small>
+      </div>
+      <ProgressBar value={prep.percent} />
+      <p>{prep.detail}</p>
+      <div className="prep-capabilities" aria-label="Available learning capabilities">
+        <span className={prep.percent >= 45 ? "on" : ""}>Captions</span>
+        <span className={prep.percent >= 65 ? "on" : ""}>Moments</span>
+        <span className={prep.percent >= 80 ? "on" : ""}>Tutor</span>
+        <span className={prep.percent >= 95 ? "on" : ""}>Graph</span>
+      </div>
+      <button className="prep-primary" type="button" onClick={onPrepare} disabled={busy || !video || prep.ready}>
+        {isPreparing ? <Loader2 className="spin" size={15} /> : prep.ready ? <CheckCircle2 size={15} /> : <Sparkles size={15} />}
+        {isPreparing ? "Preparing..." : prep.ready ? "Ready" : "Prepare selected video"}
+      </button>
+    </section>
+  );
+}
+
+function FeatureRuntimeHint({
+  label,
+  estimate,
+  active,
+  progress
+}: {
+  label: string;
+  estimate: string;
+  active: boolean;
+  progress: number;
+}) {
+  return (
+    <div className={`feature-runtime ${active ? "active" : ""}`}>
+      <div>
+        <span><Clock3 size={14} /> {label}</span>
+        <small>{active ? `${Math.round(progress * 100)}%` : estimate}</small>
+      </div>
+      <ProgressBar value={active ? progress : 0} />
+    </div>
+  );
+}
+
+function ProgressBar({ value }: { value: number }) {
+  const percent = Math.round(clamp(value, 0, 1) * 100);
+  return (
+    <div className="soft-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}>
+      <span style={{ width: `${percent}%` }} />
+    </div>
   );
 }
 
@@ -783,7 +922,7 @@ function EvidenceRail({
     end_time: Number(moment.end_time || 0),
     score: 0.5,
     score_breakdown: {},
-    matched_reason: "Indexed real Dataset moment",
+    matched_reason: "Lesson moment from this video",
     matched_modalities: ["ASR transcript", "OCR", "Keyframe"],
     transcript_snippet: moment.transcript || "",
     ocr_snippet: moment.ocr_text || "",
@@ -1057,6 +1196,87 @@ function formatDuration(seconds?: number) {
   return `${mins}:${secs}`;
 }
 
+function videoStatusLabel(video: DatasetVideo) {
+  if (video.indexed_status === "indexed") return "Ready";
+  if (video.ingestion_status === "ingested") return "Almost ready";
+  return "Needs setup";
+}
+
+function videoStatusClass(video: DatasetVideo) {
+  if (video.indexed_status === "indexed") return "ready";
+  if (video.ingestion_status === "ingested") return "partial";
+  return "pending";
+}
+
+function videoPrepState(video: DatasetVideo | null, activeProgress: number) {
+  if (!video) {
+    return {
+      title: "Choose a lesson first",
+      detail: "After you pick a video, this card shows captions, search moments, tutor evidence, and graph readiness.",
+      estimate: "Waiting",
+      percent: 0,
+      ready: false
+    };
+  }
+  if (activeProgress > 0) {
+    return {
+      title: "Preparing this lesson",
+      detail: "Atlas is extracting captions, reading slide text, and creating timestamped learning moments.",
+      estimate: estimateVideoPrepLabel(video),
+      percent: clamp(activeProgress, 0.06, 0.96),
+      ready: false
+    };
+  }
+  if (video.indexed_status === "indexed") {
+    return {
+      title: "Ready to learn",
+      detail: "Captions, slide text, formulas, and timestamped moments are ready for search, tutoring, notes, and graph views.",
+      estimate: "Done",
+      percent: 1,
+      ready: true
+    };
+  }
+  if (video.ingestion_status === "ingested") {
+    return {
+      title: "Almost ready",
+      detail: "The lesson content has been read. One more preparation pass will finish the searchable moments.",
+      estimate: "About 30 sec",
+      percent: 0.78,
+      ready: false
+    };
+  }
+  return {
+    title: "Needs preparation",
+    detail: "Start once. Atlas will create captions, slide snapshots, readable text, and searchable moments.",
+    estimate: estimateVideoPrepLabel(video),
+    percent: 0.08,
+    ready: false
+  };
+}
+
+function estimateVideoPrepSeconds(video: DatasetVideo | null) {
+  const duration = Number(video?.duration || 0);
+  if (!duration) return 90;
+  return clamp(Math.round(55 + duration * 0.16), 75, 420);
+}
+
+function estimateVideoPrepLabel(video: DatasetVideo | null) {
+  const seconds = estimateVideoPrepSeconds(video);
+  if (seconds < 90) return "About 1 min";
+  const min = Math.max(1, Math.floor(seconds / 60));
+  const max = Math.max(min + 1, Math.ceil(seconds / 60));
+  return `About ${min}-${max} min`;
+}
+
+function computeOperationProgress(operation: ActiveOperation | null, tick: number) {
+  if (!operation) return 0;
+  void tick;
+  const elapsed = (Date.now() - operation.startedAt) / 1000;
+  const linear = elapsed / Math.max(1, operation.estimateSeconds);
+  if (linear >= 1) return 0.94;
+  return clamp(0.04 + linear * 0.86, 0.04, 0.94);
+}
+
 function findActiveSubtitleCue(cues: SubtitleCue[], currentTime: number): SubtitleCue | null {
   if (!cues.length) return null;
   const matches = cues
@@ -1130,7 +1350,7 @@ function subtitleSourceLabel(provider?: string) {
   if (value.includes("whisper") || value === "transcript_file") return "Audio transcript";
   if (value === "slide_pdf_text") return "Slide/PDF subtitle";
   if (value === "fallback_asr") return "Auto fallback subtitle";
-  return "Indexed subtitle";
+  return "Lesson subtitle";
 }
 
 function cleanSubtitleText(text: string, maxChars = 260) {
