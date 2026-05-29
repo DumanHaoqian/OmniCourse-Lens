@@ -438,9 +438,12 @@ export default function App() {
               whileTap={{ scale: 0.985 }}
             >
               {video.thumbnail && <img src={mediaUrl(video.thumbnail)} alt="" />}
-              <span>
+              <span className="video-copy">
                 <strong>{video.title}</strong>
-                <small>{video.ingestion_status} / {video.indexed_status} / {formatDuration(video.duration)}</small>
+                <small>
+                  <b>{video.indexed_status === "indexed" ? "Indexed" : video.ingestion_status === "ingested" ? "Ready" : "Needs indexing"}</b>
+                  <em>{formatDuration(video.duration)}</em>
+                </small>
               </span>
             </motion.button>
           ))}
@@ -604,6 +607,7 @@ export default function App() {
               <textarea value={question} onChange={(event) => setQuestion(event.target.value)} />
               <UploadPanel file={image} onFile={setImage} label="Optional question image" />
               <button onClick={runQa} disabled={busy}>{busy ? <Loader2 className="spin" size={16} /> : <BrainCircuit size={16} />} Ask AI Tutor</button>
+              <TutorSidebarPreview qa={qa} onJump={jumpToEvidence} />
               <LearningToolsPanel
                 courseId={courseId}
                 selectedVideo={selectedVideo}
@@ -622,6 +626,47 @@ export default function App() {
         {status && <div className="status-note">{status}</div>}
       </motion.aside>
     </motion.div>
+  );
+}
+
+function TutorSidebarPreview({ qa, onJump }: { qa: any; onJump: (item: EvidenceItem | any) => void }) {
+  const answer = String(qa?.answer_markdown || qa?.answer || "");
+  const evidence = (qa?.evidence || []).slice(0, 2);
+  if (answer) {
+    return (
+      <section className="tutor-preview-card active-answer">
+        <div className="tutor-preview-head">
+          <strong>Evidence-grounded answer</strong>
+          <span>{Math.round((qa?.confidence || 0) * 100)}%</span>
+        </div>
+        <MarkdownMath text={renderModelMarkdown(answer)} />
+        {evidence.length > 0 && (
+          <div className="tutor-evidence-links">
+            {evidence.map((item: EvidenceItem) => (
+              <button key={`${item.moment_id}-${item.start_time}`} type="button" onClick={() => onJump(item)}>
+                <Play size={13} />
+                {item.lecture_title} · {item.start_time.toFixed(0)}s
+              </button>
+            ))}
+          </div>
+        )}
+      </section>
+    );
+  }
+  return (
+    <section className="tutor-preview-card">
+      <div className="tutor-preview-head">
+        <strong>Answer preview</strong>
+        <span>LaTeX ready</span>
+      </div>
+      <p>Ask for ASR, OCR, formulas, frames, and timestamped evidence.</p>
+      <MathText text={"\\theta := \\theta - \\alpha \\nabla_\\theta J(\\theta)"} block className="sidebar-formula-preview" />
+      <div className="tutor-resource-list">
+        <button type="button">Video moments with timestamps</button>
+        <button type="button">Formula and OCR evidence</button>
+        <button type="button">Suggested review clips</button>
+      </div>
+    </section>
   );
 }
 
