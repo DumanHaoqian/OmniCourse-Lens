@@ -258,6 +258,87 @@ Latest smoke-test facts:
 - DeepSeek-OCR checkpoint detected: yes, `local_hf_lazy`
 - InternVideo3 checkpoint detected: yes, `local_hf_lazy`
 - ASR active provider: `faster_whisper`
+
+## Research-Informed Skill-Agent Rebuild Pass - May 29, 2026
+
+Implemented after reframing the paper/product as:
+
+`OmniCourse-Atlas: A Skill-Augmented Multimodal Agent with Video Moment Retrieval for Course Learning`
+
+Research-informed design notes:
+
+- VideoRAG-style principle: raw videos are converted into timestamped moments and compact multimodal evidence before LLM reasoning.
+- GraphRAG-style principle: concept/formula/prerequisite graph evidence supports retrieval and learning features instead of acting only as decoration.
+- DeepSeek-OCR principle: use the local OCR checkpoint for frame/page reading where possible, but keep cached/fallback OCR so interactive product flows do not block forever.
+- InternVideo3 principle: use the local checkpoint as optional lazy video reranking/scoring, not as a hard startup dependency.
+- Cytoscape/fCoSE principle: keep graph defaults pruned and inspectable, with zoom/pan/filtering rather than rendering every raw node.
+
+New architecture pieces:
+
+- Added `backend/app/services/skill_router.py`.
+- Added `EvidenceLedgerItem` and `SkillDefinition` schemas.
+- Added an explicit skill registry exposed through `GET /api/skills`.
+- Added `EvidenceLedgerBuilder` so generated learning artifacts cite normalized evidence records with timestamp, modality, provider, score, and reason.
+
+Six new learning features:
+
+- `POST /api/learning/prerequisite-rewind`
+- `POST /api/learning/misconception-check`
+- `POST /api/learning/socratic-drill`
+- `POST /api/learning/formula-derivation`
+- `POST /api/learning/region-explain`
+- `POST /api/learning/mastery/update`
+- `GET /api/learning/mastery/{student_id}`
+- `POST /api/learning/study-plan`
+
+Frontend additions:
+
+- Added `frontend/src/components/learning/LearningToolsPanel.tsx`.
+- Integrated the learning tools under the existing AI Tutor tab, preserving exactly four primary right-sidebar tabs.
+- Learning outputs reuse Markdown + LaTeX rendering and evidence cards with timestamp jump.
+- Region explain supports optional image upload and current-frame fallback.
+
+Validation:
+
+- `python -m py_compile backend/app/main.py backend/app/services/learning_features_service.py backend/app/services/skill_router.py backend/app/schemas.py`
+- `cd frontend && npm run build` passed.
+- `python scripts/smoke_test.py` passed.
+
+Latest full smoke test added checks for:
+
+- skill registry,
+- prerequisite rewind,
+- misconception detector,
+- Socratic drill,
+- formula derivation,
+- region explain,
+- mastery update,
+- adaptive study plan.
+
+Latest provider status from smoke test:
+
+- Dataset videos discovered: 9
+- Tested real Dataset video: `08_i2ml_01_ml_basics_07_optimization_647ec61326`
+- GPT-4o: available through Azure credential loader; only key suffix logged.
+- DeepSeek-OCR: available, `local_hf_lazy`, checkpoint under `Trials/checkpoints/DeepSeek-OCR`.
+- InternVideo3: available, `local_hf_lazy`, checkpoint under `Trials/checkpoints/InternVideo3-8B-Instruct`.
+- ASR: active provider `faster_whisper`.
+- LaTeX compiler: `tectonic` available.
+
+Commits in this branch so far:
+
+- `11995ea` chore: audit project and scaffold research-informed rebuild
+- `21f746d` feat: add student learning assistant features
+
+UI inspection note:
+
+- Browser Use / Computer Use tooling is not available in this Codex session. I validated frontend compilation with `npm run build` and preserved the existing center-video workspace/right-sidebar layout in source. Manual browser inspection should be run from the local dev server for final visual polish.
+
+Remaining limitations:
+
+- The learning feature outputs are MVP-functional and evidence-grounded, but the UI can still be polished with richer interaction states and a larger result surface.
+- Region-level explain currently uses a default bounding box when no explicit user-drawn box is available; a real drag-to-select annotation layer is the next frontend step.
+- Mastery profiles are local JSON files, suitable for the hackathon MVP but not multi-user production storage.
 - LaTeX compiler: `tectonic`
 
 ## Efficiency And Engineering Pass - May 29, 2026

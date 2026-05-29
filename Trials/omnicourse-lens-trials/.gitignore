@@ -19,6 +19,9 @@ backend/app/data/generated/cheatsheets/*.tex
 backend/app/data/generated/graphs/*.json
 backend/app/data/generated/qa/*.json
 backend/app/data/generated/ocr/
+backend/app/data/generated/notebooks/
+backend/app/data/generated/quizzes/
+backend/app/data/generated/study_plans/
 backend/app/data/generated/evals/[0-9]*.json
 !backend/app/data/generated/evals/smoke_test_summary.json
 !backend/app/data/generated/evals/overnight_smoke_test_summary.json
@@ -29,6 +32,7 @@ backend/app/data/indexes/*.npz
 backend/app/static/clips/*.mp4
 backend/app/static/clips/*.mov
 backend/app/static/clips/*.mkv
+backend/app/static/frames/regions/
 
 # Model weights and checkpoints.
 checkpoints/

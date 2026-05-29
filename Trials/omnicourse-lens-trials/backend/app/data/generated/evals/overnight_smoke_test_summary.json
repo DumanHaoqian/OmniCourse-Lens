@@ -13,7 +13,15 @@
     "qa_latex_answer",
     "cheatsheet_generation_and_compile_endpoint",
     "knowledge_graph_pruned",
-    "provider_status"
+    "provider_status",
+    "skill_registry",
+    "prerequisite_rewind",
+    "misconception_detector",
+    "socratic_drill",
+    "formula_derivation",
+    "region_explain",
+    "mastery_update",
+    "study_plan"
   ],
   "real_dataset": {
     "video_count": 9,
@@ -173,7 +181,67 @@
     }
   },
   "llm_product_judge": {
-    "raw_text": "```json\n{\n  \"evaluation\": {\n    \"validity\": true,\n    \"reasoning\": {\n      \"dataset_videos_count\": 9,\n      \"top_search_match\": {\n        \"moment_id\": \"real_i2ml_08_i2ml_01_ml_basics_07_optimization_00900_01080\",\n        \"score\": 0.5128,\n        \"matched_modalities\": [\"Audio transcript\", \"DeepSeek frame OCR\", \"Formula\", \"Text embedding\", \"Concept tag\"],\n        \"matched_reason\": \"Audio transcript match: ...l. And the idea is to move in the direction of the negative gradient because we have already agreed upon that this is the direction of strongest local decrease. So this is the dire...\"\n      },\n      \"qa_answer\": {\n        \"direct_answer\": \"Gradient descent moves opposite to the gradient because the gradient represents the direction of the steepest local increase of a function. To minimize the function (e.g., empirical risk \\\\(\\\\mathcal{R}_{\\\\text{emp}}\\\\)), we need to move in the direction of steepest local decrease, which is the negative gradient. This ensures that each step reduces the function's value, bringing us closer to a local minimum.\",\n        \"formula_explanation\": \"The update rule for gradient descent is given by:\\n\\n\\\\[\\n\\\\theta^{[t+1]} = \\\\theta^{[t]} - \\\\alpha \\\\frac{d\\\\mathcal{R}_{\\\\text{emp}}}{d\\\\theta}(\\\\theta^{[t]})\\n\\\\]\\n\\nHere:\\n- \\\\(\\\\theta^{[t]}\\\\): Current parameter values.\\n- \\\\(\\\\alpha\\\\): Step size or learning rate.\\n- \\\\(\\\\frac{d\\\\mathcal{R}_{\\\\text{emp}}}{d\\\\theta}(\\\\theta^{[t]})\\\\): Gradient of the empirical risk function at \\\\(\\\\theta^{[t]}\\\\).\\n\\nThe subtraction of the gradient (\\\\(-\\\\alpha \\\\frac{d\\\\mathcal{R}_{\\\\text{emp}}}{d\\\\theta}\\\\)) ensures movement in the direction of steepest descent, reducing the function's value iteratively.\",\n        \"course_evidence\": {\n          \"timestamp_900_1080\": {\n            \"transcript_snippet\": \"The idea is to move in the direction of the negative gradient because this is the direction of strongest local decrease.\",\n            \"ocr_snippet\": \"Move in direction of neg. gradient, so direction of steepest descent.\",\n            \"formula_latex\": \"\\\\[\\\\theta^{[t+1]} = \\\\theta^{[t]} - \\\\alpha \\\\frac{d\\\\mathcal{R}_{\\\\text{emp}}}{d\\\\theta}(\\\\theta^{[t]})\\\\]\"\n          }\n        }\n      }\n    },\n    \"graph_counts\": {\n     ",
-    "parse_error": "JSONDecodeError"
+    "evaluation": {
+      "validity": true,
+      "reasoning": {
+        "dataset_videos_count": 9,
+        "top_search_match": {
+          "moment_id": "real_i2ml_08_i2ml_01_ml_basics_07_optimization_00900_01080",
+          "score": 0.5128,
+          "matched_modalities": [
+            "Audio transcript",
+            "DeepSeek frame OCR",
+            "Formula",
+            "Text embedding",
+            "Concept tag"
+          ],
+          "matched_reason": "Audio transcript match: ...l. And the idea is to move in the direction of the negative gradient because we have already agreed upon that this is the direction of strongest local decrease. So this is the dire..."
+        },
+        "qa_answer_evidence": {
+          "transcript_snippet": "...ast the local minimal. And the idea is to move in the direction of the negative gradient because we have already agreed upon that this is the direction of strongest local decrease. So this is the direction of steepest descent. So I don't kn...",
+          "ocr_snippet": "sub_title ## GRADIENT DESCENT text \u00b7 Iteratively improve current candidate \\(\\theta^{[t]}\\) text \u00b7 Move in direction of neg. gradient, so direction of steepest descent text \u00b7 Use step size / learning rate \\(\\alpha\\) equation \\[\\theta^{[t+1]...",
+          "formula_latex": "\\[\\theta^{[t+1]} = \\theta^{[t]} - \\alpha \\frac{d\\mathcal{R}_{\\text{emp}}}{d\\theta}(\\theta^{[t]})\\]; Arrive at \\(\\theta^{[1]}\\) with \\(\\mathcal{R}_{\\text{emp}}(\\theta^{[1]}) \\approx 42; \\(\\mathcal{R}_{\\text{emp}}(\\theta^{[1]}) < \\mathcal{R}_{\\text{emp}}(\\theta^{[0]})\\)",
+          "concept_tags": [
+            "gradient descent",
+            "learning rate",
+            "loss function",
+            "optimization"
+          ]
+        },
+        "graph_counts": {
+          "nodes": 51,
+          "edges": 200
+        }
+      },
+      "qa_answer_quality": {
+        "direct_answer": true,
+        "formula_explanation": true,
+        "course_evidence": true
+      }
+    }
+  },
+  "learning_feature_checks": {
+    "prerequisite_self_check": {
+      "score": 10,
+      "passed": true,
+      "issues": [],
+      "improvement_plan": [],
+      "grounding_check": {
+        "uses_evidence": true,
+        "has_timestamps": true,
+        "unsupported_claims": []
+      },
+      "multimodal_check": {
+        "uses_asr": true,
+        "uses_ocr": true,
+        "uses_formula": true,
+        "uses_visual": false,
+        "uses_video_embedding": false
+      },
+      "feature_name": "prerequisite_rewind"
+    },
+    "misconception_detected": true,
+    "socratic_question_count": 3,
+    "study_plan_days": 2
   }
 }
